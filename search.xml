@@ -84,6 +84,52 @@
       </tags>
   </entry>
   <entry>
+    <title>Ubuntu配置静态IP</title>
+    <url>/sni2qz/</url>
+    <content><![CDATA[<p>在 Ubuntu 22.04 中配置静态 IP 地址的方法如下：<br><strong>这里请注意！！静态IP的地址不要设重复了！！即使是删除过的虚拟机也不要与之重复！！</strong></p>
+<h3 id="1-修改-Netplan-配置文件"><a href="#1-修改-Netplan-配置文件" class="headerlink" title="1. 修改 Netplan 配置文件"></a>1. 修改 Netplan 配置文件</h3><p>Ubuntu 22.04 使用 Netplan 来管理网络配置。你需要找到并编辑适当的配置文件，通常位于 <code>/etc/netplan/</code> 目录下。打开终端，执行以下命令：</p>
+<div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">ls</span> /etc/netplan/</span><br></pre></td></tr></table></figure></div>
+
+<p>比如这里查找到了 <code>01-network-manager-all.yaml</code>，那么使用root用户执行如下语句，修改代码</p>
+<div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">sudo</span> vim /etc/netplan/01-network-manager-all.yaml</span><br></pre></td></tr></table></figure></div>
+
+<p>（文件名可能有所不同，根据实际情况选择）</p>
+<h3 id="2-配置静态-IP"><a href="#2-配置静态-IP" class="headerlink" title="2. 配置静态 IP"></a>2. 配置静态 IP</h3><p>在打开的 YAML 文件中，找到对应的网络接口（例如 <code>ens33</code>），并按照以下格式进行修改：</p>
+<div class="highlight-container" data-rel="Yaml"><figure class="iseeu highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="attr">network:</span></span><br><span class="line">  <span class="attr">version:</span> <span class="number">2</span></span><br><span class="line">  <span class="attr">renderer:</span> <span class="string">NetworkManager</span></span><br><span class="line">  <span class="attr">ethernets:</span></span><br><span class="line">    <span class="attr">ens33:</span>  <span class="comment"># 替换为你的网络接口名称</span></span><br><span class="line">      <span class="attr">dhcp4:</span> <span class="literal">no</span></span><br><span class="line">      <span class="attr">addresses:</span></span><br><span class="line">        <span class="bullet">-</span> <span class="number">192.168</span><span class="number">.130</span><span class="number">.9</span><span class="string">/24</span>  <span class="comment"># 替换为你要设置的静态 IP 地址</span></span><br><span class="line">      <span class="attr">gateway4:</span> <span class="number">192.168</span><span class="number">.130</span><span class="number">.2</span>  <span class="comment"># 替换为你的网关地址</span></span><br><span class="line">      <span class="attr">nameservers:</span></span><br><span class="line">        <span class="attr">addresses:</span></span><br><span class="line">          <span class="bullet">-</span> <span class="number">192.168</span><span class="number">.130</span><span class="number">.2</span>  <span class="comment"># 使用 Google 的公共 DNS</span></span><br></pre></td></tr></table></figure></div>
+
+<h3 id="3-应用配置"><a href="#3-应用配置" class="headerlink" title="3. 应用配置"></a>3. 应用配置</h3><p>保存文件并退出编辑器（在 nano 中，使用 <code>Ctrl + O</code> 保存，然后 <code>Ctrl + X</code> 退出）。接下来，执行以下命令应用新的网络配置：</p>
+<div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">sudo</span> netplan apply</span><br></pre></td></tr></table></figure></div>
+
+<h3 id="4-验证配置"><a href="#4-验证配置" class="headerlink" title="4. 验证配置"></a>4. 验证配置</h3><p>你可以使用以下命令验证 IP 配置：</p>
+<div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="code"><pre><span class="line">ifconfig</span><br></pre></td></tr></table></figure></div>
+
+<p>确认你的静态 IP 地址已经正确配置。</p>
+<h3 id="注意事项"><a href="#注意事项" class="headerlink" title="注意事项"></a>注意事项</h3><ul>
+<li>确保你配置的 IP 地址在你的网络范围内，并且没有与其他设备冲突。</li>
+<li>如果你在使用图形界面，可以通过网络设置界面进行相应的更改。</li>
+</ul>
+<p>按照这些步骤，你就可以在 Ubuntu 22.04 中成功配置静态 IP 地址已经正确配置。</p>
+]]></content>
+      <categories>
+        <category>Ubuntu</category>
+      </categories>
+      <tags>
+        <tag>Ubuntu</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>centos7 基础命令爆出255返回码</title>
+    <url>/sni2sz/</url>
+    <content><![CDATA[<p>cron 是一个用于在指定时间自动执行预定任务的守护进程，&#x2F;etc&#x2F;cron.hourly&#x2F; 目录中的脚本每小时会被 cron进程 自动执行一次</p>
+]]></content>
+      <categories>
+        <category>Ubuntu</category>
+      </categories>
+      <tags>
+        <tag>Ubuntu</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>UAV-Aided Computation Offloading in Mobile-Edge Computing Networks_ A Stackelberg Game Approach</title>
     <url>/sni2ya/</url>
     <content><![CDATA[<blockquote>
@@ -274,52 +320,6 @@
       <tags>
         <tag>Stackelberg</tag>
         <tag>博弈论</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>centos7 基础命令爆出255返回码</title>
-    <url>/sni2sz/</url>
-    <content><![CDATA[<p>cron 是一个用于在指定时间自动执行预定任务的守护进程，&#x2F;etc&#x2F;cron.hourly&#x2F; 目录中的脚本每小时会被 cron进程 自动执行一次</p>
-]]></content>
-      <categories>
-        <category>Ubuntu</category>
-      </categories>
-      <tags>
-        <tag>Ubuntu</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Ubuntu配置静态IP</title>
-    <url>/sni2qz/</url>
-    <content><![CDATA[<p>在 Ubuntu 22.04 中配置静态 IP 地址的方法如下：<br><strong>这里请注意！！静态IP的地址不要设重复了！！即使是删除过的虚拟机也不要与之重复！！</strong></p>
-<h3 id="1-修改-Netplan-配置文件"><a href="#1-修改-Netplan-配置文件" class="headerlink" title="1. 修改 Netplan 配置文件"></a>1. 修改 Netplan 配置文件</h3><p>Ubuntu 22.04 使用 Netplan 来管理网络配置。你需要找到并编辑适当的配置文件，通常位于 <code>/etc/netplan/</code> 目录下。打开终端，执行以下命令：</p>
-<div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">ls</span> /etc/netplan/</span><br></pre></td></tr></table></figure></div>
-
-<p>比如这里查找到了 <code>01-network-manager-all.yaml</code>，那么使用root用户执行如下语句，修改代码</p>
-<div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">sudo</span> vim /etc/netplan/01-network-manager-all.yaml</span><br></pre></td></tr></table></figure></div>
-
-<p>（文件名可能有所不同，根据实际情况选择）</p>
-<h3 id="2-配置静态-IP"><a href="#2-配置静态-IP" class="headerlink" title="2. 配置静态 IP"></a>2. 配置静态 IP</h3><p>在打开的 YAML 文件中，找到对应的网络接口（例如 <code>ens33</code>），并按照以下格式进行修改：</p>
-<div class="highlight-container" data-rel="Yaml"><figure class="iseeu highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="attr">network:</span></span><br><span class="line">  <span class="attr">version:</span> <span class="number">2</span></span><br><span class="line">  <span class="attr">renderer:</span> <span class="string">NetworkManager</span></span><br><span class="line">  <span class="attr">ethernets:</span></span><br><span class="line">    <span class="attr">ens33:</span>  <span class="comment"># 替换为你的网络接口名称</span></span><br><span class="line">      <span class="attr">dhcp4:</span> <span class="literal">no</span></span><br><span class="line">      <span class="attr">addresses:</span></span><br><span class="line">        <span class="bullet">-</span> <span class="number">192.168</span><span class="number">.130</span><span class="number">.9</span><span class="string">/24</span>  <span class="comment"># 替换为你要设置的静态 IP 地址</span></span><br><span class="line">      <span class="attr">gateway4:</span> <span class="number">192.168</span><span class="number">.130</span><span class="number">.2</span>  <span class="comment"># 替换为你的网关地址</span></span><br><span class="line">      <span class="attr">nameservers:</span></span><br><span class="line">        <span class="attr">addresses:</span></span><br><span class="line">          <span class="bullet">-</span> <span class="number">192.168</span><span class="number">.130</span><span class="number">.2</span>  <span class="comment"># 使用 Google 的公共 DNS</span></span><br></pre></td></tr></table></figure></div>
-
-<h3 id="3-应用配置"><a href="#3-应用配置" class="headerlink" title="3. 应用配置"></a>3. 应用配置</h3><p>保存文件并退出编辑器（在 nano 中，使用 <code>Ctrl + O</code> 保存，然后 <code>Ctrl + X</code> 退出）。接下来，执行以下命令应用新的网络配置：</p>
-<div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">sudo</span> netplan apply</span><br></pre></td></tr></table></figure></div>
-
-<h3 id="4-验证配置"><a href="#4-验证配置" class="headerlink" title="4. 验证配置"></a>4. 验证配置</h3><p>你可以使用以下命令验证 IP 配置：</p>
-<div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="code"><pre><span class="line">ifconfig</span><br></pre></td></tr></table></figure></div>
-
-<p>确认你的静态 IP 地址已经正确配置。</p>
-<h3 id="注意事项"><a href="#注意事项" class="headerlink" title="注意事项"></a>注意事项</h3><ul>
-<li>确保你配置的 IP 地址在你的网络范围内，并且没有与其他设备冲突。</li>
-<li>如果你在使用图形界面，可以通过网络设置界面进行相应的更改。</li>
-</ul>
-<p>按照这些步骤，你就可以在 Ubuntu 22.04 中成功配置静态 IP 地址已经正确配置。</p>
-]]></content>
-      <categories>
-        <category>Ubuntu</category>
-      </categories>
-      <tags>
-        <tag>Ubuntu</tag>
       </tags>
   </entry>
   <entry>
@@ -569,6 +569,48 @@
       </tags>
   </entry>
   <entry>
+    <title>前缀和+差分</title>
+    <url>/sni2z0/</url>
+    <content><![CDATA[<p>前缀和对我来说已经不算陌生了，前缀和的方便之处在于可以 <strong>快速求解任意子数组之和</strong>。但是，前缀和在区间频繁修改时就显得较为羸弱了，因为它只适合求和，不擅长修改。</p>
+<p>那么，如果某些<strong>区间频繁修改</strong>（<strong>仅限于都增加或者都减少某个值</strong>），但是求和只有一次，这种时候首先会想到的就是<strong>线段树</strong>了，不过线段树的代码量太多，使用差分则更简单，也更快。</p>
+<h1 id="什么是差分？"><a href="#什么是差分？" class="headerlink" title="什么是差分？"></a>什么是差分？</h1><p>差分的意思主要是这个 <strong>差</strong>，指的其实就是 <strong>元素差</strong>。</p>
+<p>前缀和的思想是动态规划，可以将前 n 个元素的和预先存储起来，这样计算区间和的时候就不需要再按需进行累加了。</p>
+<p>而差分的思想就是 <strong>先求出相邻元素之间的差</strong>，当需要某个区间<code>[a,b] </code>增加或者减少某个值的，只需要修改 <code>arr[a]</code> 和 <code>arr[b+1]</code>，然后重新计算一次前缀和就可以了。</p>
+<h2 id="一维数组差分"><a href="#一维数组差分" class="headerlink" title="一维数组差分"></a>一维数组差分</h2><p>如果有一个数组 <code>[1, 2, 3, 4, 5]</code>，其差分数组为 <code>[1, 1, 1, 1, 1]</code>。如果要将区间 <code>[1, 3]</code> 中的每个元素增加 2，可以通过修改差分数组 <code>diff[1] += 2</code> 和<code>diff[4] -= 2</code>来实现，得到新的差分数组<code> [1, 3, 1, 1, -1]</code>。通过重建数组可以得到<code> [1, 4, 5, 6, 5]</code>。</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://typora-aliyun01.oss-cn-hangzhou.aliyuncs.com/img/a5d44b1e910f2d6038dc34fc3a64086.jpg"
+                      alt="a5d44b1e910f2d6038dc34fc3a64086.jpg"
+                ></p>
+<h2 id="树上差分"><a href="#树上差分" class="headerlink" title="树上差分"></a>树上差分</h2><p>刚才只是在一维数组上差分，实现起来还是比较简单的，如果我们是在树上进行差分呢？<br>树上差分刚才只是在一维数组上差分，实现起来还是比较简单的，如果我们是在树上进行差分呢？</p>
+<p>场景：现在给你一颗树，并且告诉你起始节点和结束节点，对起始节点和结束节点路径中的所有节点的值都加上value。需要注意的是，<strong>这里的树指的是一颗无向树，也就是说并不是像只能从父节点向子节点的那种遍历，只要是这个节点连接到的结点，都是可以遍历到的。</strong><br><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://typora-aliyun01.oss-cn-hangzhou.aliyuncs.com/img/05ca61d668ebe7e80a7514d8888ee46.jpg"
+                      alt="05ca61d668ebe7e80a7514d8888ee46.jpg"
+                ></p>
+<p>如果要使用树上差分，就必不可免要使用到树中节点的 <strong>最近公共祖先</strong> 求解算法。[[最近公共祖先（LCA)]] 。关于LCA的求解推荐使用倍增法，可以详细看看。<br><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://typora-aliyun01.oss-cn-hangzhou.aliyuncs.com/img/06223d47370e6ef8ba55e63bc42ef1c.jpg"
+                      alt="06223d47370e6ef8ba55e63bc42ef1c.jpg"
+                ><br>如图所示，实现差分我们只需要修改四个点的权值，起始点和终结点就不用说了，关键是这个 <strong>LCA还有LCA的父节点</strong>。这里你可能会有如下问题：</p>
+<blockquote>
+<p>[!note]<br>为什么这里还要将LCA的父节点权值也下降？</p>
+<p>原因是我们<strong>从根节点1开始进行DFS</strong>，原本的前缀和在这里更像“后缀和”。<br>DFS的过程中，每个节点的权值更新为其所有子孙的权值总和，weight[i]&#x3D;$\sum_i^n{weight[son]}$ </p>
+<p><strong>对于LCA本身，其本身只需要+3，不过a和b都是他的子孙，所以其本身-3</strong>。对于LCA的父节点，他的权值应该是不变的，刚才LCA减去3是因为LCA要+3，但是LCA的父节点应该是不变的，因此LCA的父节点权值也需要下降。</p>
+</blockquote>
+<div class="highlight-container" data-rel="Cpp"><figure class="iseeu highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="keyword">using</span> LL = <span class="type">long</span> <span class="type">long</span>;</span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line">    <span class="keyword">public</span>: <span class="function"><span class="type">int</span> <span class="title">maxRemoval</span><span class="params">(vector &lt; <span class="type">int</span> &gt; &amp; nums, vector &lt; vector &lt; <span class="type">int</span> &gt;&gt; &amp; queries)</span> </span>&#123;</span><br><span class="line">        <span class="comment">// sort(queries.begin(), queries.end(), [](vector&lt;int&gt;&amp;a, vector&lt;int&gt;&amp;b)&#123;</span></span><br><span class="line">        <span class="comment">//     if (a[0]!=b[0])</span></span><br><span class="line">        <span class="comment">//         return a[0]&lt;b[0];</span></span><br><span class="line">        <span class="comment">//     else</span></span><br><span class="line">        <span class="comment">//         return a[1]&gt;b[1];</span></span><br><span class="line">        <span class="comment">// &#125;);</span></span><br><span class="line">        <span class="built_in">sort</span>(queries.<span class="built_in">begin</span>(), queries.<span class="built_in">end</span>());</span><br><span class="line"></span><br><span class="line">        <span class="type">int</span> n = nums.<span class="built_in">size</span>();</span><br><span class="line">        <span class="type">int</span> j = <span class="number">0</span>;</span><br><span class="line">        vector &lt; <span class="type">int</span> &gt; <span class="built_in">diff</span>(n + <span class="number">1</span>);</span><br><span class="line">        LL sum = <span class="number">0</span>;</span><br><span class="line">        <span class="type">int</span> ret = <span class="number">0</span>;</span><br><span class="line">        priority_queue &lt; <span class="type">int</span> &gt; pq;</span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">0</span>; i &lt; n; i++) &#123;</span><br><span class="line">            <span class="keyword">while</span> (j &lt; queries.<span class="built_in">size</span>() &amp;&amp; queries[j][<span class="number">0</span>] &lt;= i) &#123;</span><br><span class="line">                pq.<span class="built_in">push</span>(queries[j][<span class="number">1</span>]);</span><br><span class="line">                j++;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">while</span> (sum + diff[i] &lt; nums[i]) &#123;</span><br><span class="line">                <span class="keyword">if</span> (pq.<span class="built_in">empty</span>()) <span class="keyword">return</span> <span class="number">-1</span>;</span><br><span class="line">                <span class="keyword">if</span> (pq.<span class="built_in">top</span>() &lt; i) <span class="keyword">return</span> <span class="number">-1</span>;</span><br><span class="line">                <span class="type">int</span> t = pq.<span class="built_in">top</span>();</span><br><span class="line">                pq.<span class="built_in">pop</span>();</span><br><span class="line">                sum += <span class="number">1</span>;</span><br><span class="line">                diff[t + <span class="number">1</span>] -= <span class="number">1</span>;</span><br><span class="line">                ret++;</span><br><span class="line">            &#125;</span><br><span class="line">            sum += diff[i];</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> queries.<span class="built_in">size</span>() - ret;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure></div>]]></content>
+      <categories>
+        <category>Leetcode/动态规划</category>
+      </categories>
+      <tags>
+        <tag>Leetcode</tag>
+        <tag>差分</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>最近公共祖先（LCA)</title>
     <url>/sni2zo/</url>
     <content><![CDATA[<h1 id="问题场景"><a href="#问题场景" class="headerlink" title="问题场景"></a>问题场景</h1><p>给定一颗无向树，并且给出树中任意两个结点，要求求出这两个节点的最近公共祖先。<br><img  
@@ -613,48 +655,6 @@
       <tags>
         <tag>Leetcode</tag>
         <tag>树</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>前缀和+差分</title>
-    <url>/sni2z0/</url>
-    <content><![CDATA[<p>前缀和对我来说已经不算陌生了，前缀和的方便之处在于可以 <strong>快速求解任意子数组之和</strong>。但是，前缀和在区间频繁修改时就显得较为羸弱了，因为它只适合求和，不擅长修改。</p>
-<p>那么，如果某些<strong>区间频繁修改</strong>（<strong>仅限于都增加或者都减少某个值</strong>），但是求和只有一次，这种时候首先会想到的就是<strong>线段树</strong>了，不过线段树的代码量太多，使用差分则更简单，也更快。</p>
-<h1 id="什么是差分？"><a href="#什么是差分？" class="headerlink" title="什么是差分？"></a>什么是差分？</h1><p>差分的意思主要是这个 <strong>差</strong>，指的其实就是 <strong>元素差</strong>。</p>
-<p>前缀和的思想是动态规划，可以将前 n 个元素的和预先存储起来，这样计算区间和的时候就不需要再按需进行累加了。</p>
-<p>而差分的思想就是 <strong>先求出相邻元素之间的差</strong>，当需要某个区间<code>[a,b] </code>增加或者减少某个值的，只需要修改 <code>arr[a]</code> 和 <code>arr[b+1]</code>，然后重新计算一次前缀和就可以了。</p>
-<h2 id="一维数组差分"><a href="#一维数组差分" class="headerlink" title="一维数组差分"></a>一维数组差分</h2><p>如果有一个数组 <code>[1, 2, 3, 4, 5]</code>，其差分数组为 <code>[1, 1, 1, 1, 1]</code>。如果要将区间 <code>[1, 3]</code> 中的每个元素增加 2，可以通过修改差分数组 <code>diff[1] += 2</code> 和<code>diff[4] -= 2</code>来实现，得到新的差分数组<code> [1, 3, 1, 1, -1]</code>。通过重建数组可以得到<code> [1, 4, 5, 6, 5]</code>。</p>
-<p><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="https://typora-aliyun01.oss-cn-hangzhou.aliyuncs.com/img/a5d44b1e910f2d6038dc34fc3a64086.jpg"
-                      alt="a5d44b1e910f2d6038dc34fc3a64086.jpg"
-                ></p>
-<h2 id="树上差分"><a href="#树上差分" class="headerlink" title="树上差分"></a>树上差分</h2><p>刚才只是在一维数组上差分，实现起来还是比较简单的，如果我们是在树上进行差分呢？<br>树上差分刚才只是在一维数组上差分，实现起来还是比较简单的，如果我们是在树上进行差分呢？</p>
-<p>场景：现在给你一颗树，并且告诉你起始节点和结束节点，对起始节点和结束节点路径中的所有节点的值都加上value。需要注意的是，<strong>这里的树指的是一颗无向树，也就是说并不是像只能从父节点向子节点的那种遍历，只要是这个节点连接到的结点，都是可以遍历到的。</strong><br><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="https://typora-aliyun01.oss-cn-hangzhou.aliyuncs.com/img/05ca61d668ebe7e80a7514d8888ee46.jpg"
-                      alt="05ca61d668ebe7e80a7514d8888ee46.jpg"
-                ></p>
-<p>如果要使用树上差分，就必不可免要使用到树中节点的 <strong>最近公共祖先</strong> 求解算法。[[最近公共祖先（LCA)]] 。关于LCA的求解推荐使用倍增法，可以详细看看。<br><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="https://typora-aliyun01.oss-cn-hangzhou.aliyuncs.com/img/06223d47370e6ef8ba55e63bc42ef1c.jpg"
-                      alt="06223d47370e6ef8ba55e63bc42ef1c.jpg"
-                ><br>如图所示，实现差分我们只需要修改四个点的权值，起始点和终结点就不用说了，关键是这个 <strong>LCA还有LCA的父节点</strong>。这里你可能会有如下问题：</p>
-<blockquote>
-<p>[!note]<br>为什么这里还要将LCA的父节点权值也下降？</p>
-<p>原因是我们<strong>从根节点1开始进行DFS</strong>，原本的前缀和在这里更像“后缀和”。<br>DFS的过程中，每个节点的权值更新为其所有子孙的权值总和，weight[i]&#x3D;$\sum_i^n{weight[son]}$ </p>
-<p><strong>对于LCA本身，其本身只需要+3，不过a和b都是他的子孙，所以其本身-3</strong>。对于LCA的父节点，他的权值应该是不变的，刚才LCA减去3是因为LCA要+3，但是LCA的父节点应该是不变的，因此LCA的父节点权值也需要下降。</p>
-</blockquote>
-<div class="highlight-container" data-rel="Cpp"><figure class="iseeu highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="keyword">using</span> LL = <span class="type">long</span> <span class="type">long</span>;</span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line">    <span class="keyword">public</span>: <span class="function"><span class="type">int</span> <span class="title">maxRemoval</span><span class="params">(vector &lt; <span class="type">int</span> &gt; &amp; nums, vector &lt; vector &lt; <span class="type">int</span> &gt;&gt; &amp; queries)</span> </span>&#123;</span><br><span class="line">        <span class="comment">// sort(queries.begin(), queries.end(), [](vector&lt;int&gt;&amp;a, vector&lt;int&gt;&amp;b)&#123;</span></span><br><span class="line">        <span class="comment">//     if (a[0]!=b[0])</span></span><br><span class="line">        <span class="comment">//         return a[0]&lt;b[0];</span></span><br><span class="line">        <span class="comment">//     else</span></span><br><span class="line">        <span class="comment">//         return a[1]&gt;b[1];</span></span><br><span class="line">        <span class="comment">// &#125;);</span></span><br><span class="line">        <span class="built_in">sort</span>(queries.<span class="built_in">begin</span>(), queries.<span class="built_in">end</span>());</span><br><span class="line"></span><br><span class="line">        <span class="type">int</span> n = nums.<span class="built_in">size</span>();</span><br><span class="line">        <span class="type">int</span> j = <span class="number">0</span>;</span><br><span class="line">        vector &lt; <span class="type">int</span> &gt; <span class="built_in">diff</span>(n + <span class="number">1</span>);</span><br><span class="line">        LL sum = <span class="number">0</span>;</span><br><span class="line">        <span class="type">int</span> ret = <span class="number">0</span>;</span><br><span class="line">        priority_queue &lt; <span class="type">int</span> &gt; pq;</span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">0</span>; i &lt; n; i++) &#123;</span><br><span class="line">            <span class="keyword">while</span> (j &lt; queries.<span class="built_in">size</span>() &amp;&amp; queries[j][<span class="number">0</span>] &lt;= i) &#123;</span><br><span class="line">                pq.<span class="built_in">push</span>(queries[j][<span class="number">1</span>]);</span><br><span class="line">                j++;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">while</span> (sum + diff[i] &lt; nums[i]) &#123;</span><br><span class="line">                <span class="keyword">if</span> (pq.<span class="built_in">empty</span>()) <span class="keyword">return</span> <span class="number">-1</span>;</span><br><span class="line">                <span class="keyword">if</span> (pq.<span class="built_in">top</span>() &lt; i) <span class="keyword">return</span> <span class="number">-1</span>;</span><br><span class="line">                <span class="type">int</span> t = pq.<span class="built_in">top</span>();</span><br><span class="line">                pq.<span class="built_in">pop</span>();</span><br><span class="line">                sum += <span class="number">1</span>;</span><br><span class="line">                diff[t + <span class="number">1</span>] -= <span class="number">1</span>;</span><br><span class="line">                ret++;</span><br><span class="line">            &#125;</span><br><span class="line">            sum += diff[i];</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> queries.<span class="built_in">size</span>() - ret;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure></div>]]></content>
-      <categories>
-        <category>Leetcode/动态规划</category>
-      </categories>
-      <tags>
-        <tag>Leetcode</tag>
-        <tag>差分</tag>
       </tags>
   </entry>
 </search>
