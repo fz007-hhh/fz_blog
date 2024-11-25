@@ -1,26 +1,24 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
-  <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
-<meta name="theme-color" content="#222">
-<meta name="generator" content="Hexo 7.3.0">
-  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
-  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
-  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
-  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="keywords" content="Hexo Theme Redefine">
+    
+    <meta name="author" content="The Redefine Team">
+    <!-- preconnect -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 
-<link rel="stylesheet" href="/css/main.css">
-
-
-<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
-
-<script id="hexo-configurations">
-    var NexT = window.NexT || {};
-    var CONFIG = {"hostname":"example.com","root":"/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
-  </script>
-
-  <meta name="description" content="[!note]基于斯塔克伯格博弈方法，在无人机辅助的移动边缘计算网络中实现有效的计算任务卸载。 计算卸载是指将移动设备上的计算任务转移到网络中的其他计算能力更强的节点（如边缘服务器）上进行处理的过程。无人机在这里的作用可能是作为移动的边缘服务器，或者作为中继节点，帮助将计算任务从用户设备卸载到更远的服务器。  无人机（UAVs）被认为是为移动用户（MUs）提供额外计算能力和广泛覆盖的一种有前景的">
+    
+    <!--- Seo Part-->
+    
+    <link rel="canonical" href="http://example.com/sni2ya/"/>
+    <meta name="robots" content="index,follow">
+    <meta name="googlebot" content="index,follow">
+    <meta name="revisit-after" content="1 days">
+    
+        <meta name="description" content="[!note]基于斯塔克伯格博弈方法，在无人机辅助的移动边缘计算网络中实现有效的计算任务卸载。 计算卸载是指将移动设备上的计算任务转移到网络中的其他计算能力更强的节点（如边缘服务器）上进行处理的过程。无人机在这里的作用可能是作为移动的边缘服务器，或者作为中继节点，帮助将计算任务从用户设备卸载到更远的服务器。  无人机（UAVs）被认为是为移动用户（MUs）提供额外计算能力和广泛覆盖的一种有前景的">
 <meta property="og:type" content="article">
 <meta property="og:title" content="UAV-Aided Computation Offloading in Mobile-Edge Computing Networks_ A Stackelberg Game Approach">
 <meta property="og:url" content="http://example.com/sni2ya/index.html">
@@ -45,202 +43,298 @@
 <meta property="article:tag" content="博弈论">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="https://typora-aliyun01.oss-cn-hangzhou.aliyuncs.com/img/20241031234049.png">
-
-<link rel="canonical" href="http://example.com/sni2ya/">
-
-
-<script id="page-configurations">
-  // https://hexo.io/docs/variables.html
-  CONFIG.page = {
-    sidebar: "",
-    isHome : false,
-    isPost : true,
-    lang   : 'zh-CN'
-  };
-</script>
-
-  <title>UAV-Aided Computation Offloading in Mobile-Edge Computing Networks_ A Stackelberg Game Approach | fanz_blog</title>
-  
-
-
-
-
-
-
-  <noscript>
-  <style>
-  .use-motion .brand,
-  .use-motion .menu-item,
-  .sidebar-inner,
-  .use-motion .post-block,
-  .use-motion .pagination,
-  .use-motion .comments,
-  .use-motion .post-header,
-  .use-motion .post-body,
-  .use-motion .collection-header { opacity: initial; }
-
-  .use-motion .site-title,
-  .use-motion .site-subtitle {
-    opacity: initial;
-    top: initial;
-  }
-
-  .use-motion .logo-line-before i { left: initial; }
-  .use-motion .logo-line-after i { right: initial; }
-  </style>
-</noscript>
-
-</head>
-
-<body itemscope itemtype="http://schema.org/WebPage">
-  <div class="container use-motion">
-    <div class="headband"></div>
-
-    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
-      <div class="header-inner"><div class="site-brand-container">
-  <div class="site-nav-toggle">
-    <div class="toggle" aria-label="切换导航栏">
-      <span class="toggle-line toggle-line-first"></span>
-      <span class="toggle-line toggle-line-middle"></span>
-      <span class="toggle-line toggle-line-last"></span>
-    </div>
-  </div>
-
-  <div class="site-meta">
-
-    <a href="/" class="brand" rel="start">
-      <span class="logo-line-before"><i></i></span>
-      <h1 class="site-title">fanz_blog</h1>
-      <span class="logo-line-after"><i></i></span>
-    </a>
-      <p class="site-subtitle" itemprop="description">介甫遗风</p>
-  </div>
-
-  <div class="site-nav-right">
-    <div class="toggle popup-trigger">
-        <i class="fa fa-search fa-fw fa-lg"></i>
-    </div>
-  </div>
-</div>
-
-
-
-
-<nav class="site-nav">
-  <ul id="menu" class="main-menu menu">
-        <li class="menu-item menu-item-home">
-
-    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
-
-  </li>
-        <li class="menu-item menu-item-archives">
-
-    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
-
-  </li>
-      <li class="menu-item menu-item-search">
-        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
-        </a>
-      </li>
-  </ul>
-</nav>
-
-
-
-  <div class="search-pop-overlay">
-    <div class="popup search-popup">
-        <div class="search-header">
-  <span class="search-icon">
-    <i class="fa fa-search"></i>
-  </span>
-  <div class="search-input-container">
-    <input autocomplete="off" autocapitalize="off"
-           placeholder="搜索..." spellcheck="false"
-           type="search" class="search-input">
-  </div>
-  <span class="popup-btn-close">
-    <i class="fa fa-times-circle"></i>
-  </span>
-</div>
-<div id="search-result">
-  <div id="no-result">
-    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
-  </div>
-</div>
-
-    </div>
-  </div>
-
-</div>
-    </header>
+    
+    
+    <!--- Icon Part-->
+    <link rel="icon" type="image/png" href="/images/redefine-favicon.svg" sizes="192x192">
+    <link rel="apple-touch-icon" sizes="180x180" href="/images/redefine-favicon.svg">
+    <meta name="theme-color" content="#A31F34">
+    <link rel="shortcut icon" href="/images/redefine-favicon.svg">
+    <!--- Page Info-->
+    
+    <title>
+        
+            UAV-Aided Computation Offloading in Mobile-Edge Computing Networks_ A Stackelberg Game Approach | Theme Redefine
+        
+    </title>
 
     
-  <div class="back-to-top">
-    <i class="fa fa-arrow-up"></i>
-    <span>0%</span>
-  </div>
+<link rel="stylesheet" href="/fonts/Chillax/chillax.css">
 
 
-    <main class="main">
-      <div class="main-inner">
-        <div class="content-wrap">
-          
+    <!--- Inject Part-->
+    
 
-          <div class="content post posts-expand">
+    
+<link rel="stylesheet" href="/css/style.css">
+
+
+    
+        
+<link rel="stylesheet" href="/build/css/tailwind.css">
+
+    
+
+    
+<link rel="stylesheet" href="/fonts/GeistMono/geist-mono.css">
+
+    
+<link rel="stylesheet" href="/fonts/Geist/geist.css">
+
+    <!--- Font Part-->
+    
+    
+    
+    
+    
+    
+
+    <script id="hexo-configurations">
+    window.config = {"hostname":"example.com","root":"/","language":"zh-CN","path":"search.xml"};
+    window.theme = {"articles":{"style":{"font_size":"16px","line_height":1.5,"image_border_radius":"14px","image_alignment":"center","image_caption":false,"link_icon":true,"title_alignment":"left","headings_top_spacing":{"h1":"3.2rem","h2":"2.4rem","h3":"1.9rem","h4":"1.6rem","h5":"1.4rem","h6":"1.3rem"}},"word_count":{"enable":true,"count":true,"min2read":true},"author_label":{"enable":true,"auto":false,"list":[]},"code_block":{"copy":true,"style":"mac","highlight_theme":{"light":"github","dark":"vs2015"},"font":{"enable":false,"family":null,"url":null}},"toc":{"enable":true,"max_depth":3,"number":false,"expand":true,"init_open":true},"copyright":{"enable":true,"default":"cc_by_nc_sa"},"lazyload":true,"pangu_js":false,"recommendation":{"enable":false,"title":"推荐阅读","limit":3,"mobile_limit":2,"placeholder":"/images/wallhaven-wqery6-light.webp","skip_dirs":[]}},"colors":{"primary":"#A31F34","secondary":null,"default_mode":"light"},"global":{"fonts":{"chinese":{"enable":false,"family":null,"url":null},"english":{"enable":false,"family":null,"url":null},"title":{"enable":false,"family":null,"url":null}},"content_max_width":"1000px","sidebar_width":"210px","hover":{"shadow":true,"scale":false},"scroll_progress":{"bar":false,"percentage":true},"website_counter":{"url":"https://cn.vercount.one/js","enable":true,"site_pv":true,"site_uv":true,"post_pv":true},"single_page":true,"preloader":{"enable":false,"custom_message":null},"open_graph":true,"google_analytics":{"enable":false,"id":null}},"home_banner":{"enable":true,"style":"fixed","image":{"light":"/images/wallhaven-wqery6-light.webp","dark":"/images/wallhaven-wqery6-dark.webp"},"title":"Theme Redefine","subtitle":{"text":[],"hitokoto":{"enable":false,"show_author":false,"api":"https://v1.hitokoto.cn"},"typing_speed":100,"backing_speed":80,"starting_delay":500,"backing_delay":1500,"loop":true,"smart_backspace":true},"text_color":{"light":"#fff","dark":"#d1d1b6"},"text_style":{"title_size":"2.8rem","subtitle_size":"1.5rem","line_height":1.2},"custom_font":{"enable":false,"family":null,"url":null},"social_links":{"enable":false,"style":"default","links":{"github":null,"instagram":null,"zhihu":null,"twitter":null,"email":null},"qrs":{"weixin":null}}},"plugins":{"feed":{"enable":false},"aplayer":{"enable":false,"type":"fixed","audios":[{"name":null,"artist":null,"url":null,"cover":null,"lrc":null}]},"mermaid":{"enable":false,"version":"9.3.0"}},"version":"2.8.1","navbar":{"auto_hide":false,"color":{"left":"#f78736","right":"#367df7","transparency":35},"width":{"home":"1200px","pages":"1000px"},"links":{"Home":{"path":"/","icon":"fa-regular fa-house"}},"search":{"enable":false,"preload":true}},"page_templates":{"friends_column":2,"tags_style":"blur"},"home":{"sidebar":{"enable":true,"position":"left","first_item":"menu","announcement":null,"show_on_mobile":true,"links":null},"article_date_format":"auto","excerpt_length":200,"categories":{"enable":true,"limit":3},"tags":{"enable":true,"limit":3}},"footerStart":"2022/8/17 11:45:14"};
+    window.lang_ago = {"second":"%s 秒前","minute":"%s 分钟前","hour":"%s 小时前","day":"%s 天前","week":"%s 周前","month":"%s 个月前","year":"%s 年前"};
+    window.data = {"masonry":false};
+  </script>
+    
+    <!--- Fontawesome Part-->
+    
+<link rel="stylesheet" href="/fontawesome/fontawesome.min.css">
+
+    
+<link rel="stylesheet" href="/fontawesome/brands.min.css">
+
+    
+<link rel="stylesheet" href="/fontawesome/solid.min.css">
+
+    
+<link rel="stylesheet" href="/fontawesome/regular.min.css">
+
+    
+    
+    
+    
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+
+
+<body>
+	<div class="progress-bar-container">
+	
+
+	
+	<span class="pjax-progress-bar"></span>
+	<!--        <span class="swup-progress-icon">-->
+	<!--            <i class="fa-solid fa-circle-notch fa-spin"></i>-->
+	<!--        </span>-->
+	
+</div>
+
+<main class="page-container" id="swup">
+
+	
+
+	<div class="main-content-container flex flex-col justify-between min-h-dvh">
+		<div class="main-content-header">
+			<header class="navbar-container px-6 md:px-12">
+    <div class="navbar-content transition-navbar ">
+        <div class="left">
+            
+            <a class="logo-title" href="/">
+                
+                Theme Redefine
+                
+            </a>
+        </div>
+
+        <div class="right">
+            <!-- PC -->
+            <div class="desktop">
+                <ul class="navbar-list">
+                    
+                        
+                            
+
+                            <li class="navbar-item">
+                                <!-- Menu -->
+                                <a class=""
+                                   href="/"
+                                        >
+                                    <i class="fa-regular fa-house fa-fw"></i>
+                                    首页
+                                    
+                                </a>
+
+                                <!-- Submenu -->
+                                
+                            </li>
+                    
+                    
+                </ul>
+            </div>
+            <!-- Mobile -->
+            <div class="mobile">
+                
+                <div class="icon-item navbar-bar">
+                    <div class="navbar-bar-middle"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Mobile sheet -->
+    <div class="navbar-drawer h-dvh w-full absolute top-0 left-0 bg-background-color flex flex-col justify-between">
+        <ul class="drawer-navbar-list flex flex-col px-4 justify-center items-start">
+            
+                
+                    
+
+                    <li class="drawer-navbar-item text-base my-1.5 flex flex-col w-full">
+                        
+                        <a class="py-1.5 px-2 flex flex-row items-center justify-between gap-1 hover:!text-primary active:!text-primary text-2xl font-semibold group border-b border-border-color hover:border-primary w-full "
+                           href="/"
+                        >
+                            <span>
+                                首页
+                            </span>
+                            
+                                <i class="fa-regular fa-house fa-sm fa-fw"></i>
+                            
+                        </a>
+                        
+
+                        
+                    </li>
             
 
-    
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://example.com/sni2ya/">
+            
+            
+        </ul>
 
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.png">
-      <meta itemprop="name" content="fanz">
-      <meta itemprop="description" content="冷月如刀砍落花，暖风似羽拂新芽">
+        <div class="statistics flex justify-around my-2.5">
+    <a class="item tag-count-item flex flex-col justify-center items-center w-20" href="/tags">
+        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">10</div>
+        <div class="label text-third-text-color text-sm">标签</div>
+    </a>
+    <a class="item tag-count-item flex flex-col justify-center items-center w-20" href="/categories">
+        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">6</div>
+        <div class="label text-third-text-color text-sm">分类</div>
+    </a>
+    <a class="item tag-count-item flex flex-col justify-center items-center w-20" href="/archives">
+        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">10</div>
+        <div class="label text-third-text-color text-sm">文章</div>
+    </a>
+</div>
+    </div>
+
+    <div class="window-mask"></div>
+
+</header>
+
+
+		</div>
+
+		<div class="main-content-body transition-fade-up">
+			
+
+			<div class="main-content">
+				<div class="post-page-container flex relative justify-between box-border w-full h-full">
+	<div class="article-content-container">
+
+		<div class="article-title relative w-full">
+			
+			
+			
+			<img src="https://typora-aliyun01.oss-cn-hangzhou.aliyuncs.com/img/70b5f24952aef1dbbd1b3ab66ae609b7.jpg" alt="UAV-Aided Computation Offloading in Mobile-Edge Computing Networks_ A Stackelberg Game Approach" class="w-full h-60 sm:h-72 md:h-80 object-cover sm:rounded-t-large dark:brightness-75" />
+			
+			<div class="w-full flex items-center absolute bottom-0 justify-start">
+				<h1 class="article-title-cover text-center mx-6 my-6 text-second-text-color bg-background-color-transparent px-4 py-3 text-3xl sm:text-4xl md:text-5xl font-semibold backdrop-blur-lg rounded-xl border border-border-color ">UAV-Aided Computation Offloading in Mobile-Edge Computing Networks_ A Stackelberg Game Approach</h1>
+			</div>
+			
+		</div>
+
+		
+		<div class="article-header flex flex-row gap-2 items-center px-2 sm:px-6 md:px-8">
+			<div class="avatar w-[46px] h-[46px] flex-shrink-0 rounded-medium border border-border-color p-[1px]">
+				<img src="/images/redefine-avatar.svg">
+			</div>
+			<div class="info flex flex-col justify-between">
+				<div class="author flex items-center">
+					<span class="name text-default-text-color text-lg font-semibold">The Redefine Team</span>
+					
+					<span class="author-label ml-1.5 text-xs px-2 py-0.5 rounded-small text-third-text-color border border-shadow-color-1">Lv2</span>
+					
+				</div>
+				<div class="meta-info">
+					<div class="article-meta-info">
+    <span class="article-date article-meta-item">
+        <i class="fa-regular fa-pen-fancy"></i>&nbsp;
+        <span class="desktop">2024-11-25 17:42:10</span>
+        <span class="mobile">2024-11-25 17:42:10</span>
+        <span class="hover-info">创建</span>
     </span>
+    
+        <span class="article-date article-meta-item">
+            <i class="fa-regular fa-wrench"></i>&nbsp;
+            <span class="desktop">2024-11-25 17:45</span>
+            <span class="mobile">2024-11-25 17:45</span>
+            <span class="hover-info">更新</span>
+        </span>
+    
 
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="fanz_blog">
-    </span>
-      <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">
-          UAV-Aided Computation Offloading in Mobile-Edge Computing Networks_ A Stackelberg Game Approach
-        </h1>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-              
-
-              <time title="创建时间：2024-11-25 17:42:10 / 修改时间：17:45:00" itemprop="dateCreated datePublished" datetime="2024-11-25T17:42:10+08:00">2024-11-25</time>
-            </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E5%8D%9A%E5%BC%88%E8%AE%BA/" itemprop="url" rel="index"><span itemprop="name">博弈论</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
+    
+        <span class="article-categories article-meta-item">
+            <i class="fa-regular fa-folders"></i>&nbsp;
+            <ul>
+                
+                
+                    
+                        
+                        <li>
+                            <a href="/categories/%E5%8D%9A%E5%BC%88%E8%AE%BA/">博弈论</a>&nbsp;
+                        </li>
+                    
+                    
+                
+            </ul>
+        </span>
+    
+    
+        <span class="article-tags article-meta-item">
+            <i class="fa-regular fa-tags"></i>&nbsp;
+            <ul>
+                
+                    <li>
+                        <a href="/tags/Stackelberg/">Stackelberg</a>&nbsp;
+                    </li>
+                
+                    <li>
+                        | <a href="/tags/%E5%8D%9A%E5%BC%88%E8%AE%BA/">博弈论</a>&nbsp;
+                    </li>
+                
+            </ul>
+        </span>
+    
 
     
     
     
-    <div class="post-body" itemprop="articleBody">
+    
+        <span class="article-pv article-meta-item">
+            <i class="fa-regular fa-eye"></i>&nbsp;<span id="busuanzi_value_page_pv"></span>
+        </span>
+    
+</div>
 
-      
-        <blockquote>
+				</div>
+			</div>
+		</div>
+		
+
+		
+
+
+		<div class="article-content markdown-body px-2 sm:px-6 md:px-8 pb-8">
+			<blockquote>
 <p>[!note]<br>基于斯塔克伯格博弈方法，在无人机辅助的移动边缘计算网络中实现有效的计算任务卸载。</p>
 <p><strong>计算卸载</strong>是指将移动设备上的计算任务转移到网络中的其他计算能力更强的节点（如边缘服务器）上进行处理的过程。无人机在这里的作用可能是作为移动的边缘服务器，或者作为中继节点，帮助将计算任务从用户设备卸载到更远的服务器。</p>
 </blockquote>
@@ -277,7 +371,12 @@
 </li>
 </ol>
 <p><strong>C. MU的模型</strong></p>
-<p>对于每个MU，我们使用对数效用函数来表示其卸载计算任务的满足函数，这可以很好地反映MU和满足之间的关系[43]，并且可以表示为：<br>$$ Fi &#x3D; ω \ln(1 + li) $$<br><strong>其中ω表示MU的满足因子，li表示卸载到ESP的计算任务的大小</strong>。此外，我们还考虑了<strong>MUs之间的相互影响</strong>。如[45]所示，MUs的效用函数是基于社会外部性模型建立的。值得注意的是，<strong>每个MU的效用不仅与其内在愿望有关，还受到其他MUs的影响</strong>。具体来说，我们使用矩阵SR来表示MUs之间的影响，MUs的矩阵描述如下：<br>$$ SR &#x3D; \begin{bmatrix}<br>r1,1 &amp; r1,2 &amp; \cdots &amp; r1,N \<br>r2,1 &amp; \cdots &amp; r2,N-1 &amp; \cdots &amp; rN-1,2 &amp; \cdots &amp; rN,N<br>\end{bmatrix} $$<br>在矩阵SR中，对于任意两个MUs，<strong>社会关系度表示为ri,j，i, j ∈ {1, 2, …, N}，其中ri,j ∈ [0, 1]。ri,j的值越大，表示MU i和j在社会网络中的关系越密切。</strong> ri,j &#x3D; 1意味着两个MUs i和j具有紧密的社会关系。而ri,j &#x3D; 0意味着两个MUs i和j没有关系。此外，认为MU i和MU j之间的影响是相同的，称为ri,j &#x3D; rj,i，矩阵假定为固定。因此，对于MU i，其他MU对其的总影响表示为：<br>$$ Mi &#x3D; σ \left( \sum_{j&#x3D;1}^{N} ri,jFj \right) Fi $$<br><strong>其中σ是社会外部性强度，Fj是MU j（j ≠ i）的满足函数</strong>。当然，MUs在卸载计算任务时需要向ESP支付一些费用，ESP收取统一费用。因此，MU i向ESP的支付计算为：<br>$$ CE i &#x3D; lidi $$<br><strong>其中di表示MU i向ESP的单位支付</strong>。MU i的效用函数定义为由于计算卸载而增加的效用。因此，MU i的效用函数表示为：<br><img src="https://typora-aliyun01.oss-cn-hangzhou.aliyuncs.com/img/20241031234049.png" alt="image.png"></p>
+<p>对于每个MU，我们使用对数效用函数来表示其卸载计算任务的满足函数，这可以很好地反映MU和满足之间的关系[43]，并且可以表示为：<br>$$ Fi &#x3D; ω \ln(1 + li) $$<br><strong>其中ω表示MU的满足因子，li表示卸载到ESP的计算任务的大小</strong>。此外，我们还考虑了<strong>MUs之间的相互影响</strong>。如[45]所示，MUs的效用函数是基于社会外部性模型建立的。值得注意的是，<strong>每个MU的效用不仅与其内在愿望有关，还受到其他MUs的影响</strong>。具体来说，我们使用矩阵SR来表示MUs之间的影响，MUs的矩阵描述如下：<br>$$ SR &#x3D; \begin{bmatrix}<br>r1,1 &amp; r1,2 &amp; \cdots &amp; r1,N \<br>r2,1 &amp; \cdots &amp; r2,N-1 &amp; \cdots &amp; rN-1,2 &amp; \cdots &amp; rN,N<br>\end{bmatrix} $$<br>在矩阵SR中，对于任意两个MUs，<strong>社会关系度表示为ri,j，i, j ∈ {1, 2, …, N}，其中ri,j ∈ [0, 1]。ri,j的值越大，表示MU i和j在社会网络中的关系越密切。</strong> ri,j &#x3D; 1意味着两个MUs i和j具有紧密的社会关系。而ri,j &#x3D; 0意味着两个MUs i和j没有关系。此外，认为MU i和MU j之间的影响是相同的，称为ri,j &#x3D; rj,i，矩阵假定为固定。因此，对于MU i，其他MU对其的总影响表示为：<br>$$ Mi &#x3D; σ \left( \sum_{j&#x3D;1}^{N} ri,jFj \right) Fi $$<br><strong>其中σ是社会外部性强度，Fj是MU j（j ≠ i）的满足函数</strong>。当然，MUs在卸载计算任务时需要向ESP支付一些费用，ESP收取统一费用。因此，MU i向ESP的支付计算为：<br>$$ CE i &#x3D; lidi $$<br><strong>其中di表示MU i向ESP的单位支付</strong>。MU i的效用函数定义为由于计算卸载而增加的效用。因此，MU i的效用函数表示为：<br><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://typora-aliyun01.oss-cn-hangzhou.aliyuncs.com/img/20241031234049.png"
+                      alt="image.png"
+                ></p>
 <p>其中Fi表示MU i的满足函数，Mi表示其他MU对MU i的社会关系影响，EU i和EB i表示MU i将其任务卸载到UAV-MEC服务器或BS-MEC服务器的能耗，CE i代表MU i向ESP的支付。</p>
 <p><strong>D. ESP的模型</strong></p>
 <p>在本节中，将展示ESP的效用。在我们的场景中，ESP由一个BS-MEC服务器和一个UAV-MEC服务器组成。MUs将其计算任务卸载到ESP进行计算，ESP执行卸载的任务，这不可避免地会产生成本。在<strong>BS-MEC</strong>服务器上执行的计算任务的能耗计算为：<br>$$ EB &#x3D; \sum_{i&#x3D;1}^{N} qi xibi $$<br><strong>其中qi是当计算任务在BS-MEC服务器上完成时每CPU周期的能耗</strong>。无人机-MEC服务器处理计算任务的能耗表示为：<br>$$ EU &#x3D; \sum_{i&#x3D;1}^{N} si (1 − xi)bi $$<br><strong>其中si是当计算任务在UAV-MEC服务器上完成时每CPU周期的能耗</strong>。ESP的成本可以建模为两个服务器的能耗，因此，我们可以获取ESP的成本函数为：<br>$$ EE &#x3D; EB + EU &#x3D; \sum_{i&#x3D;1}^{N} qi xibi + \sum_{i&#x3D;1}^{N} si (1 − xi)bi $$<br>根据（13），MU i向ESP的支付是lidi；因此，ESP向所有MUs收取的总费用表示为：<br>$$ CE &#x3D; \sum_{i&#x3D;1}^{N} CE i &#x3D; \sum_{i&#x3D;1}^{N} lidi $$</p>
@@ -286,7 +385,12 @@
 <p><strong>问题表述与分析</strong></p>
 <p>本节首先介绍优化问题，然后分析问题以及寻找纳什均衡的存在性。</p>
 <p><strong>A. 问题表述</strong></p>
-<p>斯塔克伯格博弈将参与者分为领导者和追随者，追随者根据领导者执行的策略选择最优响应。领导者的最优策略与追随者的最优响应相结合，形成斯塔克伯格均衡。因此，斯塔克伯格博弈可以用来模拟ESP和MUs之间的互动。<br><img src="https://typora-aliyun01.oss-cn-hangzhou.aliyuncs.com/img/20241031225915.png" alt="image.png"></p>
+<p>斯塔克伯格博弈将参与者分为领导者和追随者，追随者根据领导者执行的策略选择最优响应。领导者的最优策略与追随者的最优响应相结合，形成斯塔克伯格均衡。因此，斯塔克伯格博弈可以用来模拟ESP和MUs之间的互动。<br><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://typora-aliyun01.oss-cn-hangzhou.aliyuncs.com/img/20241031225915.png"
+                      alt="image.png"
+                ></p>
 <p>图2显示了ESP和MUs之间的斯塔克伯格博弈。ESP作为领导者给出其出价策略di，MU i作为追随者决定卸载的任务hi的大小，并用li表示其卸载策略。因此，支付配置和计算任务卸载配置分别表示为d &#x3D; (d1, d2, …, dN)和l &#x3D; (l1, l2, …, lN)。我们的目标是最大化ESP和MUs的效用。然后，斯塔克伯格博弈表示为：<br>$$ \Gamma &#x3D; {(ESP, MUs), (di, li), (UE, Ui)} $$<br><strong>斯塔克伯格博弈表</strong></p>
 <table>
 <thead>
@@ -311,15 +415,35 @@
 <p>此外，MU i的优化问题表示为：<br>    <strong>问题2：</strong> 最大化Ui<br>$$ \text{最大化 } Ui $$<br>    受限于：<br>$$ 0 \leq li \leq Li （卸载的任务量不能超过原任务大小）$$$$ tB_i \leq t_{\text{max}}^i （同上，耗时不能超过上限）$$$$ tU_i \leq t_{\text{max}}^i （同上，耗时不能超过上限）$$其中（27）显示卸载任务hi的大小应小于任务Hi的大小，（28）是任务执行时间的延迟约束。</p>
 <p><strong>B. 博弈问题分析</strong></p>
 <p>我们使用<strong>逆向归纳法</strong>来分析所提出的问题。在第一阶段，确定了每个MU的最优卸载决策。在第二阶段，根据所有MUs的决策，我们确定ESP的最优出价策略。首先，证明了所提出博弈问题的纳什均衡的存在性。</p>
-<p><strong>定义1：</strong> 在MUs之间存在唯一的纳什均衡策略，其中$l &#x3D; (l_1, l_2, …, l_N)$。在这一点上，存在一个效用函数$Ui(l<em>i, l</em>-i) ≥ Ui(li, l*-i)$，其中$l_i$是其他MUs的最佳策略。当游戏处于NE时，没有人可以通过单方面改变其策略来增加其效用。<br><strong>定理1：</strong> 在考虑固定数量MUs的动态策略下，对于每个MU，其效用函数满足（14）。然后，对于MUs存在一个唯一的纳什均衡点。<br><img src="https://typora-aliyun01.oss-cn-hangzhou.aliyuncs.com/img/20241031234049.png" alt="image.png"><br><strong>证明：</strong> 对于MU i，效用函数是Ui，其公式如（29）所示，xi是一个常数。然后，（29）的一阶导数可以计算为：<br>$$ \frac{\partial Ui}{\partial li} &#x3D; \frac{\omega}{1 + li} \left(1 + \sigma \sum_{j&#x3D;1}^{N} ri,jFj \right) - \frac{xiPi}{RB i} - \frac{(1 - xi)Pi}{RU i} - di $$<br>接下来，（29）的二阶导数可以计算为：<br>$$ \frac{\partial^2 Ui}{\partial l^2 i} &#x3D; -\frac{\omega}{(1 + li)^2} \left(1 + \sigma \sum_{j&#x3D;1}^{N} ri,jFj \right) $$<br>由于ω &gt; 0且(1 + li)^2 &gt; 0，效用函数的二阶导数是负的。<strong>可以观察到MU i的效用函数是一个严格凹函数，这证明了纳什均衡的存在。</strong> 因此，定理1得证。一阶导数（30）设为0，我们可以得到：<br>$$ l^* i &#x3D; \frac{\omega Mi}{Zi + di} - 1 $$<br>其中<br>$$ Mi &#x3D; 1 + \sigma \sum_{j&#x3D;1}^{N} ri,jFj $$<br>$$ Zi &#x3D; xiPi&#x2F;RB i + (1 - xi)Pi&#x2F;RU i $$<br>因此，我们可以得到$l<em>i$是MU i关于其卸载计算任务大小的最佳策略 。<br>然后，设置$l</em>i&#x3D;0$和$l*i&#x3D;Li$，我们可以得到ESP的出价阈值为：<br>$$ d_{\text{min}} i &#x3D; \frac{\omega Mi}{1 + Li} - \frac{Zi}{Li} $$<br>$$ d_{\text{max}} i &#x3D; \frac{\omega Mi}{Zi} - 1 $$<br>通常，如果ESP的出价太高，MUs将不会将他们的计算任务卸载到ESP，如果ESP的出价太低，MUs将卸载所有计算任务。</p>
+<p><strong>定义1：</strong> 在MUs之间存在唯一的纳什均衡策略，其中$l &#x3D; (l_1, l_2, …, l_N)$。在这一点上，存在一个效用函数$Ui(l<em>i, l</em>-i) ≥ Ui(li, l*-i)$，其中$l_i$是其他MUs的最佳策略。当游戏处于NE时，没有人可以通过单方面改变其策略来增加其效用。<br><strong>定理1：</strong> 在考虑固定数量MUs的动态策略下，对于每个MU，其效用函数满足（14）。然后，对于MUs存在一个唯一的纳什均衡点。<br><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://typora-aliyun01.oss-cn-hangzhou.aliyuncs.com/img/20241031234049.png"
+                      alt="image.png"
+                ><br><strong>证明：</strong> 对于MU i，效用函数是Ui，其公式如（29）所示，xi是一个常数。然后，（29）的一阶导数可以计算为：<br>$$ \frac{\partial Ui}{\partial li} &#x3D; \frac{\omega}{1 + li} \left(1 + \sigma \sum_{j&#x3D;1}^{N} ri,jFj \right) - \frac{xiPi}{RB i} - \frac{(1 - xi)Pi}{RU i} - di $$<br>接下来，（29）的二阶导数可以计算为：<br>$$ \frac{\partial^2 Ui}{\partial l^2 i} &#x3D; -\frac{\omega}{(1 + li)^2} \left(1 + \sigma \sum_{j&#x3D;1}^{N} ri,jFj \right) $$<br>由于ω &gt; 0且(1 + li)^2 &gt; 0，效用函数的二阶导数是负的。<strong>可以观察到MU i的效用函数是一个严格凹函数，这证明了纳什均衡的存在。</strong> 因此，定理1得证。一阶导数（30）设为0，我们可以得到：<br>$$ l^* i &#x3D; \frac{\omega Mi}{Zi + di} - 1 $$<br>其中<br>$$ Mi &#x3D; 1 + \sigma \sum_{j&#x3D;1}^{N} ri,jFj $$<br>$$ Zi &#x3D; xiPi&#x2F;RB i + (1 - xi)Pi&#x2F;RU i $$<br>因此，我们可以得到$l<em>i$是MU i关于其卸载计算任务大小的最佳策略 。<br>然后，设置$l</em>i&#x3D;0$和$l*i&#x3D;Li$，我们可以得到ESP的出价阈值为：<br>$$ d_{\text{min}} i &#x3D; \frac{\omega Mi}{1 + Li} - \frac{Zi}{Li} $$<br>$$ d_{\text{max}} i &#x3D; \frac{\omega Mi}{Zi} - 1 $$<br>通常，如果ESP的出价太高，MUs将不会将他们的计算任务卸载到ESP，如果ESP的出价太低，MUs将卸载所有计算任务。</p>
 <blockquote>
 <p>[!tip]<br>这里初次看可能会比较费解，其实关键之处就是知道用户的效用函数 $U_i$ 对 $l_i$ 的二阶偏导一直是负值就可以了。一方面，这证明了效用函数存在纳什均衡；另一方面，说明一阶偏导是单调递减的，那么一阶导数为0的时候就是取极大值也是最大值的时候。<br>因此，<em><em>将一阶偏导置为0，就能得出一个 $l_i^</em>$<em><em>，那么也可以得出当卸载任务量为 $l_i^</em>$时，可以得到最大效用。 $l_i^</em>$也就是此时的最佳卸载策略。<br>然后是这样，每个用户全部的任务量是Li，如果价格足够低，那用户肯定是直接把全部的任务都给服务器，此时的最佳策略当然就是 $l_i^</em>&#x3D; Li$；如果价格实在太高，那么用户什么任务也不会卸载的，此时的最佳策略当然就是 $l_i^*&#x3D;0$。 <strong>那么分别带入一阶导数为0 的式子</strong>，就可以知道最低定价和最高定价了。<br><strong>这里的公式只是语言的另一种形象化表达</strong></p>
 </blockquote>
 <p>因此，ESP的最佳策略应该在dmin i和dmax i之间，MU i的最优策略满足：<br>$$ l^* i &#x3D; \begin{cases}<br>Li<br>（Li为全部的任务量）, &amp; \text{if } di \leq d_{\text{min}} i \<br>\frac{\omega Mi}{Zi + di} - 1, &amp; \text{if } d_{\text{min}} i &lt; di &lt; d_{\text{max}} i \<br>0, &amp; \text{if } di \geq d_{\text{max}} i<br>\end{cases} $$</p>
 <p>此外，根据（38），当dmin i &lt; di &lt; dmax i时，我们可以得到以下两个方程：<br>$$ \frac{\partial l^* i}{\partial di} &#x3D; -\frac{\omega Mi}{(Zi + di)^2} $$<br>$$ \frac{\partial^2 l^* i}{\partial d^2 i} &#x3D; \frac{2\omega Mi}{(Zi + di)^3} $$<br><strong>一阶导数小于0</strong>，<strong>这意味着ESP提供的出价越高，MU卸载的计算任务的大小就越小。</strong> 此外，二阶导数恒为正。因此，它是一个严格凹函数，在给定的di范围内，导出的策略l*i是最优和唯一的。</p>
-<p><strong>定义2：</strong> 如果$UE(d<em>i, l</em>i) &gt; UE(di, l*i)$，则存在MUs和ESP之间的唯一斯塔克伯格均衡。<br><strong>定理2：</strong> 考虑ESP的动态出价策略和固定数量的MUs，对于ESP，其效用函数满足（19）。然后，存在MUs和ESP之间的唯一纳什均衡。<br><img src="https://typora-aliyun01.oss-cn-hangzhou.aliyuncs.com/img/20241101131505.png" alt="image.png"></p>
-<p><strong>证明：</strong> 将xi视为常数，并将获得的最佳策略l<em>i代入UE，UE(di, l</em>i)可以得到。ESP的效用函数表示为（41）：<br><img src="https://typora-aliyun01.oss-cn-hangzhou.aliyuncs.com/img/20241101131635.png" alt="image.png"></p>
-<p>因此$UE(di, l*i)$对di ( <strong>这里的di单指某一个用户</strong> ) 的一阶偏导数计算为（42）：<br><img src="https://typora-aliyun01.oss-cn-hangzhou.aliyuncs.com/img/20241101131645.png" alt="image.png"></p>
+<p><strong>定义2：</strong> 如果$UE(d<em>i, l</em>i) &gt; UE(di, l*i)$，则存在MUs和ESP之间的唯一斯塔克伯格均衡。<br><strong>定理2：</strong> 考虑ESP的动态出价策略和固定数量的MUs，对于ESP，其效用函数满足（19）。然后，存在MUs和ESP之间的唯一纳什均衡。<br><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://typora-aliyun01.oss-cn-hangzhou.aliyuncs.com/img/20241101131505.png"
+                      alt="image.png"
+                ></p>
+<p><strong>证明：</strong> 将xi视为常数，并将获得的最佳策略l<em>i代入UE，UE(di, l</em>i)可以得到。ESP的效用函数表示为（41）：<br><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://typora-aliyun01.oss-cn-hangzhou.aliyuncs.com/img/20241101131635.png"
+                      alt="image.png"
+                ></p>
+<p>因此$UE(di, l*i)$对di ( <strong>这里的di单指某一个用户</strong> ) 的一阶偏导数计算为（42）：<br><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://typora-aliyun01.oss-cn-hangzhou.aliyuncs.com/img/20241101131645.png"
+                      alt="image.png"
+                ></p>
 <blockquote>
 <p>[!tip]<br>这里注意，上面的UE是指ESP对全部用户的总收益，下面的这个”$U_E(d_i,l_i^*) 对di$ “计算的是针对某一位用户的收益。因为ESP可以对不同用户采取不同的收费策略</p>
 </blockquote>
@@ -348,14 +472,39 @@
 <li><strong>ESP和MU之间的非合作博弈</strong>（NG）：NG没有考虑其他MUs的影响，因此只有MUs之间的竞争，<strong>每个MU独立与ESP互动以找到自己的最优决策，而不考虑其他MUs的政策</strong>。这是一个非合作博弈，每个MU与ESP之间[45]。</li>
 </ol>
 <p><strong>B. 收敛性能</strong></p>
-<p>图3显示了所有MUs和ESP效用的迭代过程。最初设置MUs的数量为5。如图3所示，ESP和MUs的效用逐渐增加，并最终收敛和稳定。此外，ESP的效用在开始时相对较高，随着迭代次数的增加而迅速增加。大约100次迭代后，它稳定并接近最优解。可以发现，MUs的平均效用也从比较高的值开始。然而，与ESP的效用相比，MUs的平均效用没有很快达到稳定状态。这是由于MUs之间的非合作关系，它们相互竞争以最大化自己的效用。最终，获得了ESP和MUs的效用以及相应的最优解。<br><img src="https://typora-aliyun01.oss-cn-hangzhou.aliyuncs.com/img/20241101143606.png" alt="image.png"></p>
+<p>图3显示了所有MUs和ESP效用的迭代过程。最初设置MUs的数量为5。如图3所示，ESP和MUs的效用逐渐增加，并最终收敛和稳定。此外，ESP的效用在开始时相对较高，随着迭代次数的增加而迅速增加。大约100次迭代后，它稳定并接近最优解。可以发现，MUs的平均效用也从比较高的值开始。然而，与ESP的效用相比，MUs的平均效用没有很快达到稳定状态。这是由于MUs之间的非合作关系，它们相互竞争以最大化自己的效用。最终，获得了ESP和MUs的效用以及相应的最优解。<br><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://typora-aliyun01.oss-cn-hangzhou.aliyuncs.com/img/20241101143606.png"
+                      alt="image.png"
+                ></p>
 <p><strong>C. 参数影响</strong></p>
-<p>这部分评估了BS-MEC服务器和UAV-MEC服务器单位能耗对ESP效用的影响。如图4所示，我们将两个服务器的单位能耗设置在[0.2, 1.7]的范围内。随着单位能耗的增加，ESP的效用减少，它们之间的关系是线性且成反比的。这是因为单位能耗的增加，相应地，ESP执行计算任务的成本变得更高，这不可避免地降低了ESP的效用。此外，当单位能耗保持不变且MUs数量增加时，ESP的效用增加。主要原因是随着MUs数量的增加，更多的MUs参与任务卸载过程，ESP可以通过出售更多的计算资源来增加其效用。根据我们的模型，ESP可以通过参与计算卸载来增加其效用。此外，由于单位能耗与决策和MUs的效用无关，我们不评估其对MUs效用的影响。<br><img src="https://typora-aliyun01.oss-cn-hangzhou.aliyuncs.com/img/20241101143623.png" alt="image.png"></p>
+<p>这部分评估了BS-MEC服务器和UAV-MEC服务器单位能耗对ESP效用的影响。如图4所示，我们将两个服务器的单位能耗设置在[0.2, 1.7]的范围内。随着单位能耗的增加，ESP的效用减少，它们之间的关系是线性且成反比的。这是因为单位能耗的增加，相应地，ESP执行计算任务的成本变得更高，这不可避免地降低了ESP的效用。此外，当单位能耗保持不变且MUs数量增加时，ESP的效用增加。主要原因是随着MUs数量的增加，更多的MUs参与任务卸载过程，ESP可以通过出售更多的计算资源来增加其效用。根据我们的模型，ESP可以通过参与计算卸载来增加其效用。此外，由于单位能耗与决策和MUs的效用无关，我们不评估其对MUs效用的影响。<br><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://typora-aliyun01.oss-cn-hangzhou.aliyuncs.com/img/20241101143623.png"
+                      alt="image.png"
+                ></p>
 <p><strong>D. 性能比较</strong></p>
-<p>这部分比较了GDISA与其他四种基准方法在不同场景下的性能。首先，我们比较了在不同MUs数量下ESP和MUs的效用。图5和图6分别展示了在不同MUs数量下GDISA与其他基准方法的性能比较。图5显示了MUs平均效用的性能比较，图6显示了ESP效用的性能比较。<br><img src="https://typora-aliyun01.oss-cn-hangzhou.aliyuncs.com/img/20241101143825.png" alt="image.png"></p>
-<p>可以看到，在不同MUs数量下，GDISA的表现最佳。此外，其他三种方法随着MUs数量的逐渐增加，表现出与GDISA相同的趋势。具体来说，我们可以观察到NU的效用最低。这是因为如果ESP只包括BS-MEC服务器，它将承受更大的计算压力，无法进行许多MUs的任务。MUs无法通过计算卸载来增加他们的效用，ESP也无法通过出售更多的计算资源来提高其效用。因此，在NU情况下，MUs和ESP的效用都较低。此外，MUs和ESP的效用在FO情况下相对较高，接近GDISA。这表明当所有MUs的计算任务都卸载时，MUs和ESP的效用接近他们的最优效用。相应地，在随机情况下，ESP和MUs的效用高于NU且低于FO。<br><img src="https://typora-aliyun01.oss-cn-hangzhou.aliyuncs.com/img/20241101143840.png" alt="image.png"></p>
+<p>这部分比较了GDISA与其他四种基准方法在不同场景下的性能。首先，我们比较了在不同MUs数量下ESP和MUs的效用。图5和图6分别展示了在不同MUs数量下GDISA与其他基准方法的性能比较。图5显示了MUs平均效用的性能比较，图6显示了ESP效用的性能比较。<br><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://typora-aliyun01.oss-cn-hangzhou.aliyuncs.com/img/20241101143825.png"
+                      alt="image.png"
+                ></p>
+<p>可以看到，在不同MUs数量下，GDISA的表现最佳。此外，其他三种方法随着MUs数量的逐渐增加，表现出与GDISA相同的趋势。具体来说，我们可以观察到NU的效用最低。这是因为如果ESP只包括BS-MEC服务器，它将承受更大的计算压力，无法进行许多MUs的任务。MUs无法通过计算卸载来增加他们的效用，ESP也无法通过出售更多的计算资源来提高其效用。因此，在NU情况下，MUs和ESP的效用都较低。此外，MUs和ESP的效用在FO情况下相对较高，接近GDISA。这表明当所有MUs的计算任务都卸载时，MUs和ESP的效用接近他们的最优效用。相应地，在随机情况下，ESP和MUs的效用高于NU且低于FO。<br><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://typora-aliyun01.oss-cn-hangzhou.aliyuncs.com/img/20241101143840.png"
+                      alt="image.png"
+                ></p>
 <p>由于NG没有考虑其他MUs的影响，其在MUs平均效用方面的性能显著低于我们提出的GDISA。这表明MUs之间的社会关系在卸载决策中起着至关重要的作用，每个MU独立获取最优策略无法带来更好的整体平均效用。与MUs的平均效用相比，NG在ESP效用方面表现更好。在NG情况下，ESP仍然可以通过出售计算资源获得相对较高的效用。总的来说，可以发现UAV-MEC服务器和MUs的社会关系对不同方法的性能有重要影响。</p>
-<p>图7显示了在不同单位能耗qi下ESP效用的比较。同样，对于ESP，GDISA具有最高的效用。在其他四种基准方案中，NG的效用更高，NU的效用更低。此外，随着单位能耗qi的增加，ESP的效用减少，这已经在图4中详细描述。<br><img src="https://typora-aliyun01.oss-cn-hangzhou.aliyuncs.com/img/20241101143852.png" alt="image.png"></p>
+<p>图7显示了在不同单位能耗qi下ESP效用的比较。同样，对于ESP，GDISA具有最高的效用。在其他四种基准方案中，NG的效用更高，NU的效用更低。此外，随着单位能耗qi的增加，ESP的效用减少，这已经在图4中详细描述。<br><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://typora-aliyun01.oss-cn-hangzhou.aliyuncs.com/img/20241101143852.png"
+                      alt="image.png"
+                ></p>
 <p>总之，我们证明了GDISA不仅可以提高MUs和ESP的效用，而且可以获得唯一的均衡。因此，GDISA在不同场景中被证明是有效的。</p>
 <p><strong>VII. 讨论和未来工作</strong></p>
 <p>本节讨论了潜在的和有吸引力的未来工作。</p>
@@ -367,190 +516,379 @@
 <p><strong>VIII. 结论</strong></p>
 <p>本文研究了一个由一个UAV-MEC服务器、一个BS-MEC服务器和多个MUs组成的无人机辅助MEC网络。为了最大化ESP和MUs的效用，ESP和MUs之间的互动被建模为斯塔克伯格博弈，使用逆向归纳法分析了我们提出的博弈问题。证明了所提出的博弈可以达到唯一的纳什均衡，然后提出了GDISA来获得近似最优解。模拟结果表明，GDISA可以有效地激发ESP和MUs之间的合作，并且在不同场景下的表现优于其他基线方法。</p>
 
+		</div>
+
+		
+		<div class="post-copyright-info w-full my-8 px-2 sm:px-6 md:px-8">
+			<div class="article-copyright-info-container">
+    <ul>
+        <li><strong>标题:</strong> UAV-Aided Computation Offloading in Mobile-Edge Computing Networks_ A Stackelberg Game Approach</li>
+        <li><strong>作者:</strong> The Redefine Team</li>
+        <li><strong>创建于
+                :</strong> 2024-11-25 17:42:10</li>
+        
+            <li>
+                <strong>更新于
+                    :</strong> 2024-11-25 17:45:00
+            </li>
+        
+        <li>
+            <strong>链接:</strong> https://redefine.ohevan.com/sni2ya/
+        </li>
+        <li>
+            <strong>
+                版权声明:
+            </strong>
+            
+
+            
+                本文章采用 <a class="license" target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0">CC BY-NC-SA 4.0</a> 进行许可。
+            
+        </li>
+    </ul>
+</div>
+
+		</div>
+		
+
+		
+		<ul class="post-tags-box text-lg mt-1.5 flex-wrap justify-center flex md:hidden">
+			
+			<li class="tag-item mx-0.5">
+				<a href="/tags/Stackelberg/">#Stackelberg</a>&nbsp;
+			</li>
+			
+			<li class="tag-item mx-0.5">
+				<a href="/tags/%E5%8D%9A%E5%BC%88%E8%AE%BA/">#博弈论</a>&nbsp;
+			</li>
+			
+		</ul>
+		
+
+		
+
+		
+		<div class="article-nav my-8 flex justify-between items-center px-2 sm:px-6 md:px-8">
+			
+			<div class="article-prev border-border-color shadow-redefine-flat shadow-shadow-color-2 rounded-medium px-4 py-2 hover:shadow-redefine-flat-hover hover:shadow-shadow-color-2">
+				<a class="prev" rel="prev" href="/sni2z0/">
+					<span class="left arrow-icon flex justify-center items-center">
+						<i class="fa-solid fa-chevron-left"></i>
+					</span>
+					<span class="title flex justify-center items-center">
+						<span class="post-nav-title-item">前缀和+差分</span>
+						<span class="post-nav-item">上一篇</span>
+					</span>
+				</a>
+			</div>
+			
+			
+			<div class="article-next border-border-color shadow-redefine-flat shadow-shadow-color-2 rounded-medium px-4 py-2 hover:shadow-redefine-flat-hover hover:shadow-shadow-color-2">
+				<a class="next" rel="next" href="/sni2x9/">
+					<span class="title flex justify-center items-center">
+						<span class="post-nav-title-item">大模型算力是如何计算的</span>
+						<span class="post-nav-item">下一篇</span>
+					</span>
+					<span class="right arrow-icon flex justify-center items-center">
+						<i class="fa-solid fa-chevron-right"></i>
+					</span>
+				</a>
+			</div>
+			
+		</div>
+		
+
+
+		
+		<div class="comment-container px-2 sm:px-6 md:px-8 pb-8">
+			<div class="comments-container mt-10 w-full ">
+    <div id="comment-anchor" class="w-full h-2.5"></div>
+    <div class="comment-area-title w-full my-1.5 md:my-2.5 text-xl md:text-3xl font-bold">
+        评论
     </div>
-
     
-    
-    
-
-      <footer class="post-footer">
-          <div class="post-tags">
-              <a href="/tags/Stackelberg/" rel="tag"># Stackelberg</a>
-              <a href="/tags/%E5%8D%9A%E5%BC%88%E8%AE%BA/" rel="tag"># 博弈论</a>
-          </div>
 
         
+            
+    <div id="waline"></div>
+    <script type="module" data-swup-reload-script>
+      import { init } from '/js/libs/waline.mjs';
 
-
-        
-    <div class="post-nav">
-      <div class="post-nav-item">
-    <a href="/sni2x9/" rel="prev" title="大模型算力是如何计算的">
-      <i class="fa fa-chevron-left"></i> 大模型算力是如何计算的
-    </a></div>
-      <div class="post-nav-item">
-    <a href="/sni2z0/" rel="next" title="前缀和+差分">
-      前缀和+差分 <i class="fa fa-chevron-right"></i>
-    </a></div>
-    </div>
-      </footer>
-    
-  </article>
-  
-  
-  
-
-
-
-          </div>
+      function loadWaline() {
+        init({
+          el: '#waline',
+          serverURL: 'https://example.example.com',
+          lang: 'zh-CN',
+          dark: 'body[class~="dark-mode"]',
+          reaction: false,
+          requiredMeta: ['nick', 'mail'],
+          emoji: [],
           
+          
+        });
+      }
+
+      if (typeof swup !== 'undefined') {
+        loadWaline();
+      } else {
+        window.addEventListener('DOMContentLoaded', loadWaline);
+      }
+    </script>
+
+
+
+        
+    
+</div>
+
+		</div>
+		
+	</div>
+
+	
+	<div class="toc-content-container">
+		<div class="post-toc-wrap">
+	<div class="post-toc">
+		<div class="toc-title">目录</div>
+		<div class="page-title">UAV-Aided Computation Offloading in Mobile-Edge Computing Networks_ A Stackelberg Game Approach</div>
+		<ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Introduction"><span class="nav-text">Introduction</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Relate-Works"><span class="nav-text">Relate Works</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#System-Model"><span class="nav-text">System Model</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Problem-Formulation-And-Analysis"><span class="nav-text">Problem Formulation And Analysis</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Gradient-Based-Dynamic-Iterative-Search-Algorithm"><span class="nav-text">Gradient-Based Dynamic Iterative Search Algorithm</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#SIMULATION-RESULTS"><span class="nav-text">SIMULATION RESULTS</span></a></li></ol>
+
+	</div>
+</div>
+	</div>
+	
+</div>
+			</div>
+
+			
+		</div>
+
+		<div class="main-content-footer">
+			<footer class="footer mt-5 py-5 h-auto text-base text-third-text-color relative border-t-2 border-t-border-color">
+    <div class="info-container py-3 text-center">
+        
+        <div class="text-center">
+            &copy;
+            
+              <span>2022</span>
+              -
+            
+            2024&nbsp;&nbsp;<i class="fa-solid fa-heart fa-beat" style="--fa-animation-duration: 0.5s; color: #f54545"></i>&nbsp;&nbsp;<a href="/">The Redefine Team</a>
+            
+                
+                <p class="post-count space-x-0.5">
+                    <span>
+                        共撰写了 10 篇文章
+                    </span>
+                    
+                </p>
+            
+        </div>
+        
+            <script data-swup-reload-script src="https://cn.vercount.one/js"></script>
+            <div class="relative text-center lg:absolute lg:right-[20px] lg:top-1/2 lg:-translate-y-1/2 lg:text-right">
+                
+                    <span id="busuanzi_container_site_uv" class="lg:!block">
+                        <span class="text-sm">访问人数</span>
+                        <span id="busuanzi_value_site_uv"></span>
+                    </span>
+                
+                
+                    <span id="busuanzi_container_site_pv" class="lg:!block">
+                        <span class="text-sm">总访问量</span>
+                        <span id="busuanzi_value_site_pv"></span>
+                    </span>
+                
+            </div>
+        
+        <div class="relative text-center lg:absolute lg:left-[20px] lg:top-1/2 lg:-translate-y-1/2 lg:text-left">
+            <span class="lg:block text-sm">由 <?xml version="1.0" encoding="utf-8"?><!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd"><svg class="relative top-[2px] inline-block align-baseline" version="1.1" id="圖層_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="1rem" height="1rem" viewBox="0 0 512 512" enable-background="new 0 0 512 512" xml:space="preserve"><path fill="#0E83CD" d="M256.4,25.8l-200,115.5L56,371.5l199.6,114.7l200-115.5l0.4-230.2L256.4,25.8z M349,354.6l-18.4,10.7l-18.6-11V275H200v79.6l-18.4,10.7l-18.6-11v-197l18.5-10.6l18.5,10.8V237h112v-79.6l18.5-10.6l18.5,10.8V354.6z"/></svg><a target="_blank" class="text-base" href="https://hexo.io">Hexo</a> 驱动</span>
+            <span class="text-sm lg:block">主题&nbsp;<a class="text-base" target="_blank" href="https://github.com/EvanNotFound/hexo-theme-redefine">Redefine v2.8.1</a></span>
+        </div>
+        
+        
+            <div>
+                博客已运行 <span class="odometer" id="runtime_days" ></span> 天 <span class="odometer" id="runtime_hours"></span> 小时 <span class="odometer" id="runtime_minutes"></span> 分钟 <span class="odometer" id="runtime_seconds"></span> 秒
+            </div>
+        
+        
+            <script data-swup-reload-script>
+                try {
+                    function odometer_init() {
+                    const elements = document.querySelectorAll('.odometer');
+                    elements.forEach(el => {
+                        new Odometer({
+                            el,
+                            format: '( ddd).dd',
+                            duration: 200
+                        });
+                    });
+                    }
+                    odometer_init();
+                } catch (error) {}
+            </script>
+        
+        
+        
+    </div>  
+</footer>
+		</div>
+	</div>
+
+	
+	<div class="post-tools">
+		<div class="post-tools-container">
+	<ul class="article-tools-list">
+		<!-- TOC aside toggle -->
+		
+		<li class="right-bottom-tools page-aside-toggle">
+			<i class="fa-regular fa-outdent"></i>
+		</li>
+		
+
+		<!-- go comment -->
+		
+		<li class="go-comment">
+			<i class="fa-regular fa-comments"></i>
+		</li>
+		
+	</ul>
+</div>
+	</div>
+	
+
+	<div class="right-side-tools-container">
+		<div class="side-tools-container">
+	<ul class="hidden-tools-list">
+		<li class="right-bottom-tools tool-font-adjust-plus flex justify-center items-center">
+			<i class="fa-regular fa-magnifying-glass-plus"></i>
+		</li>
+
+		<li class="right-bottom-tools tool-font-adjust-minus flex justify-center items-center">
+			<i class="fa-regular fa-magnifying-glass-minus"></i>
+		</li>
+
+		<li class="right-bottom-tools tool-dark-light-toggle flex justify-center items-center">
+			<i class="fa-regular fa-moon"></i>
+		</li>
+
+		<!-- rss -->
+		
+
+		
+
+		<li class="right-bottom-tools tool-scroll-to-bottom flex justify-center items-center">
+			<i class="fa-regular fa-arrow-down"></i>
+		</li>
+	</ul>
+
+	<ul class="visible-tools-list">
+		<li class="right-bottom-tools toggle-tools-list flex justify-center items-center">
+			<i class="fa-regular fa-cog fa-spin"></i>
+		</li>
+		
+		<li class="right-bottom-tools tool-scroll-to-top flex justify-center items-center">
+			<i class="arrow-up fas fa-arrow-up"></i>
+			<span class="percent"></span>
+		</li>
+		
+		
+	</ul>
+</div>
+	</div>
+
+	<div class="image-viewer-container">
+	<img src="">
+</div>
+
+	
+
+</main>
+
+
+
+<script src="/build/js/libs/Swup.min.js"></script>
+
+<script src="/build/js/libs/SwupSlideTheme.min.js"></script>
+
+<script src="/build/js/libs/SwupScriptsPlugin.min.js"></script>
+
+<script src="/build/js/libs/SwupProgressPlugin.min.js"></script>
+
+<script src="/build/js/libs/SwupScrollPlugin.min.js"></script>
+
+<script src="/build/js/libs/SwupPreloadPlugin.min.js"></script>
 
 <script>
-  window.addEventListener('tabs:register', () => {
-    let { activeClass } = CONFIG.comments;
-    if (CONFIG.comments.storage) {
-      activeClass = localStorage.getItem('comments_active') || activeClass;
-    }
-    if (activeClass) {
-      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
-      if (activeTab) {
-        activeTab.click();
-      }
-    }
-  });
-  if (CONFIG.comments.storage) {
-    window.addEventListener('tabs:click', event => {
-      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
-      let commentClass = event.target.classList[1];
-      localStorage.setItem('comments_active', commentClass);
+    const swup = new Swup({
+        plugins: [
+            new SwupScriptsPlugin({
+                optin: true,
+            }),
+            new SwupProgressPlugin(),
+            new SwupScrollPlugin({
+                offset: 80,
+            }),
+            new SwupSlideTheme({
+                mainElement: ".main-content-body",
+            }),
+            new SwupPreloadPlugin(),
+        ],
+        containers: ["#swup"],
     });
-  }
 </script>
 
-        </div>
-          
-  
-  <div class="toggle sidebar-toggle">
-    <span class="toggle-line toggle-line-first"></span>
-    <span class="toggle-line toggle-line-middle"></span>
-    <span class="toggle-line toggle-line-last"></span>
-  </div>
-
-  <aside class="sidebar">
-    <div class="sidebar-inner">
-
-      <ul class="sidebar-nav motion-element">
-        <li class="sidebar-nav-toc">
-          文章目录
-        </li>
-        <li class="sidebar-nav-overview">
-          站点概览
-        </li>
-      </ul>
-
-      <!--noindex-->
-      <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Introduction"><span class="nav-number">1.</span> <span class="nav-text">Introduction</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Relate-Works"><span class="nav-number">2.</span> <span class="nav-text">Relate Works</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#System-Model"><span class="nav-number">3.</span> <span class="nav-text">System Model</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Problem-Formulation-And-Analysis"><span class="nav-number">4.</span> <span class="nav-text">Problem Formulation And Analysis</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Gradient-Based-Dynamic-Iterative-Search-Algorithm"><span class="nav-number">5.</span> <span class="nav-text">Gradient-Based Dynamic Iterative Search Algorithm</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#SIMULATION-RESULTS"><span class="nav-number">6.</span> <span class="nav-text">SIMULATION RESULTS</span></a></li></ol></div>
-      </div>
-      <!--/noindex-->
-
-      <div class="site-overview-wrap sidebar-panel">
-        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
-    <img class="site-author-image" itemprop="image" alt="fanz"
-      src="/images/avatar.png">
-  <p class="site-author-name" itemprop="name">fanz</p>
-  <div class="site-description" itemprop="description">冷月如刀砍落花，暖风似羽拂新芽</div>
-</div>
-<div class="site-state-wrap motion-element">
-  <nav class="site-state">
-      <div class="site-state-item site-state-posts">
-          <a href="/archives/">
-        
-          <span class="site-state-item-count">10</span>
-          <span class="site-state-item-name">日志</span>
-        </a>
-      </div>
-      <div class="site-state-item site-state-categories">
-            <a href="/categories/">
-        <span class="site-state-item-count">6</span>
-        <span class="site-state-item-name">分类</span></a>
-      </div>
-      <div class="site-state-item site-state-tags">
-            <a href="/tags/">
-        <span class="site-state-item-count">10</span>
-        <span class="site-state-item-name">标签</span></a>
-      </div>
-  </nav>
-</div>
 
 
 
-      </div>
+	
+<script src="/build/js/tools/imageViewer.js" type="module"></script>
 
-    </div>
-  </aside>
-  <div id="sidebar-dimmer"></div>
+<script src="/build/js/utils.js" type="module"></script>
 
+<script src="/build/js/main.js" type="module"></script>
 
-      </div>
-    </main>
+<script src="/build/js/layouts/navbarShrink.js" type="module"></script>
 
-    <footer class="footer">
-      <div class="footer-inner">
-        
+<script src="/build/js/tools/scrollTopBottom.js" type="module"></script>
 
-        
+<script src="/build/js/tools/lightDarkSwitch.js" type="module"></script>
 
-<div class="copyright">
-  
-  &copy; 
-  <span itemprop="copyrightYear">2024</span>
-  <span class="with-love">
-    <i class="fa fa-heart"></i>
-  </span>
-  <span class="author" itemprop="copyrightHolder">fanz</span>
-</div>
-  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://pisces.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a> 强力驱动
-  </div>
-
-        
+<script src="/build/js/layouts/categoryList.js" type="module"></script>
 
 
 
 
 
+    
+<script src="/build/js/tools/codeBlock.js" type="module"></script>
 
 
 
-      </div>
-    </footer>
-  </div>
 
-  
-  <script src="/lib/anime.min.js"></script>
-  <script src="/lib/velocity/velocity.min.js"></script>
-  <script src="/lib/velocity/velocity.ui.min.js"></script>
-
-<script src="/js/utils.js"></script>
-
-<script src="/js/motion.js"></script>
+    
+<script src="/build/js/layouts/lazyload.js" type="module"></script>
 
 
-<script src="/js/schemes/pisces.js"></script>
 
 
-<script src="/js/next-boot.js"></script>
+    
+<script src="/build/js/tools/runtime.js"></script>
+
+    
+<script src="/build/js/libs/odometer.min.js"></script>
+
+    
+<link rel="stylesheet" href="/assets/odometer-theme-minimal.css">
 
 
 
 
   
-
-
-
+<script src="/build/js/libs/Typed.min.js"></script>
 
   
-<script src="/js/local-search.js"></script>
+<script src="/build/js/plugins/typed.js" type="module"></script>
 
 
 
@@ -559,14 +897,33 @@
 
 
 
+    
+<script src="/build/js/libs/anime.min.js"></script>
 
 
 
 
 
-  
+    
+<script src="/build/js/tools/tocToggle.js" type="module" data-swup-reload-script=""></script>
 
-  
+<script src="/build/js/layouts/toc.js" type="module" data-swup-reload-script=""></script>
 
+<script src="/build/js/plugins/tabs.js" type="module" data-swup-reload-script=""></script>
+
+
+
+
+<script src="/build/js/libs/moment-with-locales.min.js" data-swup-reload-script=""></script>
+
+
+<script src="/build/js/layouts/essays.js" type="module" data-swup-reload-script=""></script>
+
+
+
+
+
+	
 <script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"log":false,"pluginJsPath":"lib/","pluginModelPath":"assets/","pluginRootPath":"live2dw/","tagMode":false});</script></body>
+
 </html>
