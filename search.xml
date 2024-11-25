@@ -84,6 +84,18 @@
       </tags>
   </entry>
   <entry>
+    <title>centos7 基础命令爆出255返回码</title>
+    <url>/sni2sz/</url>
+    <content><![CDATA[<p>cron 是一个用于在指定时间自动执行预定任务的守护进程，&#x2F;etc&#x2F;cron.hourly&#x2F; 目录中的脚本每小时会被 cron进程 自动执行一次</p>
+]]></content>
+      <categories>
+        <category>Ubuntu</category>
+      </categories>
+      <tags>
+        <tag>Ubuntu</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>Ubuntu配置静态IP</title>
     <url>/sni2qz/</url>
     <content><![CDATA[<p>在 Ubuntu 22.04 中配置静态 IP 地址的方法如下：<br><strong>这里请注意！！静态IP的地址不要设重复了！！即使是删除过的虚拟机也不要与之重复！！</strong></p>
@@ -115,62 +127,6 @@
       </categories>
       <tags>
         <tag>Ubuntu</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>centos7 基础命令爆出255返回码</title>
-    <url>/sni2sz/</url>
-    <content><![CDATA[<p>cron 是一个用于在指定时间自动执行预定任务的守护进程，&#x2F;etc&#x2F;cron.hourly&#x2F; 目录中的脚本每小时会被 cron进程 自动执行一次</p>
-]]></content>
-      <categories>
-        <category>Ubuntu</category>
-      </categories>
-      <tags>
-        <tag>Ubuntu</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Rich Human Feedback for Text-to-Image Generation</title>
-    <url>/sni2v6/</url>
-    <content><![CDATA[<h2 id="Abstract"><a href="#Abstract" class="headerlink" title="Abstract"></a>Abstract</h2><p>最近文本到图像（T2I）生成模型，如<strong>Stable Diffusion</strong>和<strong>Imagen</strong>，在基于文本描述生成高分辨率图像方面取得了显著进展。然而，许多生成的图像仍然存在诸如伪影&#x2F;不切实际、与文本描述不一致以及低审美质量等问题。受到<strong>人类反馈强化学习（RLHF）在大型语言模型中成功的启发</strong>，先前的工作收集了人类对生成图像的评分作为反馈，并训练了一个奖励模型来改进 T2I 生成。在本文中，我们通过（i）标记图像中不切实际或与文本不一致的区域，以及（ii）注释文本提示中在图像中未被正确表示或缺失的词汇，来丰富反馈信号。我们在 18K 生成图像上收集了这样的丰富人类反馈（RichHF18K），并训练了一个多模态变换器来自动预测丰富的反馈。我们展示了预测的丰富人类反馈如何被用来改进图像生成，例如，通过<strong>选择高质量的训练数据进行微调</strong>以改进生成模型，或者通过<strong>创建带有预测热图的掩码来修复问题区域</strong>。值得注意的是，这些改进推广到了超出我们收集人类反馈数据所用模型（(Stable Diffusion variants）之外的模型（如<strong>Muse</strong>）。RichHF-18K 数据集将在我们的 GitHub 仓库中发布。</p>
-<h2 id="1-Introduction"><a href="#1-Introduction" class="headerlink" title="1. Introduction"></a>1. Introduction</h2><p>文本到图像（T2I）生成模型[12, 17, 41, 42, 56, 58, 59]正在迅速成为娱乐、艺术、设计和广告等多个领域内容创造的关键，并正在被推广到图像编辑[4, 27, 44, 50]、视频生成[23, 35, 53]等许多其他应用。尽管最近取得了显著进展，输出仍然通常存在诸如<strong>伪影&#x2F;不切实际、与文本描述不一致以及低审美质量</strong>等问题[30, 52, 54]。例如，在主要由 Stable Diffusion variants 生成的<strong>Pick-a-Pic 数据集</strong>中，许多图像（例如图 1）包含扭曲的人&#x2F;动物身体（例如，有超过五个手指的人类手）、扭曲的物体和不切实际的问题，例如漂浮的灯。我们人类评估实验发现，数据集中只有大约 10%的生成图像没有伪影和不切实际的问题。同样，文本-图像不一致问题也很常见，例如，提示是“一个男人跳进河里”，但生成的图像显示男人站着。</p>
-<p>然而，现有的自动<strong>评估生成图像的指标</strong>，包括众所周知的<strong>IS</strong>[43]和<strong>FID</strong>[20]，是计算在图像分布上的，可能无法反映单个图像的细微差别。最近的研究收集了人类偏好&#x2F;评级来评估生成图像的质量，并训练了评估模型来预测这些评级[30, 52, 54]，特别是<strong>ImageReward</strong>[54]或<strong>Pick-a-Pic</strong>[30]。虽然更专注，但这些指标仍然将一张图像的质量总结为一个单一的数值评分。在<strong>提示-图像对齐</strong>方面，也有像<strong>CLIPScore</strong>[19]这样的开创性单分数指标，以及最近的问答流程[8, 10, 24, 57]。虽然更加校准和可解释，但这些模型复杂且计算成本高，仍然无法定位图像中的不一致区域。</p>
-<p>在本文中，我们提出了一个数据集和模型，用于细粒度的多方面评估，这些评估是可解释和可归因的（例如，归因于图像中的伪影&#x2F;不切实际区域或图像-文本不一致）。作为第一项贡献，我们收集了一个包含丰富人类反馈的 18K 图像数据集（RichHF-18K），其中包含（i）突出显示图像中不切实际&#x2F;伪影和文本-图像不一致的点注释；（ii）标记在提示中指定生成图像中缺失或错误表示的概念的词汇；以及（iii）用于图像合理性、文本-图像对齐、审美和整体评分的四种细粒度评分。有了 RichHF-18K，我们设计了一个多模态变换器模型，我们称之为 Rich Automatic Human Feedback（RAHF），以学习预测生成图像及其相关文本提示上的这些丰富的人类注释。因此，我们的模型可以预测不切实际和不一致的区域、不一致的关键词，以及细粒度的评分。这不仅提供了可靠的评级，还提供了关于生成图像质量的更详细和可解释的见解。据我们所知，这是第一个丰富的反馈数据集和模型，用于最新的文本到图像生成模型，提供了一个自动和可解释的流程来评估 T2I 生成。</p>
-<p>主要贡献总结如下：</p>
-<ol>
-<li><strong>第一个丰富的人类反馈数据集（RichHF-18K）</strong> 在生成图像上（包括细粒度评分、不切实际（伪影）&#x2F;不一致的图像区域和不一致的关键词），在 18K Pick-a-Pic 图像上。</li>
-<li><strong>一个多模态变换器模型（RAHF）</strong>，用于<strong>预测生成图像上的丰富反馈</strong>，我们展示了它与测试集上的人类注释高度相关。</li>
-<li>我们进一步展示了 RAHF 预测的丰富人类反馈对改进图像生成的有用性：（i）使用预测的热图作为掩码来修复问题图像区域，以及（ii）使用预测的评分来帮助微调图像生成模型（如 Muse[6]），例如，通过选择&#x2F;过滤微调数据，或作为奖励指导。在这两种情况下，我们都获得了比原始模型更好的图像。</li>
-<li>在 Muse 模型上的改进，该模型与用于生成训练集中图像的模型不同，显示了我们的 RAHF 模型的良好泛化能力。</li>
-</ol>
-<h2 id="2-Related-Works"><a href="#2-Related-Works" class="headerlink" title="2. Related Works"></a>2. Related Works</h2><p><strong>Text-to-image generation</strong><br>文本到图像（T2I）生成模型在深度学习时代经历了几个流行的模型架构的演变和迭代。早期的工作是生成对抗网络（<strong>GAN</strong>）[3, 16, 26]，它训练一个生成器进行<strong>图像生成和一个鉴别器</strong>来区分真实和生成的图像（也见[32, 38, 47, 55, 60, 62]等）。另一类生成模型发展<strong>自变分自编码器</strong>（VAEs）[21, 29, 48]，它们优化证据下界（ELBO）以获得图像数据的可能性。<br>最近，<strong>扩散模型（DMs）</strong>[22, 36, 41, 46]作为图像生成的最新技术（SOTA）出现[13]。DMs 被训练以<strong>从随机噪声中逐步生成图像，与 GANs 相比能够捕捉更多的多样性，并实现良好的样本质量</strong>[13]。Latent Diffusion Models[41]是进一步的改进，它在紧凑的潜在空间中执行扩散过程，以提高效率。</p>
-<p><strong>文本到图像评估和奖励模型</strong><br>最近有很多工作在多个维度上评估文本到图像模型[9, 25, 30, 31, 37, 51, 52, 54]。Xu 等人[54]通过要求用户对多个图像进行排名并根据其质量进行评分，收集了人类偏好数据集。他们训练了一个<strong>奖励模型 ImageReward</strong>用于人类偏好学习，并提出了<strong>奖励反馈学习（ReFL）</strong> 以使用 ImageReward 模型调整扩散模型。Kirstain 等人[30]构建了一个网络应用，通过要求用户从一对生成的图像中选择更好的图像，收集了超过 500K 个由 T2I 模型（如 Stable Diffusion 2.1, Dreamlike Photoreal 2.05 和 Stable Diffusion XL 变体）生成的 Pick-a-Pic 数据集。他们利用人类偏好数据集训练了一个基于 CLIP[39]的评分函数，称为 PickScore，以预测人类偏好。Huang 等人[25]提出了一个名为 T2I-CompBench 的基准，用于评估文本到图像模型，包括描述属性绑定、对象关系和复杂构图的 6,000 个文本提示。他们利用多个预训练的视觉语言模型，如 CLIP[39]和 BLIP[34]，计算多个评估指标。Wu 等人[51, 52]收集了大规模的人类对生成图像的选择数据集，并利用该数据集训练了一个输出人类偏好分数（HPS）的分类器。他们展示了通过使用 HPS 调整 Stable Diffusion 来改进图像生成。最近，Lee[31]提出了一个全面的评估 T2I 模型的多细粒度指标。</p>
-<p>尽管这些贡献很有价值，但大多数现有工作只使用二元人类评级或偏好排名来构建反馈&#x2F;奖励，并且缺乏提供详细可操作反馈的能力，例如图像中的不切实际区域、不一致区域或不一致关键词。与我们的工作相关的一篇最近的论文是 Zhang 等人[61]，他们收集了图像合成任务的伪影区域数据集，训练了一个基于分割的模型来预测伪影区域，并提出了一种针对这些区域的区域修复方法。然而，他们的工作重点是伪影区域，而本文我们收集了包含不仅是伪影区域，还包括不一致区域、不一致关键词和多个方面的四种细粒度评分的 T2I 生成的丰富反馈。据我们所知，这是第一项关于文本到图像模型的异构丰富人类反馈的工作。</p>
-<h2 id="3-Collecting-rich-human-feedback"><a href="#3-Collecting-rich-human-feedback" class="headerlink" title="3. Collecting rich human feedback"></a>3. Collecting rich human feedback</h2><p><strong>3.1 数据收集过程</strong></p>
-<p>在本节中，我们讨论了我们收集 RichHF-18K 数据集的过程，该数据集包括两个热图（伪影&#x2F;不切实际和不一致）、四种细粒度评分（合理性、对齐、审美和总体评分）以及一个文本序列（不一致关键词）。对于每个生成的图像，首先要求注释者检查图像并阅读用于生成它的文本提示。然后，他们标记图像上的点以指示任何不切实际&#x2F;伪影或与文本提示不一致的位置。注释者被告知每个标记点都有一个“有效半径”（图像高度的 1&#x2F;20），这形成了以标记点为中心的想象圆盘。通过这种方式，我们可以使用相对较少的点来覆盖图像中有缺陷的区域。最后，注释者在 5 点李克特量表上分别为合理性、图像-文本对齐、审美和整体质量标记不一致关键词和四种评分。图像不切实际&#x2F;伪影和不一致的详细定义可以在补充材料中找到。我们设计了一个网络 UI，如图 1 所示，以促进数据收集。关于数据收集过程的更多细节可以在补充材料中找到。</p>
-<p><strong>3.2 人类反馈整合</strong></p>
-<p>为了提高收集到的人类反馈在生成图像上的可靠性，每个图像-文本对由三个注释者注释。因此，我们需要整合每个样本的多个注释。对于评分，我们简单地平均多个注释者的评分以获得最终评分。对于不一致关键词注释，我们执行多数投票以获得最终的对齐&#x2F;不一致指标序列，使用关键词的最频繁标签。对于点注释，我们首先将它们转换为每个注释的热图，其中每个点被转换为热图上的圆盘区域（如上一子节中讨论的），然后我们计算跨注释者的平均热图。明显不切实际的区域可能会被所有注释者注释，并在最终平均热图上具有高值。</p>
-<p><strong>3.3 RichHF-18K: 一个丰富人类反馈的数据集</strong></p>
-<p>我们从 Pick-a-Pic 数据集中选择了一个图像-文本对的子集进行数据注释。尽管我们的方法普遍适用并且适用于任何生成的图像，但我们选择的大多数数据集是照片写实图像，由于其重要性和更广泛的应用。此外，我们还想在图像中拥有平衡的类别。为确保平衡，我们利用 PaLI 视觉问题回答（VQA）模型[7]从 Pick-a-Pic 数据样本中提取一些基本特征。具体来说，我们为 Pick-a-Pic 中的每个图像-文本对提出了以下问题。1）图像是否写实？2）哪个类别最好地描述了图像？在‘人类’、‘动物’、‘对象’、‘室内场景’、‘室外场景’中选择一个。PaLI 对这两个问题的回答通常在我们的手动检查下是可靠的。我们使用这些答案从 Pick-a-Pic 中采样一个多样化的子集，结果得到了 17K 图像-文本对。我们将 17K 样本随机分成两个子集，一个训练集有 16K 样本，一个验证集有 1K 样本。16K 训练样本的属性分布在补充材料中显示。此外，我们收集了 Pick-a-Pic 测试集中独特提示及其对应图像的丰富人类反馈作为我们的测试集。总共，我们收集了来自 Pick-a-Pic 的 18K 图像-文本对的丰富人类反馈。我们的 RichHF18K 数据集包括 16K 训练、1K 验证和 1K 测试样本。</p>
-<p><strong>3.4 RichHF-18K 的数据统计</strong></p>
-<p>在本节中，我们总结了评分的统计数据，并进行了评分的注释者一致性分析。我们使用公式（s-smin）&#x2F;（smax-smin）标准化评分 s，以便评分位于[0,1]范围内（smax&#x3D;5 和 smin&#x3D;1）。评分的直方图如图 2 所示。评分的分布类似于高斯分布，而合理性和文本-图像对齐评分的 1.0 评分比例略高。收集到的评分分布确保我们有合理的负面和正面样本数量，用于训练一个好的奖励模型。为了分析注释者对图像-文本对的评分一致性，我们计算了评分之间的最大差异：maxdiff &#x3D; max(scores) - min(scores)，其中评分是图像-文本对的三个评分标签。我们在图 4 中绘制了 maxdiff 的直方图。我们可以看到，大约 25%的样本具有完美的注释者一致性，大约 85%的样本具有良好的注释者一致性（标准化后 maxdiff 小于或等于 0.25 或 5 点李克特量表中的 1）。</p>
-]]></content>
-      <categories>
-        <category>多模态</category>
-      </categories>
-      <tags>
-        <tag>RLHF</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>大模型算力是如何计算的</title>
-    <url>/sni2x9/</url>
-    <content><![CDATA[]]></content>
-      <categories>
-        <category>多模态</category>
-      </categories>
-      <tags>
-        <tag>大模型</tag>
       </tags>
   </entry>
   <entry>
@@ -364,6 +320,50 @@
       <tags>
         <tag>Stackelberg</tag>
         <tag>博弈论</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>大模型算力是如何计算的</title>
+    <url>/sni2x9/</url>
+    <content><![CDATA[]]></content>
+      <categories>
+        <category>多模态</category>
+      </categories>
+      <tags>
+        <tag>大模型</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Rich Human Feedback for Text-to-Image Generation</title>
+    <url>/sni2v6/</url>
+    <content><![CDATA[<h2 id="Abstract"><a href="#Abstract" class="headerlink" title="Abstract"></a>Abstract</h2><p>最近文本到图像（T2I）生成模型，如<strong>Stable Diffusion</strong>和<strong>Imagen</strong>，在基于文本描述生成高分辨率图像方面取得了显著进展。然而，许多生成的图像仍然存在诸如伪影&#x2F;不切实际、与文本描述不一致以及低审美质量等问题。受到<strong>人类反馈强化学习（RLHF）在大型语言模型中成功的启发</strong>，先前的工作收集了人类对生成图像的评分作为反馈，并训练了一个奖励模型来改进 T2I 生成。在本文中，我们通过（i）标记图像中不切实际或与文本不一致的区域，以及（ii）注释文本提示中在图像中未被正确表示或缺失的词汇，来丰富反馈信号。我们在 18K 生成图像上收集了这样的丰富人类反馈（RichHF18K），并训练了一个多模态变换器来自动预测丰富的反馈。我们展示了预测的丰富人类反馈如何被用来改进图像生成，例如，通过<strong>选择高质量的训练数据进行微调</strong>以改进生成模型，或者通过<strong>创建带有预测热图的掩码来修复问题区域</strong>。值得注意的是，这些改进推广到了超出我们收集人类反馈数据所用模型（(Stable Diffusion variants）之外的模型（如<strong>Muse</strong>）。RichHF-18K 数据集将在我们的 GitHub 仓库中发布。</p>
+<h2 id="1-Introduction"><a href="#1-Introduction" class="headerlink" title="1. Introduction"></a>1. Introduction</h2><p>文本到图像（T2I）生成模型[12, 17, 41, 42, 56, 58, 59]正在迅速成为娱乐、艺术、设计和广告等多个领域内容创造的关键，并正在被推广到图像编辑[4, 27, 44, 50]、视频生成[23, 35, 53]等许多其他应用。尽管最近取得了显著进展，输出仍然通常存在诸如<strong>伪影&#x2F;不切实际、与文本描述不一致以及低审美质量</strong>等问题[30, 52, 54]。例如，在主要由 Stable Diffusion variants 生成的<strong>Pick-a-Pic 数据集</strong>中，许多图像（例如图 1）包含扭曲的人&#x2F;动物身体（例如，有超过五个手指的人类手）、扭曲的物体和不切实际的问题，例如漂浮的灯。我们人类评估实验发现，数据集中只有大约 10%的生成图像没有伪影和不切实际的问题。同样，文本-图像不一致问题也很常见，例如，提示是“一个男人跳进河里”，但生成的图像显示男人站着。</p>
+<p>然而，现有的自动<strong>评估生成图像的指标</strong>，包括众所周知的<strong>IS</strong>[43]和<strong>FID</strong>[20]，是计算在图像分布上的，可能无法反映单个图像的细微差别。最近的研究收集了人类偏好&#x2F;评级来评估生成图像的质量，并训练了评估模型来预测这些评级[30, 52, 54]，特别是<strong>ImageReward</strong>[54]或<strong>Pick-a-Pic</strong>[30]。虽然更专注，但这些指标仍然将一张图像的质量总结为一个单一的数值评分。在<strong>提示-图像对齐</strong>方面，也有像<strong>CLIPScore</strong>[19]这样的开创性单分数指标，以及最近的问答流程[8, 10, 24, 57]。虽然更加校准和可解释，但这些模型复杂且计算成本高，仍然无法定位图像中的不一致区域。</p>
+<p>在本文中，我们提出了一个数据集和模型，用于细粒度的多方面评估，这些评估是可解释和可归因的（例如，归因于图像中的伪影&#x2F;不切实际区域或图像-文本不一致）。作为第一项贡献，我们收集了一个包含丰富人类反馈的 18K 图像数据集（RichHF-18K），其中包含（i）突出显示图像中不切实际&#x2F;伪影和文本-图像不一致的点注释；（ii）标记在提示中指定生成图像中缺失或错误表示的概念的词汇；以及（iii）用于图像合理性、文本-图像对齐、审美和整体评分的四种细粒度评分。有了 RichHF-18K，我们设计了一个多模态变换器模型，我们称之为 Rich Automatic Human Feedback（RAHF），以学习预测生成图像及其相关文本提示上的这些丰富的人类注释。因此，我们的模型可以预测不切实际和不一致的区域、不一致的关键词，以及细粒度的评分。这不仅提供了可靠的评级，还提供了关于生成图像质量的更详细和可解释的见解。据我们所知，这是第一个丰富的反馈数据集和模型，用于最新的文本到图像生成模型，提供了一个自动和可解释的流程来评估 T2I 生成。</p>
+<p>主要贡献总结如下：</p>
+<ol>
+<li><strong>第一个丰富的人类反馈数据集（RichHF-18K）</strong> 在生成图像上（包括细粒度评分、不切实际（伪影）&#x2F;不一致的图像区域和不一致的关键词），在 18K Pick-a-Pic 图像上。</li>
+<li><strong>一个多模态变换器模型（RAHF）</strong>，用于<strong>预测生成图像上的丰富反馈</strong>，我们展示了它与测试集上的人类注释高度相关。</li>
+<li>我们进一步展示了 RAHF 预测的丰富人类反馈对改进图像生成的有用性：（i）使用预测的热图作为掩码来修复问题图像区域，以及（ii）使用预测的评分来帮助微调图像生成模型（如 Muse[6]），例如，通过选择&#x2F;过滤微调数据，或作为奖励指导。在这两种情况下，我们都获得了比原始模型更好的图像。</li>
+<li>在 Muse 模型上的改进，该模型与用于生成训练集中图像的模型不同，显示了我们的 RAHF 模型的良好泛化能力。</li>
+</ol>
+<h2 id="2-Related-Works"><a href="#2-Related-Works" class="headerlink" title="2. Related Works"></a>2. Related Works</h2><p><strong>Text-to-image generation</strong><br>文本到图像（T2I）生成模型在深度学习时代经历了几个流行的模型架构的演变和迭代。早期的工作是生成对抗网络（<strong>GAN</strong>）[3, 16, 26]，它训练一个生成器进行<strong>图像生成和一个鉴别器</strong>来区分真实和生成的图像（也见[32, 38, 47, 55, 60, 62]等）。另一类生成模型发展<strong>自变分自编码器</strong>（VAEs）[21, 29, 48]，它们优化证据下界（ELBO）以获得图像数据的可能性。<br>最近，<strong>扩散模型（DMs）</strong>[22, 36, 41, 46]作为图像生成的最新技术（SOTA）出现[13]。DMs 被训练以<strong>从随机噪声中逐步生成图像，与 GANs 相比能够捕捉更多的多样性，并实现良好的样本质量</strong>[13]。Latent Diffusion Models[41]是进一步的改进，它在紧凑的潜在空间中执行扩散过程，以提高效率。</p>
+<p><strong>文本到图像评估和奖励模型</strong><br>最近有很多工作在多个维度上评估文本到图像模型[9, 25, 30, 31, 37, 51, 52, 54]。Xu 等人[54]通过要求用户对多个图像进行排名并根据其质量进行评分，收集了人类偏好数据集。他们训练了一个<strong>奖励模型 ImageReward</strong>用于人类偏好学习，并提出了<strong>奖励反馈学习（ReFL）</strong> 以使用 ImageReward 模型调整扩散模型。Kirstain 等人[30]构建了一个网络应用，通过要求用户从一对生成的图像中选择更好的图像，收集了超过 500K 个由 T2I 模型（如 Stable Diffusion 2.1, Dreamlike Photoreal 2.05 和 Stable Diffusion XL 变体）生成的 Pick-a-Pic 数据集。他们利用人类偏好数据集训练了一个基于 CLIP[39]的评分函数，称为 PickScore，以预测人类偏好。Huang 等人[25]提出了一个名为 T2I-CompBench 的基准，用于评估文本到图像模型，包括描述属性绑定、对象关系和复杂构图的 6,000 个文本提示。他们利用多个预训练的视觉语言模型，如 CLIP[39]和 BLIP[34]，计算多个评估指标。Wu 等人[51, 52]收集了大规模的人类对生成图像的选择数据集，并利用该数据集训练了一个输出人类偏好分数（HPS）的分类器。他们展示了通过使用 HPS 调整 Stable Diffusion 来改进图像生成。最近，Lee[31]提出了一个全面的评估 T2I 模型的多细粒度指标。</p>
+<p>尽管这些贡献很有价值，但大多数现有工作只使用二元人类评级或偏好排名来构建反馈&#x2F;奖励，并且缺乏提供详细可操作反馈的能力，例如图像中的不切实际区域、不一致区域或不一致关键词。与我们的工作相关的一篇最近的论文是 Zhang 等人[61]，他们收集了图像合成任务的伪影区域数据集，训练了一个基于分割的模型来预测伪影区域，并提出了一种针对这些区域的区域修复方法。然而，他们的工作重点是伪影区域，而本文我们收集了包含不仅是伪影区域，还包括不一致区域、不一致关键词和多个方面的四种细粒度评分的 T2I 生成的丰富反馈。据我们所知，这是第一项关于文本到图像模型的异构丰富人类反馈的工作。</p>
+<h2 id="3-Collecting-rich-human-feedback"><a href="#3-Collecting-rich-human-feedback" class="headerlink" title="3. Collecting rich human feedback"></a>3. Collecting rich human feedback</h2><p><strong>3.1 数据收集过程</strong></p>
+<p>在本节中，我们讨论了我们收集 RichHF-18K 数据集的过程，该数据集包括两个热图（伪影&#x2F;不切实际和不一致）、四种细粒度评分（合理性、对齐、审美和总体评分）以及一个文本序列（不一致关键词）。对于每个生成的图像，首先要求注释者检查图像并阅读用于生成它的文本提示。然后，他们标记图像上的点以指示任何不切实际&#x2F;伪影或与文本提示不一致的位置。注释者被告知每个标记点都有一个“有效半径”（图像高度的 1&#x2F;20），这形成了以标记点为中心的想象圆盘。通过这种方式，我们可以使用相对较少的点来覆盖图像中有缺陷的区域。最后，注释者在 5 点李克特量表上分别为合理性、图像-文本对齐、审美和整体质量标记不一致关键词和四种评分。图像不切实际&#x2F;伪影和不一致的详细定义可以在补充材料中找到。我们设计了一个网络 UI，如图 1 所示，以促进数据收集。关于数据收集过程的更多细节可以在补充材料中找到。</p>
+<p><strong>3.2 人类反馈整合</strong></p>
+<p>为了提高收集到的人类反馈在生成图像上的可靠性，每个图像-文本对由三个注释者注释。因此，我们需要整合每个样本的多个注释。对于评分，我们简单地平均多个注释者的评分以获得最终评分。对于不一致关键词注释，我们执行多数投票以获得最终的对齐&#x2F;不一致指标序列，使用关键词的最频繁标签。对于点注释，我们首先将它们转换为每个注释的热图，其中每个点被转换为热图上的圆盘区域（如上一子节中讨论的），然后我们计算跨注释者的平均热图。明显不切实际的区域可能会被所有注释者注释，并在最终平均热图上具有高值。</p>
+<p><strong>3.3 RichHF-18K: 一个丰富人类反馈的数据集</strong></p>
+<p>我们从 Pick-a-Pic 数据集中选择了一个图像-文本对的子集进行数据注释。尽管我们的方法普遍适用并且适用于任何生成的图像，但我们选择的大多数数据集是照片写实图像，由于其重要性和更广泛的应用。此外，我们还想在图像中拥有平衡的类别。为确保平衡，我们利用 PaLI 视觉问题回答（VQA）模型[7]从 Pick-a-Pic 数据样本中提取一些基本特征。具体来说，我们为 Pick-a-Pic 中的每个图像-文本对提出了以下问题。1）图像是否写实？2）哪个类别最好地描述了图像？在‘人类’、‘动物’、‘对象’、‘室内场景’、‘室外场景’中选择一个。PaLI 对这两个问题的回答通常在我们的手动检查下是可靠的。我们使用这些答案从 Pick-a-Pic 中采样一个多样化的子集，结果得到了 17K 图像-文本对。我们将 17K 样本随机分成两个子集，一个训练集有 16K 样本，一个验证集有 1K 样本。16K 训练样本的属性分布在补充材料中显示。此外，我们收集了 Pick-a-Pic 测试集中独特提示及其对应图像的丰富人类反馈作为我们的测试集。总共，我们收集了来自 Pick-a-Pic 的 18K 图像-文本对的丰富人类反馈。我们的 RichHF18K 数据集包括 16K 训练、1K 验证和 1K 测试样本。</p>
+<p><strong>3.4 RichHF-18K 的数据统计</strong></p>
+<p>在本节中，我们总结了评分的统计数据，并进行了评分的注释者一致性分析。我们使用公式（s-smin）&#x2F;（smax-smin）标准化评分 s，以便评分位于[0,1]范围内（smax&#x3D;5 和 smin&#x3D;1）。评分的直方图如图 2 所示。评分的分布类似于高斯分布，而合理性和文本-图像对齐评分的 1.0 评分比例略高。收集到的评分分布确保我们有合理的负面和正面样本数量，用于训练一个好的奖励模型。为了分析注释者对图像-文本对的评分一致性，我们计算了评分之间的最大差异：maxdiff &#x3D; max(scores) - min(scores)，其中评分是图像-文本对的三个评分标签。我们在图 4 中绘制了 maxdiff 的直方图。我们可以看到，大约 25%的样本具有完美的注释者一致性，大约 85%的样本具有良好的注释者一致性（标准化后 maxdiff 小于或等于 0.25 或 5 点李克特量表中的 1）。</p>
+]]></content>
+      <categories>
+        <category>多模态</category>
+      </categories>
+      <tags>
+        <tag>RLHF</tag>
       </tags>
   </entry>
   <entry>
@@ -569,53 +569,6 @@
       </tags>
   </entry>
   <entry>
-    <title>最近公共祖先（LCA)</title>
-    <url>/sni2zo/</url>
-    <content><![CDATA[<h1 id="问题场景"><a href="#问题场景" class="headerlink" title="问题场景"></a>问题场景</h1><p>给定一颗无向树，并且给出树中任意两个结点，要求求出这两个节点的最近公共祖先。<br><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="https://typora-aliyun01.oss-cn-hangzhou.aliyuncs.com/img/20241118140205.png"
-                      alt="image.png|440"
-                ></p>
-<h1 id="倍增法"><a href="#倍增法" class="headerlink" title="倍增法"></a>倍增法</h1><h2 id="1-DFS初始化"><a href="#1-DFS初始化" class="headerlink" title="1.DFS初始化"></a>1.DFS初始化</h2><p>这里直接说解决方法，推荐使用倍增法，原理和跳表(<strong>Skiplist</strong>)大致相似。原理是使用一个数组，<code>father[i][j]</code>，含义是结点i的第 $2^{j}$ 个父节点。</p>
-<h3 id="（1）父节点处理"><a href="#（1）父节点处理" class="headerlink" title="（1）父节点处理"></a>（1）父节点处理</h3><p>和跳表类似，其实对于每个节点，我们开个大小为31的<code>father[i][31]</code>一般就够用了，其实使用幂乘运算很显然，$2^j&#x3D;2^{j-1}\times2^{j-1}$，所以对于某个节点a，**a的第$2^j$个父节点等于 {a的第$2^{j-1}$个节点的第$2^{j-1}$个父节点}**。 这句话直接看的话可能不太直观，下面是代码描述：</p>
-<div class="highlight-container" data-rel="Java"><figure class="iseeu highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">1</span>;i&lt;<span class="number">31</span>;i++)&#123;</span><br><span class="line"> father[root][i]=father[father[root][i-<span class="number">1</span>]][i-<span class="number">1</span>];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
-
-<h3 id="（2）计算每个节点的深度"><a href="#（2）计算每个节点的深度" class="headerlink" title="（2）计算每个节点的深度"></a>（2）计算每个节点的深度</h3><p>不过只知道每个节点的父节点还不够，如果要求LCA，还需要知道每个节点相对于根节点的深度<code>depth[i]</code>。这个简单，只需要在dfs的时候记录一下就可以了。</p>
-<h2 id="2-调整深度寻找LCA"><a href="#2-调整深度寻找LCA" class="headerlink" title="2.调整深度寻找LCA"></a>2.调整深度寻找LCA</h2><h3 id="（1）求解深度差，将两个结点置于同一深度"><a href="#（1）求解深度差，将两个结点置于同一深度" class="headerlink" title="（1）求解深度差，将两个结点置于同一深度"></a>（1）求解深度差，将两个结点置于同一深度</h3><p>这里的做法是首先求出深度差，比如差值为7，那么转成二进制就是<code>00000111</code>,那么对于较深的那个节点a，有以下几条步骤：</p>
-<ol>
-<li>第一步，走一步，找到a的父节点b；</li>
-<li>第二步，走两步，找到b的第$2^1$个父节点c；</li>
-<li>第三步，走四步，找到c的第$2^2$个父节点d。<br>这样一来，最终找到的节点d与a的深度差一定是：$1+2+4&#x3D;7$。目标达成。</li>
-</ol>
-<h3 id="（2）遍历父节点，直到两个结点变成LCA的两个不同儿子"><a href="#（2）遍历父节点，直到两个结点变成LCA的两个不同儿子" class="headerlink" title="（2）遍历父节点，直到两个结点变成LCA的两个不同儿子"></a>（2）遍历父节点，直到两个结点变成LCA的两个不同儿子</h3><p>做完第一步有两种情况，情况1是我们刚好找到了LCA，如下图：<br><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="https://typora-aliyun01.oss-cn-hangzhou.aliyuncs.com/img/20241118140205.png"
-                      alt="image.png|493"
-                ><br>这种情况就非常幸运了，直接返回这个节点就可以了。</p>
-<p>不过，情况2更为常见，就是我们找到的x和y其实是深度相同的不同节点。<br><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="https://typora-aliyun01.oss-cn-hangzhou.aliyuncs.com/img/004db5ed85c62379cc49ae89e2bb5e9.jpg"
-                      alt="004db5ed85c62379cc49ae89e2bb5e9.jpg"
-                ><br>那么这种情况下，还是需要继续遍历的，<strong>此时的a就是刚才find的那个‘7’</strong>。我们直接从最大的<code>j=30</code>开始遍历，那么因为这个数字很大，所以一开始father[a][30]和father[b][30]一定都是相同的。</p>
-<p>不断减小j，如果减小到一定程度,搞好father[a][j]和father[b][j]不相同，那么就可以进一步缩小范围，更新 <code>a=father[a][j]</code>，<code>b=father[b][j]</code>。直接进一步减少j，直到找到最接近LCA的两个不同的a和b。</p>
-<blockquote>
-<p>[!note]<br>Question:为什么这里第一次找到不同的father[a][j]和father[b][j]时不能break？</p>
-</blockquote>
-<p>这里非常推荐使用&#x3D;&#x3D;二进制&#x3D;&#x3D;的方式回答这个问题。我们可以回顾求深度差的那个部分，现实中非常有可能出现的情况是，LCA和a的深度差并不是2的整数幂！！！</p>
-<p>比如LCA距离a的深度差为23，化成二进制就是<code>10101</code>，如果只跳一次就是16，就是<code>10000</code>，所以还是需要继续寻找更小的j的，这里不能就在第一次的时候就break！！</p>
-<h1 id="完整代码"><a href="#完整代码" class="headerlink" title="完整代码"></a>完整代码</h1><div class="highlight-container" data-rel="Cpp"><figure class="iseeu highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;vector&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;algorithm&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"></span><br><span class="line"><span class="type">const</span> <span class="type">int</span> MAXN = <span class="number">100005</span>;</span><br><span class="line"><span class="type">const</span> <span class="type">int</span> LOGN = <span class="number">20</span>;</span><br><span class="line"></span><br><span class="line">vector&lt;<span class="type">int</span>&gt; adj[MAXN];</span><br><span class="line"><span class="type">int</span> fa[MAXN][LOGN], dep[MAXN];</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">dfs</span><span class="params">(<span class="type">int</span> node, <span class="type">int</span> parent)</span> </span>&#123;</span><br><span class="line">    fa[node][<span class="number">0</span>] = parent;</span><br><span class="line">    dep[node] = dep[parent] + <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">1</span>; i &lt; LOGN; i++) &#123;</span><br><span class="line">        fa[node][i] = fa[fa[node][i<span class="number">-1</span>]][i<span class="number">-1</span>];</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">// 每个节点都连接着自己的父节点，加上此句避免重复访问</span></span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> child : adj[node]) &#123;</span><br><span class="line">        <span class="keyword">if</span> (child != parent) &#123;</span><br><span class="line">            <span class="built_in">dfs</span>(child, node);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">preprocess</span><span class="params">(<span class="type">int</span> root)</span> </span>&#123;</span><br><span class="line">    dep[root] = <span class="number">0</span>;</span><br><span class="line">    <span class="built_in">dfs</span>(root, <span class="number">0</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">lca</span><span class="params">(<span class="type">int</span> x, <span class="type">int</span> y)</span> </span>&#123;</span><br><span class="line">  <span class="comment">// 令 y 比 x 深。</span></span><br><span class="line">  <span class="keyword">if</span> (dep[x] &gt; dep[y]) <span class="built_in">swap</span>(x, y);</span><br><span class="line">  <span class="comment">// 令 y 和 x 在一个深度。</span></span><br><span class="line">  <span class="type">int</span> tmp = dep[y] - dep[x];</span><br><span class="line">  <span class="comment">// 根据深度差的二进制值选择y的父节点，保证y和x的深度是相同的</span></span><br><span class="line">  <span class="keyword">for</span> (<span class="type">int</span> j = <span class="number">0</span>; tmp; ++j, tmp &gt;&gt;= <span class="number">1</span>)</span><br><span class="line">    <span class="keyword">if</span> (tmp &amp; <span class="number">1</span>) y = fa[y][j];</span><br><span class="line">  <span class="comment">// 如果这个时候 y = x，那么 x，y 就都是它们自己的祖先。</span></span><br><span class="line">  <span class="keyword">if</span> (y == x) <span class="keyword">return</span> y;</span><br><span class="line">  <span class="comment">// 不然的话，找到第一个不是它们祖先的两个点。</span></span><br><span class="line">  <span class="comment">// (人话) 也就是找到LCA儿子中的任意两个不同点</span></span><br><span class="line">  <span class="keyword">for</span> (<span class="type">int</span> j = <span class="number">30</span>; j &gt;= <span class="number">0</span> &amp;&amp; y != x; --j) &#123;</span><br><span class="line">    <span class="comment">// 只要是不同点，每次都保存</span></span><br><span class="line">    <span class="keyword">if</span> (fa[x][j] != fa[y][j]) &#123;</span><br><span class="line">      x = fa[x][j];</span><br><span class="line">      y = fa[y][j];</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="comment">// 此时x和y已经是LCA中的两个不同节点了，那么它们两的直接父亲一定就是LCA</span></span><br><span class="line">  <span class="keyword">return</span> father[x][<span class="number">0</span>];</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="type">int</span> n, q;</span><br><span class="line">    cin &gt;&gt; n &gt;&gt; q;</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">1</span>; i &lt; n; i++) &#123;</span><br><span class="line">        <span class="type">int</span> u, v;</span><br><span class="line">        cin &gt;&gt; u &gt;&gt; v;</span><br><span class="line">        adj[u].<span class="built_in">push_back</span>(v);</span><br><span class="line">        adj[v].<span class="built_in">push_back</span>(u);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">preprocess</span>(<span class="number">1</span>); <span class="comment">// 假设1是根节点</span></span><br><span class="line">    <span class="keyword">while</span> (q--) &#123;</span><br><span class="line">        <span class="type">int</span> u, v;</span><br><span class="line">        cin &gt;&gt; u &gt;&gt; v;</span><br><span class="line">        cout &lt;&lt; <span class="built_in">lca</span>(u, v) &lt;&lt; endl;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>]]></content>
-      <categories>
-        <category>Leetcode/树</category>
-      </categories>
-      <tags>
-        <tag>Leetcode</tag>
-        <tag>树</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>前缀和+差分</title>
     <url>/sni2z0/</url>
     <content><![CDATA[<p>前缀和对我来说已经不算陌生了，前缀和的方便之处在于可以 <strong>快速求解任意子数组之和</strong>。但是，前缀和在区间频繁修改时就显得较为羸弱了，因为它只适合求和，不擅长修改。</p>
@@ -655,6 +608,53 @@
       <tags>
         <tag>Leetcode</tag>
         <tag>差分</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>最近公共祖先（LCA)</title>
+    <url>/sni2zo/</url>
+    <content><![CDATA[<h1 id="问题场景"><a href="#问题场景" class="headerlink" title="问题场景"></a>问题场景</h1><p>给定一颗无向树，并且给出树中任意两个结点，要求求出这两个节点的最近公共祖先。<br><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://typora-aliyun01.oss-cn-hangzhou.aliyuncs.com/img/20241118140205.png"
+                      alt="image.png|440" style="zoom: 33%;" 
+                ></p>
+<h1 id="倍增法"><a href="#倍增法" class="headerlink" title="倍增法"></a>倍增法</h1><h2 id="1-DFS初始化"><a href="#1-DFS初始化" class="headerlink" title="1.DFS初始化"></a>1.DFS初始化</h2><p>这里直接说解决方法，推荐使用倍增法，原理和跳表(<strong>Skiplist</strong>)大致相似。原理是使用一个数组，<code>father[i][j]</code>，含义是结点i的第 $2^{j}$ 个父节点。</p>
+<h3 id="（1）父节点处理"><a href="#（1）父节点处理" class="headerlink" title="（1）父节点处理"></a>（1）父节点处理</h3><p>和跳表类似，其实对于每个节点，我们开个大小为31的<code>father[i][31]</code>一般就够用了，其实使用幂乘运算很显然，$2^j&#x3D;2^{j-1}\times2^{j-1}$，所以对于某个节点a，**a的第$2^j$个父节点等于 {a的第$2^{j-1}$个节点的第$2^{j-1}$个父节点}**。 这句话直接看的话可能不太直观，下面是代码描述：</p>
+<div class="highlight-container" data-rel="Java"><figure class="iseeu highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">1</span>;i&lt;<span class="number">31</span>;i++)&#123;</span><br><span class="line"> father[root][i]=father[father[root][i-<span class="number">1</span>]][i-<span class="number">1</span>];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
+
+<h3 id="（2）计算每个节点的深度"><a href="#（2）计算每个节点的深度" class="headerlink" title="（2）计算每个节点的深度"></a>（2）计算每个节点的深度</h3><p>不过只知道每个节点的父节点还不够，如果要求LCA，还需要知道每个节点相对于根节点的深度<code>depth[i]</code>。这个简单，只需要在dfs的时候记录一下就可以了。</p>
+<h2 id="2-调整深度寻找LCA"><a href="#2-调整深度寻找LCA" class="headerlink" title="2.调整深度寻找LCA"></a>2.调整深度寻找LCA</h2><h3 id="（1）求解深度差，将两个结点置于同一深度"><a href="#（1）求解深度差，将两个结点置于同一深度" class="headerlink" title="（1）求解深度差，将两个结点置于同一深度"></a>（1）求解深度差，将两个结点置于同一深度</h3><p>这里的做法是首先求出深度差，比如差值为7，那么转成二进制就是<code>00000111</code>,那么对于较深的那个节点a，有以下几条步骤：</p>
+<ol>
+<li>第一步，走一步，找到a的父节点b；</li>
+<li>第二步，走两步，找到b的第$2^1$个父节点c；</li>
+<li>第三步，走四步，找到c的第$2^2$个父节点d。<br>这样一来，最终找到的节点d与a的深度差一定是：$1+2+4&#x3D;7$。目标达成。</li>
+</ol>
+<h3 id="（2）遍历父节点，直到两个结点变成LCA的两个不同儿子"><a href="#（2）遍历父节点，直到两个结点变成LCA的两个不同儿子" class="headerlink" title="（2）遍历父节点，直到两个结点变成LCA的两个不同儿子"></a>（2）遍历父节点，直到两个结点变成LCA的两个不同儿子</h3><p>做完第一步有两种情况，情况1是我们刚好找到了LCA，如下图：<br><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://typora-aliyun01.oss-cn-hangzhou.aliyuncs.com/img/20241118140205.png"
+                      alt="image.png|493" style="zoom: 33%;" 
+                ><br>这种情况就非常幸运了，直接返回这个节点就可以了。</p>
+<p>不过，情况2更为常见，就是我们找到的x和y其实是深度相同的不同节点。<br><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://typora-aliyun01.oss-cn-hangzhou.aliyuncs.com/img/004db5ed85c62379cc49ae89e2bb5e9.jpg"
+                      alt="004db5ed85c62379cc49ae89e2bb5e9.jpg" style="zoom:33%;" 
+                ><br>那么这种情况下，还是需要继续遍历的，<strong>此时的a就是刚才find的那个‘7’</strong>。我们直接从最大的<code>j=30</code>开始遍历，那么因为这个数字很大，所以一开始father[a][30]和father[b][30]一定都是相同的。</p>
+<p>不断减小j，如果减小到一定程度,搞好father[a][j]和father[b][j]不相同，那么就可以进一步缩小范围，更新 <code>a=father[a][j]</code>，<code>b=father[b][j]</code>。直接进一步减少j，直到找到最接近LCA的两个不同的a和b。</p>
+<blockquote>
+<p>[!note]<br>Question:为什么这里第一次找到不同的father[a][j]和father[b][j]时不能break？</p>
+</blockquote>
+<p>这里非常推荐使用&#x3D;&#x3D;二进制&#x3D;&#x3D;的方式回答这个问题。我们可以回顾求深度差的那个部分，现实中非常有可能出现的情况是，LCA和a的深度差并不是2的整数幂！！！</p>
+<p>比如LCA距离a的深度差为23，化成二进制就是<code>10101</code>，如果只跳一次就是16，就是<code>10000</code>，所以还是需要继续寻找更小的j的，这里不能就在第一次的时候就break！！</p>
+<h1 id="完整代码"><a href="#完整代码" class="headerlink" title="完整代码"></a>完整代码</h1><div class="highlight-container" data-rel="Cpp"><figure class="iseeu highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;vector&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;algorithm&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"></span><br><span class="line"><span class="type">const</span> <span class="type">int</span> MAXN = <span class="number">100005</span>;</span><br><span class="line"><span class="type">const</span> <span class="type">int</span> LOGN = <span class="number">20</span>;</span><br><span class="line"></span><br><span class="line">vector&lt;<span class="type">int</span>&gt; adj[MAXN];</span><br><span class="line"><span class="type">int</span> fa[MAXN][LOGN], dep[MAXN];</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">dfs</span><span class="params">(<span class="type">int</span> node, <span class="type">int</span> parent)</span> </span>&#123;</span><br><span class="line">    fa[node][<span class="number">0</span>] = parent;</span><br><span class="line">    dep[node] = dep[parent] + <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">1</span>; i &lt; LOGN; i++) &#123;</span><br><span class="line">        fa[node][i] = fa[fa[node][i<span class="number">-1</span>]][i<span class="number">-1</span>];</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">// 每个节点都连接着自己的父节点，加上此句避免重复访问</span></span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> child : adj[node]) &#123;</span><br><span class="line">        <span class="keyword">if</span> (child != parent) &#123;</span><br><span class="line">            <span class="built_in">dfs</span>(child, node);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">preprocess</span><span class="params">(<span class="type">int</span> root)</span> </span>&#123;</span><br><span class="line">    dep[root] = <span class="number">0</span>;</span><br><span class="line">    <span class="built_in">dfs</span>(root, <span class="number">0</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">lca</span><span class="params">(<span class="type">int</span> x, <span class="type">int</span> y)</span> </span>&#123;</span><br><span class="line">  <span class="comment">// 令 y 比 x 深。</span></span><br><span class="line">  <span class="keyword">if</span> (dep[x] &gt; dep[y]) <span class="built_in">swap</span>(x, y);</span><br><span class="line">  <span class="comment">// 令 y 和 x 在一个深度。</span></span><br><span class="line">  <span class="type">int</span> tmp = dep[y] - dep[x];</span><br><span class="line">  <span class="comment">// 根据深度差的二进制值选择y的父节点，保证y和x的深度是相同的</span></span><br><span class="line">  <span class="keyword">for</span> (<span class="type">int</span> j = <span class="number">0</span>; tmp; ++j, tmp &gt;&gt;= <span class="number">1</span>)</span><br><span class="line">    <span class="keyword">if</span> (tmp &amp; <span class="number">1</span>) y = fa[y][j];</span><br><span class="line">  <span class="comment">// 如果这个时候 y = x，那么 x，y 就都是它们自己的祖先。</span></span><br><span class="line">  <span class="keyword">if</span> (y == x) <span class="keyword">return</span> y;</span><br><span class="line">  <span class="comment">// 不然的话，找到第一个不是它们祖先的两个点。</span></span><br><span class="line">  <span class="comment">// (人话) 也就是找到LCA儿子中的任意两个不同点</span></span><br><span class="line">  <span class="keyword">for</span> (<span class="type">int</span> j = <span class="number">30</span>; j &gt;= <span class="number">0</span> &amp;&amp; y != x; --j) &#123;</span><br><span class="line">    <span class="comment">// 只要是不同点，每次都保存</span></span><br><span class="line">    <span class="keyword">if</span> (fa[x][j] != fa[y][j]) &#123;</span><br><span class="line">      x = fa[x][j];</span><br><span class="line">      y = fa[y][j];</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="comment">// 此时x和y已经是LCA中的两个不同节点了，那么它们两的直接父亲一定就是LCA</span></span><br><span class="line">  <span class="keyword">return</span> father[x][<span class="number">0</span>];</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="type">int</span> n, q;</span><br><span class="line">    cin &gt;&gt; n &gt;&gt; q;</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">1</span>; i &lt; n; i++) &#123;</span><br><span class="line">        <span class="type">int</span> u, v;</span><br><span class="line">        cin &gt;&gt; u &gt;&gt; v;</span><br><span class="line">        adj[u].<span class="built_in">push_back</span>(v);</span><br><span class="line">        adj[v].<span class="built_in">push_back</span>(u);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">preprocess</span>(<span class="number">1</span>); <span class="comment">// 假设1是根节点</span></span><br><span class="line">    <span class="keyword">while</span> (q--) &#123;</span><br><span class="line">        <span class="type">int</span> u, v;</span><br><span class="line">        cin &gt;&gt; u &gt;&gt; v;</span><br><span class="line">        cout &lt;&lt; <span class="built_in">lca</span>(u, v) &lt;&lt; endl;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>]]></content>
+      <categories>
+        <category>Leetcode/树</category>
+      </categories>
+      <tags>
+        <tag>Leetcode</tag>
+        <tag>树</tag>
       </tags>
   </entry>
 </search>
