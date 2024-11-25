@@ -1,0 +1,572 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 7.3.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"example.com","root":"/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="[!note]基于斯塔克伯格博弈方法，在无人机辅助的移动边缘计算网络中实现有效的计算任务卸载。 计算卸载是指将移动设备上的计算任务转移到网络中的其他计算能力更强的节点（如边缘服务器）上进行处理的过程。无人机在这里的作用可能是作为移动的边缘服务器，或者作为中继节点，帮助将计算任务从用户设备卸载到更远的服务器。  无人机（UAVs）被认为是为移动用户（MUs）提供额外计算能力和广泛覆盖的一种有前景的">
+<meta property="og:type" content="article">
+<meta property="og:title" content="UAV-Aided Computation Offloading in Mobile-Edge Computing Networks_ A Stackelberg Game Approach">
+<meta property="og:url" content="http://example.com/sni2ya/index.html">
+<meta property="og:site_name" content="fanz_blog">
+<meta property="og:description" content="[!note]基于斯塔克伯格博弈方法，在无人机辅助的移动边缘计算网络中实现有效的计算任务卸载。 计算卸载是指将移动设备上的计算任务转移到网络中的其他计算能力更强的节点（如边缘服务器）上进行处理的过程。无人机在这里的作用可能是作为移动的边缘服务器，或者作为中继节点，帮助将计算任务从用户设备卸载到更远的服务器。  无人机（UAVs）被认为是为移动用户（MUs）提供额外计算能力和广泛覆盖的一种有前景的">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://typora-aliyun01.oss-cn-hangzhou.aliyuncs.com/img/20241031234049.png">
+<meta property="og:image" content="https://typora-aliyun01.oss-cn-hangzhou.aliyuncs.com/img/20241031225915.png">
+<meta property="og:image" content="https://typora-aliyun01.oss-cn-hangzhou.aliyuncs.com/img/20241031234049.png">
+<meta property="og:image" content="https://typora-aliyun01.oss-cn-hangzhou.aliyuncs.com/img/20241101131505.png">
+<meta property="og:image" content="https://typora-aliyun01.oss-cn-hangzhou.aliyuncs.com/img/20241101131635.png">
+<meta property="og:image" content="https://typora-aliyun01.oss-cn-hangzhou.aliyuncs.com/img/20241101131645.png">
+<meta property="og:image" content="https://typora-aliyun01.oss-cn-hangzhou.aliyuncs.com/img/20241101143606.png">
+<meta property="og:image" content="https://typora-aliyun01.oss-cn-hangzhou.aliyuncs.com/img/20241101143623.png">
+<meta property="og:image" content="https://typora-aliyun01.oss-cn-hangzhou.aliyuncs.com/img/20241101143825.png">
+<meta property="og:image" content="https://typora-aliyun01.oss-cn-hangzhou.aliyuncs.com/img/20241101143840.png">
+<meta property="og:image" content="https://typora-aliyun01.oss-cn-hangzhou.aliyuncs.com/img/20241101143852.png">
+<meta property="article:published_time" content="2024-11-25T09:42:10.000Z">
+<meta property="article:modified_time" content="2024-11-25T09:45:00.364Z">
+<meta property="article:author" content="fanz">
+<meta property="article:tag" content="Stackelberg">
+<meta property="article:tag" content="博弈论">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://typora-aliyun01.oss-cn-hangzhou.aliyuncs.com/img/20241031234049.png">
+
+<link rel="canonical" href="http://example.com/sni2ya/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>UAV-Aided Computation Offloading in Mobile-Edge Computing Networks_ A Stackelberg Game Approach | fanz_blog</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">fanz_blog</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">介甫遗风</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/sni2ya/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.png">
+      <meta itemprop="name" content="fanz">
+      <meta itemprop="description" content="冷月如刀砍落花，暖风似羽拂新芽">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="fanz_blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          UAV-Aided Computation Offloading in Mobile-Edge Computing Networks_ A Stackelberg Game Approach
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2024-11-25 17:42:10 / 修改时间：17:45:00" itemprop="dateCreated datePublished" datetime="2024-11-25T17:42:10+08:00">2024-11-25</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E5%8D%9A%E5%BC%88%E8%AE%BA/" itemprop="url" rel="index"><span itemprop="name">博弈论</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <blockquote>
+<p>[!note]<br>基于斯塔克伯格博弈方法，在无人机辅助的移动边缘计算网络中实现有效的计算任务卸载。</p>
+<p><strong>计算卸载</strong>是指将移动设备上的计算任务转移到网络中的其他计算能力更强的节点（如边缘服务器）上进行处理的过程。无人机在这里的作用可能是作为移动的边缘服务器，或者作为中继节点，帮助将计算任务从用户设备卸载到更远的服务器。</p>
+</blockquote>
+<p>无人机（UAVs）被认为是为移动用户（MUs）提供额外计算能力和广泛覆盖的一种有前景的方法，特别是当 MUs 不在基础设施的通信范围内时。在本文中，研究了一个包括一个 UAV-MEC 服务器、一个 BS-MEC 服务器和多个 MUs 的 UAV 辅助移动边缘计算（MEC）网络，用于计算卸载，其中边缘服务提供商（ESP）管理两种服务器。考虑到 MUs 有大量计算任务需要执行，而 ESP 拥有空闲的计算资源。MUs 可以选择将他们的任务卸载到 ESP 以减轻压力和成本，ESP 可以通过出售计算资源来获得利润。</p>
+<p><strong>ESP 和 MUs 之间的互动被建模为斯塔克伯格博弈</strong>，双方都希望最大化自己的效用。使用逆向归纳法分析了所提出的博弈，并证明了游戏中可以实现唯一的<strong>纳什均衡</strong>。然后，提出了一种<strong>基于梯度的动态迭代搜索算法（GDISA）</strong> 来获得近似最优解。最后，通过广泛的模拟验证了 GDISA 的有效性，结果表明 GDISA 在不同场景下的表现优于其他基准方法。</p>
+<blockquote>
+<p>[!note]<br>这里不用关心无人机的作用是什么，其实只需要知道 <strong>服务提供商</strong> 和 <strong>移动用户</strong>（MUs)，用户需要使用商家的服务来降低自己这边的计算任务压力，商家需要尽可能的售卖空闲计算资源以牟取利润。</p>
+</blockquote>
+<h2 id="Introduction"><a href="#Introduction" class="headerlink" title="Introduction"></a>Introduction</h2><p>随着物联网（IoT）技术的发展，各种 IoT 设备可以相互协作，实现万物互联的目标[1]，[2]。与此同时，随着 IoT 设备的普及和技术的进步，IoT 已经为计算密集型功能开辟了许多应用领域，例如智能交通系统、智能医疗、在线互动游戏等[3]，[4]。然而，由于能耗和计算资源的限制，当前的 IoT 设备不可避免地无法支持这些计算密集型应用[5]，[6]。</p>
+<p>为了提高设备的计算能力，移动云计算（MCC）已成为一种有前景的方式。<strong>计算任务被卸载到资源丰富的云数据中心执行，从而克服了设备的存储容量和计算资源的限制</strong>[7]，[8]。然而，对于某些延迟敏感的 IoT 服务来说，MCC 并不理想，因为云处理中的长传输距离导致了额外的传输成本和延迟。<strong>最近，移动边缘计算（MEC）已成为处理计算密集型任务的 5G 架构的关键组成部分</strong>[9]，[10]。<strong>通过设置 MEC 服务器，移动用户（MUs）的工作负载可以迁移到附近的边缘服务器，同时提高设备的服务质量（QoS）并显著降低能耗和延迟</strong>[11]，[12]。然而，MEC 可能不适用于某些基础设施有限的通信场景，例如紧急救援、军事演习、灾难响应等。在这些情况下，许多地面通信设施可能由于这些原因而损坏，因此无法提供通信和计算服务。</p>
+<p>幸运的是，无人机（UAV）可以用来协助 MEC 进行通信和计算，这已成为应对这一挑战的关键技术之一[13]。因此，本文引入了一个 UAV 辅助的 MEC 系统，在这个系统中，多个 MUs 位于基站的覆盖区域内，每个基站都配备了一个<strong>边缘服务器（例如，BS-MEC 服务器）</strong>。MUs 可以本地执行他们的任务，或者将它们卸载到 BS-MEC 服务器。假设由于某些原因（如自然灾害或军事攻击）一个基站失败。在这种情况下，<strong>受损的 BS-MEC 服务器可能长时间无法提供服务</strong>，因此一些受影响的 MUs 将继续在目标区域搜索蜂窝信号。这不可避免地增加了未受损 BS-MEC 服务器的压力。因此，<strong>本文引入了一个飞行的 UAV（即，UAV-MEC 服务器），它具有通信和计算能力，以为这些受影响的 MUs 提供服务，并分担未受损 BS-MEC 服务器的压力</strong>，直到部署新的 BS-MEC 服务器为止。此外，<strong>引入了边缘服务提供商（ESP）来管理 BS-MEC 和 UAV-MEC 服务器</strong>。</p>
+<p>目前，一些研究已经研究了 UAV 辅助 MEC 系统中的计算卸载。他们的目标大多是改善系统的 QoS（例如，成本、延迟、能耗等）。然而，任务卸载的过程将不可避免地消耗一些通信和计算资源。从经济角度来看，考虑到 <strong>ESP 是自私和理性的，如果没有补偿，它将不会参与任务卸载过程</strong>。因此，迫切需要<strong>开发激励机制来激励 ESP 参与任务卸载过程</strong>[14]，[15]。 幸运的是，博弈论可以用来模拟自私和独立参与者之间的互动过程，以便所有参与游戏的参与者都能获得最大奖励。特别是，可以通过斯塔克伯格博弈来研究个体理性参与者之间的竞争和合作，其中参与者被分为领导者和追随者。然而，据我们所知，UAV 辅助 MEC 系统中斯塔克伯格博弈的设计尚未得到很好的研究。本文考虑了 <strong>MUs 有一些任务需要执行，ESP 拥有空闲的计算资源。MUs 可以选择将任务卸载到 ESP 以减轻他们的压力和成本，而 ESP 可以通过出售闲置计算资源来获得利润</strong>。特别是，ESP 和 MUs 之间的互动过程通过斯塔克伯格博弈进行建模，<strong>其中 ESP 是领导者，MUs 是追随者</strong>。然后，本文提出了一种基于梯度的算法来获得近似最优解，以最大化 ESP 和 MUs 的效用。主要贡献如下：<br>1）我们研究了一个重要的计算卸载问题，即在 UAV 辅助的移动边缘网络场景中，有一个 UAV-MEC 服务器，一个 BS-MEC 服务器和多个 MUs，其中 ESP 管理两种服务器。<br>2）我们使用斯塔克伯格博弈来建模 ESP 和 MUs 之间的互动过程，其中 ESP 是领导者，MUs 是追随者。优化目标是最大化 ESP 和 MUs 的效用。<br>3）我们使用逆向归纳法分析所提出的斯塔克伯格博弈，并证明了 ESP 和 MUs 之间存在唯一的纳什均衡。接下来，设计了一种基于梯度的动态迭代搜索算法（GDISA）来获得近似最优解。<br>4）通过广泛的模拟评估了所提出的模型和算法的有效性。</p>
+<p>本文的其余部分如下介绍。第 II 节回顾了相关工作，第 III 节介绍了系统模型。然后，在第 IV 节中描述和分析了所提出的博弈问题。第 V 节提出了所提出的算法。第 VI 节评估和分析了 GDISA 的性能。在第 VIII 节中，本文得出结论。</p>
+<blockquote>
+<p>[!note]<br>现在可以知道无人机UAV起到的作用，原本地面上的是BS-MEC服务器，如果某个BS-MEC服务器因为军事或者自然原因损坏，那么可以启动无人机作为一个临时的服务器，知道损坏的BS-MEC修好。<br>不过这些不是很关键，关键的是需要一个策略，一方面在激发ESP提供服务的时候保证其获利；另一方面尽可能的降低MUs购买计算资源的成本。这里使用的就是stackelberg博弈解决问题，并且使用基于梯度的动态迭代搜索算法获取近似解。</p>
+</blockquote>
+<h2 id="Relate-Works"><a href="#Relate-Works" class="headerlink" title="Relate Works"></a>Relate Works</h2><p><strong>相关工作</strong></p>
+<p>A. 移动边缘计算中的计算卸载</p>
+<p>最近，移动边缘计算（MEC）中的计算卸载研究受到了广泛的关注，包括学术界和工业界。它们中的大多数目标是减少延迟[16]，[17]，[18]，减少能耗[19]，[20]，或平衡能耗和延迟之间的权衡[21]，[22]。Feng等人[17]提出了一种基于车辆边缘计算的反向卸载框架，通过充分利用车辆计算资源进一步降低系统延迟。Chen等人[19]构建了一个节能资源分配方案，同时考虑了延迟、信道质量和传输功率的约束，旨在最小化任务卸载的能耗。Zhou等人[22]考虑了基于边缘计算的智能电网中的优化问题，目标是最小化任务成本，即时间和能耗消耗的加权和。</p>
+<p>B. 无人机辅助的边缘计算</p>
+<p>无人机已经在不同领域得到广泛应用，特别是协助地面通信和计算。实际上，通过使用无人机作为空中基站，这是增强现有通信系统覆盖范围和工作效率的有前途的方法[23]。Vamvakas等人[24]引入了一个框架，其中无人机被用作基站，以补充宏基站，并为MUs提供高效且无干扰的通信。Zhang等人[25]研究了无人机的比特分配、时间分配、功率分配和轨迹设计，目标是最小化无人机的总能耗。Liu等人[26]通过联合优化无人机的CPU频率、负载卸载、传输功率和轨迹，最小化了无人机的能耗。一些研究考虑了由无人机支持的MEC系统。Yu等人[27]联合优化了无人机的位置、通信和计算资源分配，以最小化MUs的服务延迟加权和和无人机的能耗。Han等人[28]开发了一个由无人机辅助的MEC系统，其中无人机从MUs收集数据，然后将其传输到基于MEC的接入点进行计算。Liu等人[29]提出了一个基于无人机的协作MEC网络架构，其中无人机可以相互协助执行计算任务，并开发了一个优化问题，以实现最佳的计算资源分配和计算卸载策略。通常，卸载任务的时间限制和能耗将成为UAV辅助MEC系统中的一个挑战性问题。Zhou等人[30]研究了在UAV辅助MEC无线电源系统中的计算速率最大化问题，考虑了能量收集的因果性和无人机速度约束。Zhang等人[31]考虑了MUs和无人机的平均加权能耗，并研究了资源分配、计算卸载和飞行轨迹调度的联合优化问题。为了最小化卸载任务的延迟，Cao等人[32]研究了联合无人机轨迹调度和计算卸载问题。</p>
+<p>C. 博弈论</p>
+<p>几种基于经济理论的方法已经被应用于激励各方参与计算卸载过程[33]。特别是，由于参与者需要被鼓励相互合作以实现他们的目标，我们可以使用博弈论来分析自私和独立实体之间的互动[34]。Zhang等人[35]开发了一种基于博弈论的解决方案，以最小化UAV辅助MEC系统中能耗和延迟的加权成本。Messous等人[36]考虑了将无人机的任务卸载到远程边缘服务器，然后提出了一个非合作博弈来解决能耗、延迟和成本之间的最佳权衡。Zhao等人[37]提出了一个无人机辅助车辆计算卸载优化框架，并将卸载决策问题表述为多人顺序博弈，以最小化系统成本。此外，可以通过使用斯塔克伯格博弈来研究理性参与者之间的合作和冲突。Zeng等人[38]提出了一个志愿者辅助车辆边缘计算模型和基于斯塔克伯格博弈的方法，以最大化志愿者车辆的奖励。Chang和Wei[39]提出了一种基于斯塔克伯格博弈的方法来研究边缘服务器的效用最大化问题和云的最优定价。为了最大化云服务器和边缘服务器的效用，我们之前的工作[40]提出了一种基于斯塔克伯格博弈的计算卸载方法在云边缘网络中。与现有研究相比，在我们的场景中，我们考虑MUs有一些计算任务需要卸载到ESP，其中ESP管理UAV-MEC服务器和BS-MEC服务器。我们使用斯塔克伯格博弈来建模ESP和MUs之间的互动过程，目标是最大化ESP和MUs的效用，其中ESP是领导者，MUs是追随者。此外，还考虑了计算任务的执行时间限制和无人机的能耗。</p>
+<h2 id="System-Model"><a href="#System-Model" class="headerlink" title="System Model"></a>System Model</h2><p><strong>系统模型</strong></p>
+<p>本文考虑了一个用于计算卸载的UAV辅助MEC网络。图1显示了系统模型，其中包括一个UAV-MEC服务器、一个BS-MEC服务器和N个MUs，UAV-MEC和BS-MEC服务器由ESP管理。每个MU需要执行延迟敏感和计算密集型任务，这些资源受限的MU可以选择将计算任务卸载到ESP以减轻他们的负担。然后，ESP将收取相应的费用以确保自己的利益。Hi ≜ {Li, Bi, tmax i }用于表示由MU i ∈ {1, 2, …, N}生成的任务，<strong>其中Li表示任务Hi的大小，Bi表示完成Hi所需的总CPU周期数，tmax i 表示Hi的时间约束。</strong> 类似于[41]，不同类型的应用程序可能需要不同数量的CPU周期来计算。因此，我们引入了一个复杂性因子ai来衡量计算MU i任务的每比特所需的CPU周期数。卸载的计算任务部分可以表示为hi &#x3D; {li, bi, tmax i }，<strong>其中li是卸载到ESP的部分任务的大小，bi是卸载部分任务所需的CPU周期数。</strong> 同样，tmax i 表示卸载部分任务的时间约束。因此，基于复杂性因子ai，我们可以得到bi &#x3D; ai · li，其中li ∈ [0, Li]且bi ∈ [0, Bi]。为了便于阅读，使用的符号及其相应解释列在表I中。</p>
+<p><strong>A. 通信模型</strong></p>
+<p>在该场景中，如果MU i决定将其任务卸载到BS-MEC服务器，传输速率表示为RB i ，如果MU i决定将其任务卸载到UAV-MEC服务器，传输速率表示为RU i 。因此，RB i 可以定义为：<br>$$ RB i &#x3D; WB \log_2 \left(1 + \frac{PiGB i}{N0}\right) $$<br>其中WB是MU i和BS-MEC服务器之间的信道带宽，Pi是MU i的传输功率；N0是背景噪声功率；GB i &#x3D; μ0(gB i )τ是MU i和BS-MEC服务器之间的信道增益，其中μ0是衰落分量，τ是信道路径损耗指数，gB i 是MU i和BS-MEC服务器之间的距离。相应地，RU i 可以定义为：<br>$$ RU i &#x3D; WU \log_2 \left(1 + \frac{PiGU i}{N0}\right) $$<br>其中WU是MU i和UAV-MEC服务器之间的信道带宽，$GU i &#x3D; μ0(gU i )τ$ 是MU i和UAV-MEC服务器之间的信道增益，gU i 是MU i和UAV-MEC服务器之间的距离。</p>
+<p><strong>B. 计算模型</strong></p>
+<p><strong>ESP将为BS-MEC服务器或UAV-MEC服务器分配计算任务</strong>。对于每个卸载的任务hi，我们使用<strong>xi，xi ∈ [0, 1]来表示分配给BS-MEC服务器的比例，因此1 − xi表示分配给UAV-MEC服务器的比例。</strong> <strong>xi &#x3D; 0意味着卸载的任务hi不在BS-MEC服务器上计算，xi &#x3D; 1意味着卸载的任务hi全部在BS-MEC服务器上计算</strong>。在本文中，我们假设每个卸载任务hi的比例分配由ESP决定，因此我们不考虑xi的具体值，并将其视为一个常数。</p>
+<ol>
+<li><p>计算卸载到BS-MEC服务器：基于上述任务模型，根据传输速率RB i，可以从MU i传输任务hi到BS-MEC服务器的时间获得为：<br>$$ t_{tran,B}^i &#x3D; \frac{xili}{RB i} $$<br>BS-MEC服务器分配给MU i的计算资源定义为f B i 。然后，在BS-MEC服务器上的计算时间是卸载任务的计算量除以BS-MEC服务器的计算频率，表示为：<br>$$ t_{com,B}^i &#x3D; \frac{xibi}{f B i} $$<br>根据[42]，发送计算结果到MUs的时间被忽略，因此当hi卸载到BS-MEC服务器时的总执行时间可以表示为：<br>$$ tB i &#x3D; t_{tran,B}^i + t_{com,B}^i &#x3D; \frac{xili}{RB i} + \frac{xibi}{fB i} $$<br>为了计算MU i的能耗，假设MU i使用恒定的传输功率Pi发送数据，因此MU i卸载其计算任务的能耗可以计算为：<br>$$ EB i &#x3D; t_{tran,B}^i Pi &#x3D; \frac{xiliPi}{RB i} $$</p>
+</li>
+<li><p>计算卸载到UAV-MEC服务器：类似地，基于传输速率RU i，可以从MU i传输hi到UAV-MEC服务器的时间获得为：<br>$$ t_{tran,U}^i &#x3D; \frac{(1 − xi)li}{RU i} $$<br>假设分配给MU i的UAV-MEC服务器的计算资源为fU i 。然后，在UAV-MEC服务器上的计算时间是卸载任务的计算量除以UAV-MEC服务器的计算频率，表示为：<br>$$ t_{com,U}^i &#x3D; \frac{(1 − xi)bi}{fU i} $$<br>然后，当hi卸载到UAV-MEC服务器时的总执行时间很容易表示为：<br>$$ tU i &#x3D; t_{tran,U}^i + t_{com,U}^i &#x3D; \frac{(1 − xi)li}{RU i} + \frac{(1 − xi)bi}{f U i} $$<br>同样，MU i卸载其计算任务的能耗可以计算为：<br>$$ EU i &#x3D; t_{tran,U}^i Pi &#x3D; \frac{(1 − xi)liPi}{RU i} $$</p>
+</li>
+</ol>
+<p><strong>C. MU的模型</strong></p>
+<p>对于每个MU，我们使用对数效用函数来表示其卸载计算任务的满足函数，这可以很好地反映MU和满足之间的关系[43]，并且可以表示为：<br>$$ Fi &#x3D; ω \ln(1 + li) $$<br><strong>其中ω表示MU的满足因子，li表示卸载到ESP的计算任务的大小</strong>。此外，我们还考虑了<strong>MUs之间的相互影响</strong>。如[45]所示，MUs的效用函数是基于社会外部性模型建立的。值得注意的是，<strong>每个MU的效用不仅与其内在愿望有关，还受到其他MUs的影响</strong>。具体来说，我们使用矩阵SR来表示MUs之间的影响，MUs的矩阵描述如下：<br>$$ SR &#x3D; \begin{bmatrix}<br>r1,1 &amp; r1,2 &amp; \cdots &amp; r1,N \<br>r2,1 &amp; \cdots &amp; r2,N-1 &amp; \cdots &amp; rN-1,2 &amp; \cdots &amp; rN,N<br>\end{bmatrix} $$<br>在矩阵SR中，对于任意两个MUs，<strong>社会关系度表示为ri,j，i, j ∈ {1, 2, …, N}，其中ri,j ∈ [0, 1]。ri,j的值越大，表示MU i和j在社会网络中的关系越密切。</strong> ri,j &#x3D; 1意味着两个MUs i和j具有紧密的社会关系。而ri,j &#x3D; 0意味着两个MUs i和j没有关系。此外，认为MU i和MU j之间的影响是相同的，称为ri,j &#x3D; rj,i，矩阵假定为固定。因此，对于MU i，其他MU对其的总影响表示为：<br>$$ Mi &#x3D; σ \left( \sum_{j&#x3D;1}^{N} ri,jFj \right) Fi $$<br><strong>其中σ是社会外部性强度，Fj是MU j（j ≠ i）的满足函数</strong>。当然，MUs在卸载计算任务时需要向ESP支付一些费用，ESP收取统一费用。因此，MU i向ESP的支付计算为：<br>$$ CE i &#x3D; lidi $$<br><strong>其中di表示MU i向ESP的单位支付</strong>。MU i的效用函数定义为由于计算卸载而增加的效用。因此，MU i的效用函数表示为：<br><img src="https://typora-aliyun01.oss-cn-hangzhou.aliyuncs.com/img/20241031234049.png" alt="image.png"></p>
+<p>其中Fi表示MU i的满足函数，Mi表示其他MU对MU i的社会关系影响，EU i和EB i表示MU i将其任务卸载到UAV-MEC服务器或BS-MEC服务器的能耗，CE i代表MU i向ESP的支付。</p>
+<p><strong>D. ESP的模型</strong></p>
+<p>在本节中，将展示ESP的效用。在我们的场景中，ESP由一个BS-MEC服务器和一个UAV-MEC服务器组成。MUs将其计算任务卸载到ESP进行计算，ESP执行卸载的任务，这不可避免地会产生成本。在<strong>BS-MEC</strong>服务器上执行的计算任务的能耗计算为：<br>$$ EB &#x3D; \sum_{i&#x3D;1}^{N} qi xibi $$<br><strong>其中qi是当计算任务在BS-MEC服务器上完成时每CPU周期的能耗</strong>。无人机-MEC服务器处理计算任务的能耗表示为：<br>$$ EU &#x3D; \sum_{i&#x3D;1}^{N} si (1 − xi)bi $$<br><strong>其中si是当计算任务在UAV-MEC服务器上完成时每CPU周期的能耗</strong>。ESP的成本可以建模为两个服务器的能耗，因此，我们可以获取ESP的成本函数为：<br>$$ EE &#x3D; EB + EU &#x3D; \sum_{i&#x3D;1}^{N} qi xibi + \sum_{i&#x3D;1}^{N} si (1 − xi)bi $$<br>根据（13），MU i向ESP的支付是lidi；因此，ESP向所有MUs收取的总费用表示为：<br>$$ CE &#x3D; \sum_{i&#x3D;1}^{N} CE i &#x3D; \sum_{i&#x3D;1}^{N} lidi $$</p>
+<p>然后，ESP的效用是其收入减去成本，而收入是来自MUs的支付，成本包括UAV-MEC和BS-MEC服务器的能耗。因此，ESP的效用表示为：<br>$$ UE &#x3D; CE − EE &#x3D; \sum_{i&#x3D;1}^{N} lidi − \sum_{i&#x3D;1}^{N} qi xibi − \sum_{i&#x3D;1}^{N} si (1 − xi)bi $$</p>
+<h2 id="Problem-Formulation-And-Analysis"><a href="#Problem-Formulation-And-Analysis" class="headerlink" title="Problem Formulation And Analysis"></a>Problem Formulation And Analysis</h2><p>本节首先介绍优化问题，然后分析问题以及寻找纳什均衡的存在性。</p>
+<p><strong>问题表述与分析</strong></p>
+<p>本节首先介绍优化问题，然后分析问题以及寻找纳什均衡的存在性。</p>
+<p><strong>A. 问题表述</strong></p>
+<p>斯塔克伯格博弈将参与者分为领导者和追随者，追随者根据领导者执行的策略选择最优响应。领导者的最优策略与追随者的最优响应相结合，形成斯塔克伯格均衡。因此，斯塔克伯格博弈可以用来模拟ESP和MUs之间的互动。<br><img src="https://typora-aliyun01.oss-cn-hangzhou.aliyuncs.com/img/20241031225915.png" alt="image.png"></p>
+<p>图2显示了ESP和MUs之间的斯塔克伯格博弈。ESP作为领导者给出其出价策略di，MU i作为追随者决定卸载的任务hi的大小，并用li表示其卸载策略。因此，支付配置和计算任务卸载配置分别表示为d &#x3D; (d1, d2, …, dN)和l &#x3D; (l1, l2, …, lN)。我们的目标是最大化ESP和MUs的效用。然后，斯塔克伯格博弈表示为：<br>$$ \Gamma &#x3D; {(ESP, MUs), (di, li), (UE, Ui)} $$<br><strong>斯塔克伯格博弈表</strong></p>
+<table>
+<thead>
+<tr>
+<th>玩家</th>
+<th>ESP（领导者）</th>
+<th>MU i（追随者）</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>策略</td>
+<td>出价策略di</td>
+<td>卸载策略li</td>
+</tr>
+<tr>
+<td>效益</td>
+<td>UE</td>
+<td>Ui</td>
+</tr>
+</tbody></table>
+<p>ESP的优化问题表示为：<br>    <strong>问题1：</strong> 最大化UE<br>$$ \text{最大化 } UE $$<br>    受限于：<br>$$ EU &lt; \epsilon （总共的能耗少于阈值）$$<br>$$ d_{\text{min}}^i \leq di \leq d_{\text{max}}^i（定价必须在指定范围内） $$<br>$$ tB_i \leq t_{\text{max}}^i （BS-MEC 耗时必须少于上限）$$<br>$$ tU_i \leq t_{\text{max}}^i （UAC-MEC耗时必须少于上限）$$<br>其中（22）确保UAV-MEC服务器的能耗小于UAV-MEC服务器用于执行计算任务的能量约束ϵ，（23）显示ESP的出价策略在指定范围内，其中dmax i 和dmin i 分别是最大和最小出价策略，（24）和（25）是任务执行时间的延迟约束。</p>
+<p>此外，MU i的优化问题表示为：<br>    <strong>问题2：</strong> 最大化Ui<br>$$ \text{最大化 } Ui $$<br>    受限于：<br>$$ 0 \leq li \leq Li （卸载的任务量不能超过原任务大小）$$$$ tB_i \leq t_{\text{max}}^i （同上，耗时不能超过上限）$$$$ tU_i \leq t_{\text{max}}^i （同上，耗时不能超过上限）$$其中（27）显示卸载任务hi的大小应小于任务Hi的大小，（28）是任务执行时间的延迟约束。</p>
+<p><strong>B. 博弈问题分析</strong></p>
+<p>我们使用<strong>逆向归纳法</strong>来分析所提出的问题。在第一阶段，确定了每个MU的最优卸载决策。在第二阶段，根据所有MUs的决策，我们确定ESP的最优出价策略。首先，证明了所提出博弈问题的纳什均衡的存在性。</p>
+<p><strong>定义1：</strong> 在MUs之间存在唯一的纳什均衡策略，其中$l &#x3D; (l_1, l_2, …, l_N)$。在这一点上，存在一个效用函数$Ui(l<em>i, l</em>-i) ≥ Ui(li, l*-i)$，其中$l_i$是其他MUs的最佳策略。当游戏处于NE时，没有人可以通过单方面改变其策略来增加其效用。<br><strong>定理1：</strong> 在考虑固定数量MUs的动态策略下，对于每个MU，其效用函数满足（14）。然后，对于MUs存在一个唯一的纳什均衡点。<br><img src="https://typora-aliyun01.oss-cn-hangzhou.aliyuncs.com/img/20241031234049.png" alt="image.png"><br><strong>证明：</strong> 对于MU i，效用函数是Ui，其公式如（29）所示，xi是一个常数。然后，（29）的一阶导数可以计算为：<br>$$ \frac{\partial Ui}{\partial li} &#x3D; \frac{\omega}{1 + li} \left(1 + \sigma \sum_{j&#x3D;1}^{N} ri,jFj \right) - \frac{xiPi}{RB i} - \frac{(1 - xi)Pi}{RU i} - di $$<br>接下来，（29）的二阶导数可以计算为：<br>$$ \frac{\partial^2 Ui}{\partial l^2 i} &#x3D; -\frac{\omega}{(1 + li)^2} \left(1 + \sigma \sum_{j&#x3D;1}^{N} ri,jFj \right) $$<br>由于ω &gt; 0且(1 + li)^2 &gt; 0，效用函数的二阶导数是负的。<strong>可以观察到MU i的效用函数是一个严格凹函数，这证明了纳什均衡的存在。</strong> 因此，定理1得证。一阶导数（30）设为0，我们可以得到：<br>$$ l^* i &#x3D; \frac{\omega Mi}{Zi + di} - 1 $$<br>其中<br>$$ Mi &#x3D; 1 + \sigma \sum_{j&#x3D;1}^{N} ri,jFj $$<br>$$ Zi &#x3D; xiPi&#x2F;RB i + (1 - xi)Pi&#x2F;RU i $$<br>因此，我们可以得到$l<em>i$是MU i关于其卸载计算任务大小的最佳策略 。<br>然后，设置$l</em>i&#x3D;0$和$l*i&#x3D;Li$，我们可以得到ESP的出价阈值为：<br>$$ d_{\text{min}} i &#x3D; \frac{\omega Mi}{1 + Li} - \frac{Zi}{Li} $$<br>$$ d_{\text{max}} i &#x3D; \frac{\omega Mi}{Zi} - 1 $$<br>通常，如果ESP的出价太高，MUs将不会将他们的计算任务卸载到ESP，如果ESP的出价太低，MUs将卸载所有计算任务。</p>
+<blockquote>
+<p>[!tip]<br>这里初次看可能会比较费解，其实关键之处就是知道用户的效用函数 $U_i$ 对 $l_i$ 的二阶偏导一直是负值就可以了。一方面，这证明了效用函数存在纳什均衡；另一方面，说明一阶偏导是单调递减的，那么一阶导数为0的时候就是取极大值也是最大值的时候。<br>因此，<em><em>将一阶偏导置为0，就能得出一个 $l_i^</em>$<em><em>，那么也可以得出当卸载任务量为 $l_i^</em>$时，可以得到最大效用。 $l_i^</em>$也就是此时的最佳卸载策略。<br>然后是这样，每个用户全部的任务量是Li，如果价格足够低，那用户肯定是直接把全部的任务都给服务器，此时的最佳策略当然就是 $l_i^</em>&#x3D; Li$；如果价格实在太高，那么用户什么任务也不会卸载的，此时的最佳策略当然就是 $l_i^*&#x3D;0$。 <strong>那么分别带入一阶导数为0 的式子</strong>，就可以知道最低定价和最高定价了。<br><strong>这里的公式只是语言的另一种形象化表达</strong></p>
+</blockquote>
+<p>因此，ESP的最佳策略应该在dmin i和dmax i之间，MU i的最优策略满足：<br>$$ l^* i &#x3D; \begin{cases}<br>Li<br>（Li为全部的任务量）, &amp; \text{if } di \leq d_{\text{min}} i \<br>\frac{\omega Mi}{Zi + di} - 1, &amp; \text{if } d_{\text{min}} i &lt; di &lt; d_{\text{max}} i \<br>0, &amp; \text{if } di \geq d_{\text{max}} i<br>\end{cases} $$</p>
+<p>此外，根据（38），当dmin i &lt; di &lt; dmax i时，我们可以得到以下两个方程：<br>$$ \frac{\partial l^* i}{\partial di} &#x3D; -\frac{\omega Mi}{(Zi + di)^2} $$<br>$$ \frac{\partial^2 l^* i}{\partial d^2 i} &#x3D; \frac{2\omega Mi}{(Zi + di)^3} $$<br><strong>一阶导数小于0</strong>，<strong>这意味着ESP提供的出价越高，MU卸载的计算任务的大小就越小。</strong> 此外，二阶导数恒为正。因此，它是一个严格凹函数，在给定的di范围内，导出的策略l*i是最优和唯一的。</p>
+<p><strong>定义2：</strong> 如果$UE(d<em>i, l</em>i) &gt; UE(di, l*i)$，则存在MUs和ESP之间的唯一斯塔克伯格均衡。<br><strong>定理2：</strong> 考虑ESP的动态出价策略和固定数量的MUs，对于ESP，其效用函数满足（19）。然后，存在MUs和ESP之间的唯一纳什均衡。<br><img src="https://typora-aliyun01.oss-cn-hangzhou.aliyuncs.com/img/20241101131505.png" alt="image.png"></p>
+<p><strong>证明：</strong> 将xi视为常数，并将获得的最佳策略l<em>i代入UE，UE(di, l</em>i)可以得到。ESP的效用函数表示为（41）：<br><img src="https://typora-aliyun01.oss-cn-hangzhou.aliyuncs.com/img/20241101131635.png" alt="image.png"></p>
+<p>因此$UE(di, l*i)$对di ( <strong>这里的di单指某一个用户</strong> ) 的一阶偏导数计算为（42）：<br><img src="https://typora-aliyun01.oss-cn-hangzhou.aliyuncs.com/img/20241101131645.png" alt="image.png"></p>
+<blockquote>
+<p>[!tip]<br>这里注意，上面的UE是指ESP对全部用户的总收益，下面的这个”$U_E(d_i,l_i^*) 对di$ “计算的是针对某一位用户的收益。因为ESP可以对不同用户采取不同的收费策略</p>
+</blockquote>
+<p>之后$UE(di, l<em>i)$对di的二阶导数制定为：<br>$$ \frac{\partial^2 UE}{\partial d^2 i} &#x3D; -2aMi \left( Zi + xiqiai + (1 - xi)siai \right) \frac{1}{(Zi + di)^3} $$<br>因为(Zi+di)^3 &gt; 0且$Zi+xiqiai+(1−xi)siai$&gt; 0，很明显ESP效用函数的二阶导数是负的。**可以观察到ESP的效用函数UE(di, l</em>i)是一个严格凹函数，这证明了纳什均衡的存在**。</p>
+<p>因此，定理2得证。根据上述定理，证明了斯塔克伯格-纳什均衡在第一阶段和第二阶段都存在且唯一。同样，将（42）的一阶导数设为0，我们可以得到方程：<br>$$ d^* i &#x3D; \sqrt{\omega Mi \left( Zi + xiqiai + (1 − xi)siai \right)} - Zi $$<br>根据最佳策略di应在dmin i和dmax i之间的事实，因此ESP的最优策略如下所示：<br>$$ d^* i &#x3D; \begin{cases}<br>d_{\text{min}} i, &amp; \text{if } di \leq d_{\text{min}} i \<br>\sqrt{\omega Mi \left( Zi + xiqiai + (1 − xi)siai \right)} - Zi, &amp; \text{if } d_{\text{min}} i &lt; di &lt; d_{\text{max}} i \<br>d_{\text{max}} i, &amp; \text{if } di \geq d_{\text{max}} i<br>\end{cases} $$</p>
+<blockquote>
+<p>[!note]<br>这一部分的原理同上，就是证明出商家ESP的收益函数也是一个严格凹函数（二阶导数始终保持负值），那么也就说明ESP的效益函数存在纳什均衡。 和上面一样，一阶导数为0时能够取得最大收益，此时能够得到最佳定价 $d_i^*$。</p>
+</blockquote>
+<h2 id="Gradient-Based-Dynamic-Iterative-Search-Algorithm"><a href="#Gradient-Based-Dynamic-Iterative-Search-Algorithm" class="headerlink" title="Gradient-Based Dynamic Iterative Search Algorithm"></a>Gradient-Based Dynamic Iterative Search Algorithm</h2><p><strong>V. 基于梯度的动态迭代搜索算法</strong></p>
+<p>本节提出了GDISA来获得唯一的纳什和斯塔克伯格均衡。</p>
+<p>算法1展示了GDISA的细节。首先，我们设置了迭代次数m &#x3D; 0和n &#x3D; 0的初始值。然后，ESP在dmin i和dmax i之间设置了初始出价策略d(0)，这些可以通过（36）和（37）计算得出，所有MUs设置了初始卸载策略l(0)在0和Li之间。</p>
+<p>在收到初始d(0)和l(0)后，ESP根据d(m + 1) &#x3D; d(m) + θ∇UE(d(m), l*(d(m)))计算其新的出价策略，<em><em>其中∇UE(d(m), l</em>(d(m)))是基于（42）和（45）的梯度([∂UE(m)]&#x2F;[∂di(m)]), θ是步长</em><em>。此时，每个MU i根据l(n + 1) &#x3D; l(n) + θ∇Ui(l(n), l</em>(l(n)))计算其新的卸载策略，<em><em>其中∇Ui(l(n), l</em>(l(n)))是基于（32）和（38）的梯度([∂Ui(n)]&#x2F;[∂li(n)]), θ是步长。</em>* 然后，设置n+1 &#x3D; n和m+1 &#x3D; m，ESP和MUs将继续迭代寻找更好的策略以最大化他们的效用。</p>
+<p>直到([∥ln+1 − ln∥1]&#x2F;[∥ln∥1]) ≤ ξ，MUs将停止重复，迭代结束，其中ξ是精度阈值，∥y∥1表示y的一阶范数。同样，ESP将在([∥dm+1 − dm∥1]&#x2F;[∥dm∥1]) ≤ ξ时停止重复。此时，可以获得ESP和MUs策略的近似最优解，分别表示为d<em>和l</em>。因此，获得了ESP和MUs的最优效用。</p>
+<p><strong>算法1 GDISA</strong><br>输入：MUs N，任务Hi，以及其他参数；<br>输出：最佳出价策略d<em>，最佳卸载策略l</em>，U<em>i，U</em>E；<br>1: 初始化：m &#x3D; 0, n &#x3D; 0, 精度阈值ξ，步长θ；<br>2: 设置d(m) &#x3D; (d1(m), d2(m), …, dN(m))，其中dmin i &lt; di(m) &lt; dmax i；<br>3: ESP使用梯度上升搜索算法找到最佳出价集，其中d(m + 1) &#x3D; d(m) + θ∇UE(d(m), l*(d(m)))；<br>4: 设置l(n) &#x3D; (l1(n), l2(n), …, lN(n))，其中0 &lt; li(n) &lt; Li；<br>5: 每个MU i使用梯度上升搜索算法找到最佳卸载集，其中l(n + 1) &#x3D; l(n) + θ∇Ui(l(n), l*(l(n)))；<br>6: while $\frac{∥dm+1−dm∥1} {∥dm∥1}$ ≥ ξ do<br>7: 对于每次迭代m<br>8: 重复步骤（2）和步骤（3）；<br>9: while $\frac{∥ln+1−ln∥1}{∥ln∥1}$ ≥ ξ do<br>10: 对于每次迭代n<br>11: 重复步骤（4）和步骤（5）；<br>12: n ← n + 1；<br>13: end while<br>14: m ← m + 1；<br>15: end while<br>16: 获得最优d<em>和l</em>；<br>17: 根据方程（19）计算U<em>E，根据方程（14）计算U</em>i；<br>18: 返回U<em>i，U</em>E</p>
+<blockquote>
+<p>[!note]<br>这里就是普通的梯度下降算法，初始的(l1,l2,l3,…)还有(d1,d2,d3,…)都是随机的</p>
+</blockquote>
+<h2 id="SIMULATION-RESULTS"><a href="#SIMULATION-RESULTS" class="headerlink" title="SIMULATION RESULTS"></a>SIMULATION RESULTS</h2><p><strong>VI. 模拟结果</strong></p>
+<p>本节进行模拟以评估GDISA的收敛性能和有效性。特别是，将GDISA与其他基准方法进行比较，并研究了一些参数对ESP和MUs效用的影响。</p>
+<p><strong>A. 参数设置</strong></p>
+<p>在模拟中，多个MUs随机分布在ESP的覆盖范围内。MUs的数量设置在[5, 30]的范围内。MUs生成的任务大小在10M到20M之间，任务的容忍延迟在[0.05秒，3秒]的范围内。我们设置了BS-MEC和UAV-MEC服务器的单位能耗在[0.2, 1.7]（焦耳&#x2F;兆次循环）的范围内。满意度因子度为5，复杂度因子在[0.1, 5]的范围内。BS-MEC服务器的计算频率为50 GHz，UAV-MEC服务器的计算频率为10 GHz。表II给出了使用的主参数。此外，我们提供了以下四种基准方法进行性能比较：</p>
+<ol>
+<li>随机（RANDOM）：ESP的出价和MUs的卸载策略都是随机生成的。</li>
+<li>全部卸载（FO）：所有MUs的任务都卸载到ESP，然后ESP根据我们提出的GDISA确定其最优策略。</li>
+<li><strong>无UAV-MEC服务器（NU</strong>）：类似于[44]，系统中没有UAV-MEC服务器，只有一个BS-MEC服务器为MUs提供计算服务。</li>
+<li><strong>ESP和MU之间的非合作博弈</strong>（NG）：NG没有考虑其他MUs的影响，因此只有MUs之间的竞争，<strong>每个MU独立与ESP互动以找到自己的最优决策，而不考虑其他MUs的政策</strong>。这是一个非合作博弈，每个MU与ESP之间[45]。</li>
+</ol>
+<p><strong>B. 收敛性能</strong></p>
+<p>图3显示了所有MUs和ESP效用的迭代过程。最初设置MUs的数量为5。如图3所示，ESP和MUs的效用逐渐增加，并最终收敛和稳定。此外，ESP的效用在开始时相对较高，随着迭代次数的增加而迅速增加。大约100次迭代后，它稳定并接近最优解。可以发现，MUs的平均效用也从比较高的值开始。然而，与ESP的效用相比，MUs的平均效用没有很快达到稳定状态。这是由于MUs之间的非合作关系，它们相互竞争以最大化自己的效用。最终，获得了ESP和MUs的效用以及相应的最优解。<br><img src="https://typora-aliyun01.oss-cn-hangzhou.aliyuncs.com/img/20241101143606.png" alt="image.png"></p>
+<p><strong>C. 参数影响</strong></p>
+<p>这部分评估了BS-MEC服务器和UAV-MEC服务器单位能耗对ESP效用的影响。如图4所示，我们将两个服务器的单位能耗设置在[0.2, 1.7]的范围内。随着单位能耗的增加，ESP的效用减少，它们之间的关系是线性且成反比的。这是因为单位能耗的增加，相应地，ESP执行计算任务的成本变得更高，这不可避免地降低了ESP的效用。此外，当单位能耗保持不变且MUs数量增加时，ESP的效用增加。主要原因是随着MUs数量的增加，更多的MUs参与任务卸载过程，ESP可以通过出售更多的计算资源来增加其效用。根据我们的模型，ESP可以通过参与计算卸载来增加其效用。此外，由于单位能耗与决策和MUs的效用无关，我们不评估其对MUs效用的影响。<br><img src="https://typora-aliyun01.oss-cn-hangzhou.aliyuncs.com/img/20241101143623.png" alt="image.png"></p>
+<p><strong>D. 性能比较</strong></p>
+<p>这部分比较了GDISA与其他四种基准方法在不同场景下的性能。首先，我们比较了在不同MUs数量下ESP和MUs的效用。图5和图6分别展示了在不同MUs数量下GDISA与其他基准方法的性能比较。图5显示了MUs平均效用的性能比较，图6显示了ESP效用的性能比较。<br><img src="https://typora-aliyun01.oss-cn-hangzhou.aliyuncs.com/img/20241101143825.png" alt="image.png"></p>
+<p>可以看到，在不同MUs数量下，GDISA的表现最佳。此外，其他三种方法随着MUs数量的逐渐增加，表现出与GDISA相同的趋势。具体来说，我们可以观察到NU的效用最低。这是因为如果ESP只包括BS-MEC服务器，它将承受更大的计算压力，无法进行许多MUs的任务。MUs无法通过计算卸载来增加他们的效用，ESP也无法通过出售更多的计算资源来提高其效用。因此，在NU情况下，MUs和ESP的效用都较低。此外，MUs和ESP的效用在FO情况下相对较高，接近GDISA。这表明当所有MUs的计算任务都卸载时，MUs和ESP的效用接近他们的最优效用。相应地，在随机情况下，ESP和MUs的效用高于NU且低于FO。<br><img src="https://typora-aliyun01.oss-cn-hangzhou.aliyuncs.com/img/20241101143840.png" alt="image.png"></p>
+<p>由于NG没有考虑其他MUs的影响，其在MUs平均效用方面的性能显著低于我们提出的GDISA。这表明MUs之间的社会关系在卸载决策中起着至关重要的作用，每个MU独立获取最优策略无法带来更好的整体平均效用。与MUs的平均效用相比，NG在ESP效用方面表现更好。在NG情况下，ESP仍然可以通过出售计算资源获得相对较高的效用。总的来说，可以发现UAV-MEC服务器和MUs的社会关系对不同方法的性能有重要影响。</p>
+<p>图7显示了在不同单位能耗qi下ESP效用的比较。同样，对于ESP，GDISA具有最高的效用。在其他四种基准方案中，NG的效用更高，NU的效用更低。此外，随着单位能耗qi的增加，ESP的效用减少，这已经在图4中详细描述。<br><img src="https://typora-aliyun01.oss-cn-hangzhou.aliyuncs.com/img/20241101143852.png" alt="image.png"></p>
+<p>总之，我们证明了GDISA不仅可以提高MUs和ESP的效用，而且可以获得唯一的均衡。因此，GDISA在不同场景中被证明是有效的。</p>
+<p><strong>VII. 讨论和未来工作</strong></p>
+<p>本节讨论了潜在的和有吸引力的未来工作。</p>
+<p><strong>A. 无人机辅助和基于区块链的计算卸载</strong></p>
+<p>区块链已经吸引了广泛的关注，并在各种应用领域中得到广泛应用，特别是在与边缘计算结合时。由于我们提出的无人机辅助计算卸载中没有考虑安全交易问题，将区块链与我们提出的模型结合起来是有效的。在区块链赋能和无人机辅助的计算卸载中，MUs在向ESP支付相应费用后，可以将他们的计算任务卸载到BS-MEC服务器或UAV-MEC服务器，所有交易数据都记录在区块链上，以建立信任和保护隐私。我们可以引入智能合约技术，这是一种可靠的市场监督解决方案，因为它部署在区块链上，无法被篡改。通过区块链的去中心化、安全性和可追溯性，智能合约使MUs能够保持信息透明度并与ESP建立信任，从而确保MUs支付的可靠性，并禁止恶意支付和其他非法行为。在未来，我们将考虑使用区块链赋能和无人机辅助的计算卸载中的智能合约来解决优化问题。</p>
+<p><strong>B. 无人机辅助和基于深度强化学习的计算卸载</strong></p>
+<p>最近，各种人工智能（AI）方法，如深度强化学习（DRL），已被用于解决MEC中的优化问题。一方面，通过结合DRL，计算从远程云推向网络边缘，以实现各种实时和可靠的智能服务。另一方面，DRL也有潜力解决各种网络优化问题（例如，卸载决策和资源分配）。</p>
+<p>我们目前的研究重点是提高静态系统的性能，而没有考虑动态时变环境。为了解决时变系统中的复杂优化问题，DRL方法更适合获得最佳决策策略并最大化长期奖励。在未来的工作中，我们将考虑使用DRL来解决动态时变环境中的优化问题。</p>
+<p><strong>VIII. 结论</strong></p>
+<p>本文研究了一个由一个UAV-MEC服务器、一个BS-MEC服务器和多个MUs组成的无人机辅助MEC网络。为了最大化ESP和MUs的效用，ESP和MUs之间的互动被建模为斯塔克伯格博弈，使用逆向归纳法分析了我们提出的博弈问题。证明了所提出的博弈可以达到唯一的纳什均衡，然后提出了GDISA来获得近似最优解。模拟结果表明，GDISA可以有效地激发ESP和MUs之间的合作，并且在不同场景下的表现优于其他基线方法。</p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/Stackelberg/" rel="tag"># Stackelberg</a>
+              <a href="/tags/%E5%8D%9A%E5%BC%88%E8%AE%BA/" rel="tag"># 博弈论</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/sni2x9/" rel="prev" title="大模型算力是如何计算的">
+      <i class="fa fa-chevron-left"></i> 大模型算力是如何计算的
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/sni2z0/" rel="next" title="前缀和+差分">
+      前缀和+差分 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Introduction"><span class="nav-number">1.</span> <span class="nav-text">Introduction</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Relate-Works"><span class="nav-number">2.</span> <span class="nav-text">Relate Works</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#System-Model"><span class="nav-number">3.</span> <span class="nav-text">System Model</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Problem-Formulation-And-Analysis"><span class="nav-number">4.</span> <span class="nav-text">Problem Formulation And Analysis</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Gradient-Based-Dynamic-Iterative-Search-Algorithm"><span class="nav-number">5.</span> <span class="nav-text">Gradient-Based Dynamic Iterative Search Algorithm</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#SIMULATION-RESULTS"><span class="nav-number">6.</span> <span class="nav-text">SIMULATION RESULTS</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="fanz"
+      src="/images/avatar.png">
+  <p class="site-author-name" itemprop="name">fanz</p>
+  <div class="site-description" itemprop="description">冷月如刀砍落花，暖风似羽拂新芽</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">9</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+        <span class="site-state-item-count">6</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+        <span class="site-state-item-count">9</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2024</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">fanz</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://pisces.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a> 强力驱动
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"log":false,"pluginJsPath":"lib/","pluginModelPath":"assets/","pluginRootPath":"live2dw/","tagMode":false});</script></body>
+</html>
