@@ -43,6 +43,111 @@
       </tags>
   </entry>
   <entry>
+    <title>Ubuntu配置ssh</title>
+    <url>/sni2r9/</url>
+    <content><![CDATA[<p>在 Ubuntu 上配置 SSH 以便使用 Visual Studio Code (VSCode) 进行连接，可以按照以下步骤进行：</p>
+<h3 id="1-安装-openssh-服务器"><a class="markdownIt-Anchor" href="#1-安装-openssh-服务器"></a> 1. 安装 OpenSSH 服务器</h3>
+<p>首先，你需要确保你的 Ubuntu 系统上安装了 OpenSSH 服务器。打开终端，执行以下命令：</p>
+<div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">sudo</span> apt update</span><br><span class="line"><span class="built_in">sudo</span> apt install openssh-server</span><br></pre></td></tr></table></figure></div>
+<h3 id="2-启动和启用-ssh-服务"><a class="markdownIt-Anchor" href="#2-启动和启用-ssh-服务"></a> 2. 启动和启用 SSH 服务</h3>
+<p>安装完成后，启动 SSH 服务并确保它在系统启动时自动启动：</p>
+<div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">sudo</span> systemctl start ssh</span><br><span class="line"><span class="built_in">sudo</span> systemctl <span class="built_in">enable</span> ssh</span><br></pre></td></tr></table></figure></div>
+<h3 id="3-检查-ssh-服务状态"><a class="markdownIt-Anchor" href="#3-检查-ssh-服务状态"></a> 3. 检查 SSH 服务状态</h3>
+<p>你可以使用以下命令检查 SSH 服务的状态：</p>
+<div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">sudo</span> systemctl status ssh</span><br></pre></td></tr></table></figure></div>
+<p>确保服务正在运行，并且没有错误信息。</p>
+<h3 id="4-配置-ssh可选"><a class="markdownIt-Anchor" href="#4-配置-ssh可选"></a> 4. 配置 SSH（可选）</h3>
+<p>默认情况下，SSH 使用的配置文件位于 <code>/etc/ssh/sshd_config</code>。你可以根据需要修改此文件以增强安全性，例如禁用密码登录，启用密钥登录等。编辑配置文件：</p>
+<div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">sudo</span> nano /etc/ssh/sshd_config</span><br></pre></td></tr></table></figure></div>
+<p>以下是一些常见的配置选项：</p>
+<ul>
+<li>
+<p><strong>禁用密码登录</strong>（仅允许使用密钥登录）：</p>
+ <div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="code"><pre><span class="line">PasswordAuthentication no</span><br></pre></td></tr></table></figure></div>
+</li>
+<li>
+<p><strong>更改默认 SSH 端口</strong>（可选）：</p>
+ <div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="code"><pre><span class="line">Port 2222</span><br></pre></td></tr></table></figure></div>
+</li>
+</ul>
+<p>更改后，保存并退出编辑器。然后重新启动 SSH 服务以使更改生效：</p>
+<div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">sudo</span> systemctl restart ssh</span><br></pre></td></tr></table></figure></div>
+<h3 id="5-配置防火墙如果适用"><a class="markdownIt-Anchor" href="#5-配置防火墙如果适用"></a> 5. 配置防火墙（如果适用）</h3>
+<p>如果你的系统启用了防火墙，确保 SSH 端口（默认是 22 或你更改后的端口）是开放的。使用以下命令允许 SSH 通过 UFW（如果你使用 UFW 作为防火墙）：</p>
+<div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">sudo</span> ufw allow ssh</span><br><span class="line"><span class="comment"># 如果你更改了端口，例如使用 2222：</span></span><br><span class="line"><span class="comment"># sudo ufw allow 2222</span></span><br></pre></td></tr></table></figure></div>
+<h3 id="6-获取服务器的-ip-地址"><a class="markdownIt-Anchor" href="#6-获取服务器的-ip-地址"></a> 6. 获取服务器的 IP 地址</h3>
+<p>你可以使用以下命令获取你的服务器的 IP 地址：</p>
+<div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="code"><pre><span class="line">ip a</span><br></pre></td></tr></table></figure></div>
+<h3 id="7-在-vscode-中配置-ssh"><a class="markdownIt-Anchor" href="#7-在-vscode-中配置-ssh"></a> 7. 在 VSCode 中配置 SSH</h3>
+<ol>
+<li>
+<p><strong>安装 Remote - SSH 插件</strong>：</p>
+<ul>
+<li>打开 VSCode。</li>
+<li>转到扩展视图 (<code>Ctrl + Shift + X</code>)。</li>
+<li>搜索并安装 <strong>Remote - SSH</strong> 插件。</li>
+</ul>
+</li>
+<li>
+<p><strong>添加 SSH 主机</strong>：</p>
+<ul>
+<li>
+<p>按 <code>F1</code> 或 <code>Ctrl + Shift + P</code> 打开命令面板。</p>
+</li>
+<li>
+<p>输入并选择 <strong>Remote-SSH: Add New SSH Host</strong>。</p>
+</li>
+<li>
+<p>输入你的 SSH 连接命令，例如：</p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="code"><pre><span class="line">ssh username@server_ip</span><br></pre></td></tr></table></figure></div>
+<p>替换 <code>username</code> 和 <code>server_ip</code> 为你的实际用户名和服务器的 IP 地址。</p>
+</li>
+</ul>
+</li>
+<li>
+<p><strong>选择 SSH 配置文件</strong>：</p>
+<ul>
+<li>VSCode 会提示你选择 SSH 配置文件，通常是 <code>~/.ssh/config</code>。</li>
+</ul>
+</li>
+<li>
+<p><strong>连接到 SSH 主机</strong>：</p>
+<ul>
+<li>重新打开命令面板，输入并选择 <strong>Remote-SSH: Connect to Host</strong>，然后选择你刚刚添加的主机。</li>
+</ul>
+</li>
+<li>
+<p><strong>输入密码或密钥</strong>（如果使用密码）：</p>
+<ul>
+<li>如果 SSH 配置为密码验证，你需要输入密码。如果配置为密钥验证且密钥已设置为默认，VSCode 会自动使用密钥。</li>
+</ul>
+</li>
+</ol>
+<h3 id="8-连接后"><a class="markdownIt-Anchor" href="#8-连接后"></a> 8. 连接后</h3>
+<p>一旦连接成功，你就可以像在本地一样编辑远程服务器上的文件了。你可以打开终端，运行命令，并使用 VSCode 的所有功能。</p>
+<p>通过以上步骤，你就可以方便地在 Ubuntu 上配置 SSH，以便使用 VSCode 进行连接和远程开发。</p>
+<div class="highlight-container" data-rel="Cpp"><figure class="iseeu highlight cpp"><table><tr><td class="code"><pre><span class="line"></span><br></pre></td></tr></table></figure></div>
+<div class="highlight-container" data-rel="Cpp"><figure class="iseeu highlight cpp"><table><tr><td class="code"><pre><span class="line"></span><br></pre></td></tr></table></figure></div>]]></content>
+      <categories>
+        <category>Ubuntu</category>
+      </categories>
+      <tags>
+        <tag>Ubuntu</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>centos7 基础命令爆出255返回码</title>
+    <url>/sni2sz/</url>
+    <content><![CDATA[<p>cron 是一个用于在指定时间自动执行预定任务的守护进程，/etc/cron.hourly/ 目录中的脚本每小时会被 cron进程 自动执行一次</p>
+]]></content>
+      <categories>
+        <category>Ubuntu</category>
+      </categories>
+      <tags>
+        <tag>Ubuntu</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>SeaBattle海战游戏</title>
     <url>/sni31d/</url>
     <content><![CDATA[<h2 id="规则"><a class="markdownIt-Anchor" href="#规则"></a> 规则</h2>
@@ -275,111 +380,6 @@
       <tags>
         <tag>海战游戏</tag>
         <tag>策略</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Ubuntu配置ssh</title>
-    <url>/sni2r9/</url>
-    <content><![CDATA[<p>在 Ubuntu 上配置 SSH 以便使用 Visual Studio Code (VSCode) 进行连接，可以按照以下步骤进行：</p>
-<h3 id="1-安装-openssh-服务器"><a class="markdownIt-Anchor" href="#1-安装-openssh-服务器"></a> 1. 安装 OpenSSH 服务器</h3>
-<p>首先，你需要确保你的 Ubuntu 系统上安装了 OpenSSH 服务器。打开终端，执行以下命令：</p>
-<div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">sudo</span> apt update</span><br><span class="line"><span class="built_in">sudo</span> apt install openssh-server</span><br></pre></td></tr></table></figure></div>
-<h3 id="2-启动和启用-ssh-服务"><a class="markdownIt-Anchor" href="#2-启动和启用-ssh-服务"></a> 2. 启动和启用 SSH 服务</h3>
-<p>安装完成后，启动 SSH 服务并确保它在系统启动时自动启动：</p>
-<div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">sudo</span> systemctl start ssh</span><br><span class="line"><span class="built_in">sudo</span> systemctl <span class="built_in">enable</span> ssh</span><br></pre></td></tr></table></figure></div>
-<h3 id="3-检查-ssh-服务状态"><a class="markdownIt-Anchor" href="#3-检查-ssh-服务状态"></a> 3. 检查 SSH 服务状态</h3>
-<p>你可以使用以下命令检查 SSH 服务的状态：</p>
-<div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">sudo</span> systemctl status ssh</span><br></pre></td></tr></table></figure></div>
-<p>确保服务正在运行，并且没有错误信息。</p>
-<h3 id="4-配置-ssh可选"><a class="markdownIt-Anchor" href="#4-配置-ssh可选"></a> 4. 配置 SSH（可选）</h3>
-<p>默认情况下，SSH 使用的配置文件位于 <code>/etc/ssh/sshd_config</code>。你可以根据需要修改此文件以增强安全性，例如禁用密码登录，启用密钥登录等。编辑配置文件：</p>
-<div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">sudo</span> nano /etc/ssh/sshd_config</span><br></pre></td></tr></table></figure></div>
-<p>以下是一些常见的配置选项：</p>
-<ul>
-<li>
-<p><strong>禁用密码登录</strong>（仅允许使用密钥登录）：</p>
- <div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="code"><pre><span class="line">PasswordAuthentication no</span><br></pre></td></tr></table></figure></div>
-</li>
-<li>
-<p><strong>更改默认 SSH 端口</strong>（可选）：</p>
- <div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="code"><pre><span class="line">Port 2222</span><br></pre></td></tr></table></figure></div>
-</li>
-</ul>
-<p>更改后，保存并退出编辑器。然后重新启动 SSH 服务以使更改生效：</p>
-<div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">sudo</span> systemctl restart ssh</span><br></pre></td></tr></table></figure></div>
-<h3 id="5-配置防火墙如果适用"><a class="markdownIt-Anchor" href="#5-配置防火墙如果适用"></a> 5. 配置防火墙（如果适用）</h3>
-<p>如果你的系统启用了防火墙，确保 SSH 端口（默认是 22 或你更改后的端口）是开放的。使用以下命令允许 SSH 通过 UFW（如果你使用 UFW 作为防火墙）：</p>
-<div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">sudo</span> ufw allow ssh</span><br><span class="line"><span class="comment"># 如果你更改了端口，例如使用 2222：</span></span><br><span class="line"><span class="comment"># sudo ufw allow 2222</span></span><br></pre></td></tr></table></figure></div>
-<h3 id="6-获取服务器的-ip-地址"><a class="markdownIt-Anchor" href="#6-获取服务器的-ip-地址"></a> 6. 获取服务器的 IP 地址</h3>
-<p>你可以使用以下命令获取你的服务器的 IP 地址：</p>
-<div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="code"><pre><span class="line">ip a</span><br></pre></td></tr></table></figure></div>
-<h3 id="7-在-vscode-中配置-ssh"><a class="markdownIt-Anchor" href="#7-在-vscode-中配置-ssh"></a> 7. 在 VSCode 中配置 SSH</h3>
-<ol>
-<li>
-<p><strong>安装 Remote - SSH 插件</strong>：</p>
-<ul>
-<li>打开 VSCode。</li>
-<li>转到扩展视图 (<code>Ctrl + Shift + X</code>)。</li>
-<li>搜索并安装 <strong>Remote - SSH</strong> 插件。</li>
-</ul>
-</li>
-<li>
-<p><strong>添加 SSH 主机</strong>：</p>
-<ul>
-<li>
-<p>按 <code>F1</code> 或 <code>Ctrl + Shift + P</code> 打开命令面板。</p>
-</li>
-<li>
-<p>输入并选择 <strong>Remote-SSH: Add New SSH Host</strong>。</p>
-</li>
-<li>
-<p>输入你的 SSH 连接命令，例如：</p>
-<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="code"><pre><span class="line">ssh username@server_ip</span><br></pre></td></tr></table></figure></div>
-<p>替换 <code>username</code> 和 <code>server_ip</code> 为你的实际用户名和服务器的 IP 地址。</p>
-</li>
-</ul>
-</li>
-<li>
-<p><strong>选择 SSH 配置文件</strong>：</p>
-<ul>
-<li>VSCode 会提示你选择 SSH 配置文件，通常是 <code>~/.ssh/config</code>。</li>
-</ul>
-</li>
-<li>
-<p><strong>连接到 SSH 主机</strong>：</p>
-<ul>
-<li>重新打开命令面板，输入并选择 <strong>Remote-SSH: Connect to Host</strong>，然后选择你刚刚添加的主机。</li>
-</ul>
-</li>
-<li>
-<p><strong>输入密码或密钥</strong>（如果使用密码）：</p>
-<ul>
-<li>如果 SSH 配置为密码验证，你需要输入密码。如果配置为密钥验证且密钥已设置为默认，VSCode 会自动使用密钥。</li>
-</ul>
-</li>
-</ol>
-<h3 id="8-连接后"><a class="markdownIt-Anchor" href="#8-连接后"></a> 8. 连接后</h3>
-<p>一旦连接成功，你就可以像在本地一样编辑远程服务器上的文件了。你可以打开终端，运行命令，并使用 VSCode 的所有功能。</p>
-<p>通过以上步骤，你就可以方便地在 Ubuntu 上配置 SSH，以便使用 VSCode 进行连接和远程开发。</p>
-<div class="highlight-container" data-rel="Cpp"><figure class="iseeu highlight cpp"><table><tr><td class="code"><pre><span class="line"></span><br></pre></td></tr></table></figure></div>
-<div class="highlight-container" data-rel="Cpp"><figure class="iseeu highlight cpp"><table><tr><td class="code"><pre><span class="line"></span><br></pre></td></tr></table></figure></div>]]></content>
-      <categories>
-        <category>Ubuntu</category>
-      </categories>
-      <tags>
-        <tag>Ubuntu</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>centos7 基础命令爆出255返回码</title>
-    <url>/sni2sz/</url>
-    <content><![CDATA[<p>cron 是一个用于在指定时间自动执行预定任务的守护进程，/etc/cron.hourly/ 目录中的脚本每小时会被 cron进程 自动执行一次</p>
-]]></content>
-      <categories>
-        <category>Ubuntu</category>
-      </categories>
-      <tags>
-        <tag>Ubuntu</tag>
       </tags>
   </entry>
   <entry>
