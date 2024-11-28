@@ -1,153 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
-    <title>Obsidian——主题配置和插件推荐</title>
-    <url>/snm6s8/</url>
-    <content><![CDATA[<p>之前三年基本都在使用 Typora 记录笔记，Typora 本身非常轻量，提供的基础功能比较齐全，而且 21 年我刚开始用的时候开始免费的（后来不知道为啥突然要收费了）。不过，用的时间久了，还是发现 Typora 本身还是有不少的局限性：</p>
-<ol>
-<li>代码块功能局限：我的笔记中往往需要创建不同语言的代码块，但是使用 typora 的默认快捷键之后每次都得手动修改语言格式。虽说这个问题我通过自己编写 ahk 脚本解决了，不过每种语言都按一种键位有点蛋疼。</li>
-<li>修改主题比较困难：Typora 是支持下载主题、更换主题的（需要翻墙），也有很多好看的皮肤。可是，我一般喜欢将某几款主题好看的地方综合起来，在 Typora 中，这就得直接修改主题的 css 代码才能做到了，一点一点的盯着改对我来说并不是很友好 😢。</li>
-<li>不具备多文件管理能力：Typora 每次只能打开一个文件，多个文件只能一个一个的打开，如果我想同时看多个文件就很麻烦；每次 Ctrl+O/Ctrl+P 找文件也实在难以接受；</li>
-<li>扩展性差：Typora 没有插件市场，每次缺一点小功能就得现找解决方法。如果说有一个笔记软件可以安装插件，我只需要通过安装插件就可以扩展多个功能就方便得多了。</li>
-</ol>
-<h2 id="为什么不使用-notion"><a class="markdownIt-Anchor" href="#为什么不使用-notion"></a> 🤔 为什么不使用 Notion</h2>
-<p>其实今年 8 月份的时候就想换笔记软件的，当时是我的好哥们儿推荐的 Notion，Notion 的共享属性非常非常强，只要你写完一篇笔记，就能自动保存到云服务器上，而且使用 notion 搭建博客也非常方便。不仅如此，notion 支持 <mark>基本的 markdown 语法</mark>，笔记中以文本块为单位，上下活动文本块非常容易；notion 还有嵌套列表、dataview（方便管理笔记）、支持插件、同时有很多非常好看的模版，笔记添加头图也很简单。</p>
-<p>我好哥们的习惯是在 Notion 上写随笔，在家还有公司都可以随时写点小笔记，这样不管在哪，只要开下浏览器就能看到；如果使用的是 Typora，那就得 <mark>写笔记 -&gt; 同步笔记到 Git -&gt; Git 拉取笔记 -&gt; 看笔记</mark>。notion 还支持在笔记中嵌入视频、图片（<mark>上传图片使用的是 notion 自己的图床，也就是说，不用你额外配置图床</mark>），网上也有很多博主出 notion 的教程。</p>
-<p><strong>不过，我最终还是放弃了 Notion。</strong></p>
-<p>原因是，notion 支持 <mark>基本的 markdown 语法</mark>，这个基本对我来说是硬伤。长久以来使用 Typora 已经让我对 markdown 的语法有了依赖性，在 markdown 语法中，仅需<strong>两个"$"符</strong>就可以编写数学公式，仅需<strong>三个 ` + 语言格式</strong> 就可以写代码块。可是在 notion 中不支持这两个功能，尤其是写代码块的时候还必须得手动选择语言格式，强迫症极重的我实在难以接受 😠。</p>
-<p>并且，在了解 Obsidian 之后，我发现其实 Notion 的很多功能在 Obsidian 也可以实现，Obsidian 的插件市场很大，而且更新还很频繁，当然，最重要的还是：<mark>Obsidian 完全支持 markdown 的语法，并且具备文件管理功能。</mark> 卧槽！这不就是我想要的效果吗？！</p>
-<h2 id="官网下载安装"><a class="markdownIt-Anchor" href="#官网下载安装"></a> 官网下载安装</h2>
-<p>Obsidian 是免费的，直接去官网下载就可以了，地址：<a class="link" href="https://obsidian.md/download">https://obsidian.md/download<i class="fa-solid fa-arrow-up-right ml-[0.2em] font-light align-text-top text-[0.7em] link-icon"></i></a> 。<mark>这里先提醒一下，使用 Obsidian 的前提是你能够翻墙！！因为其插件市场是需要翻墙才能访问的！！</mark></p>
-<p>下载好之后，直接选择合适的路径安装即可，然后直接双击运行就可以了。第一次运行应该会让你创建一个分区，这里可以新建一个分区，名字自定义，之后写笔记尽量都在一个分区里写，<mark>因为Obsidian里，每个分区的插件都是独立的，如果你突然切换分区，那么新分区里是没有旧分区里的插件的！！</mark>（<strong>当然后面的教程会说如何用插件解决</strong>）<br>
-<img lazyload="" src="/images/loading.svg" data-src="https://typora-aliyun01.oss-cn-hangzhou.aliyuncs.com/img/20241127234438.png" alt="image.png|525"></p>
-<h2 id="obsidian-基础配置"><a class="markdownIt-Anchor" href="#obsidian-基础配置"></a> Obsidian 基础配置</h2>
-<h3 id="1语言设置"><a class="markdownIt-Anchor" href="#1语言设置"></a> 1.语言设置</h3>
-<p>刚安装运行 Obsidian 时，你看到的应该是纯英文的界面，文件夹啥的都是英文。这个需要在这里改成 <strong>简体中文</strong>。<br>
-<img lazyload="" src="/images/loading.svg" data-src="https://typora-aliyun01.oss-cn-hangzhou.aliyuncs.com/img/20241127233505.png" alt="image.png"></p>
-<h3 id="2字体设置"><a class="markdownIt-Anchor" href="#2字体设置"></a> 2.字体设置</h3>
-<p>看到上面那张图应该会发现，我使用的字体和默认的字体不一样，这个字体需要你额外下载安装：<a class="link" href="https://github.com/lxgw/LxgwWenKai-Screen/releases/tag/v1.501">https://github.com/lxgw/LxgwWenKai-Screen/releases/tag/v1.501<i class="fa-solid fa-arrow-up-right ml-[0.2em] font-light align-text-top text-[0.7em] link-icon"></i></a></p>
-<p>在官网下载 ttf 文件的字体，然后双击安装（<strong>最好以管理员模式安装</strong>），然后在下面的设置这里，点击管理，手动输入 <code>霞鹜文楷 GB 屏幕指纹版</code>，就可以使用这个字体了。其中，<strong>代码字体不推荐用霞鹜文楷</strong>，因为这个字体不是等宽的，一开始看的话可能会感觉代码比较挤。</p>
-<p>当然了，字体的喜好因人而异，如果你有其他喜欢的字体，直接在这里修改即可。</p>
-<p><img lazyload="" src="/images/loading.svg" data-src="https://typora-aliyun01.oss-cn-hangzhou.aliyuncs.com/img/20241127233740.png" alt="image.png"></p>
-<h3 id="3主题设置"><a class="markdownIt-Anchor" href="#3主题设置"></a> 3.主题设置</h3>
-<p>Obsidian原生的主题可能比较简陋，不过Obsidian有个主题市场，可以在市场中下载安装自己喜欢的主题，点击这个 <strong>管理</strong>，就可以进入插件市场，选择自己喜欢的主题就可以了。<br>
-<img lazyload="" src="/images/loading.svg" data-src="https://typora-aliyun01.oss-cn-hangzhou.aliyuncs.com/img/20241127234314.png" alt="image.png"></p>
-<p>主题的话多种多样，选择自己喜欢的就可以了，这里有的主题是没有夜间模式的，选择的时候请斟酌。<br>
-<img lazyload="" src="/images/loading.svg" data-src="https://typora-aliyun01.oss-cn-hangzhou.aliyuncs.com/img/20241127234846.png" alt="image.png"></p>
-]]></content>
-      <categories>
-        <category>IDE配置</category>
-      </categories>
-      <tags>
-        <tag>Obsidian</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>centos7 基础命令爆出255返回码</title>
-    <url>/sni2sz/</url>
-    <content><![CDATA[<p>cron 是一个用于在指定时间自动执行预定任务的守护进程，/etc/cron.hourly/ 目录中的脚本每小时会被 cron进程 自动执行一次</p>
-]]></content>
-      <categories>
-        <category>Ubuntu</category>
-      </categories>
-      <tags>
-        <tag>Ubuntu</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Ubuntu配置ssh</title>
-    <url>/sni2r9/</url>
-    <content><![CDATA[<p>在 Ubuntu 上配置 SSH 以便使用 Visual Studio Code (VSCode) 进行连接，可以按照以下步骤进行：</p>
-<h3 id="1-安装-openssh-服务器"><a class="markdownIt-Anchor" href="#1-安装-openssh-服务器"></a> 1. 安装 OpenSSH 服务器</h3>
-<p>首先，你需要确保你的 Ubuntu 系统上安装了 OpenSSH 服务器。打开终端，执行以下命令：</p>
-<div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">sudo</span> apt update</span><br><span class="line"><span class="built_in">sudo</span> apt install openssh-server</span><br></pre></td></tr></table></figure></div>
-<h3 id="2-启动和启用-ssh-服务"><a class="markdownIt-Anchor" href="#2-启动和启用-ssh-服务"></a> 2. 启动和启用 SSH 服务</h3>
-<p>安装完成后，启动 SSH 服务并确保它在系统启动时自动启动：</p>
-<div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">sudo</span> systemctl start ssh</span><br><span class="line"><span class="built_in">sudo</span> systemctl <span class="built_in">enable</span> ssh</span><br></pre></td></tr></table></figure></div>
-<h3 id="3-检查-ssh-服务状态"><a class="markdownIt-Anchor" href="#3-检查-ssh-服务状态"></a> 3. 检查 SSH 服务状态</h3>
-<p>你可以使用以下命令检查 SSH 服务的状态：</p>
-<div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">sudo</span> systemctl status ssh</span><br></pre></td></tr></table></figure></div>
-<p>确保服务正在运行，并且没有错误信息。</p>
-<h3 id="4-配置-ssh可选"><a class="markdownIt-Anchor" href="#4-配置-ssh可选"></a> 4. 配置 SSH（可选）</h3>
-<p>默认情况下，SSH 使用的配置文件位于 <code>/etc/ssh/sshd_config</code>。你可以根据需要修改此文件以增强安全性，例如禁用密码登录，启用密钥登录等。编辑配置文件：</p>
-<div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">sudo</span> nano /etc/ssh/sshd_config</span><br></pre></td></tr></table></figure></div>
-<p>以下是一些常见的配置选项：</p>
-<ul>
-<li>
-<p><strong>禁用密码登录</strong>（仅允许使用密钥登录）：</p>
- <div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="code"><pre><span class="line">PasswordAuthentication no</span><br></pre></td></tr></table></figure></div>
-</li>
-<li>
-<p><strong>更改默认 SSH 端口</strong>（可选）：</p>
- <div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="code"><pre><span class="line">Port 2222</span><br></pre></td></tr></table></figure></div>
-</li>
-</ul>
-<p>更改后，保存并退出编辑器。然后重新启动 SSH 服务以使更改生效：</p>
-<div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">sudo</span> systemctl restart ssh</span><br></pre></td></tr></table></figure></div>
-<h3 id="5-配置防火墙如果适用"><a class="markdownIt-Anchor" href="#5-配置防火墙如果适用"></a> 5. 配置防火墙（如果适用）</h3>
-<p>如果你的系统启用了防火墙，确保 SSH 端口（默认是 22 或你更改后的端口）是开放的。使用以下命令允许 SSH 通过 UFW（如果你使用 UFW 作为防火墙）：</p>
-<div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">sudo</span> ufw allow ssh</span><br><span class="line"><span class="comment"># 如果你更改了端口，例如使用 2222：</span></span><br><span class="line"><span class="comment"># sudo ufw allow 2222</span></span><br></pre></td></tr></table></figure></div>
-<h3 id="6-获取服务器的-ip-地址"><a class="markdownIt-Anchor" href="#6-获取服务器的-ip-地址"></a> 6. 获取服务器的 IP 地址</h3>
-<p>你可以使用以下命令获取你的服务器的 IP 地址：</p>
-<div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="code"><pre><span class="line">ip a</span><br></pre></td></tr></table></figure></div>
-<h3 id="7-在-vscode-中配置-ssh"><a class="markdownIt-Anchor" href="#7-在-vscode-中配置-ssh"></a> 7. 在 VSCode 中配置 SSH</h3>
-<ol>
-<li>
-<p><strong>安装 Remote - SSH 插件</strong>：</p>
-<ul>
-<li>打开 VSCode。</li>
-<li>转到扩展视图 (<code>Ctrl + Shift + X</code>)。</li>
-<li>搜索并安装 <strong>Remote - SSH</strong> 插件。</li>
-</ul>
-</li>
-<li>
-<p><strong>添加 SSH 主机</strong>：</p>
-<ul>
-<li>
-<p>按 <code>F1</code> 或 <code>Ctrl + Shift + P</code> 打开命令面板。</p>
-</li>
-<li>
-<p>输入并选择 <strong>Remote-SSH: Add New SSH Host</strong>。</p>
-</li>
-<li>
-<p>输入你的 SSH 连接命令，例如：</p>
-<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="code"><pre><span class="line">ssh username@server_ip</span><br></pre></td></tr></table></figure></div>
-<p>替换 <code>username</code> 和 <code>server_ip</code> 为你的实际用户名和服务器的 IP 地址。</p>
-</li>
-</ul>
-</li>
-<li>
-<p><strong>选择 SSH 配置文件</strong>：</p>
-<ul>
-<li>VSCode 会提示你选择 SSH 配置文件，通常是 <code>~/.ssh/config</code>。</li>
-</ul>
-</li>
-<li>
-<p><strong>连接到 SSH 主机</strong>：</p>
-<ul>
-<li>重新打开命令面板，输入并选择 <strong>Remote-SSH: Connect to Host</strong>，然后选择你刚刚添加的主机。</li>
-</ul>
-</li>
-<li>
-<p><strong>输入密码或密钥</strong>（如果使用密码）：</p>
-<ul>
-<li>如果 SSH 配置为密码验证，你需要输入密码。如果配置为密钥验证且密钥已设置为默认，VSCode 会自动使用密钥。</li>
-</ul>
-</li>
-</ol>
-<h3 id="8-连接后"><a class="markdownIt-Anchor" href="#8-连接后"></a> 8. 连接后</h3>
-<p>一旦连接成功，你就可以像在本地一样编辑远程服务器上的文件了。你可以打开终端，运行命令，并使用 VSCode 的所有功能。</p>
-<p>通过以上步骤，你就可以方便地在 Ubuntu 上配置 SSH，以便使用 VSCode 进行连接和远程开发。</p>
-<div class="highlight-container" data-rel="Cpp"><figure class="iseeu highlight cpp"><table><tr><td class="code"><pre><span class="line"></span><br></pre></td></tr></table></figure></div>
-<div class="highlight-container" data-rel="Cpp"><figure class="iseeu highlight cpp"><table><tr><td class="code"><pre><span class="line"></span><br></pre></td></tr></table></figure></div>]]></content>
-      <categories>
-        <category>Ubuntu</category>
-      </categories>
-      <tags>
-        <tag>Ubuntu</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>SeaBattle海战游戏</title>
     <url>/sni31d/</url>
     <content><![CDATA[<h2 id="规则"><a class="markdownIt-Anchor" href="#规则"></a> 规则</h2>
@@ -248,6 +101,60 @@
       <tags>
         <tag>海战游戏</tag>
         <tag>策略</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Obsidian——主题配置和插件推荐</title>
+    <url>/snm6s8/</url>
+    <content><![CDATA[<p>之前三年基本都在使用 Typora 记录笔记，Typora 本身非常轻量，提供的基础功能比较齐全，而且 21 年我刚开始用的时候开始免费的（后来不知道为啥突然要收费了）。不过，用的时间久了，还是发现 Typora 本身还是有不少的局限性：</p>
+<ol>
+<li>代码块功能局限：我的笔记中往往需要创建不同语言的代码块，但是使用 typora 的默认快捷键之后每次都得手动修改语言格式。虽说这个问题我通过自己编写 ahk 脚本解决了，不过每种语言都按一种键位有点蛋疼。</li>
+<li>修改主题比较困难：Typora 是支持下载主题、更换主题的（需要翻墙），也有很多好看的皮肤。可是，我一般喜欢将某几款主题好看的地方综合起来，在 Typora 中，这就得直接修改主题的 css 代码才能做到了，一点一点的盯着改对我来说并不是很友好 😢。</li>
+<li>不具备多文件管理能力：Typora 每次只能打开一个文件，多个文件只能一个一个的打开，如果我想同时看多个文件就很麻烦；每次 Ctrl+O/Ctrl+P 找文件也实在难以接受；</li>
+<li>扩展性差：Typora 没有插件市场，每次缺一点小功能就得现找解决方法。如果说有一个笔记软件可以安装插件，我只需要通过安装插件就可以扩展多个功能就方便得多了。</li>
+</ol>
+<h2 id="为什么不使用-notion"><a class="markdownIt-Anchor" href="#为什么不使用-notion"></a> 🤔 为什么不使用 Notion</h2>
+<p>其实今年 8 月份的时候就想换笔记软件的，当时是我的好哥们儿推荐的 Notion，Notion 的共享属性非常非常强，只要你写完一篇笔记，就能自动保存到云服务器上，而且使用 notion 搭建博客也非常方便。不仅如此，notion 支持 <mark>基本的 markdown 语法</mark>，笔记中以文本块为单位，上下活动文本块非常容易；notion 还有嵌套列表、dataview（方便管理笔记）、支持插件、同时有很多非常好看的模版，笔记添加头图也很简单。</p>
+<p>我好哥们的习惯是在 Notion 上写随笔，在家还有公司都可以随时写点小笔记，这样不管在哪，只要开下浏览器就能看到；如果使用的是 Typora，那就得 <mark>写笔记 -&gt; 同步笔记到 Git -&gt; Git 拉取笔记 -&gt; 看笔记</mark>。notion 还支持在笔记中嵌入视频、图片（<mark>上传图片使用的是 notion 自己的图床，也就是说，不用你额外配置图床</mark>），网上也有很多博主出 notion 的教程。</p>
+<p><strong>不过，我最终还是放弃了 Notion。</strong></p>
+<p>原因是，notion 支持 <mark>基本的 markdown 语法</mark>，这个基本对我来说是硬伤。长久以来使用 Typora 已经让我对 markdown 的语法有了依赖性，在 markdown 语法中，仅需<strong>两个"$"符</strong>就可以编写数学公式，仅需<strong>三个 ` + 语言格式</strong> 就可以写代码块。可是在 notion 中不支持这两个功能，尤其是写代码块的时候还必须得手动选择语言格式，强迫症极重的我实在难以接受 😠。</p>
+<p>并且，在了解 Obsidian 之后，我发现其实 Notion 的很多功能在 Obsidian 也可以实现，Obsidian 的插件市场很大，而且更新还很频繁，当然，最重要的还是：<mark>Obsidian 完全支持 markdown 的语法，并且具备文件管理功能。</mark> 卧槽！这不就是我想要的效果吗？！</p>
+<h2 id="官网下载安装"><a class="markdownIt-Anchor" href="#官网下载安装"></a> 官网下载安装</h2>
+<p>Obsidian 是免费的，直接去官网下载就可以了，地址：<a class="link" href="https://obsidian.md/download">https://obsidian.md/download<i class="fa-solid fa-arrow-up-right ml-[0.2em] font-light align-text-top text-[0.7em] link-icon"></i></a> 。<mark>这里先提醒一下，使用 Obsidian 的前提是你能够翻墙！！因为其插件市场是需要翻墙才能访问的！！</mark></p>
+<p>下载好之后，直接选择合适的路径安装即可，然后直接双击运行就可以了。第一次运行应该会让你创建一个分区，这里可以新建一个分区，名字自定义，之后写笔记尽量都在一个分区里写，<mark>因为Obsidian里，每个分区的插件都是独立的，如果你突然切换分区，那么新分区里是没有旧分区里的插件的！！</mark>（<strong>当然后面的教程会说如何用插件解决</strong>）<br>
+<img lazyload="" src="/images/loading.svg" data-src="https://typora-aliyun01.oss-cn-hangzhou.aliyuncs.com/img/20241127234438.png" alt="image.png|525"></p>
+<h2 id="obsidian-基础配置"><a class="markdownIt-Anchor" href="#obsidian-基础配置"></a> Obsidian 基础配置</h2>
+<h3 id="1语言设置"><a class="markdownIt-Anchor" href="#1语言设置"></a> 1.语言设置</h3>
+<p>刚安装运行 Obsidian 时，你看到的应该是纯英文的界面，文件夹啥的都是英文。这个需要在这里改成 <strong>简体中文</strong>。<br>
+<img lazyload="" src="/images/loading.svg" data-src="https://typora-aliyun01.oss-cn-hangzhou.aliyuncs.com/img/20241127233505.png" alt="image.png"></p>
+<h3 id="2字体设置"><a class="markdownIt-Anchor" href="#2字体设置"></a> 2.字体设置</h3>
+<p>看到上面那张图应该会发现，我使用的字体和默认的字体不一样，这个字体需要你额外下载安装：<a class="link" href="https://github.com/lxgw/LxgwWenKai-Screen/releases/tag/v1.501">https://github.com/lxgw/LxgwWenKai-Screen/releases/tag/v1.501<i class="fa-solid fa-arrow-up-right ml-[0.2em] font-light align-text-top text-[0.7em] link-icon"></i></a></p>
+<p>在官网下载 ttf 文件的字体，然后双击安装（<strong>最好以管理员模式安装</strong>），然后在下面的设置这里，点击管理，手动输入 <code>霞鹜文楷 GB 屏幕指纹版</code>，就可以使用这个字体了。其中，<strong>代码字体不推荐用霞鹜文楷</strong>，因为这个字体不是等宽的，一开始看的话可能会感觉代码比较挤。</p>
+<p>当然了，字体的喜好因人而异，如果你有其他喜欢的字体，直接在这里修改即可。</p>
+<p><img lazyload="" src="/images/loading.svg" data-src="https://typora-aliyun01.oss-cn-hangzhou.aliyuncs.com/img/20241127233740.png" alt="image.png"></p>
+<h3 id="3主题设置"><a class="markdownIt-Anchor" href="#3主题设置"></a> 3.主题设置</h3>
+<p>Obsidian原生的主题可能比较简陋，不过Obsidian有个主题市场，可以在市场中下载安装自己喜欢的主题，点击这个 <strong>管理</strong>，就可以进入插件市场，选择自己喜欢的主题就可以了。<br>
+<img lazyload="" src="/images/loading.svg" data-src="https://typora-aliyun01.oss-cn-hangzhou.aliyuncs.com/img/20241127234314.png" alt="image.png"></p>
+<p>主题的话多种多样，选择自己喜欢的就可以了，这里有的主题是没有夜间模式的，选择的时候请斟酌。<br>
+<img lazyload="" src="/images/loading.svg" data-src="https://typora-aliyun01.oss-cn-hangzhou.aliyuncs.com/img/20241127234846.png" alt="image.png"></p>
+]]></content>
+      <categories>
+        <category>IDE配置</category>
+      </categories>
+      <tags>
+        <tag>Obsidian</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>centos7 基础命令爆出255返回码</title>
+    <url>/sni2sz/</url>
+    <content><![CDATA[<p>cron 是一个用于在指定时间自动执行预定任务的守护进程，/etc/cron.hourly/ 目录中的脚本每小时会被 cron进程 自动执行一次</p>
+]]></content>
+      <categories>
+        <category>Ubuntu</category>
+      </categories>
+      <tags>
+        <tag>Ubuntu</tag>
       </tags>
   </entry>
   <entry>
@@ -380,6 +287,99 @@
       <tags>
         <tag>海战游戏</tag>
         <tag>策略</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Ubuntu配置ssh</title>
+    <url>/sni2r9/</url>
+    <content><![CDATA[<p>在 Ubuntu 上配置 SSH 以便使用 Visual Studio Code (VSCode) 进行连接，可以按照以下步骤进行：</p>
+<h3 id="1-安装-openssh-服务器"><a class="markdownIt-Anchor" href="#1-安装-openssh-服务器"></a> 1. 安装 OpenSSH 服务器</h3>
+<p>首先，你需要确保你的 Ubuntu 系统上安装了 OpenSSH 服务器。打开终端，执行以下命令：</p>
+<div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">sudo</span> apt update</span><br><span class="line"><span class="built_in">sudo</span> apt install openssh-server</span><br></pre></td></tr></table></figure></div>
+<h3 id="2-启动和启用-ssh-服务"><a class="markdownIt-Anchor" href="#2-启动和启用-ssh-服务"></a> 2. 启动和启用 SSH 服务</h3>
+<p>安装完成后，启动 SSH 服务并确保它在系统启动时自动启动：</p>
+<div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">sudo</span> systemctl start ssh</span><br><span class="line"><span class="built_in">sudo</span> systemctl <span class="built_in">enable</span> ssh</span><br></pre></td></tr></table></figure></div>
+<h3 id="3-检查-ssh-服务状态"><a class="markdownIt-Anchor" href="#3-检查-ssh-服务状态"></a> 3. 检查 SSH 服务状态</h3>
+<p>你可以使用以下命令检查 SSH 服务的状态：</p>
+<div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">sudo</span> systemctl status ssh</span><br></pre></td></tr></table></figure></div>
+<p>确保服务正在运行，并且没有错误信息。</p>
+<h3 id="4-配置-ssh可选"><a class="markdownIt-Anchor" href="#4-配置-ssh可选"></a> 4. 配置 SSH（可选）</h3>
+<p>默认情况下，SSH 使用的配置文件位于 <code>/etc/ssh/sshd_config</code>。你可以根据需要修改此文件以增强安全性，例如禁用密码登录，启用密钥登录等。编辑配置文件：</p>
+<div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">sudo</span> nano /etc/ssh/sshd_config</span><br></pre></td></tr></table></figure></div>
+<p>以下是一些常见的配置选项：</p>
+<ul>
+<li>
+<p><strong>禁用密码登录</strong>（仅允许使用密钥登录）：</p>
+ <div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="code"><pre><span class="line">PasswordAuthentication no</span><br></pre></td></tr></table></figure></div>
+</li>
+<li>
+<p><strong>更改默认 SSH 端口</strong>（可选）：</p>
+ <div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="code"><pre><span class="line">Port 2222</span><br></pre></td></tr></table></figure></div>
+</li>
+</ul>
+<p>更改后，保存并退出编辑器。然后重新启动 SSH 服务以使更改生效：</p>
+<div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">sudo</span> systemctl restart ssh</span><br></pre></td></tr></table></figure></div>
+<h3 id="5-配置防火墙如果适用"><a class="markdownIt-Anchor" href="#5-配置防火墙如果适用"></a> 5. 配置防火墙（如果适用）</h3>
+<p>如果你的系统启用了防火墙，确保 SSH 端口（默认是 22 或你更改后的端口）是开放的。使用以下命令允许 SSH 通过 UFW（如果你使用 UFW 作为防火墙）：</p>
+<div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">sudo</span> ufw allow ssh</span><br><span class="line"><span class="comment"># 如果你更改了端口，例如使用 2222：</span></span><br><span class="line"><span class="comment"># sudo ufw allow 2222</span></span><br></pre></td></tr></table></figure></div>
+<h3 id="6-获取服务器的-ip-地址"><a class="markdownIt-Anchor" href="#6-获取服务器的-ip-地址"></a> 6. 获取服务器的 IP 地址</h3>
+<p>你可以使用以下命令获取你的服务器的 IP 地址：</p>
+<div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="code"><pre><span class="line">ip a</span><br></pre></td></tr></table></figure></div>
+<h3 id="7-在-vscode-中配置-ssh"><a class="markdownIt-Anchor" href="#7-在-vscode-中配置-ssh"></a> 7. 在 VSCode 中配置 SSH</h3>
+<ol>
+<li>
+<p><strong>安装 Remote - SSH 插件</strong>：</p>
+<ul>
+<li>打开 VSCode。</li>
+<li>转到扩展视图 (<code>Ctrl + Shift + X</code>)。</li>
+<li>搜索并安装 <strong>Remote - SSH</strong> 插件。</li>
+</ul>
+</li>
+<li>
+<p><strong>添加 SSH 主机</strong>：</p>
+<ul>
+<li>
+<p>按 <code>F1</code> 或 <code>Ctrl + Shift + P</code> 打开命令面板。</p>
+</li>
+<li>
+<p>输入并选择 <strong>Remote-SSH: Add New SSH Host</strong>。</p>
+</li>
+<li>
+<p>输入你的 SSH 连接命令，例如：</p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="code"><pre><span class="line">ssh username@server_ip</span><br></pre></td></tr></table></figure></div>
+<p>替换 <code>username</code> 和 <code>server_ip</code> 为你的实际用户名和服务器的 IP 地址。</p>
+</li>
+</ul>
+</li>
+<li>
+<p><strong>选择 SSH 配置文件</strong>：</p>
+<ul>
+<li>VSCode 会提示你选择 SSH 配置文件，通常是 <code>~/.ssh/config</code>。</li>
+</ul>
+</li>
+<li>
+<p><strong>连接到 SSH 主机</strong>：</p>
+<ul>
+<li>重新打开命令面板，输入并选择 <strong>Remote-SSH: Connect to Host</strong>，然后选择你刚刚添加的主机。</li>
+</ul>
+</li>
+<li>
+<p><strong>输入密码或密钥</strong>（如果使用密码）：</p>
+<ul>
+<li>如果 SSH 配置为密码验证，你需要输入密码。如果配置为密钥验证且密钥已设置为默认，VSCode 会自动使用密钥。</li>
+</ul>
+</li>
+</ol>
+<h3 id="8-连接后"><a class="markdownIt-Anchor" href="#8-连接后"></a> 8. 连接后</h3>
+<p>一旦连接成功，你就可以像在本地一样编辑远程服务器上的文件了。你可以打开终端，运行命令，并使用 VSCode 的所有功能。</p>
+<p>通过以上步骤，你就可以方便地在 Ubuntu 上配置 SSH，以便使用 VSCode 进行连接和远程开发。</p>
+<div class="highlight-container" data-rel="Cpp"><figure class="iseeu highlight cpp"><table><tr><td class="code"><pre><span class="line"></span><br></pre></td></tr></table></figure></div>
+<div class="highlight-container" data-rel="Cpp"><figure class="iseeu highlight cpp"><table><tr><td class="code"><pre><span class="line"></span><br></pre></td></tr></table></figure></div>]]></content>
+      <categories>
+        <category>Ubuntu</category>
+      </categories>
+      <tags>
+        <tag>Ubuntu</tag>
       </tags>
   </entry>
   <entry>
@@ -701,17 +701,6 @@ s76,-59,76,-59s76,-60,76,-60z M1001 80H40000v40H1012z"></path></svg></span></spa
       </tags>
   </entry>
   <entry>
-    <title>大模型算力是如何计算的</title>
-    <url>/sni2x9/</url>
-    <content><![CDATA[]]></content>
-      <categories>
-        <category>多模态</category>
-      </categories>
-      <tags>
-        <tag>大模型</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>Rich Human Feedback for Text-to-Image Generation</title>
     <url>/sni2v6/</url>
     <content><![CDATA[<h2 id="abstract"><a class="markdownIt-Anchor" href="#abstract"></a> Abstract</h2>
@@ -749,6 +738,55 @@ s76,-59,76,-59s76,-60,76,-60z M1001 80H40000v40H1012z"></path></svg></span></spa
       </categories>
       <tags>
         <tag>RLHF</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>大模型算力是如何计算的</title>
+    <url>/sni2x9/</url>
+    <content><![CDATA[]]></content>
+      <categories>
+        <category>多模态</category>
+      </categories>
+      <tags>
+        <tag>大模型</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>前缀和+差分</title>
+    <url>/sni2z0/</url>
+    <content><![CDATA[<p>前缀和对我来说已经不算陌生了，前缀和的方便之处在于可以 <strong>快速求解任意子数组之和</strong>。但是，前缀和在区间频繁修改时就显得较为羸弱了，因为它只适合求和，不擅长修改。</p>
+<p>那么，如果某些<strong>区间频繁修改</strong>（<strong>仅限于都增加或者都减少某个值</strong>），但是求和只有一次，这种时候首先会想到的就是<strong>线段树</strong>了，不过线段树的代码量太多，使用差分则更简单，也更快。</p>
+<h1 id="什么是差分"><a class="markdownIt-Anchor" href="#什么是差分"></a> 什么是差分？</h1>
+<p>差分的意思主要是这个 <strong>差</strong>，指的其实就是 <strong>元素差</strong>。</p>
+<p>前缀和的思想是动态规划，可以将前 n 个元素的和预先存储起来，这样计算区间和的时候就不需要再按需进行累加了。</p>
+<p>而差分的思想就是 <strong>先求出相邻元素之间的差</strong>，当需要某个区间<code>[a,b]</code>增加或者减少某个值的，只需要修改 <code>arr[a]</code> 和 <code>arr[b+1]</code>，然后重新计算一次前缀和就可以了。</p>
+<h2 id="一维数组差分"><a class="markdownIt-Anchor" href="#一维数组差分"></a> 一维数组差分</h2>
+<p>如果有一个数组 <code>[1, 2, 3, 4, 5]</code>，其差分数组为 <code>[1, 1, 1, 1, 1]</code>。如果要将区间 <code>[1, 3]</code> 中的每个元素增加 2，可以通过修改差分数组 <code>diff[1] += 2</code> 和<code>diff[4] -= 2</code>来实现，得到新的差分数组<code>[1, 3, 1, 1, -1]</code>。通过重建数组可以得到<code>[1, 4, 5, 6, 5]</code>。</p>
+<img lazyload="" src="/images/loading.svg" data-src="https://typora-aliyun01.oss-cn-hangzhou.aliyuncs.com/img/a5d44b1e910f2d6038dc34fc3a64086.jpg" alt="a5d44b1e910f2d6038dc34fc3a64086.jpg" style="zoom: 33%;">
+<h2 id="树上差分"><a class="markdownIt-Anchor" href="#树上差分"></a> 树上差分</h2>
+<p>刚才只是在一维数组上差分，实现起来还是比较简单的，如果我们是在树上进行差分呢？<br>
+树上差分刚才只是在一维数组上差分，实现起来还是比较简单的，如果我们是在树上进行差分呢？</p>
+<p>场景：现在给你一颗树，并且告诉你起始节点和结束节点，对起始节点和结束节点路径中的所有节点的值都加上value。需要注意的是，<strong>这里的树指的是一颗无向树，也就是说并不是像只能从父节点向子节点的那种遍历，只要是这个节点连接到的结点，都是可以遍历到的。</strong><br>
+<img lazyload="" src="/images/loading.svg" data-src="https://typora-aliyun01.oss-cn-hangzhou.aliyuncs.com/img/05ca61d668ebe7e80a7514d8888ee46.jpg" alt="05ca61d668ebe7e80a7514d8888ee46.jpg" style="zoom: 33%;"></p>
+<p>如果要使用树上差分，就必不可免要使用到树中节点的 <strong>最近公共祖先</strong> 求解算法。[[最近公共祖先（LCA)]] 。关于LCA的求解推荐使用倍增法，可以详细看看。<br>
+<img lazyload="" src="/images/loading.svg" data-src="https://typora-aliyun01.oss-cn-hangzhou.aliyuncs.com/img/06223d47370e6ef8ba55e63bc42ef1c.jpg" alt="06223d47370e6ef8ba55e63bc42ef1c.jpg" style="zoom:33%;"><br>
+如图所示，实现差分我们只需要修改四个点的权值，起始点和终结点就不用说了，关键是这个 <strong>LCA还有LCA的父节点</strong>。这里你可能会有如下问题：</p>
+<blockquote>
+<p>[!note]<br>
+为什么这里还要将LCA的父节点权值也下降？</p>
+<p>原因是我们<strong>从根节点1开始进行DFS</strong>，原本的前缀和在这里更像“后缀和”。<br>
+DFS的过程中，每个节点的权值更新为其所有子孙的权值总和，weight[i]=<span class="katex"><span class="katex-mathml"><math><semantics><mrow><msubsup><mo>∑</mo><mi>i</mi><mi>n</mi></msubsup><mrow><mi>w</mi><mi>e</mi><mi>i</mi><mi>g</mi><mi>h</mi><mi>t</mi><mo stretchy="false">[</mo><mi>s</mi><mi>o</mi><mi>n</mi><mo stretchy="false">]</mo></mrow></mrow><annotation encoding="application/x-tex">\sum_i^n{weight[son]}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1.104002em;vertical-align:-0.29971000000000003em;"></span><span class="mop"><span class="mop op-symbol small-op" style="position:relative;top:-0.0000050000000000050004em;">∑</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.804292em;"><span style="top:-2.40029em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathdefault mtight">i</span></span></span><span style="top:-3.2029em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathdefault mtight">n</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.29971000000000003em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord"><span class="mord mathdefault" style="margin-right:0.02691em;">w</span><span class="mord mathdefault">e</span><span class="mord mathdefault">i</span><span class="mord mathdefault" style="margin-right:0.03588em;">g</span><span class="mord mathdefault">h</span><span class="mord mathdefault">t</span><span class="mopen">[</span><span class="mord mathdefault">s</span><span class="mord mathdefault">o</span><span class="mord mathdefault">n</span><span class="mclose">]</span></span></span></span></span></p>
+<p><strong>对于LCA本身，其本身只需要+3，不过a和b都是他的子孙，所以其本身-3</strong>。对于LCA的父节点，他的权值应该是不变的，刚才LCA减去3是因为LCA要+3，但是LCA的父节点应该是不变的，因此LCA的父节点权值也需要下降。</p>
+</blockquote>
+<div class="highlight-container" data-rel="Cpp"><figure class="iseeu highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="keyword">using</span> LL = <span class="type">long</span> <span class="type">long</span>;</span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> {</span><br><span class="line">    <span class="keyword">public</span>: <span class="function"><span class="type">int</span> <span class="title">maxRemoval</span><span class="params">(vector &lt; <span class="type">int</span> &gt; &amp; nums, vector &lt; vector &lt; <span class="type">int</span> &gt;&gt; &amp; queries)</span> </span>{</span><br><span class="line">        <span class="comment">// sort(queries.begin(), queries.end(), [](vector&lt;int&gt;&amp;a, vector&lt;int&gt;&amp;b){</span></span><br><span class="line">        <span class="comment">//     if (a[0]!=b[0])</span></span><br><span class="line">        <span class="comment">//         return a[0]&lt;b[0];</span></span><br><span class="line">        <span class="comment">//     else</span></span><br><span class="line">        <span class="comment">//         return a[1]&gt;b[1];</span></span><br><span class="line">        <span class="comment">// });</span></span><br><span class="line">        <span class="built_in">sort</span>(queries.<span class="built_in">begin</span>(), queries.<span class="built_in">end</span>());</span><br><span class="line"></span><br><span class="line">        <span class="type">int</span> n = nums.<span class="built_in">size</span>();</span><br><span class="line">        <span class="type">int</span> j = <span class="number">0</span>;</span><br><span class="line">        vector &lt; <span class="type">int</span> &gt; <span class="built_in">diff</span>(n + <span class="number">1</span>);</span><br><span class="line">        LL sum = <span class="number">0</span>;</span><br><span class="line">        <span class="type">int</span> ret = <span class="number">0</span>;</span><br><span class="line">        priority_queue &lt; <span class="type">int</span> &gt; pq;</span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">0</span>; i &lt; n; i++) {</span><br><span class="line">            <span class="keyword">while</span> (j &lt; queries.<span class="built_in">size</span>() &amp;&amp; queries[j][<span class="number">0</span>] &lt;= i) {</span><br><span class="line">                pq.<span class="built_in">push</span>(queries[j][<span class="number">1</span>]);</span><br><span class="line">                j++;</span><br><span class="line">            }</span><br><span class="line">            <span class="keyword">while</span> (sum + diff[i] &lt; nums[i]) {</span><br><span class="line">                <span class="keyword">if</span> (pq.<span class="built_in">empty</span>()) <span class="keyword">return</span> <span class="number">-1</span>;</span><br><span class="line">                <span class="keyword">if</span> (pq.<span class="built_in">top</span>() &lt; i) <span class="keyword">return</span> <span class="number">-1</span>;</span><br><span class="line">                <span class="type">int</span> t = pq.<span class="built_in">top</span>();</span><br><span class="line">                pq.<span class="built_in">pop</span>();</span><br><span class="line">                sum += <span class="number">1</span>;</span><br><span class="line">                diff[t + <span class="number">1</span>] -= <span class="number">1</span>;</span><br><span class="line">                ret++;</span><br><span class="line">            }</span><br><span class="line">            sum += diff[i];</span><br><span class="line">        }</span><br><span class="line">        <span class="keyword">return</span> queries.<span class="built_in">size</span>() - ret;</span><br><span class="line">    }</span><br><span class="line"></span><br><span class="line">};</span><br></pre></td></tr></table></figure></div>]]></content>
+      <categories>
+        <category>Leetcode</category>
+      </categories>
+      <tags>
+        <tag>Leetcode</tag>
+        <tag>动态规划</tag>
+        <tag>前缀和</tag>
+        <tag>差分</tag>
       </tags>
   </entry>
   <entry>
@@ -796,44 +834,6 @@ Question:为什么这里第一次找到不同的father[a][j]和father[b][j]时�
       <tags>
         <tag>Leetcode</tag>
         <tag>树</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>前缀和+差分</title>
-    <url>/sni2z0/</url>
-    <content><![CDATA[<p>前缀和对我来说已经不算陌生了，前缀和的方便之处在于可以 <strong>快速求解任意子数组之和</strong>。但是，前缀和在区间频繁修改时就显得较为羸弱了，因为它只适合求和，不擅长修改。</p>
-<p>那么，如果某些<strong>区间频繁修改</strong>（<strong>仅限于都增加或者都减少某个值</strong>），但是求和只有一次，这种时候首先会想到的就是<strong>线段树</strong>了，不过线段树的代码量太多，使用差分则更简单，也更快。</p>
-<h1 id="什么是差分"><a class="markdownIt-Anchor" href="#什么是差分"></a> 什么是差分？</h1>
-<p>差分的意思主要是这个 <strong>差</strong>，指的其实就是 <strong>元素差</strong>。</p>
-<p>前缀和的思想是动态规划，可以将前 n 个元素的和预先存储起来，这样计算区间和的时候就不需要再按需进行累加了。</p>
-<p>而差分的思想就是 <strong>先求出相邻元素之间的差</strong>，当需要某个区间<code>[a,b]</code>增加或者减少某个值的，只需要修改 <code>arr[a]</code> 和 <code>arr[b+1]</code>，然后重新计算一次前缀和就可以了。</p>
-<h2 id="一维数组差分"><a class="markdownIt-Anchor" href="#一维数组差分"></a> 一维数组差分</h2>
-<p>如果有一个数组 <code>[1, 2, 3, 4, 5]</code>，其差分数组为 <code>[1, 1, 1, 1, 1]</code>。如果要将区间 <code>[1, 3]</code> 中的每个元素增加 2，可以通过修改差分数组 <code>diff[1] += 2</code> 和<code>diff[4] -= 2</code>来实现，得到新的差分数组<code>[1, 3, 1, 1, -1]</code>。通过重建数组可以得到<code>[1, 4, 5, 6, 5]</code>。</p>
-<img lazyload="" src="/images/loading.svg" data-src="https://typora-aliyun01.oss-cn-hangzhou.aliyuncs.com/img/a5d44b1e910f2d6038dc34fc3a64086.jpg" alt="a5d44b1e910f2d6038dc34fc3a64086.jpg" style="zoom: 33%;">
-<h2 id="树上差分"><a class="markdownIt-Anchor" href="#树上差分"></a> 树上差分</h2>
-<p>刚才只是在一维数组上差分，实现起来还是比较简单的，如果我们是在树上进行差分呢？<br>
-树上差分刚才只是在一维数组上差分，实现起来还是比较简单的，如果我们是在树上进行差分呢？</p>
-<p>场景：现在给你一颗树，并且告诉你起始节点和结束节点，对起始节点和结束节点路径中的所有节点的值都加上value。需要注意的是，<strong>这里的树指的是一颗无向树，也就是说并不是像只能从父节点向子节点的那种遍历，只要是这个节点连接到的结点，都是可以遍历到的。</strong><br>
-<img lazyload="" src="/images/loading.svg" data-src="https://typora-aliyun01.oss-cn-hangzhou.aliyuncs.com/img/05ca61d668ebe7e80a7514d8888ee46.jpg" alt="05ca61d668ebe7e80a7514d8888ee46.jpg" style="zoom: 33%;"></p>
-<p>如果要使用树上差分，就必不可免要使用到树中节点的 <strong>最近公共祖先</strong> 求解算法。[[最近公共祖先（LCA)]] 。关于LCA的求解推荐使用倍增法，可以详细看看。<br>
-<img lazyload="" src="/images/loading.svg" data-src="https://typora-aliyun01.oss-cn-hangzhou.aliyuncs.com/img/06223d47370e6ef8ba55e63bc42ef1c.jpg" alt="06223d47370e6ef8ba55e63bc42ef1c.jpg" style="zoom:33%;"><br>
-如图所示，实现差分我们只需要修改四个点的权值，起始点和终结点就不用说了，关键是这个 <strong>LCA还有LCA的父节点</strong>。这里你可能会有如下问题：</p>
-<blockquote>
-<p>[!note]<br>
-为什么这里还要将LCA的父节点权值也下降？</p>
-<p>原因是我们<strong>从根节点1开始进行DFS</strong>，原本的前缀和在这里更像“后缀和”。<br>
-DFS的过程中，每个节点的权值更新为其所有子孙的权值总和，weight[i]=<span class="katex"><span class="katex-mathml"><math><semantics><mrow><msubsup><mo>∑</mo><mi>i</mi><mi>n</mi></msubsup><mrow><mi>w</mi><mi>e</mi><mi>i</mi><mi>g</mi><mi>h</mi><mi>t</mi><mo stretchy="false">[</mo><mi>s</mi><mi>o</mi><mi>n</mi><mo stretchy="false">]</mo></mrow></mrow><annotation encoding="application/x-tex">\sum_i^n{weight[son]}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1.104002em;vertical-align:-0.29971000000000003em;"></span><span class="mop"><span class="mop op-symbol small-op" style="position:relative;top:-0.0000050000000000050004em;">∑</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.804292em;"><span style="top:-2.40029em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathdefault mtight">i</span></span></span><span style="top:-3.2029em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathdefault mtight">n</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.29971000000000003em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord"><span class="mord mathdefault" style="margin-right:0.02691em;">w</span><span class="mord mathdefault">e</span><span class="mord mathdefault">i</span><span class="mord mathdefault" style="margin-right:0.03588em;">g</span><span class="mord mathdefault">h</span><span class="mord mathdefault">t</span><span class="mopen">[</span><span class="mord mathdefault">s</span><span class="mord mathdefault">o</span><span class="mord mathdefault">n</span><span class="mclose">]</span></span></span></span></span></p>
-<p><strong>对于LCA本身，其本身只需要+3，不过a和b都是他的子孙，所以其本身-3</strong>。对于LCA的父节点，他的权值应该是不变的，刚才LCA减去3是因为LCA要+3，但是LCA的父节点应该是不变的，因此LCA的父节点权值也需要下降。</p>
-</blockquote>
-<div class="highlight-container" data-rel="Cpp"><figure class="iseeu highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="keyword">using</span> LL = <span class="type">long</span> <span class="type">long</span>;</span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> {</span><br><span class="line">    <span class="keyword">public</span>: <span class="function"><span class="type">int</span> <span class="title">maxRemoval</span><span class="params">(vector &lt; <span class="type">int</span> &gt; &amp; nums, vector &lt; vector &lt; <span class="type">int</span> &gt;&gt; &amp; queries)</span> </span>{</span><br><span class="line">        <span class="comment">// sort(queries.begin(), queries.end(), [](vector&lt;int&gt;&amp;a, vector&lt;int&gt;&amp;b){</span></span><br><span class="line">        <span class="comment">//     if (a[0]!=b[0])</span></span><br><span class="line">        <span class="comment">//         return a[0]&lt;b[0];</span></span><br><span class="line">        <span class="comment">//     else</span></span><br><span class="line">        <span class="comment">//         return a[1]&gt;b[1];</span></span><br><span class="line">        <span class="comment">// });</span></span><br><span class="line">        <span class="built_in">sort</span>(queries.<span class="built_in">begin</span>(), queries.<span class="built_in">end</span>());</span><br><span class="line"></span><br><span class="line">        <span class="type">int</span> n = nums.<span class="built_in">size</span>();</span><br><span class="line">        <span class="type">int</span> j = <span class="number">0</span>;</span><br><span class="line">        vector &lt; <span class="type">int</span> &gt; <span class="built_in">diff</span>(n + <span class="number">1</span>);</span><br><span class="line">        LL sum = <span class="number">0</span>;</span><br><span class="line">        <span class="type">int</span> ret = <span class="number">0</span>;</span><br><span class="line">        priority_queue &lt; <span class="type">int</span> &gt; pq;</span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">0</span>; i &lt; n; i++) {</span><br><span class="line">            <span class="keyword">while</span> (j &lt; queries.<span class="built_in">size</span>() &amp;&amp; queries[j][<span class="number">0</span>] &lt;= i) {</span><br><span class="line">                pq.<span class="built_in">push</span>(queries[j][<span class="number">1</span>]);</span><br><span class="line">                j++;</span><br><span class="line">            }</span><br><span class="line">            <span class="keyword">while</span> (sum + diff[i] &lt; nums[i]) {</span><br><span class="line">                <span class="keyword">if</span> (pq.<span class="built_in">empty</span>()) <span class="keyword">return</span> <span class="number">-1</span>;</span><br><span class="line">                <span class="keyword">if</span> (pq.<span class="built_in">top</span>() &lt; i) <span class="keyword">return</span> <span class="number">-1</span>;</span><br><span class="line">                <span class="type">int</span> t = pq.<span class="built_in">top</span>();</span><br><span class="line">                pq.<span class="built_in">pop</span>();</span><br><span class="line">                sum += <span class="number">1</span>;</span><br><span class="line">                diff[t + <span class="number">1</span>] -= <span class="number">1</span>;</span><br><span class="line">                ret++;</span><br><span class="line">            }</span><br><span class="line">            sum += diff[i];</span><br><span class="line">        }</span><br><span class="line">        <span class="keyword">return</span> queries.<span class="built_in">size</span>() - ret;</span><br><span class="line">    }</span><br><span class="line"></span><br><span class="line">};</span><br></pre></td></tr></table></figure></div>]]></content>
-      <categories>
-        <category>Leetcode</category>
-      </categories>
-      <tags>
-        <tag>Leetcode</tag>
-        <tag>动态规划</tag>
-        <tag>前缀和</tag>
-        <tag>差分</tag>
       </tags>
   </entry>
 </search>
