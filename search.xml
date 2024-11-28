@@ -1,48 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
-    <title>Obsidian——主题配置和插件推荐（01）</title>
-    <url>/snm6s8/</url>
-    <content><![CDATA[<p>之前三年基本都在使用 Typora 记录笔记，Typora 本身非常轻量，提供的基础功能比较齐全，而且 21 年我刚开始用的时候开始免费的（后来不知道为啥突然要收费了）。不过，用的时间久了，还是发现 Typora 本身还是有不少的局限性：</p>
-<ol>
-<li>代码块功能局限：我的笔记中往往需要创建不同语言的代码块，但是使用 typora 的默认快捷键之后每次都得手动修改语言格式。虽说这个问题我通过自己编写 ahk 脚本解决了，不过每种语言都按一种键位有点蛋疼。</li>
-<li>修改主题比较困难：Typora 是支持下载主题、更换主题的（需要翻墙），也有很多好看的皮肤。可是，我一般喜欢将某几款主题好看的地方综合起来，在 Typora 中，这就得直接修改主题的 css 代码才能做到了，一点一点的盯着改对我来说并不是很友好 😢。</li>
-<li>不具备多文件管理能力：Typora 每次只能打开一个文件，多个文件只能一个一个的打开，如果我想同时看多个文件就很麻烦；每次 Ctrl+O/Ctrl+P 找文件也实在难以接受；</li>
-<li>扩展性差：Typora 没有插件市场，每次缺一点小功能就得现找解决方法。如果说有一个笔记软件可以安装插件，我只需要通过安装插件就可以扩展多个功能就方便得多了。</li>
-</ol>
-<h2 id="为什么不使用-notion"><a class="markdownIt-Anchor" href="#为什么不使用-notion"></a> 🤔 为什么不使用 Notion</h2>
-<p>其实今年 8 月份的时候就想换笔记软件的，当时是我的好哥们儿推荐的 Notion，Notion 的共享属性非常非常强，只要你写完一篇笔记，就能自动保存到云服务器上，而且使用 notion 搭建博客也非常方便。不仅如此，notion 支持 <mark>基本的 markdown 语法</mark>，笔记中以文本块为单位，上下活动文本块非常容易；notion 还有嵌套列表、dataview（方便管理笔记）、支持插件、同时有很多非常好看的模版，笔记添加头图也很简单。</p>
-<p>我好哥们的习惯是在 Notion 上写随笔，在家还有公司都可以随时写点小笔记，这样不管在哪，只要开下浏览器就能看到；如果使用的是 Typora，那就得 <mark>写笔记 -&gt; 同步笔记到 Git -&gt; Git 拉取笔记 -&gt; 看笔记</mark>。notion 还支持在笔记中嵌入视频、图片（<mark>上传图片使用的是 notion 自己的图床，也就是说，不用你额外配置图床</mark>），网上也有很多博主出 notion 的教程。</p>
-<p><strong>不过，我最终还是放弃了 Notion。</strong></p>
-<p>原因是，notion 支持 <mark>基本的 markdown 语法</mark>，这个基本对我来说是硬伤。长久以来使用 Typora 已经让我对 markdown 的语法有了依赖性，在 markdown 语法中，仅需<strong>两个"$"符</strong>就可以编写数学公式，仅需<strong>三个 ` + 语言格式</strong> 就可以写代码块。可是在 notion 中不支持这两个功能，尤其是写代码块的时候还必须得手动选择语言格式，强迫症极重的我实在难以接受 😠。</p>
-<p>并且，在了解 Obsidian 之后，我发现其实 Notion 的很多功能在 Obsidian 也可以实现，Obsidian 的插件市场很大，而且更新还很频繁，当然，最重要的还是：<mark>Obsidian 完全支持 markdown 的语法，并且具备文件管理功能。</mark> 卧槽！这不就是我想要的效果吗？！</p>
-<h2 id="官网下载安装"><a class="markdownIt-Anchor" href="#官网下载安装"></a> 官网下载安装</h2>
-<p>Obsidian 是免费的，直接去官网下载就可以了，地址：<a class="link" href="https://obsidian.md/download">https://obsidian.md/download<i class="fa-solid fa-arrow-up-right ml-[0.2em] font-light align-text-top text-[0.7em] link-icon"></i></a> 。<mark>这里先提醒一下，使用 Obsidian 的前提是你能够翻墙！！因为其插件市场是需要翻墙才能访问的！！</mark></p>
-<p>下载好之后，直接选择合适的路径安装即可，然后直接双击运行就可以了。第一次运行应该会让你创建一个分区，这里可以新建一个分区，名字自定义，之后写笔记尽量都在一个分区里写，<mark>因为Obsidian里，每个分区的插件都是独立的，如果你突然切换分区，那么新分区里是没有旧分区里的插件的！！</mark>（<strong>当然后面的教程会说如何用插件解决</strong>）<br>
-<img lazyload="" src="/images/loading.svg" data-src="https://typora-aliyun01.oss-cn-hangzhou.aliyuncs.com/img/20241127234438.png" alt="image.png|525"></p>
-<h2 id="obsidian-基础配置"><a class="markdownIt-Anchor" href="#obsidian-基础配置"></a> Obsidian 基础配置</h2>
-<h3 id="1语言设置"><a class="markdownIt-Anchor" href="#1语言设置"></a> 1.语言设置</h3>
-<p>刚安装运行 Obsidian 时，你看到的应该是纯英文的界面，文件夹啥的都是英文。这个需要在这里改成 <strong>简体中文</strong>。<br>
-<img lazyload="" src="/images/loading.svg" data-src="https://typora-aliyun01.oss-cn-hangzhou.aliyuncs.com/img/20241127233505.png" alt="image.png"></p>
-<h3 id="2字体设置"><a class="markdownIt-Anchor" href="#2字体设置"></a> 2.字体设置</h3>
-<p>看到上面那张图应该会发现，我使用的字体和默认的字体不一样，这个字体需要你额外下载安装：<a class="link" href="https://github.com/lxgw/LxgwWenKai-Screen/releases/tag/v1.501">https://github.com/lxgw/LxgwWenKai-Screen/releases/tag/v1.501<i class="fa-solid fa-arrow-up-right ml-[0.2em] font-light align-text-top text-[0.7em] link-icon"></i></a></p>
-<p>在官网下载 ttf 文件的字体，然后双击安装（<strong>最好以管理员模式安装</strong>），然后在下面的设置这里，点击管理，手动输入 <code>霞鹜文楷 GB 屏幕指纹版</code>，就可以使用这个字体了。其中，<strong>代码字体不推荐用霞鹜文楷</strong>，因为这个字体不是等宽的，一开始看的话可能会感觉代码比较挤。</p>
-<p>当然了，字体的喜好因人而异，如果你有其他喜欢的字体，直接在这里修改即可。</p>
-<p><img lazyload="" src="/images/loading.svg" data-src="https://typora-aliyun01.oss-cn-hangzhou.aliyuncs.com/img/20241127233740.png" alt="image.png"></p>
-<h3 id="3主题设置"><a class="markdownIt-Anchor" href="#3主题设置"></a> 3.主题设置</h3>
-<p>Obsidian原生的主题可能比较简陋，不过Obsidian有个主题市场，可以在市场中下载安装自己喜欢的主题，点击这个 <strong>管理</strong>，就可以进入插件市场，选择自己喜欢的主题就可以了。<br>
-<img lazyload="" src="/images/loading.svg" data-src="https://typora-aliyun01.oss-cn-hangzhou.aliyuncs.com/img/20241127234314.png" alt="image.png"></p>
-<p>主题的话多种多样，选择自己喜欢的就可以了，这里有的主题是没有夜间模式的，选择的时候请斟酌。<br>
-<img lazyload="" src="/images/loading.svg" data-src="https://typora-aliyun01.oss-cn-hangzhou.aliyuncs.com/img/20241127234846.png" alt="image.png"></p>
-]]></content>
-      <categories>
-        <category>IDE配置</category>
-      </categories>
-      <tags>
-        <tag>Obsidian</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>SeaBattle海战游戏</title>
     <url>/sni31d/</url>
     <content><![CDATA[<h2 id="规则"><a class="markdownIt-Anchor" href="#规则"></a> 规则</h2>
@@ -143,6 +101,48 @@
       <tags>
         <tag>海战游戏</tag>
         <tag>策略</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Obsidian——主题配置和插件推荐（01）</title>
+    <url>/snm6s8/</url>
+    <content><![CDATA[<p>之前三年基本都在使用 Typora 记录笔记，Typora 本身非常轻量，提供的基础功能比较齐全，而且 21 年我刚开始用的时候开始免费的（后来不知道为啥突然要收费了）。不过，用的时间久了，还是发现 Typora 本身还是有不少的局限性：</p>
+<ol>
+<li>代码块功能局限：我的笔记中往往需要创建不同语言的代码块，但是使用 typora 的默认快捷键之后每次都得手动修改语言格式。虽说这个问题我通过自己编写 ahk 脚本解决了，不过每种语言都按一种键位有点蛋疼。</li>
+<li>修改主题比较困难：Typora 是支持下载主题、更换主题的（需要翻墙），也有很多好看的皮肤。可是，我一般喜欢将某几款主题好看的地方综合起来，在 Typora 中，这就得直接修改主题的 css 代码才能做到了，一点一点的盯着改对我来说并不是很友好 😢。</li>
+<li>不具备多文件管理能力：Typora 每次只能打开一个文件，多个文件只能一个一个的打开，如果我想同时看多个文件就很麻烦；每次 Ctrl+O/Ctrl+P 找文件也实在难以接受；</li>
+<li>扩展性差：Typora 没有插件市场，每次缺一点小功能就得现找解决方法。如果说有一个笔记软件可以安装插件，我只需要通过安装插件就可以扩展多个功能就方便得多了。</li>
+</ol>
+<h2 id="为什么不使用-notion"><a class="markdownIt-Anchor" href="#为什么不使用-notion"></a> 🤔 为什么不使用 Notion</h2>
+<p>其实今年 8 月份的时候就想换笔记软件的，当时是我的好哥们儿推荐的 Notion，Notion 的共享属性非常非常强，只要你写完一篇笔记，就能自动保存到云服务器上，而且使用 notion 搭建博客也非常方便。不仅如此，notion 支持 <mark>基本的 markdown 语法</mark>，笔记中以文本块为单位，上下活动文本块非常容易；notion 还有嵌套列表、dataview（方便管理笔记）、支持插件、同时有很多非常好看的模版，笔记添加头图也很简单。</p>
+<p>我好哥们的习惯是在 Notion 上写随笔，在家还有公司都可以随时写点小笔记，这样不管在哪，只要开下浏览器就能看到；如果使用的是 Typora，那就得 <mark>写笔记 -&gt; 同步笔记到 Git -&gt; Git 拉取笔记 -&gt; 看笔记</mark>。notion 还支持在笔记中嵌入视频、图片（<mark>上传图片使用的是 notion 自己的图床，也就是说，不用你额外配置图床</mark>），网上也有很多博主出 notion 的教程。</p>
+<p><strong>不过，我最终还是放弃了 Notion。</strong></p>
+<p>原因是，notion 支持 <mark>基本的 markdown 语法</mark>，这个基本对我来说是硬伤。长久以来使用 Typora 已经让我对 markdown 的语法有了依赖性，在 markdown 语法中，仅需<strong>两个"$"符</strong>就可以编写数学公式，仅需<strong>三个 ` + 语言格式</strong> 就可以写代码块。可是在 notion 中不支持这两个功能，尤其是写代码块的时候还必须得手动选择语言格式，强迫症极重的我实在难以接受 😠。</p>
+<p>并且，在了解 Obsidian 之后，我发现其实 Notion 的很多功能在 Obsidian 也可以实现，Obsidian 的插件市场很大，而且更新还很频繁，当然，最重要的还是：<mark>Obsidian 完全支持 markdown 的语法，并且具备文件管理功能。</mark> 卧槽！这不就是我想要的效果吗？！</p>
+<h2 id="官网下载安装"><a class="markdownIt-Anchor" href="#官网下载安装"></a> 官网下载安装</h2>
+<p>Obsidian 是免费的，直接去官网下载就可以了，地址：<a class="link" href="https://obsidian.md/download">https://obsidian.md/download<i class="fa-solid fa-arrow-up-right ml-[0.2em] font-light align-text-top text-[0.7em] link-icon"></i></a> 。<mark>这里先提醒一下，使用 Obsidian 的前提是你能够翻墙！！因为其插件市场是需要翻墙才能访问的！！</mark></p>
+<p>下载好之后，直接选择合适的路径安装即可，然后直接双击运行就可以了。第一次运行应该会让你创建一个分区，这里可以新建一个分区，名字自定义，之后写笔记尽量都在一个分区里写，<mark>因为Obsidian里，每个分区的插件都是独立的，如果你突然切换分区，那么新分区里是没有旧分区里的插件的！！</mark>（<strong>当然后面的教程会说如何用插件解决</strong>）<br>
+<img lazyload="" src="/images/loading.svg" data-src="https://typora-aliyun01.oss-cn-hangzhou.aliyuncs.com/img/20241127234438.png" alt="image.png|525"></p>
+<h2 id="obsidian-基础配置"><a class="markdownIt-Anchor" href="#obsidian-基础配置"></a> Obsidian 基础配置</h2>
+<h3 id="1语言设置"><a class="markdownIt-Anchor" href="#1语言设置"></a> 1.语言设置</h3>
+<p>刚安装运行 Obsidian 时，你看到的应该是纯英文的界面，文件夹啥的都是英文。这个需要在这里改成 <strong>简体中文</strong>。<br>
+<img lazyload="" src="/images/loading.svg" data-src="https://typora-aliyun01.oss-cn-hangzhou.aliyuncs.com/img/20241127233505.png" alt="image.png"></p>
+<h3 id="2字体设置"><a class="markdownIt-Anchor" href="#2字体设置"></a> 2.字体设置</h3>
+<p>看到上面那张图应该会发现，我使用的字体和默认的字体不一样，这个字体需要你额外下载安装：<a class="link" href="https://github.com/lxgw/LxgwWenKai-Screen/releases/tag/v1.501">https://github.com/lxgw/LxgwWenKai-Screen/releases/tag/v1.501<i class="fa-solid fa-arrow-up-right ml-[0.2em] font-light align-text-top text-[0.7em] link-icon"></i></a></p>
+<p>在官网下载 ttf 文件的字体，然后双击安装（<strong>最好以管理员模式安装</strong>），然后在下面的设置这里，点击管理，手动输入 <code>霞鹜文楷 GB 屏幕指纹版</code>，就可以使用这个字体了。其中，<strong>代码字体不推荐用霞鹜文楷</strong>，因为这个字体不是等宽的，一开始看的话可能会感觉代码比较挤。</p>
+<p>当然了，字体的喜好因人而异，如果你有其他喜欢的字体，直接在这里修改即可。</p>
+<p><img lazyload="" src="/images/loading.svg" data-src="https://typora-aliyun01.oss-cn-hangzhou.aliyuncs.com/img/20241127233740.png" alt="image.png"></p>
+<h3 id="3主题设置"><a class="markdownIt-Anchor" href="#3主题设置"></a> 3.主题设置</h3>
+<p>Obsidian原生的主题可能比较简陋，不过Obsidian有个主题市场，可以在市场中下载安装自己喜欢的主题，点击这个 <strong>管理</strong>，就可以进入插件市场，选择自己喜欢的主题就可以了。<br>
+<img lazyload="" src="/images/loading.svg" data-src="https://typora-aliyun01.oss-cn-hangzhou.aliyuncs.com/img/20241127234314.png" alt="image.png"></p>
+<p>主题的话多种多样，选择自己喜欢的就可以了，这里有的主题是没有夜间模式的，选择的时候请斟酌。<br>
+<img lazyload="" src="/images/loading.svg" data-src="https://typora-aliyun01.oss-cn-hangzhou.aliyuncs.com/img/20241127234846.png" alt="image.png"></p>
+]]></content>
+      <categories>
+        <category>IDE配置</category>
+      </categories>
+      <tags>
+        <tag>Obsidian</tag>
       </tags>
   </entry>
   <entry>
