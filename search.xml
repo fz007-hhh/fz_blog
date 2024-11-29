@@ -1,6 +1,119 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>centos7 基础命令爆出255返回码</title>
+    <url>/sni2sz/</url>
+    <content><![CDATA[<p>cron 是一个用于在指定时间自动执行预定任务的守护进程，/etc/cron.hourly/ 目录中的脚本每小时会被 cron进程 自动执行一次</p>
+]]></content>
+      <categories>
+        <category>Ubuntu</category>
+      </categories>
+      <tags>
+        <tag>Ubuntu</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>海战游戏心得</title>
+    <url>/sni30q/</url>
+    <content><![CDATA[<h2 id="攻击策略"><a class="markdownIt-Anchor" href="#攻击策略"></a> 攻击策略</h2>
+<h3 id="1简单贪心策略"><a class="markdownIt-Anchor" href="#1简单贪心策略"></a> 1.简单贪心策略</h3>
+<p>最早的这个攻击策略比较暴力，主要考虑的是如果打中了某个船艇，那么就继续攻击邻近区域，直到将这整艘船艇全部击倒为止。</p>
+<h4 id="11-策略思想"><a class="markdownIt-Anchor" href="#11-策略思想"></a> 1.1 策略思想</h4>
+<ul>
+<li>如果成功击中敌方船艇，那么击中位置的附近位置出现船艇的概率增大；</li>
+<li>如果没有成功击中敌方船艇，那么击中位置的附近位置出现船艇的概率减小；</li>
+</ul>
+<h4 id="12-策略实现"><a class="markdownIt-Anchor" href="#12-策略实现"></a> 1.2 策略实现</h4>
+<p>使用一个$10\times10$的权值数组<code>Weight[10][10]</code>，这里的权值就是击中位置出现船艇的概率。我们每次都遍历整个数组，每次都选择权值最大的位置作为击打位置。</p>
+<h5 id="初始化-weight"><a class="markdownIt-Anchor" href="#初始化-weight"></a> 初始化 Weight</h5>
+<p><code>Weight[10][10]</code>初始化如下：<br />
+<img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://typora-aliyun01.oss-cn-hangzhou.aliyuncs.com/img/20241104124920.png"
+                      alt="image.png" 
+                ><br />
+这样初始化的目的是，<strong>保证在打完全部的初始化位置时，至少能打中一艘长度为 5 的大船艇</strong>。</p>
+<h5 id="击中未击中"><a class="markdownIt-Anchor" href="#击中未击中"></a> 击中/未击中</h5>
+<p>如果击中，就提升击中位置附近位置的权值。<strong>由于船艇的长度最大为 5，所以就以 5 为范围由近到远递减增加权值。因为刚才的假设中是认为击中位置的附近更容易再次出现船艇，所以离击中位置越近的位置权值就越高。</strong><br />
+<img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://typora-aliyun01.oss-cn-hangzhou.aliyuncs.com/img/f0b03a3b950e818294565068faed42b.jpg"
+                      alt="f0b03a3b950e818294565068faed42b.jpg|424" 
+                ><br />
+如果未击中，那么就相应的减去权值。<strong>这里的减权值操作比较暴力，考虑到的条件也不是很多。</strong><br />
+<img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://typora-aliyun01.oss-cn-hangzhou.aliyuncs.com/img/9e8d4a03532bc59a35503b6e30f8c97.jpg"
+                      alt="9e8d4a03532bc59a35503b6e30f8c97.jpg|388" 
+                ><br />
+当然每次击中的位置都需要记录，这里标记的做法是直接将击中位置的权值<code>Weight[i][j]-=10000</code>，因为棋盘的大小就只有 $10\times10$，而每次我们都选择的是权值最大的位置，所以这样是可以有效标记已击中位置的。</p>
+<h4 id="13-策略结果"><a class="markdownIt-Anchor" href="#13-策略结果"></a> 1.3 策略结果</h4>
+<p>这个策略最终取得了不错的胜率，不过策略中对未击中之后的位置选取考虑的不多，我个人感觉能取得这个胜率的原因可能是大家部署的<strong>船艇之间比较接近或者船艇的上下左右几个方向刚好可以直达另一搜船</strong>。<br />
+<img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://typora-aliyun01.oss-cn-hangzhou.aliyuncs.com/img/20241104145908.png"
+                      alt="image.png" 
+                ></p>
+<h3 id="2贪心优化破坏中心点策略"><a class="markdownIt-Anchor" href="#2贪心优化破坏中心点策略"></a> 2.贪心优化+破坏中心点策略</h3>
+<h4 id="21-策略思想"><a class="markdownIt-Anchor" href="#21-策略思想"></a> 2.1 策略思想</h4>
+<p>上面这个策略在击中某个位置的时候，会同时改变单位长度为5的所有位置的权值。可是，如果只是想尽快击溃某一条船的全部位置，<strong>其实只需要改变单位为1的位置的权值也能做到</strong>。<br />
+<img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://typora-aliyun01.oss-cn-hangzhou.aliyuncs.com/img/967f4887d3a027cd81d90f623f8cb07.jpg"
+                      alt="967f4887d3a027cd81d90f623f8cb07.jpg|513" 
+                ><br />
+如图所示，击中任意一个位置之后，其上下左右必然存在另一个可击中点（<strong>船艇长度最小也为2</strong>），那么当拥有两个相邻击中点之后，我们就已经可以判定出该船艇摆放的方向，之后只在这个方向的两个端点专门攻击即可。</p>
+<p>因为船艇的长度最小为2，所以相邻两个击中点的情况是一定会出现的！这么做不仅可以尽快的击溃某一艘船，同时还可以起到标记效果。<strong>由于我们在判定船艇方向之后只需要对两端点发起攻击，所以只要出现连续两次未击中的情况，就说明有一艘船艇已经被完全击溃了</strong>。</p>
+<p>但是这样又会导致另一个问题：<strong>击溃一艘船艇之后又该打哪里？</strong> 刚才的策略中虽然半径为5的权值改变策略比较暴力，但是每次至少都有一个最大权值位置可以打（虽说可能不准）；现在这种做法击溃了一艘船艇之后对这艘船艇周围的权值影响的太少了，很多位置的权值几乎都一样，到底打哪？</p>
+<p>这里我想到的策略是<strong>破坏中心点</strong>。在每行每列一定存在很多没有被击打的位置，这里简称之为 <strong>和平区域</strong>。对于每一行每一列的连续和平区，优先攻击中间位置。（类似二分法）</p>
+<h4 id="22-策略实现"><a class="markdownIt-Anchor" href="#22-策略实现"></a> 2.2 策略实现</h4>
+<h5 id="初始化"><a class="markdownIt-Anchor" href="#初始化"></a> 初始化</h5>
+<p>还是使用一个$10\times10$的矩阵<code>Weight[10][10]</code>记录权值，这里为避免混淆，增加一个<code>stepMemory[10][10]</code>记录未知状态。对于成功命中的位置，<code>stepMemory[i][j]=1</code>；对于未成功命中的位置，<code>stepMemory[i][j]=-1</code>；对于和平区域，<code>stepMemory[i][j]=0</code>。<br />
+这里如果某位置成功命中，那么只有其距离为1的上下左右四个位置的权值+5；同样的，如果没有命中，也只有其距离为1的上下左右四个位置的权值-5。我们每次依旧选择权值最大的位置。</p>
+<h5 id="船艇方向判定"><a class="markdownIt-Anchor" href="#船艇方向判定"></a> 船艇方向判定</h5>
+<p>这里在判定方向的时候增加了一个 <code>wrong_num</code>，刚才说了<strong>只要出现连续两次未击中的情况，就说明有一艘船艇已经被完全击溃了</strong>，所以当有两次连续击中的时候，就将 <code>wrong_num=2</code>。当<code>wrong_num=0</code>时，就可以破坏中心点了。</p>
+<div class="highlight-container" data-rel="Cpp"><figure class="iseeu highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 这里如果击中点的四周也有击中点，就可以知道方向了</span></span><br><span class="line">  <span class="comment">// 水平方向</span></span><br><span class="line">  <span class="keyword">if</span>((lastj&gt;<span class="number">0</span>&amp;&amp;fanz_Step_Memory[lasti][lastj<span class="number">-1</span>]==<span class="number">1</span>)||(lastj&lt;<span class="number">10</span>&amp;&amp;fanz_Step_Memory[lasti][lastj<span class="number">+1</span>]==<span class="number">1</span>))&#123;</span><br><span class="line">   wrong_num==<span class="number">2</span>;</span><br><span class="line">   <span class="type">int</span> cur=lastj;</span><br><span class="line">   <span class="keyword">while</span> (cur&gt;=<span class="number">0</span>)</span><br><span class="line">   &#123;</span><br><span class="line">    <span class="keyword">if</span>(fanz_Step_Memory[lasti][cur]==<span class="number">0</span>)<span class="keyword">break</span>;</span><br><span class="line">    cur--;</span><br><span class="line">   &#125;</span><br><span class="line">   <span class="keyword">if</span>(cur&gt;=<span class="number">0</span>) Weight[lasti][cur]+=<span class="number">10</span>;</span><br><span class="line">   cur=lastj;</span><br><span class="line">   <span class="keyword">while</span> (cur&lt;<span class="number">10</span>)</span><br><span class="line">   &#123;</span><br><span class="line">    <span class="keyword">if</span>(fanz_Step_Memory[lasti][cur]==<span class="number">0</span>) <span class="keyword">break</span>;</span><br><span class="line">    cur++;</span><br><span class="line">   &#125;</span><br><span class="line">   <span class="keyword">if</span>(cur&lt;<span class="number">10</span>) Weight[lasti][cur]+=<span class="number">10</span>;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="comment">// 竖直方向</span></span><br><span class="line">  <span class="keyword">else</span> <span class="keyword">if</span>((lasti&gt;<span class="number">0</span>&amp;&amp;fanz_Step_Memory[lasti<span class="number">-1</span>][lastj]==<span class="number">1</span>)||(lasti&lt;<span class="number">10</span>&amp;&amp;fanz_Step_Memory[lasti<span class="number">+1</span>][lastj]==<span class="number">1</span>))&#123;</span><br><span class="line">   wrong_num=<span class="number">2</span>;</span><br><span class="line">   <span class="type">int</span> cur=lasti;</span><br><span class="line">   <span class="keyword">while</span> (cur&gt;=<span class="number">0</span>)</span><br><span class="line">   &#123;</span><br><span class="line">    <span class="keyword">if</span>(fanz_Step_Memory[cur][lastj]==<span class="number">0</span>)<span class="keyword">break</span>;</span><br><span class="line">    cur--;</span><br><span class="line">   &#125;</span><br><span class="line">   <span class="keyword">if</span>(cur&gt;=<span class="number">0</span>) Weight[cur][lastj]+=<span class="number">10</span>;</span><br><span class="line">   cur=lasti;</span><br><span class="line">   <span class="keyword">while</span> (cur&lt;<span class="number">10</span>)</span><br><span class="line">   &#123;</span><br><span class="line">    <span class="keyword">if</span>(fanz_Step_Memory[cur][lastj]==<span class="number">0</span>) <span class="keyword">break</span>;</span><br><span class="line">    cur++;</span><br><span class="line">   &#125;</span><br><span class="line">   <span class="keyword">if</span>(cur&lt;<span class="number">10</span>) Weight[cur][lastj]+=<span class="number">10</span>;</span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure></div>
+<h5 id="破坏中心点实现"><a class="markdownIt-Anchor" href="#破坏中心点实现"></a> 破坏中心点实现</h5>
+<p>这里使用窗口对每一行每一列的连续和平区域的中心点进行破坏，当<code>wrong_num=0</code>时就执行这段代码。</p>
+<div class="highlight-container" data-rel="Cpp"><figure class="iseeu highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="type">void</span> <span class="title">destoryCenter</span><span class="params">()</span></span>&#123;</span><br><span class="line"> <span class="comment">// 打破每行连续安全区域的中间位置</span></span><br><span class="line"> <span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">0</span>;i&lt;<span class="number">10</span>;i++)&#123;</span><br><span class="line">  <span class="type">int</span> start=<span class="number">0</span>;</span><br><span class="line">  <span class="keyword">for</span>(;start&lt;<span class="number">10</span>;start++)&#123;</span><br><span class="line">   <span class="keyword">if</span>(fanz_Step_Memory[i][start]==<span class="number">0</span>)&#123;</span><br><span class="line">    <span class="type">int</span> cur=start;</span><br><span class="line">    <span class="keyword">while</span> (cur&lt;<span class="number">10</span>)</span><br><span class="line">    &#123;</span><br><span class="line">     <span class="keyword">if</span>(fanz_Step_Memory[i][cur]!=<span class="number">0</span>) <span class="keyword">break</span>;</span><br><span class="line">     cur++;</span><br><span class="line">    &#125;</span><br><span class="line">    Weight[i][(start+cur<span class="number">-1</span>)&gt;&gt;<span class="number">1</span>]+=<span class="number">4</span>;</span><br><span class="line">    start=cur;</span><br><span class="line">   &#125;</span><br><span class="line">  &#125;</span><br><span class="line"> &#125;</span><br><span class="line"></span><br><span class="line"> <span class="comment">// 打破每列连续安全区域的中间位置</span></span><br><span class="line"> <span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">0</span>;i&lt;<span class="number">10</span>;i++)&#123;</span><br><span class="line">  <span class="type">int</span> start=<span class="number">0</span>;</span><br><span class="line">  <span class="keyword">for</span>(;start&lt;<span class="number">10</span>;start++)&#123;</span><br><span class="line">   <span class="keyword">if</span>(fanz_Step_Memory[start][i]==<span class="number">0</span>)&#123;</span><br><span class="line">    <span class="type">int</span> cur=start;</span><br><span class="line">    <span class="keyword">while</span> (cur&lt;<span class="number">10</span>)</span><br><span class="line">    &#123;</span><br><span class="line">     <span class="keyword">if</span>(fanz_Step_Memory[cur][i]!=<span class="number">0</span>) <span class="keyword">break</span>;</span><br><span class="line">     cur++;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    Weight[(start+cur<span class="number">-1</span>)&gt;&gt;<span class="number">1</span>][i]+=<span class="number">4</span>;</span><br><span class="line">    start=cur;</span><br><span class="line">   &#125;</span><br><span class="line">  &#125;</span><br><span class="line"> &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
+<h2 id="防守策略"><a class="markdownIt-Anchor" href="#防守策略"></a> 防守策略</h2>
+<p>关于防守策略我想的不是很多，最开始我想的摆法是这样的：<br />
+<img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://typora-aliyun01.oss-cn-hangzhou.aliyuncs.com/img/20241104160947.png"
+                      alt="image.png" 
+                ><br />
+我最开始的想法是希望五艘船尽可能的处在不同的位置，并且距离尽可能选一些。但是每个人的攻击策略是不一样的，如果有人喜欢先攻击四个对角，那么我会很快损失4艘船。<br />
+(更新 11/05): 改成上述部署方式，使用贪心+破坏中心点策略的结果：<br />
+<img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://typora-aliyun01.oss-cn-hangzhou.aliyuncs.com/img/20241105123340.png"
+                      alt="image.png" 
+                ></p>
+<p>所以思来想去我也想不到太好的摆法，下图就是我的摆法：<br />
+<img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://typora-aliyun01.oss-cn-hangzhou.aliyuncs.com/img/20241104161204.png"
+                      alt="image.png" 
+                ></p>
+]]></content>
+      <categories>
+        <category>SeaBattle</category>
+      </categories>
+      <tags>
+        <tag>海战游戏</tag>
+        <tag>策略</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>Obsidian——主题配置和插件推荐（01）</title>
     <url>/snm6s8/</url>
     <content><![CDATA[<p>之前三年基本都在使用 Typora 记录笔记，Typora 本身非常轻量，提供的基础功能比较齐全，而且 21 年我刚开始用的时候开始免费的（后来不知道为啥突然要收费了）。不过，用的时间久了，还是发现 Typora 本身还是有不少的局限性：</p>
@@ -123,150 +236,6 @@
       </categories>
       <tags>
         <tag>Obsidian</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>海战游戏心得</title>
-    <url>/sni30q/</url>
-    <content><![CDATA[<h2 id="攻击策略"><a class="markdownIt-Anchor" href="#攻击策略"></a> 攻击策略</h2>
-<h3 id="1简单贪心策略"><a class="markdownIt-Anchor" href="#1简单贪心策略"></a> 1.简单贪心策略</h3>
-<p>最早的这个攻击策略比较暴力，主要考虑的是如果打中了某个船艇，那么就继续攻击邻近区域，直到将这整艘船艇全部击倒为止。</p>
-<h4 id="11-策略思想"><a class="markdownIt-Anchor" href="#11-策略思想"></a> 1.1 策略思想</h4>
-<ul>
-<li>如果成功击中敌方船艇，那么击中位置的附近位置出现船艇的概率增大；</li>
-<li>如果没有成功击中敌方船艇，那么击中位置的附近位置出现船艇的概率减小；</li>
-</ul>
-<h4 id="12-策略实现"><a class="markdownIt-Anchor" href="#12-策略实现"></a> 1.2 策略实现</h4>
-<p>使用一个$10\times10$的权值数组<code>Weight[10][10]</code>，这里的权值就是击中位置出现船艇的概率。我们每次都遍历整个数组，每次都选择权值最大的位置作为击打位置。</p>
-<h5 id="初始化-weight"><a class="markdownIt-Anchor" href="#初始化-weight"></a> 初始化 Weight</h5>
-<p><code>Weight[10][10]</code>初始化如下：<br />
-<img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="https://typora-aliyun01.oss-cn-hangzhou.aliyuncs.com/img/20241104124920.png"
-                      alt="image.png" 
-                ><br />
-这样初始化的目的是，<strong>保证在打完全部的初始化位置时，至少能打中一艘长度为 5 的大船艇</strong>。</p>
-<h5 id="击中未击中"><a class="markdownIt-Anchor" href="#击中未击中"></a> 击中/未击中</h5>
-<p>如果击中，就提升击中位置附近位置的权值。<strong>由于船艇的长度最大为 5，所以就以 5 为范围由近到远递减增加权值。因为刚才的假设中是认为击中位置的附近更容易再次出现船艇，所以离击中位置越近的位置权值就越高。</strong><br />
-<img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="https://typora-aliyun01.oss-cn-hangzhou.aliyuncs.com/img/f0b03a3b950e818294565068faed42b.jpg"
-                      alt="f0b03a3b950e818294565068faed42b.jpg|424" 
-                ><br />
-如果未击中，那么就相应的减去权值。<strong>这里的减权值操作比较暴力，考虑到的条件也不是很多。</strong><br />
-<img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="https://typora-aliyun01.oss-cn-hangzhou.aliyuncs.com/img/9e8d4a03532bc59a35503b6e30f8c97.jpg"
-                      alt="9e8d4a03532bc59a35503b6e30f8c97.jpg|388" 
-                ><br />
-当然每次击中的位置都需要记录，这里标记的做法是直接将击中位置的权值<code>Weight[i][j]-=10000</code>，因为棋盘的大小就只有 $10\times10$，而每次我们都选择的是权值最大的位置，所以这样是可以有效标记已击中位置的。</p>
-<h4 id="13-策略结果"><a class="markdownIt-Anchor" href="#13-策略结果"></a> 1.3 策略结果</h4>
-<p>这个策略最终取得了不错的胜率，不过策略中对未击中之后的位置选取考虑的不多，我个人感觉能取得这个胜率的原因可能是大家部署的<strong>船艇之间比较接近或者船艇的上下左右几个方向刚好可以直达另一搜船</strong>。<br />
-<img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="https://typora-aliyun01.oss-cn-hangzhou.aliyuncs.com/img/20241104145908.png"
-                      alt="image.png" 
-                ></p>
-<h3 id="2贪心优化破坏中心点策略"><a class="markdownIt-Anchor" href="#2贪心优化破坏中心点策略"></a> 2.贪心优化+破坏中心点策略</h3>
-<h4 id="21-策略思想"><a class="markdownIt-Anchor" href="#21-策略思想"></a> 2.1 策略思想</h4>
-<p>上面这个策略在击中某个位置的时候，会同时改变单位长度为5的所有位置的权值。可是，如果只是想尽快击溃某一条船的全部位置，<strong>其实只需要改变单位为1的位置的权值也能做到</strong>。<br />
-<img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="https://typora-aliyun01.oss-cn-hangzhou.aliyuncs.com/img/967f4887d3a027cd81d90f623f8cb07.jpg"
-                      alt="967f4887d3a027cd81d90f623f8cb07.jpg|513" 
-                ><br />
-如图所示，击中任意一个位置之后，其上下左右必然存在另一个可击中点（<strong>船艇长度最小也为2</strong>），那么当拥有两个相邻击中点之后，我们就已经可以判定出该船艇摆放的方向，之后只在这个方向的两个端点专门攻击即可。</p>
-<p>因为船艇的长度最小为2，所以相邻两个击中点的情况是一定会出现的！这么做不仅可以尽快的击溃某一艘船，同时还可以起到标记效果。<strong>由于我们在判定船艇方向之后只需要对两端点发起攻击，所以只要出现连续两次未击中的情况，就说明有一艘船艇已经被完全击溃了</strong>。</p>
-<p>但是这样又会导致另一个问题：<strong>击溃一艘船艇之后又该打哪里？</strong> 刚才的策略中虽然半径为5的权值改变策略比较暴力，但是每次至少都有一个最大权值位置可以打（虽说可能不准）；现在这种做法击溃了一艘船艇之后对这艘船艇周围的权值影响的太少了，很多位置的权值几乎都一样，到底打哪？</p>
-<p>这里我想到的策略是<strong>破坏中心点</strong>。在每行每列一定存在很多没有被击打的位置，这里简称之为 <strong>和平区域</strong>。对于每一行每一列的连续和平区，优先攻击中间位置。（类似二分法）</p>
-<h4 id="22-策略实现"><a class="markdownIt-Anchor" href="#22-策略实现"></a> 2.2 策略实现</h4>
-<h5 id="初始化"><a class="markdownIt-Anchor" href="#初始化"></a> 初始化</h5>
-<p>还是使用一个$10\times10$的矩阵<code>Weight[10][10]</code>记录权值，这里为避免混淆，增加一个<code>stepMemory[10][10]</code>记录未知状态。对于成功命中的位置，<code>stepMemory[i][j]=1</code>；对于未成功命中的位置，<code>stepMemory[i][j]=-1</code>；对于和平区域，<code>stepMemory[i][j]=0</code>。<br />
-这里如果某位置成功命中，那么只有其距离为1的上下左右四个位置的权值+5；同样的，如果没有命中，也只有其距离为1的上下左右四个位置的权值-5。我们每次依旧选择权值最大的位置。</p>
-<h5 id="船艇方向判定"><a class="markdownIt-Anchor" href="#船艇方向判定"></a> 船艇方向判定</h5>
-<p>这里在判定方向的时候增加了一个 <code>wrong_num</code>，刚才说了<strong>只要出现连续两次未击中的情况，就说明有一艘船艇已经被完全击溃了</strong>，所以当有两次连续击中的时候，就将 <code>wrong_num=2</code>。当<code>wrong_num=0</code>时，就可以破坏中心点了。</p>
-<div class="highlight-container" data-rel="Cpp"><figure class="iseeu highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 这里如果击中点的四周也有击中点，就可以知道方向了</span></span><br><span class="line">  <span class="comment">// 水平方向</span></span><br><span class="line">  <span class="keyword">if</span>((lastj&gt;<span class="number">0</span>&amp;&amp;fanz_Step_Memory[lasti][lastj<span class="number">-1</span>]==<span class="number">1</span>)||(lastj&lt;<span class="number">10</span>&amp;&amp;fanz_Step_Memory[lasti][lastj<span class="number">+1</span>]==<span class="number">1</span>))&#123;</span><br><span class="line">   wrong_num==<span class="number">2</span>;</span><br><span class="line">   <span class="type">int</span> cur=lastj;</span><br><span class="line">   <span class="keyword">while</span> (cur&gt;=<span class="number">0</span>)</span><br><span class="line">   &#123;</span><br><span class="line">    <span class="keyword">if</span>(fanz_Step_Memory[lasti][cur]==<span class="number">0</span>)<span class="keyword">break</span>;</span><br><span class="line">    cur--;</span><br><span class="line">   &#125;</span><br><span class="line">   <span class="keyword">if</span>(cur&gt;=<span class="number">0</span>) Weight[lasti][cur]+=<span class="number">10</span>;</span><br><span class="line">   cur=lastj;</span><br><span class="line">   <span class="keyword">while</span> (cur&lt;<span class="number">10</span>)</span><br><span class="line">   &#123;</span><br><span class="line">    <span class="keyword">if</span>(fanz_Step_Memory[lasti][cur]==<span class="number">0</span>) <span class="keyword">break</span>;</span><br><span class="line">    cur++;</span><br><span class="line">   &#125;</span><br><span class="line">   <span class="keyword">if</span>(cur&lt;<span class="number">10</span>) Weight[lasti][cur]+=<span class="number">10</span>;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="comment">// 竖直方向</span></span><br><span class="line">  <span class="keyword">else</span> <span class="keyword">if</span>((lasti&gt;<span class="number">0</span>&amp;&amp;fanz_Step_Memory[lasti<span class="number">-1</span>][lastj]==<span class="number">1</span>)||(lasti&lt;<span class="number">10</span>&amp;&amp;fanz_Step_Memory[lasti<span class="number">+1</span>][lastj]==<span class="number">1</span>))&#123;</span><br><span class="line">   wrong_num=<span class="number">2</span>;</span><br><span class="line">   <span class="type">int</span> cur=lasti;</span><br><span class="line">   <span class="keyword">while</span> (cur&gt;=<span class="number">0</span>)</span><br><span class="line">   &#123;</span><br><span class="line">    <span class="keyword">if</span>(fanz_Step_Memory[cur][lastj]==<span class="number">0</span>)<span class="keyword">break</span>;</span><br><span class="line">    cur--;</span><br><span class="line">   &#125;</span><br><span class="line">   <span class="keyword">if</span>(cur&gt;=<span class="number">0</span>) Weight[cur][lastj]+=<span class="number">10</span>;</span><br><span class="line">   cur=lasti;</span><br><span class="line">   <span class="keyword">while</span> (cur&lt;<span class="number">10</span>)</span><br><span class="line">   &#123;</span><br><span class="line">    <span class="keyword">if</span>(fanz_Step_Memory[cur][lastj]==<span class="number">0</span>) <span class="keyword">break</span>;</span><br><span class="line">    cur++;</span><br><span class="line">   &#125;</span><br><span class="line">   <span class="keyword">if</span>(cur&lt;<span class="number">10</span>) Weight[cur][lastj]+=<span class="number">10</span>;</span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure></div>
-<h5 id="破坏中心点实现"><a class="markdownIt-Anchor" href="#破坏中心点实现"></a> 破坏中心点实现</h5>
-<p>这里使用窗口对每一行每一列的连续和平区域的中心点进行破坏，当<code>wrong_num=0</code>时就执行这段代码。</p>
-<div class="highlight-container" data-rel="Cpp"><figure class="iseeu highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="type">void</span> <span class="title">destoryCenter</span><span class="params">()</span></span>&#123;</span><br><span class="line"> <span class="comment">// 打破每行连续安全区域的中间位置</span></span><br><span class="line"> <span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">0</span>;i&lt;<span class="number">10</span>;i++)&#123;</span><br><span class="line">  <span class="type">int</span> start=<span class="number">0</span>;</span><br><span class="line">  <span class="keyword">for</span>(;start&lt;<span class="number">10</span>;start++)&#123;</span><br><span class="line">   <span class="keyword">if</span>(fanz_Step_Memory[i][start]==<span class="number">0</span>)&#123;</span><br><span class="line">    <span class="type">int</span> cur=start;</span><br><span class="line">    <span class="keyword">while</span> (cur&lt;<span class="number">10</span>)</span><br><span class="line">    &#123;</span><br><span class="line">     <span class="keyword">if</span>(fanz_Step_Memory[i][cur]!=<span class="number">0</span>) <span class="keyword">break</span>;</span><br><span class="line">     cur++;</span><br><span class="line">    &#125;</span><br><span class="line">    Weight[i][(start+cur<span class="number">-1</span>)&gt;&gt;<span class="number">1</span>]+=<span class="number">4</span>;</span><br><span class="line">    start=cur;</span><br><span class="line">   &#125;</span><br><span class="line">  &#125;</span><br><span class="line"> &#125;</span><br><span class="line"></span><br><span class="line"> <span class="comment">// 打破每列连续安全区域的中间位置</span></span><br><span class="line"> <span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">0</span>;i&lt;<span class="number">10</span>;i++)&#123;</span><br><span class="line">  <span class="type">int</span> start=<span class="number">0</span>;</span><br><span class="line">  <span class="keyword">for</span>(;start&lt;<span class="number">10</span>;start++)&#123;</span><br><span class="line">   <span class="keyword">if</span>(fanz_Step_Memory[start][i]==<span class="number">0</span>)&#123;</span><br><span class="line">    <span class="type">int</span> cur=start;</span><br><span class="line">    <span class="keyword">while</span> (cur&lt;<span class="number">10</span>)</span><br><span class="line">    &#123;</span><br><span class="line">     <span class="keyword">if</span>(fanz_Step_Memory[cur][i]!=<span class="number">0</span>) <span class="keyword">break</span>;</span><br><span class="line">     cur++;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    Weight[(start+cur<span class="number">-1</span>)&gt;&gt;<span class="number">1</span>][i]+=<span class="number">4</span>;</span><br><span class="line">    start=cur;</span><br><span class="line">   &#125;</span><br><span class="line">  &#125;</span><br><span class="line"> &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
-<h4 id="23-策略结果"><a class="markdownIt-Anchor" href="#23-策略结果"></a> 2.3 策略结果</h4>
-<p>这里测试的环境是Ubuntu，如果每次都把所有playerA和playerB的代码都执行一次需要花费半小时以上，所以这里我测试的时候在 <code>seabattle.py</code>的读取文件方法中限制了自己的学号，这样playerA就只有我一个人，比较省时。<br />
-<img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="https://typora-aliyun01.oss-cn-hangzhou.aliyuncs.com/img/20241104155443.png"
-                      alt="image.png" 
-                ></p>
-<h5 id="如果不加入破坏中心点操作"><a class="markdownIt-Anchor" href="#如果不加入破坏中心点操作"></a> 如果不加入&quot;破坏中心点&quot;操作</h5>
-<p>这里测试十次，发现了这两种结果。相比于之前的结果，胜率虽然上来了，但是总共战斗的场数却减少了。而且在测试的时候发现存在超时情况。超时原因很可能就是在不破坏中心点的情况下，击败一艘船之后难以定位下一个攻击位置。</p>
-<div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="code"><pre><span class="line">Time out: 2024220603019_fanzheng 2024220603008_chenhaojie</span><br><span class="line">Time out: 2024220603019_fanzheng 2024220603042_jinyu</span><br><span class="line">Time out: 2024220603019_fanzheng 2024220603118_zhuokai</span><br></pre></td></tr></table></figure></div>
-<p><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="https://typora-aliyun01.oss-cn-hangzhou.aliyuncs.com/img/20241104110129.png"
-                      alt="image.png|451" 
-                ></p>
-<p><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="https://typora-aliyun01.oss-cn-hangzhou.aliyuncs.com/img/20241104103345.png"
-                      alt="image.png|450" 
-                ></p>
-<h5 id="加入破坏中心点操作"><a class="markdownIt-Anchor" href="#加入破坏中心点操作"></a> 加入&quot;破坏中心点&quot;操作</h5>
-<p>这里也测试10次，结果稳定不变，保持下图结果。这里的胜率相较于上面可能显得低了点，但是总场数增加了，总积分更高，而且执行过程中没有出现超时情况，运行结果也很稳定。<br />
-<img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="https://typora-aliyun01.oss-cn-hangzhou.aliyuncs.com/img/20241104105900.png"
-                      alt="image.png" 
-                ></p>
-<h2 id="防守策略"><a class="markdownIt-Anchor" href="#防守策略"></a> 防守策略</h2>
-<p>关于防守策略我想的不是很多，最开始我想的摆法是这样的：<br />
-<img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="https://typora-aliyun01.oss-cn-hangzhou.aliyuncs.com/img/20241104160947.png"
-                      alt="image.png" 
-                ><br />
-我最开始的想法是希望五艘船尽可能的处在不同的位置，并且距离尽可能选一些。但是每个人的攻击策略是不一样的，如果有人喜欢先攻击四个对角，那么我会很快损失4艘船。<br />
-(更新 11/05): 改成上述部署方式，使用贪心+破坏中心点策略的结果：<br />
-<img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="https://typora-aliyun01.oss-cn-hangzhou.aliyuncs.com/img/20241105123340.png"
-                      alt="image.png" 
-                ></p>
-<p>所以思来想去我也想不到太好的摆法，下图就是我的摆法：<br />
-<img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="https://typora-aliyun01.oss-cn-hangzhou.aliyuncs.com/img/20241104161204.png"
-                      alt="image.png" 
-                ></p>
-]]></content>
-      <categories>
-        <category>SeaBattle</category>
-      </categories>
-      <tags>
-        <tag>海战游戏</tag>
-        <tag>策略</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>centos7 基础命令爆出255返回码</title>
-    <url>/sni2sz/</url>
-    <content><![CDATA[<p>cron 是一个用于在指定时间自动执行预定任务的守护进程，/etc/cron.hourly/ 目录中的脚本每小时会被 cron进程 自动执行一次</p>
-]]></content>
-      <categories>
-        <category>Ubuntu</category>
-      </categories>
-      <tags>
-        <tag>Ubuntu</tag>
       </tags>
   </entry>
   <entry>
@@ -463,6 +432,57 @@
       <tags>
         <tag>海战游戏</tag>
         <tag>策略</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>大模型算力是如何计算的</title>
+    <url>/sni2x9/</url>
+    <content><![CDATA[]]></content>
+      <categories>
+        <category>多模态</category>
+      </categories>
+      <tags>
+        <tag>大模型</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Rich Human Feedback for Text-to-Image Generation</title>
+    <url>/sni2v6/</url>
+    <content><![CDATA[<h2 id="abstract"><a class="markdownIt-Anchor" href="#abstract"></a> Abstract</h2>
+<p>最近文本到图像（T2I）生成模型，如<strong>Stable Diffusion</strong>和<strong>Imagen</strong>，在基于文本描述生成高分辨率图像方面取得了显著进展。然而，许多生成的图像仍然存在诸如伪影/不切实际、与文本描述不一致以及低审美质量等问题。受到<strong>人类反馈强化学习（RLHF）在大型语言模型中成功的启发</strong>，先前的工作收集了人类对生成图像的评分作为反馈，并训练了一个奖励模型来改进 T2I 生成。在本文中，我们通过（i）标记图像中不切实际或与文本不一致的区域，以及（ii）注释文本提示中在图像中未被正确表示或缺失的词汇，来丰富反馈信号。我们在 18K 生成图像上收集了这样的丰富人类反馈（RichHF18K），并训练了一个多模态变换器来自动预测丰富的反馈。我们展示了预测的丰富人类反馈如何被用来改进图像生成，例如，通过<strong>选择高质量的训练数据进行微调</strong>以改进生成模型，或者通过<strong>创建带有预测热图的掩码来修复问题区域</strong>。值得注意的是，这些改进推广到了超出我们收集人类反馈数据所用模型（(Stable Diffusion variants）之外的模型（如<strong>Muse</strong>）。RichHF-18K 数据集将在我们的 GitHub 仓库中发布。</p>
+<h2 id="1-introduction"><a class="markdownIt-Anchor" href="#1-introduction"></a> 1. Introduction</h2>
+<p>文本到图像（T2I）生成模型[12, 17, 41, 42, 56, 58, 59]正在迅速成为娱乐、艺术、设计和广告等多个领域内容创造的关键，并正在被推广到图像编辑[4, 27, 44, 50]、视频生成[23, 35, 53]等许多其他应用。尽管最近取得了显著进展，输出仍然通常存在诸如<strong>伪影/不切实际、与文本描述不一致以及低审美质量</strong>等问题[30, 52, 54]。例如，在主要由 Stable Diffusion variants 生成的<strong>Pick-a-Pic 数据集</strong>中，许多图像（例如图 1）包含扭曲的人/动物身体（例如，有超过五个手指的人类手）、扭曲的物体和不切实际的问题，例如漂浮的灯。我们人类评估实验发现，数据集中只有大约 10%的生成图像没有伪影和不切实际的问题。同样，文本-图像不一致问题也很常见，例如，提示是“一个男人跳进河里”，但生成的图像显示男人站着。</p>
+<p>然而，现有的自动<strong>评估生成图像的指标</strong>，包括众所周知的<strong>IS</strong>[43]和<strong>FID</strong>[20]，是计算在图像分布上的，可能无法反映单个图像的细微差别。最近的研究收集了人类偏好/评级来评估生成图像的质量，并训练了评估模型来预测这些评级[30, 52, 54]，特别是<strong>ImageReward</strong>[54]或<strong>Pick-a-Pic</strong>[30]。虽然更专注，但这些指标仍然将一张图像的质量总结为一个单一的数值评分。在<strong>提示-图像对齐</strong>方面，也有像<strong>CLIPScore</strong>[19]这样的开创性单分数指标，以及最近的问答流程[8, 10, 24, 57]。虽然更加校准和可解释，但这些模型复杂且计算成本高，仍然无法定位图像中的不一致区域。</p>
+<p>在本文中，我们提出了一个数据集和模型，用于细粒度的多方面评估，这些评估是可解释和可归因的（例如，归因于图像中的伪影/不切实际区域或图像-文本不一致）。作为第一项贡献，我们收集了一个包含丰富人类反馈的 18K 图像数据集（RichHF-18K），其中包含（i）突出显示图像中不切实际/伪影和文本-图像不一致的点注释；（ii）标记在提示中指定生成图像中缺失或错误表示的概念的词汇；以及（iii）用于图像合理性、文本-图像对齐、审美和整体评分的四种细粒度评分。有了 RichHF-18K，我们设计了一个多模态变换器模型，我们称之为 Rich Automatic Human Feedback（RAHF），以学习预测生成图像及其相关文本提示上的这些丰富的人类注释。因此，我们的模型可以预测不切实际和不一致的区域、不一致的关键词，以及细粒度的评分。这不仅提供了可靠的评级，还提供了关于生成图像质量的更详细和可解释的见解。据我们所知，这是第一个丰富的反馈数据集和模型，用于最新的文本到图像生成模型，提供了一个自动和可解释的流程来评估 T2I 生成。</p>
+<p>主要贡献总结如下：</p>
+<ol>
+<li><strong>第一个丰富的人类反馈数据集（RichHF-18K）</strong> 在生成图像上（包括细粒度评分、不切实际（伪影）/不一致的图像区域和不一致的关键词），在 18K Pick-a-Pic 图像上。</li>
+<li><strong>一个多模态变换器模型（RAHF）</strong>，用于<strong>预测生成图像上的丰富反馈</strong>，我们展示了它与测试集上的人类注释高度相关。</li>
+<li>我们进一步展示了 RAHF 预测的丰富人类反馈对改进图像生成的有用性：（i）使用预测的热图作为掩码来修复问题图像区域，以及（ii）使用预测的评分来帮助微调图像生成模型（如 Muse[6]），例如，通过选择/过滤微调数据，或作为奖励指导。在这两种情况下，我们都获得了比原始模型更好的图像。</li>
+<li>在 Muse 模型上的改进，该模型与用于生成训练集中图像的模型不同，显示了我们的 RAHF 模型的良好泛化能力。</li>
+</ol>
+<h2 id="2-related-works"><a class="markdownIt-Anchor" href="#2-related-works"></a> 2. Related Works</h2>
+<p><strong>Text-to-image generation</strong><br>
+文本到图像（T2I）生成模型在深度学习时代经历了几个流行的模型架构的演变和迭代。早期的工作是生成对抗网络（<strong>GAN</strong>）[3, 16, 26]，它训练一个生成器进行<strong>图像生成和一个鉴别器</strong>来区分真实和生成的图像（也见[32, 38, 47, 55, 60, 62]等）。另一类生成模型发展<strong>自变分自编码器</strong>（VAEs）[21, 29, 48]，它们优化证据下界（ELBO）以获得图像数据的可能性。<br>
+最近，<strong>扩散模型（DMs）</strong>[22, 36, 41, 46]作为图像生成的最新技术（SOTA）出现[13]。DMs 被训练以<strong>从随机噪声中逐步生成图像，与 GANs 相比能够捕捉更多的多样性，并实现良好的样本质量</strong>[13]。Latent Diffusion Models[41]是进一步的改进，它在紧凑的潜在空间中执行扩散过程，以提高效率。</p>
+<p><strong>文本到图像评估和奖励模型</strong><br>
+最近有很多工作在多个维度上评估文本到图像模型[9, 25, 30, 31, 37, 51, 52, 54]。Xu 等人[54]通过要求用户对多个图像进行排名并根据其质量进行评分，收集了人类偏好数据集。他们训练了一个<strong>奖励模型 ImageReward</strong>用于人类偏好学习，并提出了<strong>奖励反馈学习（ReFL）</strong> 以使用 ImageReward 模型调整扩散模型。Kirstain 等人[30]构建了一个网络应用，通过要求用户从一对生成的图像中选择更好的图像，收集了超过 500K 个由 T2I 模型（如 Stable Diffusion 2.1, Dreamlike Photoreal 2.05 和 Stable Diffusion XL 变体）生成的 Pick-a-Pic 数据集。他们利用人类偏好数据集训练了一个基于 CLIP[39]的评分函数，称为 PickScore，以预测人类偏好。Huang 等人[25]提出了一个名为 T2I-CompBench 的基准，用于评估文本到图像模型，包括描述属性绑定、对象关系和复杂构图的 6,000 个文本提示。他们利用多个预训练的视觉语言模型，如 CLIP[39]和 BLIP[34]，计算多个评估指标。Wu 等人[51, 52]收集了大规模的人类对生成图像的选择数据集，并利用该数据集训练了一个输出人类偏好分数（HPS）的分类器。他们展示了通过使用 HPS 调整 Stable Diffusion 来改进图像生成。最近，Lee[31]提出了一个全面的评估 T2I 模型的多细粒度指标。</p>
+<p>尽管这些贡献很有价值，但大多数现有工作只使用二元人类评级或偏好排名来构建反馈/奖励，并且缺乏提供详细可操作反馈的能力，例如图像中的不切实际区域、不一致区域或不一致关键词。与我们的工作相关的一篇最近的论文是 Zhang 等人[61]，他们收集了图像合成任务的伪影区域数据集，训练了一个基于分割的模型来预测伪影区域，并提出了一种针对这些区域的区域修复方法。然而，他们的工作重点是伪影区域，而本文我们收集了包含不仅是伪影区域，还包括不一致区域、不一致关键词和多个方面的四种细粒度评分的 T2I 生成的丰富反馈。据我们所知，这是第一项关于文本到图像模型的异构丰富人类反馈的工作。</p>
+<h2 id="3-collecting-rich-human-feedback"><a class="markdownIt-Anchor" href="#3-collecting-rich-human-feedback"></a> 3. Collecting rich human feedback</h2>
+<p><strong>3.1 数据收集过程</strong></p>
+<p>在本节中，我们讨论了我们收集 RichHF-18K 数据集的过程，该数据集包括两个热图（伪影/不切实际和不一致）、四种细粒度评分（合理性、对齐、审美和总体评分）以及一个文本序列（不一致关键词）。对于每个生成的图像，首先要求注释者检查图像并阅读用于生成它的文本提示。然后，他们标记图像上的点以指示任何不切实际/伪影或与文本提示不一致的位置。注释者被告知每个标记点都有一个“有效半径”（图像高度的 1/20），这形成了以标记点为中心的想象圆盘。通过这种方式，我们可以使用相对较少的点来覆盖图像中有缺陷的区域。最后，注释者在 5 点李克特量表上分别为合理性、图像-文本对齐、审美和整体质量标记不一致关键词和四种评分。图像不切实际/伪影和不一致的详细定义可以在补充材料中找到。我们设计了一个网络 UI，如图 1 所示，以促进数据收集。关于数据收集过程的更多细节可以在补充材料中找到。</p>
+<p><strong>3.2 人类反馈整合</strong></p>
+<p>为了提高收集到的人类反馈在生成图像上的可靠性，每个图像-文本对由三个注释者注释。因此，我们需要整合每个样本的多个注释。对于评分，我们简单地平均多个注释者的评分以获得最终评分。对于不一致关键词注释，我们执行多数投票以获得最终的对齐/不一致指标序列，使用关键词的最频繁标签。对于点注释，我们首先将它们转换为每个注释的热图，其中每个点被转换为热图上的圆盘区域（如上一子节中讨论的），然后我们计算跨注释者的平均热图。明显不切实际的区域可能会被所有注释者注释，并在最终平均热图上具有高值。</p>
+<p><strong>3.3 RichHF-18K: 一个丰富人类反馈的数据集</strong></p>
+<p>我们从 Pick-a-Pic 数据集中选择了一个图像-文本对的子集进行数据注释。尽管我们的方法普遍适用并且适用于任何生成的图像，但我们选择的大多数数据集是照片写实图像，由于其重要性和更广泛的应用。此外，我们还想在图像中拥有平衡的类别。为确保平衡，我们利用 PaLI 视觉问题回答（VQA）模型[7]从 Pick-a-Pic 数据样本中提取一些基本特征。具体来说，我们为 Pick-a-Pic 中的每个图像-文本对提出了以下问题。1）图像是否写实？2）哪个类别最好地描述了图像？在‘人类’、‘动物’、‘对象’、‘室内场景’、‘室外场景’中选择一个。PaLI 对这两个问题的回答通常在我们的手动检查下是可靠的。我们使用这些答案从 Pick-a-Pic 中采样一个多样化的子集，结果得到了 17K 图像-文本对。我们将 17K 样本随机分成两个子集，一个训练集有 16K 样本，一个验证集有 1K 样本。16K 训练样本的属性分布在补充材料中显示。此外，我们收集了 Pick-a-Pic 测试集中独特提示及其对应图像的丰富人类反馈作为我们的测试集。总共，我们收集了来自 Pick-a-Pic 的 18K 图像-文本对的丰富人类反馈。我们的 RichHF18K 数据集包括 16K 训练、1K 验证和 1K 测试样本。</p>
+<p><strong>3.4 RichHF-18K 的数据统计</strong></p>
+<p>在本节中，我们总结了评分的统计数据，并进行了评分的注释者一致性分析。我们使用公式（s-smin）/（smax-smin）标准化评分 s，以便评分位于[0,1]范围内（smax=5 和 smin=1）。评分的直方图如图 2 所示。评分的分布类似于高斯分布，而合理性和文本-图像对齐评分的 1.0 评分比例略高。收集到的评分分布确保我们有合理的负面和正面样本数量，用于训练一个好的奖励模型。为了分析注释者对图像-文本对的评分一致性，我们计算了评分之间的最大差异：maxdiff = max(scores) - min(scores)，其中评分是图像-文本对的三个评分标签。我们在图 4 中绘制了 maxdiff 的直方图。我们可以看到，大约 25%的样本具有完美的注释者一致性，大约 85%的样本具有良好的注释者一致性（标准化后 maxdiff 小于或等于 0.25 或 5 点李克特量表中的 1）。</p>
+]]></content>
+      <categories>
+        <category>多模态</category>
+      </categories>
+      <tags>
+        <tag>RLHF</tag>
       </tags>
   </entry>
   <entry>
@@ -761,100 +781,6 @@ BS-MEC服务器分配给MU i的计算资源定义为f B i 。然后，在BS-MEC�
       </tags>
   </entry>
   <entry>
-    <title>Rich Human Feedback for Text-to-Image Generation</title>
-    <url>/sni2v6/</url>
-    <content><![CDATA[<h2 id="abstract"><a class="markdownIt-Anchor" href="#abstract"></a> Abstract</h2>
-<p>最近文本到图像（T2I）生成模型，如<strong>Stable Diffusion</strong>和<strong>Imagen</strong>，在基于文本描述生成高分辨率图像方面取得了显著进展。然而，许多生成的图像仍然存在诸如伪影/不切实际、与文本描述不一致以及低审美质量等问题。受到<strong>人类反馈强化学习（RLHF）在大型语言模型中成功的启发</strong>，先前的工作收集了人类对生成图像的评分作为反馈，并训练了一个奖励模型来改进 T2I 生成。在本文中，我们通过（i）标记图像中不切实际或与文本不一致的区域，以及（ii）注释文本提示中在图像中未被正确表示或缺失的词汇，来丰富反馈信号。我们在 18K 生成图像上收集了这样的丰富人类反馈（RichHF18K），并训练了一个多模态变换器来自动预测丰富的反馈。我们展示了预测的丰富人类反馈如何被用来改进图像生成，例如，通过<strong>选择高质量的训练数据进行微调</strong>以改进生成模型，或者通过<strong>创建带有预测热图的掩码来修复问题区域</strong>。值得注意的是，这些改进推广到了超出我们收集人类反馈数据所用模型（(Stable Diffusion variants）之外的模型（如<strong>Muse</strong>）。RichHF-18K 数据集将在我们的 GitHub 仓库中发布。</p>
-<h2 id="1-introduction"><a class="markdownIt-Anchor" href="#1-introduction"></a> 1. Introduction</h2>
-<p>文本到图像（T2I）生成模型[12, 17, 41, 42, 56, 58, 59]正在迅速成为娱乐、艺术、设计和广告等多个领域内容创造的关键，并正在被推广到图像编辑[4, 27, 44, 50]、视频生成[23, 35, 53]等许多其他应用。尽管最近取得了显著进展，输出仍然通常存在诸如<strong>伪影/不切实际、与文本描述不一致以及低审美质量</strong>等问题[30, 52, 54]。例如，在主要由 Stable Diffusion variants 生成的<strong>Pick-a-Pic 数据集</strong>中，许多图像（例如图 1）包含扭曲的人/动物身体（例如，有超过五个手指的人类手）、扭曲的物体和不切实际的问题，例如漂浮的灯。我们人类评估实验发现，数据集中只有大约 10%的生成图像没有伪影和不切实际的问题。同样，文本-图像不一致问题也很常见，例如，提示是“一个男人跳进河里”，但生成的图像显示男人站着。</p>
-<p>然而，现有的自动<strong>评估生成图像的指标</strong>，包括众所周知的<strong>IS</strong>[43]和<strong>FID</strong>[20]，是计算在图像分布上的，可能无法反映单个图像的细微差别。最近的研究收集了人类偏好/评级来评估生成图像的质量，并训练了评估模型来预测这些评级[30, 52, 54]，特别是<strong>ImageReward</strong>[54]或<strong>Pick-a-Pic</strong>[30]。虽然更专注，但这些指标仍然将一张图像的质量总结为一个单一的数值评分。在<strong>提示-图像对齐</strong>方面，也有像<strong>CLIPScore</strong>[19]这样的开创性单分数指标，以及最近的问答流程[8, 10, 24, 57]。虽然更加校准和可解释，但这些模型复杂且计算成本高，仍然无法定位图像中的不一致区域。</p>
-<p>在本文中，我们提出了一个数据集和模型，用于细粒度的多方面评估，这些评估是可解释和可归因的（例如，归因于图像中的伪影/不切实际区域或图像-文本不一致）。作为第一项贡献，我们收集了一个包含丰富人类反馈的 18K 图像数据集（RichHF-18K），其中包含（i）突出显示图像中不切实际/伪影和文本-图像不一致的点注释；（ii）标记在提示中指定生成图像中缺失或错误表示的概念的词汇；以及（iii）用于图像合理性、文本-图像对齐、审美和整体评分的四种细粒度评分。有了 RichHF-18K，我们设计了一个多模态变换器模型，我们称之为 Rich Automatic Human Feedback（RAHF），以学习预测生成图像及其相关文本提示上的这些丰富的人类注释。因此，我们的模型可以预测不切实际和不一致的区域、不一致的关键词，以及细粒度的评分。这不仅提供了可靠的评级，还提供了关于生成图像质量的更详细和可解释的见解。据我们所知，这是第一个丰富的反馈数据集和模型，用于最新的文本到图像生成模型，提供了一个自动和可解释的流程来评估 T2I 生成。</p>
-<p>主要贡献总结如下：</p>
-<ol>
-<li><strong>第一个丰富的人类反馈数据集（RichHF-18K）</strong> 在生成图像上（包括细粒度评分、不切实际（伪影）/不一致的图像区域和不一致的关键词），在 18K Pick-a-Pic 图像上。</li>
-<li><strong>一个多模态变换器模型（RAHF）</strong>，用于<strong>预测生成图像上的丰富反馈</strong>，我们展示了它与测试集上的人类注释高度相关。</li>
-<li>我们进一步展示了 RAHF 预测的丰富人类反馈对改进图像生成的有用性：（i）使用预测的热图作为掩码来修复问题图像区域，以及（ii）使用预测的评分来帮助微调图像生成模型（如 Muse[6]），例如，通过选择/过滤微调数据，或作为奖励指导。在这两种情况下，我们都获得了比原始模型更好的图像。</li>
-<li>在 Muse 模型上的改进，该模型与用于生成训练集中图像的模型不同，显示了我们的 RAHF 模型的良好泛化能力。</li>
-</ol>
-<h2 id="2-related-works"><a class="markdownIt-Anchor" href="#2-related-works"></a> 2. Related Works</h2>
-<p><strong>Text-to-image generation</strong><br>
-文本到图像（T2I）生成模型在深度学习时代经历了几个流行的模型架构的演变和迭代。早期的工作是生成对抗网络（<strong>GAN</strong>）[3, 16, 26]，它训练一个生成器进行<strong>图像生成和一个鉴别器</strong>来区分真实和生成的图像（也见[32, 38, 47, 55, 60, 62]等）。另一类生成模型发展<strong>自变分自编码器</strong>（VAEs）[21, 29, 48]，它们优化证据下界（ELBO）以获得图像数据的可能性。<br>
-最近，<strong>扩散模型（DMs）</strong>[22, 36, 41, 46]作为图像生成的最新技术（SOTA）出现[13]。DMs 被训练以<strong>从随机噪声中逐步生成图像，与 GANs 相比能够捕捉更多的多样性，并实现良好的样本质量</strong>[13]。Latent Diffusion Models[41]是进一步的改进，它在紧凑的潜在空间中执行扩散过程，以提高效率。</p>
-<p><strong>文本到图像评估和奖励模型</strong><br>
-最近有很多工作在多个维度上评估文本到图像模型[9, 25, 30, 31, 37, 51, 52, 54]。Xu 等人[54]通过要求用户对多个图像进行排名并根据其质量进行评分，收集了人类偏好数据集。他们训练了一个<strong>奖励模型 ImageReward</strong>用于人类偏好学习，并提出了<strong>奖励反馈学习（ReFL）</strong> 以使用 ImageReward 模型调整扩散模型。Kirstain 等人[30]构建了一个网络应用，通过要求用户从一对生成的图像中选择更好的图像，收集了超过 500K 个由 T2I 模型（如 Stable Diffusion 2.1, Dreamlike Photoreal 2.05 和 Stable Diffusion XL 变体）生成的 Pick-a-Pic 数据集。他们利用人类偏好数据集训练了一个基于 CLIP[39]的评分函数，称为 PickScore，以预测人类偏好。Huang 等人[25]提出了一个名为 T2I-CompBench 的基准，用于评估文本到图像模型，包括描述属性绑定、对象关系和复杂构图的 6,000 个文本提示。他们利用多个预训练的视觉语言模型，如 CLIP[39]和 BLIP[34]，计算多个评估指标。Wu 等人[51, 52]收集了大规模的人类对生成图像的选择数据集，并利用该数据集训练了一个输出人类偏好分数（HPS）的分类器。他们展示了通过使用 HPS 调整 Stable Diffusion 来改进图像生成。最近，Lee[31]提出了一个全面的评估 T2I 模型的多细粒度指标。</p>
-<p>尽管这些贡献很有价值，但大多数现有工作只使用二元人类评级或偏好排名来构建反馈/奖励，并且缺乏提供详细可操作反馈的能力，例如图像中的不切实际区域、不一致区域或不一致关键词。与我们的工作相关的一篇最近的论文是 Zhang 等人[61]，他们收集了图像合成任务的伪影区域数据集，训练了一个基于分割的模型来预测伪影区域，并提出了一种针对这些区域的区域修复方法。然而，他们的工作重点是伪影区域，而本文我们收集了包含不仅是伪影区域，还包括不一致区域、不一致关键词和多个方面的四种细粒度评分的 T2I 生成的丰富反馈。据我们所知，这是第一项关于文本到图像模型的异构丰富人类反馈的工作。</p>
-<h2 id="3-collecting-rich-human-feedback"><a class="markdownIt-Anchor" href="#3-collecting-rich-human-feedback"></a> 3. Collecting rich human feedback</h2>
-<p><strong>3.1 数据收集过程</strong></p>
-<p>在本节中，我们讨论了我们收集 RichHF-18K 数据集的过程，该数据集包括两个热图（伪影/不切实际和不一致）、四种细粒度评分（合理性、对齐、审美和总体评分）以及一个文本序列（不一致关键词）。对于每个生成的图像，首先要求注释者检查图像并阅读用于生成它的文本提示。然后，他们标记图像上的点以指示任何不切实际/伪影或与文本提示不一致的位置。注释者被告知每个标记点都有一个“有效半径”（图像高度的 1/20），这形成了以标记点为中心的想象圆盘。通过这种方式，我们可以使用相对较少的点来覆盖图像中有缺陷的区域。最后，注释者在 5 点李克特量表上分别为合理性、图像-文本对齐、审美和整体质量标记不一致关键词和四种评分。图像不切实际/伪影和不一致的详细定义可以在补充材料中找到。我们设计了一个网络 UI，如图 1 所示，以促进数据收集。关于数据收集过程的更多细节可以在补充材料中找到。</p>
-<p><strong>3.2 人类反馈整合</strong></p>
-<p>为了提高收集到的人类反馈在生成图像上的可靠性，每个图像-文本对由三个注释者注释。因此，我们需要整合每个样本的多个注释。对于评分，我们简单地平均多个注释者的评分以获得最终评分。对于不一致关键词注释，我们执行多数投票以获得最终的对齐/不一致指标序列，使用关键词的最频繁标签。对于点注释，我们首先将它们转换为每个注释的热图，其中每个点被转换为热图上的圆盘区域（如上一子节中讨论的），然后我们计算跨注释者的平均热图。明显不切实际的区域可能会被所有注释者注释，并在最终平均热图上具有高值。</p>
-<p><strong>3.3 RichHF-18K: 一个丰富人类反馈的数据集</strong></p>
-<p>我们从 Pick-a-Pic 数据集中选择了一个图像-文本对的子集进行数据注释。尽管我们的方法普遍适用并且适用于任何生成的图像，但我们选择的大多数数据集是照片写实图像，由于其重要性和更广泛的应用。此外，我们还想在图像中拥有平衡的类别。为确保平衡，我们利用 PaLI 视觉问题回答（VQA）模型[7]从 Pick-a-Pic 数据样本中提取一些基本特征。具体来说，我们为 Pick-a-Pic 中的每个图像-文本对提出了以下问题。1）图像是否写实？2）哪个类别最好地描述了图像？在‘人类’、‘动物’、‘对象’、‘室内场景’、‘室外场景’中选择一个。PaLI 对这两个问题的回答通常在我们的手动检查下是可靠的。我们使用这些答案从 Pick-a-Pic 中采样一个多样化的子集，结果得到了 17K 图像-文本对。我们将 17K 样本随机分成两个子集，一个训练集有 16K 样本，一个验证集有 1K 样本。16K 训练样本的属性分布在补充材料中显示。此外，我们收集了 Pick-a-Pic 测试集中独特提示及其对应图像的丰富人类反馈作为我们的测试集。总共，我们收集了来自 Pick-a-Pic 的 18K 图像-文本对的丰富人类反馈。我们的 RichHF18K 数据集包括 16K 训练、1K 验证和 1K 测试样本。</p>
-<p><strong>3.4 RichHF-18K 的数据统计</strong></p>
-<p>在本节中，我们总结了评分的统计数据，并进行了评分的注释者一致性分析。我们使用公式（s-smin）/（smax-smin）标准化评分 s，以便评分位于[0,1]范围内（smax=5 和 smin=1）。评分的直方图如图 2 所示。评分的分布类似于高斯分布，而合理性和文本-图像对齐评分的 1.0 评分比例略高。收集到的评分分布确保我们有合理的负面和正面样本数量，用于训练一个好的奖励模型。为了分析注释者对图像-文本对的评分一致性，我们计算了评分之间的最大差异：maxdiff = max(scores) - min(scores)，其中评分是图像-文本对的三个评分标签。我们在图 4 中绘制了 maxdiff 的直方图。我们可以看到，大约 25%的样本具有完美的注释者一致性，大约 85%的样本具有良好的注释者一致性（标准化后 maxdiff 小于或等于 0.25 或 5 点李克特量表中的 1）。</p>
-]]></content>
-      <categories>
-        <category>多模态</category>
-      </categories>
-      <tags>
-        <tag>RLHF</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>大模型算力是如何计算的</title>
-    <url>/sni2x9/</url>
-    <content><![CDATA[]]></content>
-      <categories>
-        <category>多模态</category>
-      </categories>
-      <tags>
-        <tag>大模型</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>前缀和+差分</title>
-    <url>/sni2z0/</url>
-    <content><![CDATA[<p>前缀和对我来说已经不算陌生了，前缀和的方便之处在于可以 <strong>快速求解任意子数组之和</strong>。但是，前缀和在区间频繁修改时就显得较为羸弱了，因为它只适合求和，不擅长修改。</p>
-<p>那么，如果某些<strong>区间频繁修改</strong>（<strong>仅限于都增加或者都减少某个值</strong>），但是求和只有一次，这种时候首先会想到的就是<strong>线段树</strong>了，不过线段树的代码量太多，使用差分则更简单，也更快。</p>
-<h1 id="什么是差分"><a class="markdownIt-Anchor" href="#什么是差分"></a> 什么是差分？</h1>
-<p>差分的意思主要是这个 <strong>差</strong>，指的其实就是 <strong>元素差</strong>。</p>
-<p>前缀和的思想是动态规划，可以将前 n 个元素的和预先存储起来，这样计算区间和的时候就不需要再按需进行累加了。</p>
-<p>而差分的思想就是 <strong>先求出相邻元素之间的差</strong>，当需要某个区间<code>[a,b] </code>增加或者减少某个值的，只需要修改 <code>arr[a]</code> 和 <code>arr[b+1]</code>，然后重新计算一次前缀和就可以了。</p>
-<h2 id="一维数组差分"><a class="markdownIt-Anchor" href="#一维数组差分"></a> 一维数组差分</h2>
-<p>如果有一个数组 <code>[1, 2, 3, 4, 5]</code>，其差分数组为 <code>[1, 1, 1, 1, 1]</code>。如果要将区间 <code>[1, 3]</code> 中的每个元素增加 2，可以通过修改差分数组 <code>diff[1] += 2</code> 和<code>diff[4] -= 2</code>来实现，得到新的差分数组<code> [1, 3, 1, 1, -1]</code>。通过重建数组可以得到<code> [1, 4, 5, 6, 5]</code>。</p>
-<img lazyload="" src="/images/loading.svg" data-src="https://typora-aliyun01.oss-cn-hangzhou.aliyuncs.com/img/a5d44b1e910f2d6038dc34fc3a64086.jpg" alt="a5d44b1e910f2d6038dc34fc3a64086.jpg" style="zoom: 33%;">
-<h2 id="树上差分"><a class="markdownIt-Anchor" href="#树上差分"></a> 树上差分</h2>
-<p>刚才只是在一维数组上差分，实现起来还是比较简单的，如果我们是在树上进行差分呢？<br>
-树上差分刚才只是在一维数组上差分，实现起来还是比较简单的，如果我们是在树上进行差分呢？</p>
-<p>场景：现在给你一颗树，并且告诉你起始节点和结束节点，对起始节点和结束节点路径中的所有节点的值都加上value。需要注意的是，<strong>这里的树指的是一颗无向树，也就是说并不是像只能从父节点向子节点的那种遍历，只要是这个节点连接到的结点，都是可以遍历到的。</strong><br>
-<img lazyload="" src="/images/loading.svg" data-src="https://typora-aliyun01.oss-cn-hangzhou.aliyuncs.com/img/05ca61d668ebe7e80a7514d8888ee46.jpg" alt="05ca61d668ebe7e80a7514d8888ee46.jpg" style="zoom: 33%;"></p>
-<p>如果要使用树上差分，就必不可免要使用到树中节点的 <strong>最近公共祖先</strong> 求解算法。[[最近公共祖先（LCA)]] 。关于LCA的求解推荐使用倍增法，可以详细看看。<br>
-<img lazyload="" src="/images/loading.svg" data-src="https://typora-aliyun01.oss-cn-hangzhou.aliyuncs.com/img/06223d47370e6ef8ba55e63bc42ef1c.jpg" alt="06223d47370e6ef8ba55e63bc42ef1c.jpg" style="zoom:33%;"><br>
-如图所示，实现差分我们只需要修改四个点的权值，起始点和终结点就不用说了，关键是这个 <strong>LCA还有LCA的父节点</strong>。这里你可能会有如下问题：</p>
-
-<div class="callout" data-callout="note">
-<div class="callout-title">
-<div class="callout-title-icon">
-<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-pencil"><path d="M17 3a2.85 2.83 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5Z"></path><path d="m15 5 4 4"></path></svg>
-</div>
-<div class="callout-title-inner">Note</div>
-</div>
-<div class="callout-content"><p>为什么这里还要将LCA的父节点权值也下降？</p>
-<p>原因是我们<strong>从根节点1开始进行DFS</strong>，原本的前缀和在这里更像“后缀和”。<br>
-DFS的过程中，每个节点的权值更新为其所有子孙的权值总和，weight[i]=<mjx-container class="MathJax" jax="SVG"><svg style="vertical-align: -0.663ex;" xmlns="http://www.w3.org/2000/svg" width="15.341ex" height="2.45ex" role="img" focusable="false" viewBox="0 -789.6 6780.9 1082.7"><g stroke="currentColor" fill="currentColor" stroke-width="0" transform="scale(1,-1)"><g data-mml-node="math"><g data-mml-node="munderover"><g data-mml-node="mo"><path data-c="2211" d="M61 748Q64 750 489 750H913L954 640Q965 609 976 579T993 533T999 516H979L959 517Q936 579 886 621T777 682Q724 700 655 705T436 710H319Q183 710 183 709Q186 706 348 484T511 259Q517 250 513 244L490 216Q466 188 420 134T330 27L149 -187Q149 -188 362 -188Q388 -188 436 -188T506 -189Q679 -189 778 -162T936 -43Q946 -27 959 6H999L913 -249L489 -250Q65 -250 62 -248Q56 -246 56 -239Q56 -234 118 -161Q186 -81 245 -11L428 206Q428 207 242 462L57 717L56 728Q56 744 61 748Z"></path></g><g data-mml-node="mi" transform="translate(1089,477.1) scale(0.707)"><path data-c="1D45B" d="M21 287Q22 293 24 303T36 341T56 388T89 425T135 442Q171 442 195 424T225 390T231 369Q231 367 232 367L243 378Q304 442 382 442Q436 442 469 415T503 336T465 179T427 52Q427 26 444 26Q450 26 453 27Q482 32 505 65T540 145Q542 153 560 153Q580 153 580 145Q580 144 576 130Q568 101 554 73T508 17T439 -10Q392 -10 371 17T350 73Q350 92 386 193T423 345Q423 404 379 404H374Q288 404 229 303L222 291L189 157Q156 26 151 16Q138 -11 108 -11Q95 -11 87 -5T76 7T74 17Q74 30 112 180T152 343Q153 348 153 366Q153 405 129 405Q91 405 66 305Q60 285 60 284Q58 278 41 278H27Q21 284 21 287Z"></path></g><g data-mml-node="mi" transform="translate(1089,-285.4) scale(0.707)"><path data-c="1D456" d="M184 600Q184 624 203 642T247 661Q265 661 277 649T290 619Q290 596 270 577T226 557Q211 557 198 567T184 600ZM21 287Q21 295 30 318T54 369T98 420T158 442Q197 442 223 419T250 357Q250 340 236 301T196 196T154 83Q149 61 149 51Q149 26 166 26Q175 26 185 29T208 43T235 78T260 137Q263 149 265 151T282 153Q302 153 302 143Q302 135 293 112T268 61T223 11T161 -11Q129 -11 102 10T74 74Q74 91 79 106T122 220Q160 321 166 341T173 380Q173 404 156 404H154Q124 404 99 371T61 287Q60 286 59 284T58 281T56 279T53 278T49 278T41 278H27Q21 284 21 287Z"></path></g></g><g data-mml-node="TeXAtom" data-mjx-texclass="ORD" transform="translate(1729.9,0)"><g data-mml-node="mi"><path data-c="1D464" d="M580 385Q580 406 599 424T641 443Q659 443 674 425T690 368Q690 339 671 253Q656 197 644 161T609 80T554 12T482 -11Q438 -11 404 5T355 48Q354 47 352 44Q311 -11 252 -11Q226 -11 202 -5T155 14T118 53T104 116Q104 170 138 262T173 379Q173 380 173 381Q173 390 173 393T169 400T158 404H154Q131 404 112 385T82 344T65 302T57 280Q55 278 41 278H27Q21 284 21 287Q21 293 29 315T52 366T96 418T161 441Q204 441 227 416T250 358Q250 340 217 250T184 111Q184 65 205 46T258 26Q301 26 334 87L339 96V119Q339 122 339 128T340 136T341 143T342 152T345 165T348 182T354 206T362 238T373 281Q402 395 406 404Q419 431 449 431Q468 431 475 421T483 402Q483 389 454 274T422 142Q420 131 420 107V100Q420 85 423 71T442 42T487 26Q558 26 600 148Q609 171 620 213T632 273Q632 306 619 325T593 357T580 385Z"></path></g><g data-mml-node="mi" transform="translate(716,0)"><path data-c="1D452" d="M39 168Q39 225 58 272T107 350T174 402T244 433T307 442H310Q355 442 388 420T421 355Q421 265 310 237Q261 224 176 223Q139 223 138 221Q138 219 132 186T125 128Q125 81 146 54T209 26T302 45T394 111Q403 121 406 121Q410 121 419 112T429 98T420 82T390 55T344 24T281 -1T205 -11Q126 -11 83 42T39 168ZM373 353Q367 405 305 405Q272 405 244 391T199 357T170 316T154 280T149 261Q149 260 169 260Q282 260 327 284T373 353Z"></path></g><g data-mml-node="mi" transform="translate(1182,0)"><path data-c="1D456" d="M184 600Q184 624 203 642T247 661Q265 661 277 649T290 619Q290 596 270 577T226 557Q211 557 198 567T184 600ZM21 287Q21 295 30 318T54 369T98 420T158 442Q197 442 223 419T250 357Q250 340 236 301T196 196T154 83Q149 61 149 51Q149 26 166 26Q175 26 185 29T208 43T235 78T260 137Q263 149 265 151T282 153Q302 153 302 143Q302 135 293 112T268 61T223 11T161 -11Q129 -11 102 10T74 74Q74 91 79 106T122 220Q160 321 166 341T173 380Q173 404 156 404H154Q124 404 99 371T61 287Q60 286 59 284T58 281T56 279T53 278T49 278T41 278H27Q21 284 21 287Z"></path></g><g data-mml-node="mi" transform="translate(1527,0)"><path data-c="1D454" d="M311 43Q296 30 267 15T206 0Q143 0 105 45T66 160Q66 265 143 353T314 442Q361 442 401 394L404 398Q406 401 409 404T418 412T431 419T447 422Q461 422 470 413T480 394Q480 379 423 152T363 -80Q345 -134 286 -169T151 -205Q10 -205 10 -137Q10 -111 28 -91T74 -71Q89 -71 102 -80T116 -111Q116 -121 114 -130T107 -144T99 -154T92 -162L90 -164H91Q101 -167 151 -167Q189 -167 211 -155Q234 -144 254 -122T282 -75Q288 -56 298 -13Q311 35 311 43ZM384 328L380 339Q377 350 375 354T369 368T359 382T346 393T328 402T306 405Q262 405 221 352Q191 313 171 233T151 117Q151 38 213 38Q269 38 323 108L331 118L384 328Z"></path></g><g data-mml-node="mi" transform="translate(2004,0)"><path data-c="210E" d="M137 683Q138 683 209 688T282 694Q294 694 294 685Q294 674 258 534Q220 386 220 383Q220 381 227 388Q288 442 357 442Q411 442 444 415T478 336Q478 285 440 178T402 50Q403 36 407 31T422 26Q450 26 474 56T513 138Q516 149 519 151T535 153Q555 153 555 145Q555 144 551 130Q535 71 500 33Q466 -10 419 -10H414Q367 -10 346 17T325 74Q325 90 361 192T398 345Q398 404 354 404H349Q266 404 205 306L198 293L164 158Q132 28 127 16Q114 -11 83 -11Q69 -11 59 -2T48 16Q48 30 121 320L195 616Q195 629 188 632T149 637H128Q122 643 122 645T124 664Q129 683 137 683Z"></path></g><g data-mml-node="mi" transform="translate(2580,0)"><path data-c="1D461" d="M26 385Q19 392 19 395Q19 399 22 411T27 425Q29 430 36 430T87 431H140L159 511Q162 522 166 540T173 566T179 586T187 603T197 615T211 624T229 626Q247 625 254 615T261 596Q261 589 252 549T232 470L222 433Q222 431 272 431H323Q330 424 330 420Q330 398 317 385H210L174 240Q135 80 135 68Q135 26 162 26Q197 26 230 60T283 144Q285 150 288 151T303 153H307Q322 153 322 145Q322 142 319 133Q314 117 301 95T267 48T216 6T155 -11Q125 -11 98 4T59 56Q57 64 57 83V101L92 241Q127 382 128 383Q128 385 77 385H26Z"></path></g><g data-mml-node="mo" transform="translate(2941,0)"><path data-c="5B" d="M118 -250V750H255V710H158V-210H255V-250H118Z"></path></g><g data-mml-node="mi" transform="translate(3219,0)"><path data-c="1D460" d="M131 289Q131 321 147 354T203 415T300 442Q362 442 390 415T419 355Q419 323 402 308T364 292Q351 292 340 300T328 326Q328 342 337 354T354 372T367 378Q368 378 368 379Q368 382 361 388T336 399T297 405Q249 405 227 379T204 326Q204 301 223 291T278 274T330 259Q396 230 396 163Q396 135 385 107T352 51T289 7T195 -10Q118 -10 86 19T53 87Q53 126 74 143T118 160Q133 160 146 151T160 120Q160 94 142 76T111 58Q109 57 108 57T107 55Q108 52 115 47T146 34T201 27Q237 27 263 38T301 66T318 97T323 122Q323 150 302 164T254 181T195 196T148 231Q131 256 131 289Z"></path></g><g data-mml-node="mi" transform="translate(3688,0)"><path data-c="1D45C" d="M201 -11Q126 -11 80 38T34 156Q34 221 64 279T146 380Q222 441 301 441Q333 441 341 440Q354 437 367 433T402 417T438 387T464 338T476 268Q476 161 390 75T201 -11ZM121 120Q121 70 147 48T206 26Q250 26 289 58T351 142Q360 163 374 216T388 308Q388 352 370 375Q346 405 306 405Q243 405 195 347Q158 303 140 230T121 120Z"></path></g><g data-mml-node="mi" transform="translate(4173,0)"><path data-c="1D45B" d="M21 287Q22 293 24 303T36 341T56 388T89 425T135 442Q171 442 195 424T225 390T231 369Q231 367 232 367L243 378Q304 442 382 442Q436 442 469 415T503 336T465 179T427 52Q427 26 444 26Q450 26 453 27Q482 32 505 65T540 145Q542 153 560 153Q580 153 580 145Q580 144 576 130Q568 101 554 73T508 17T439 -10Q392 -10 371 17T350 73Q350 92 386 193T423 345Q423 404 379 404H374Q288 404 229 303L222 291L189 157Q156 26 151 16Q138 -11 108 -11Q95 -11 87 -5T76 7T74 17Q74 30 112 180T152 343Q153 348 153 366Q153 405 129 405Q91 405 66 305Q60 285 60 284Q58 278 41 278H27Q21 284 21 287Z"></path></g><g data-mml-node="mo" transform="translate(4773,0)"><path data-c="5D" d="M22 710V750H159V-250H22V-210H119V710H22Z"></path></g></g></g></g></svg></mjx-container></p>
-<p><strong>对于LCA本身，其本身只需要+3，不过a和b都是他的子孙，所以其本身-3</strong>。对于LCA的父节点，他的权值应该是不变的，刚才LCA减去3是因为LCA要+3，但是LCA的父节点应该是不变的，因此LCA的父节点权值也需要下降。</p>
-</div></div><div class="highlight-container" data-rel="Cpp"><figure class="iseeu highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="keyword">using</span> LL = <span class="type">long</span> <span class="type">long</span>;</span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> {</span><br><span class="line">    <span class="keyword">public</span>: <span class="function"><span class="type">int</span> <span class="title">maxRemoval</span><span class="params">(vector &lt; <span class="type">int</span> &gt; &amp; nums, vector &lt; vector &lt; <span class="type">int</span> &gt;&gt; &amp; queries)</span> </span>{</span><br><span class="line">        <span class="comment">// sort(queries.begin(), queries.end(), [](vector&lt;int&gt;&amp;a, vector&lt;int&gt;&amp;b){</span></span><br><span class="line">        <span class="comment">//     if (a[0]!=b[0])</span></span><br><span class="line">        <span class="comment">//         return a[0]&lt;b[0];</span></span><br><span class="line">        <span class="comment">//     else</span></span><br><span class="line">        <span class="comment">//         return a[1]&gt;b[1];</span></span><br><span class="line">        <span class="comment">// });</span></span><br><span class="line">        <span class="built_in">sort</span>(queries.<span class="built_in">begin</span>(), queries.<span class="built_in">end</span>());</span><br><span class="line"></span><br><span class="line">        <span class="type">int</span> n = nums.<span class="built_in">size</span>();</span><br><span class="line">        <span class="type">int</span> j = <span class="number">0</span>;</span><br><span class="line">        vector &lt; <span class="type">int</span> &gt; <span class="built_in">diff</span>(n + <span class="number">1</span>);</span><br><span class="line">        LL sum = <span class="number">0</span>;</span><br><span class="line">        <span class="type">int</span> ret = <span class="number">0</span>;</span><br><span class="line">        priority_queue &lt; <span class="type">int</span> &gt; pq;</span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">0</span>; i &lt; n; i++) {</span><br><span class="line">            <span class="keyword">while</span> (j &lt; queries.<span class="built_in">size</span>() &amp;&amp; queries[j][<span class="number">0</span>] &lt;= i) {</span><br><span class="line">                pq.<span class="built_in">push</span>(queries[j][<span class="number">1</span>]);</span><br><span class="line">                j++;</span><br><span class="line">            }</span><br><span class="line">            <span class="keyword">while</span> (sum + diff[i] &lt; nums[i]) {</span><br><span class="line">                <span class="keyword">if</span> (pq.<span class="built_in">empty</span>()) <span class="keyword">return</span> <span class="number">-1</span>;</span><br><span class="line">                <span class="keyword">if</span> (pq.<span class="built_in">top</span>() &lt; i) <span class="keyword">return</span> <span class="number">-1</span>;</span><br><span class="line">                <span class="type">int</span> t = pq.<span class="built_in">top</span>();</span><br><span class="line">                pq.<span class="built_in">pop</span>();</span><br><span class="line">                sum += <span class="number">1</span>;</span><br><span class="line">                diff[t + <span class="number">1</span>] -= <span class="number">1</span>;</span><br><span class="line">                ret++;</span><br><span class="line">            }</span><br><span class="line">            sum += diff[i];</span><br><span class="line">        }</span><br><span class="line">        <span class="keyword">return</span> queries.<span class="built_in">size</span>() - ret;</span><br><span class="line">    }</span><br><span class="line"></span><br><span class="line">};</span><br></pre></td></tr></table></figure></div>]]></content>
-      <categories>
-        <category>Leetcode</category>
-      </categories>
-      <tags>
-        <tag>Leetcode</tag>
-        <tag>动态规划</tag>
-        <tag>前缀和</tag>
-        <tag>差分</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>最近公共祖先（LCA)</title>
     <url>/sni2zo/</url>
     <content><![CDATA[<h1 id="问题场景"><a class="markdownIt-Anchor" href="#问题场景"></a> 问题场景</h1>
@@ -904,6 +830,49 @@ DFS的过程中，每个节点的权值更新为其所有子孙的权值总和�
       <tags>
         <tag>Leetcode</tag>
         <tag>树</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>前缀和+差分</title>
+    <url>/sni2z0/</url>
+    <content><![CDATA[<p>前缀和对我来说已经不算陌生了，前缀和的方便之处在于可以 <strong>快速求解任意子数组之和</strong>。但是，前缀和在区间频繁修改时就显得较为羸弱了，因为它只适合求和，不擅长修改。</p>
+<p>那么，如果某些<strong>区间频繁修改</strong>（<strong>仅限于都增加或者都减少某个值</strong>），但是求和只有一次，这种时候首先会想到的就是<strong>线段树</strong>了，不过线段树的代码量太多，使用差分则更简单，也更快。</p>
+<h1 id="什么是差分"><a class="markdownIt-Anchor" href="#什么是差分"></a> 什么是差分？</h1>
+<p>差分的意思主要是这个 <strong>差</strong>，指的其实就是 <strong>元素差</strong>。</p>
+<p>前缀和的思想是动态规划，可以将前 n 个元素的和预先存储起来，这样计算区间和的时候就不需要再按需进行累加了。</p>
+<p>而差分的思想就是 <strong>先求出相邻元素之间的差</strong>，当需要某个区间<code>[a,b] </code>增加或者减少某个值的，只需要修改 <code>arr[a]</code> 和 <code>arr[b+1]</code>，然后重新计算一次前缀和就可以了。</p>
+<h2 id="一维数组差分"><a class="markdownIt-Anchor" href="#一维数组差分"></a> 一维数组差分</h2>
+<p>如果有一个数组 <code>[1, 2, 3, 4, 5]</code>，其差分数组为 <code>[1, 1, 1, 1, 1]</code>。如果要将区间 <code>[1, 3]</code> 中的每个元素增加 2，可以通过修改差分数组 <code>diff[1] += 2</code> 和<code>diff[4] -= 2</code>来实现，得到新的差分数组<code> [1, 3, 1, 1, -1]</code>。通过重建数组可以得到<code> [1, 4, 5, 6, 5]</code>。</p>
+<img lazyload="" src="/images/loading.svg" data-src="https://typora-aliyun01.oss-cn-hangzhou.aliyuncs.com/img/a5d44b1e910f2d6038dc34fc3a64086.jpg" alt="a5d44b1e910f2d6038dc34fc3a64086.jpg" style="zoom: 33%;">
+<h2 id="树上差分"><a class="markdownIt-Anchor" href="#树上差分"></a> 树上差分</h2>
+<p>刚才只是在一维数组上差分，实现起来还是比较简单的，如果我们是在树上进行差分呢？<br>
+树上差分刚才只是在一维数组上差分，实现起来还是比较简单的，如果我们是在树上进行差分呢？</p>
+<p>场景：现在给你一颗树，并且告诉你起始节点和结束节点，对起始节点和结束节点路径中的所有节点的值都加上value。需要注意的是，<strong>这里的树指的是一颗无向树，也就是说并不是像只能从父节点向子节点的那种遍历，只要是这个节点连接到的结点，都是可以遍历到的。</strong><br>
+<img lazyload="" src="/images/loading.svg" data-src="https://typora-aliyun01.oss-cn-hangzhou.aliyuncs.com/img/05ca61d668ebe7e80a7514d8888ee46.jpg" alt="05ca61d668ebe7e80a7514d8888ee46.jpg" style="zoom: 33%;"></p>
+<p>如果要使用树上差分，就必不可免要使用到树中节点的 <strong>最近公共祖先</strong> 求解算法。[[最近公共祖先（LCA)]] 。关于LCA的求解推荐使用倍增法，可以详细看看。<br>
+<img lazyload="" src="/images/loading.svg" data-src="https://typora-aliyun01.oss-cn-hangzhou.aliyuncs.com/img/06223d47370e6ef8ba55e63bc42ef1c.jpg" alt="06223d47370e6ef8ba55e63bc42ef1c.jpg" style="zoom:33%;"><br>
+如图所示，实现差分我们只需要修改四个点的权值，起始点和终结点就不用说了，关键是这个 <strong>LCA还有LCA的父节点</strong>。这里你可能会有如下问题：</p>
+
+<div class="callout" data-callout="note">
+<div class="callout-title">
+<div class="callout-title-icon">
+<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-pencil"><path d="M17 3a2.85 2.83 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5Z"></path><path d="m15 5 4 4"></path></svg>
+</div>
+<div class="callout-title-inner">Note</div>
+</div>
+<div class="callout-content"><p>为什么这里还要将LCA的父节点权值也下降？</p>
+<p>原因是我们<strong>从根节点1开始进行DFS</strong>，原本的前缀和在这里更像“后缀和”。<br>
+DFS的过程中，每个节点的权值更新为其所有子孙的权值总和，weight[i]=<mjx-container class="MathJax" jax="SVG"><svg style="vertical-align: -0.663ex;" xmlns="http://www.w3.org/2000/svg" width="15.341ex" height="2.45ex" role="img" focusable="false" viewBox="0 -789.6 6780.9 1082.7"><g stroke="currentColor" fill="currentColor" stroke-width="0" transform="scale(1,-1)"><g data-mml-node="math"><g data-mml-node="munderover"><g data-mml-node="mo"><path data-c="2211" d="M61 748Q64 750 489 750H913L954 640Q965 609 976 579T993 533T999 516H979L959 517Q936 579 886 621T777 682Q724 700 655 705T436 710H319Q183 710 183 709Q186 706 348 484T511 259Q517 250 513 244L490 216Q466 188 420 134T330 27L149 -187Q149 -188 362 -188Q388 -188 436 -188T506 -189Q679 -189 778 -162T936 -43Q946 -27 959 6H999L913 -249L489 -250Q65 -250 62 -248Q56 -246 56 -239Q56 -234 118 -161Q186 -81 245 -11L428 206Q428 207 242 462L57 717L56 728Q56 744 61 748Z"></path></g><g data-mml-node="mi" transform="translate(1089,477.1) scale(0.707)"><path data-c="1D45B" d="M21 287Q22 293 24 303T36 341T56 388T89 425T135 442Q171 442 195 424T225 390T231 369Q231 367 232 367L243 378Q304 442 382 442Q436 442 469 415T503 336T465 179T427 52Q427 26 444 26Q450 26 453 27Q482 32 505 65T540 145Q542 153 560 153Q580 153 580 145Q580 144 576 130Q568 101 554 73T508 17T439 -10Q392 -10 371 17T350 73Q350 92 386 193T423 345Q423 404 379 404H374Q288 404 229 303L222 291L189 157Q156 26 151 16Q138 -11 108 -11Q95 -11 87 -5T76 7T74 17Q74 30 112 180T152 343Q153 348 153 366Q153 405 129 405Q91 405 66 305Q60 285 60 284Q58 278 41 278H27Q21 284 21 287Z"></path></g><g data-mml-node="mi" transform="translate(1089,-285.4) scale(0.707)"><path data-c="1D456" d="M184 600Q184 624 203 642T247 661Q265 661 277 649T290 619Q290 596 270 577T226 557Q211 557 198 567T184 600ZM21 287Q21 295 30 318T54 369T98 420T158 442Q197 442 223 419T250 357Q250 340 236 301T196 196T154 83Q149 61 149 51Q149 26 166 26Q175 26 185 29T208 43T235 78T260 137Q263 149 265 151T282 153Q302 153 302 143Q302 135 293 112T268 61T223 11T161 -11Q129 -11 102 10T74 74Q74 91 79 106T122 220Q160 321 166 341T173 380Q173 404 156 404H154Q124 404 99 371T61 287Q60 286 59 284T58 281T56 279T53 278T49 278T41 278H27Q21 284 21 287Z"></path></g></g><g data-mml-node="TeXAtom" data-mjx-texclass="ORD" transform="translate(1729.9,0)"><g data-mml-node="mi"><path data-c="1D464" d="M580 385Q580 406 599 424T641 443Q659 443 674 425T690 368Q690 339 671 253Q656 197 644 161T609 80T554 12T482 -11Q438 -11 404 5T355 48Q354 47 352 44Q311 -11 252 -11Q226 -11 202 -5T155 14T118 53T104 116Q104 170 138 262T173 379Q173 380 173 381Q173 390 173 393T169 400T158 404H154Q131 404 112 385T82 344T65 302T57 280Q55 278 41 278H27Q21 284 21 287Q21 293 29 315T52 366T96 418T161 441Q204 441 227 416T250 358Q250 340 217 250T184 111Q184 65 205 46T258 26Q301 26 334 87L339 96V119Q339 122 339 128T340 136T341 143T342 152T345 165T348 182T354 206T362 238T373 281Q402 395 406 404Q419 431 449 431Q468 431 475 421T483 402Q483 389 454 274T422 142Q420 131 420 107V100Q420 85 423 71T442 42T487 26Q558 26 600 148Q609 171 620 213T632 273Q632 306 619 325T593 357T580 385Z"></path></g><g data-mml-node="mi" transform="translate(716,0)"><path data-c="1D452" d="M39 168Q39 225 58 272T107 350T174 402T244 433T307 442H310Q355 442 388 420T421 355Q421 265 310 237Q261 224 176 223Q139 223 138 221Q138 219 132 186T125 128Q125 81 146 54T209 26T302 45T394 111Q403 121 406 121Q410 121 419 112T429 98T420 82T390 55T344 24T281 -1T205 -11Q126 -11 83 42T39 168ZM373 353Q367 405 305 405Q272 405 244 391T199 357T170 316T154 280T149 261Q149 260 169 260Q282 260 327 284T373 353Z"></path></g><g data-mml-node="mi" transform="translate(1182,0)"><path data-c="1D456" d="M184 600Q184 624 203 642T247 661Q265 661 277 649T290 619Q290 596 270 577T226 557Q211 557 198 567T184 600ZM21 287Q21 295 30 318T54 369T98 420T158 442Q197 442 223 419T250 357Q250 340 236 301T196 196T154 83Q149 61 149 51Q149 26 166 26Q175 26 185 29T208 43T235 78T260 137Q263 149 265 151T282 153Q302 153 302 143Q302 135 293 112T268 61T223 11T161 -11Q129 -11 102 10T74 74Q74 91 79 106T122 220Q160 321 166 341T173 380Q173 404 156 404H154Q124 404 99 371T61 287Q60 286 59 284T58 281T56 279T53 278T49 278T41 278H27Q21 284 21 287Z"></path></g><g data-mml-node="mi" transform="translate(1527,0)"><path data-c="1D454" d="M311 43Q296 30 267 15T206 0Q143 0 105 45T66 160Q66 265 143 353T314 442Q361 442 401 394L404 398Q406 401 409 404T418 412T431 419T447 422Q461 422 470 413T480 394Q480 379 423 152T363 -80Q345 -134 286 -169T151 -205Q10 -205 10 -137Q10 -111 28 -91T74 -71Q89 -71 102 -80T116 -111Q116 -121 114 -130T107 -144T99 -154T92 -162L90 -164H91Q101 -167 151 -167Q189 -167 211 -155Q234 -144 254 -122T282 -75Q288 -56 298 -13Q311 35 311 43ZM384 328L380 339Q377 350 375 354T369 368T359 382T346 393T328 402T306 405Q262 405 221 352Q191 313 171 233T151 117Q151 38 213 38Q269 38 323 108L331 118L384 328Z"></path></g><g data-mml-node="mi" transform="translate(2004,0)"><path data-c="210E" d="M137 683Q138 683 209 688T282 694Q294 694 294 685Q294 674 258 534Q220 386 220 383Q220 381 227 388Q288 442 357 442Q411 442 444 415T478 336Q478 285 440 178T402 50Q403 36 407 31T422 26Q450 26 474 56T513 138Q516 149 519 151T535 153Q555 153 555 145Q555 144 551 130Q535 71 500 33Q466 -10 419 -10H414Q367 -10 346 17T325 74Q325 90 361 192T398 345Q398 404 354 404H349Q266 404 205 306L198 293L164 158Q132 28 127 16Q114 -11 83 -11Q69 -11 59 -2T48 16Q48 30 121 320L195 616Q195 629 188 632T149 637H128Q122 643 122 645T124 664Q129 683 137 683Z"></path></g><g data-mml-node="mi" transform="translate(2580,0)"><path data-c="1D461" d="M26 385Q19 392 19 395Q19 399 22 411T27 425Q29 430 36 430T87 431H140L159 511Q162 522 166 540T173 566T179 586T187 603T197 615T211 624T229 626Q247 625 254 615T261 596Q261 589 252 549T232 470L222 433Q222 431 272 431H323Q330 424 330 420Q330 398 317 385H210L174 240Q135 80 135 68Q135 26 162 26Q197 26 230 60T283 144Q285 150 288 151T303 153H307Q322 153 322 145Q322 142 319 133Q314 117 301 95T267 48T216 6T155 -11Q125 -11 98 4T59 56Q57 64 57 83V101L92 241Q127 382 128 383Q128 385 77 385H26Z"></path></g><g data-mml-node="mo" transform="translate(2941,0)"><path data-c="5B" d="M118 -250V750H255V710H158V-210H255V-250H118Z"></path></g><g data-mml-node="mi" transform="translate(3219,0)"><path data-c="1D460" d="M131 289Q131 321 147 354T203 415T300 442Q362 442 390 415T419 355Q419 323 402 308T364 292Q351 292 340 300T328 326Q328 342 337 354T354 372T367 378Q368 378 368 379Q368 382 361 388T336 399T297 405Q249 405 227 379T204 326Q204 301 223 291T278 274T330 259Q396 230 396 163Q396 135 385 107T352 51T289 7T195 -10Q118 -10 86 19T53 87Q53 126 74 143T118 160Q133 160 146 151T160 120Q160 94 142 76T111 58Q109 57 108 57T107 55Q108 52 115 47T146 34T201 27Q237 27 263 38T301 66T318 97T323 122Q323 150 302 164T254 181T195 196T148 231Q131 256 131 289Z"></path></g><g data-mml-node="mi" transform="translate(3688,0)"><path data-c="1D45C" d="M201 -11Q126 -11 80 38T34 156Q34 221 64 279T146 380Q222 441 301 441Q333 441 341 440Q354 437 367 433T402 417T438 387T464 338T476 268Q476 161 390 75T201 -11ZM121 120Q121 70 147 48T206 26Q250 26 289 58T351 142Q360 163 374 216T388 308Q388 352 370 375Q346 405 306 405Q243 405 195 347Q158 303 140 230T121 120Z"></path></g><g data-mml-node="mi" transform="translate(4173,0)"><path data-c="1D45B" d="M21 287Q22 293 24 303T36 341T56 388T89 425T135 442Q171 442 195 424T225 390T231 369Q231 367 232 367L243 378Q304 442 382 442Q436 442 469 415T503 336T465 179T427 52Q427 26 444 26Q450 26 453 27Q482 32 505 65T540 145Q542 153 560 153Q580 153 580 145Q580 144 576 130Q568 101 554 73T508 17T439 -10Q392 -10 371 17T350 73Q350 92 386 193T423 345Q423 404 379 404H374Q288 404 229 303L222 291L189 157Q156 26 151 16Q138 -11 108 -11Q95 -11 87 -5T76 7T74 17Q74 30 112 180T152 343Q153 348 153 366Q153 405 129 405Q91 405 66 305Q60 285 60 284Q58 278 41 278H27Q21 284 21 287Z"></path></g><g data-mml-node="mo" transform="translate(4773,0)"><path data-c="5D" d="M22 710V750H159V-250H22V-210H119V710H22Z"></path></g></g></g></g></svg></mjx-container></p>
+<p><strong>对于LCA本身，其本身只需要+3，不过a和b都是他的子孙，所以其本身-3</strong>。对于LCA的父节点，他的权值应该是不变的，刚才LCA减去3是因为LCA要+3，但是LCA的父节点应该是不变的，因此LCA的父节点权值也需要下降。</p>
+</div></div><div class="highlight-container" data-rel="Cpp"><figure class="iseeu highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="keyword">using</span> LL = <span class="type">long</span> <span class="type">long</span>;</span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> {</span><br><span class="line">    <span class="keyword">public</span>: <span class="function"><span class="type">int</span> <span class="title">maxRemoval</span><span class="params">(vector &lt; <span class="type">int</span> &gt; &amp; nums, vector &lt; vector &lt; <span class="type">int</span> &gt;&gt; &amp; queries)</span> </span>{</span><br><span class="line">        <span class="comment">// sort(queries.begin(), queries.end(), [](vector&lt;int&gt;&amp;a, vector&lt;int&gt;&amp;b){</span></span><br><span class="line">        <span class="comment">//     if (a[0]!=b[0])</span></span><br><span class="line">        <span class="comment">//         return a[0]&lt;b[0];</span></span><br><span class="line">        <span class="comment">//     else</span></span><br><span class="line">        <span class="comment">//         return a[1]&gt;b[1];</span></span><br><span class="line">        <span class="comment">// });</span></span><br><span class="line">        <span class="built_in">sort</span>(queries.<span class="built_in">begin</span>(), queries.<span class="built_in">end</span>());</span><br><span class="line"></span><br><span class="line">        <span class="type">int</span> n = nums.<span class="built_in">size</span>();</span><br><span class="line">        <span class="type">int</span> j = <span class="number">0</span>;</span><br><span class="line">        vector &lt; <span class="type">int</span> &gt; <span class="built_in">diff</span>(n + <span class="number">1</span>);</span><br><span class="line">        LL sum = <span class="number">0</span>;</span><br><span class="line">        <span class="type">int</span> ret = <span class="number">0</span>;</span><br><span class="line">        priority_queue &lt; <span class="type">int</span> &gt; pq;</span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">0</span>; i &lt; n; i++) {</span><br><span class="line">            <span class="keyword">while</span> (j &lt; queries.<span class="built_in">size</span>() &amp;&amp; queries[j][<span class="number">0</span>] &lt;= i) {</span><br><span class="line">                pq.<span class="built_in">push</span>(queries[j][<span class="number">1</span>]);</span><br><span class="line">                j++;</span><br><span class="line">            }</span><br><span class="line">            <span class="keyword">while</span> (sum + diff[i] &lt; nums[i]) {</span><br><span class="line">                <span class="keyword">if</span> (pq.<span class="built_in">empty</span>()) <span class="keyword">return</span> <span class="number">-1</span>;</span><br><span class="line">                <span class="keyword">if</span> (pq.<span class="built_in">top</span>() &lt; i) <span class="keyword">return</span> <span class="number">-1</span>;</span><br><span class="line">                <span class="type">int</span> t = pq.<span class="built_in">top</span>();</span><br><span class="line">                pq.<span class="built_in">pop</span>();</span><br><span class="line">                sum += <span class="number">1</span>;</span><br><span class="line">                diff[t + <span class="number">1</span>] -= <span class="number">1</span>;</span><br><span class="line">                ret++;</span><br><span class="line">            }</span><br><span class="line">            sum += diff[i];</span><br><span class="line">        }</span><br><span class="line">        <span class="keyword">return</span> queries.<span class="built_in">size</span>() - ret;</span><br><span class="line">    }</span><br><span class="line"></span><br><span class="line">};</span><br></pre></td></tr></table></figure></div>]]></content>
+      <categories>
+        <category>Leetcode</category>
+      </categories>
+      <tags>
+        <tag>Leetcode</tag>
+        <tag>动态规划</tag>
+        <tag>前缀和</tag>
+        <tag>差分</tag>
       </tags>
   </entry>
 </search>
