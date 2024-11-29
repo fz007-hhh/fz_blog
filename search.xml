@@ -1,6 +1,131 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>Obsidian——主题配置和插件推荐（01）</title>
+    <url>/snm6s8/</url>
+    <content><![CDATA[<p>之前三年基本都在使用 Typora 记录笔记，Typora 本身非常轻量，提供的基础功能比较齐全，而且 21 年我刚开始用的时候开始免费的（后来不知道为啥突然要收费了）。不过，用的时间久了，还是发现 Typora 本身还是有不少的局限性：</p>
+<ol>
+<li>代码块功能局限：我的笔记中往往需要创建不同语言的代码块，但是使用 typora 的默认快捷键之后每次都得手动修改语言格式。虽说这个问题我通过自己编写 ahk 脚本解决了，不过每种语言都按一种键位有点蛋疼。</li>
+<li>修改主题比较困难：Typora 是支持下载主题、更换主题的（需要翻墙），也有很多好看的皮肤。可是，我一般喜欢将某几款主题好看的地方综合起来，在 Typora 中，这就得直接修改主题的 css 代码才能做到了，一点一点的盯着改对我来说并不是很友好 😢。</li>
+<li>不具备多文件管理能力：Typora 每次只能打开一个文件，多个文件只能一个一个的打开，如果我想同时看多个文件就很麻烦；每次 Ctrl+O/Ctrl+P 找文件也实在难以接受；</li>
+<li>扩展性差：Typora 没有插件市场，每次缺一点小功能就得现找解决方法。如果说有一个笔记软件可以安装插件，我只需要通过安装插件就可以扩展多个功能就方便得多了。</li>
+</ol>
+<h2 id="为什么不使用-notion"><a class="markdownIt-Anchor" href="#为什么不使用-notion"></a> 🤔 为什么不使用 Notion</h2>
+<p>其实今年 8 月份的时候就想换笔记软件的，当时是我的好哥们儿推荐的 Notion，Notion 的共享属性非常非常强，只要你写完一篇笔记，就能自动保存到云服务器上，而且使用 notion 搭建博客也非常方便。不仅如此，notion 支持 <mark>基本的 markdown 语法</mark>，笔记中以文本块为单位，上下活动文本块非常容易；notion 还有嵌套列表、dataview（方便管理笔记）、支持插件、同时有很多非常好看的模版，笔记添加头图也很简单。</p>
+<p>我好哥们的习惯是在 Notion 上写随笔，在家还有公司都可以随时写点小笔记，这样不管在哪，只要开下浏览器就能看到；如果使用的是 Typora，那就得 <mark>写笔记 -&gt; 同步笔记到 Git -&gt; Git 拉取笔记 -&gt; 看笔记</mark>。notion 还支持在笔记中嵌入视频、图片（<mark>上传图片使用的是 notion 自己的图床，也就是说，不用你额外配置图床</mark>），网上也有很多博主出 notion 的教程。</p>
+<p><strong>不过，我最终还是放弃了 Notion。</strong></p>
+<p>原因是，notion 支持 <mark>基本的 markdown 语法</mark>，这个基本对我来说是硬伤。长久以来使用 Typora 已经让我对 markdown 的语法有了依赖性，在 markdown 语法中，仅需<strong>两个"$"符</strong>就可以编写数学公式，仅需<strong>三个 ` + 语言格式</strong> 就可以写代码块。可是在 notion 中不支持这两个功能，尤其是写代码块的时候还必须得手动选择语言格式，强迫症极重的我实在难以接受 😠。</p>
+<p>并且，在了解 Obsidian 之后，我发现其实 Notion 的很多功能在 Obsidian 也可以实现，Obsidian 的插件市场很大，而且更新还很频繁，当然，最重要的还是：<mark>Obsidian 完全支持 markdown 的语法，并且具备文件管理功能。</mark> 卧槽！这不就是我想要的效果吗？！</p>
+<h2 id="官网下载安装"><a class="markdownIt-Anchor" href="#官网下载安装"></a> 官网下载安装</h2>
+<p>Obsidian 是免费的，直接去官网下载就可以了，地址：<a class="link" href="https://obsidian.md/download">https://obsidian.md/download<i class="fa-solid fa-arrow-up-right ml-[0.2em] font-light align-text-top text-[0.7em] link-icon"></i></a> 。<mark>这里先提醒一下，使用 Obsidian 的前提是你能够翻墙！！因为其插件市场是需要翻墙才能访问的！！</mark></p>
+<p>下载好之后，直接选择合适的路径安装即可，然后直接双击运行就可以了。第一次运行应该会让你创建一个分区，这里可以新建一个分区，名字自定义，之后写笔记尽量都在一个分区里写，<mark>因为Obsidian里，每个分区的插件都是独立的，如果你突然切换分区，那么新分区里是没有旧分区里的插件的！！</mark>（<strong>当然后面的教程会说如何用插件解决</strong>）<br>
+<img lazyload="" src="/images/loading.svg" data-src="https://typora-aliyun01.oss-cn-hangzhou.aliyuncs.com/img/20241127234438.png" alt="image.png" width="525px"></p>
+<h2 id="obsidian-基础配置"><a class="markdownIt-Anchor" href="#obsidian-基础配置"></a> Obsidian 基础配置</h2>
+<h3 id="1语言设置"><a class="markdownIt-Anchor" href="#1语言设置"></a> 1.语言设置</h3>
+<p>刚安装运行 Obsidian 时，你看到的应该是纯英文的界面，文件夹啥的都是英文。这个需要在这里改成 <strong>简体中文</strong>。<br>
+<img lazyload="" src="/images/loading.svg" data-src="https://typora-aliyun01.oss-cn-hangzhou.aliyuncs.com/img/20241127233505.png" alt="image.png"></p>
+<h3 id="2字体设置"><a class="markdownIt-Anchor" href="#2字体设置"></a> 2.字体设置</h3>
+<p>看到上面那张图应该会发现，我使用的字体和默认的字体不一样，这个字体需要你额外下载安装：<a class="link" href="https://github.com/lxgw/LxgwWenKai-Screen/releases/tag/v1.501">https://github.com/lxgw/LxgwWenKai-Screen/releases/tag/v1.501<i class="fa-solid fa-arrow-up-right ml-[0.2em] font-light align-text-top text-[0.7em] link-icon"></i></a></p>
+<p>在官网下载 ttf 文件的字体，然后双击安装（<strong>最好以管理员模式安装</strong>），然后在下面的设置这里，点击管理，手动输入 <code>霞鹜文楷 GB 屏幕指纹版</code>，就可以使用这个字体了。其中，<strong>代码字体不推荐用霞鹜文楷</strong>，因为这个字体不是等宽的，一开始看的话可能会感觉代码比较挤。</p>
+<p>当然了，字体的喜好因人而异，如果你有其他喜欢的字体，直接在这里修改即可。</p>
+<p><img lazyload="" src="/images/loading.svg" data-src="https://typora-aliyun01.oss-cn-hangzhou.aliyuncs.com/img/20241127233740.png" alt="image.png"></p>
+<h3 id="3主题设置"><a class="markdownIt-Anchor" href="#3主题设置"></a> 3.主题设置</h3>
+<p>Obsidian原生的主题可能比较简陋，不过Obsidian有个主题市场，可以在市场中下载安装自己喜欢的主题，点击这个 <strong>管理</strong>，就可以进入插件市场，选择自己喜欢的主题就可以了。<br>
+<img lazyload="" src="/images/loading.svg" data-src="https://typora-aliyun01.oss-cn-hangzhou.aliyuncs.com/img/20241127234314.png" alt="image.png"></p>
+<p>主题的话多种多样，选择自己喜欢的就可以了，这里有的主题是没有夜间模式的，选择的时候请斟酌。<br>
+<img lazyload="" src="/images/loading.svg" data-src="https://typora-aliyun01.oss-cn-hangzhou.aliyuncs.com/img/20241127234846.png" alt="image.png"></p>
+<h3 id="4语法简单介绍"><a class="markdownIt-Anchor" href="#4语法简单介绍"></a> 4.语法简单介绍</h3>
+<p>如果之前使用过Typora或者其他markdown编辑工具，那么这个部分就不用看了，我目前使用的基本都是markdown语法。不过Obsidian自带的callout语法也挺好用的，作为标注更加醒目，这里依次介绍一下。</p>
+<h4 id="1基本语法"><a class="markdownIt-Anchor" href="#1基本语法"></a> （1）基本语法</h4>
+<p>加粗：<code>**文本**</code>-&gt; <strong>文本</strong><br>
+斜体：<code>*文本*</code>-&gt; <em>文本</em><br>
+行间块: `文本` -&gt; <code>文本</code></p>
+<h4 id="2代码块"><a class="markdownIt-Anchor" href="#2代码块"></a> （2）代码块</h4>
+<p>只需要输入 ```C/Cpp/Java/Python ``` 即可创建一个代码块，比如：</p>
+<div class="highlight-container" data-rel="Cpp"><figure class="iseeu highlight cpp"><table><tr><td class="code"><pre><span class="line">这是一个Cpp代码块</span><br></pre></td></tr></table></figure></div>
+<div class="highlight-container" data-rel="Java"><figure class="iseeu highlight java"><table><tr><td class="code"><pre><span class="line">这是一个Java代码块</span><br></pre></td></tr></table></figure></div>
+<p>两个美元符号<mjx-container class="MathJax" jax="SVG"><svg style="vertical-align: 0;" xmlns="http://www.w3.org/2000/svg" width="2.652ex" height="0.271ex" role="img" focusable="false" viewBox="0 -120 1172 120"><g stroke="currentColor" fill="currentColor" stroke-width="0" transform="scale(1,-1)"><g data-mml-node="math"><g data-mml-node="mo"><path data-c="2026" d="M78 60Q78 84 95 102T138 120Q162 120 180 104T199 61Q199 36 182 18T139 0T96 17T78 60ZM525 60Q525 84 542 102T585 120Q609 120 627 104T646 61Q646 36 629 18T586 0T543 17T525 60ZM972 60Q972 84 989 102T1032 120Q1056 120 1074 104T1093 61Q1093 36 1076 18T1033 0T990 17T972 60Z"></path></g></g></g></svg></mjx-container>中间写上内容就可以编辑数学公式，不过要符合Latex语法，这个需要自己查资料：<br>
+比如：<mjx-container class="MathJax" jax="SVG"><svg style="vertical-align: -0.679ex;" xmlns="http://www.w3.org/2000/svg" width="2.688ex" height="2.224ex" role="img" focusable="false" viewBox="0 -683 1188.3 983"><g stroke="currentColor" fill="currentColor" stroke-width="0" transform="scale(1,-1)"><g data-mml-node="math"><g data-mml-node="msubsup"><g data-mml-node="mi"><path data-c="1D43F" d="M228 637Q194 637 192 641Q191 643 191 649Q191 673 202 682Q204 683 217 683Q271 680 344 680Q485 680 506 683H518Q524 677 524 674T522 656Q517 641 513 637H475Q406 636 394 628Q387 624 380 600T313 336Q297 271 279 198T252 88L243 52Q243 48 252 48T311 46H328Q360 46 379 47T428 54T478 72T522 106T564 161Q580 191 594 228T611 270Q616 273 628 273H641Q647 264 647 262T627 203T583 83T557 9Q555 4 553 3T537 0T494 -1Q483 -1 418 -1T294 0H116Q32 0 32 10Q32 17 34 24Q39 43 44 45Q48 46 59 46H65Q92 46 125 49Q139 52 144 61Q147 65 216 339T285 628Q285 635 228 637Z"></path></g><g data-mml-node="mi" transform="translate(714,363) scale(0.707)"><path data-c="1D45B" d="M21 287Q22 293 24 303T36 341T56 388T89 425T135 442Q171 442 195 424T225 390T231 369Q231 367 232 367L243 378Q304 442 382 442Q436 442 469 415T503 336T465 179T427 52Q427 26 444 26Q450 26 453 27Q482 32 505 65T540 145Q542 153 560 153Q580 153 580 145Q580 144 576 130Q568 101 554 73T508 17T439 -10Q392 -10 371 17T350 73Q350 92 386 193T423 345Q423 404 379 404H374Q288 404 229 303L222 291L189 157Q156 26 151 16Q138 -11 108 -11Q95 -11 87 -5T76 7T74 17Q74 30 112 180T152 343Q153 348 153 366Q153 405 129 405Q91 405 66 305Q60 285 60 284Q58 278 41 278H27Q21 284 21 287Z"></path></g><g data-mml-node="mi" transform="translate(714,-292.2) scale(0.707)"><path data-c="1D456" d="M184 600Q184 624 203 642T247 661Q265 661 277 649T290 619Q290 596 270 577T226 557Q211 557 198 567T184 600ZM21 287Q21 295 30 318T54 369T98 420T158 442Q197 442 223 419T250 357Q250 340 236 301T196 196T154 83Q149 61 149 51Q149 26 166 26Q175 26 185 29T208 43T235 78T260 137Q263 149 265 151T282 153Q302 153 302 143Q302 135 293 112T268 61T223 11T161 -11Q129 -11 102 10T74 74Q74 91 79 106T122 220Q160 321 166 341T173 380Q173 404 156 404H154Q124 404 99 371T61 287Q60 286 59 284T58 281T56 279T53 278T49 278T41 278H27Q21 284 21 287Z"></path></g></g></g></g></svg></mjx-container>  <mjx-container class="MathJax" jax="SVG"><svg style="vertical-align: -0.912ex;" xmlns="http://www.w3.org/2000/svg" width="4.8ex" height="2.869ex" role="img" focusable="false" viewBox="0 -864.9 2121.5 1267.9"><g stroke="currentColor" fill="currentColor" stroke-width="0" transform="scale(1,-1)"><g data-mml-node="math"><g data-mml-node="mfrac"><g data-mml-node="mn" transform="translate(884,394) scale(0.707)"><path data-c="31" d="M213 578L200 573Q186 568 160 563T102 556H83V602H102Q149 604 189 617T245 641T273 663Q275 666 285 666Q294 666 302 660V361L303 61Q310 54 315 52T339 48T401 46H427V0H416Q395 3 257 3Q121 3 100 0H88V46H114Q136 46 152 46T177 47T193 50T201 52T207 57T213 61V578Z"></path></g><g data-mml-node="mrow" transform="translate(220,-345) scale(0.707)"><g data-mml-node="mi"><path data-c="1D45B" d="M21 287Q22 293 24 303T36 341T56 388T89 425T135 442Q171 442 195 424T225 390T231 369Q231 367 232 367L243 378Q304 442 382 442Q436 442 469 415T503 336T465 179T427 52Q427 26 444 26Q450 26 453 27Q482 32 505 65T540 145Q542 153 560 153Q580 153 580 145Q580 144 576 130Q568 101 554 73T508 17T439 -10Q392 -10 371 17T350 73Q350 92 386 193T423 345Q423 404 379 404H374Q288 404 229 303L222 291L189 157Q156 26 151 16Q138 -11 108 -11Q95 -11 87 -5T76 7T74 17Q74 30 112 180T152 343Q153 348 153 366Q153 405 129 405Q91 405 66 305Q60 285 60 284Q58 278 41 278H27Q21 284 21 287Z"></path></g><g data-mml-node="mo" transform="translate(600,0)"><path data-c="2B" d="M56 237T56 250T70 270H369V420L370 570Q380 583 389 583Q402 583 409 568V270H707Q722 262 722 250T707 230H409V-68Q401 -82 391 -82H389H387Q375 -82 369 -68V230H70Q56 237 56 250Z"></path></g><g data-mml-node="mn" transform="translate(1378,0)"><path data-c="32" d="M109 429Q82 429 66 447T50 491Q50 562 103 614T235 666Q326 666 387 610T449 465Q449 422 429 383T381 315T301 241Q265 210 201 149L142 93L218 92Q375 92 385 97Q392 99 409 186V189H449V186Q448 183 436 95T421 3V0H50V19V31Q50 38 56 46T86 81Q115 113 136 137Q145 147 170 174T204 211T233 244T261 278T284 308T305 340T320 369T333 401T340 431T343 464Q343 527 309 573T212 619Q179 619 154 602T119 569T109 550Q109 549 114 549Q132 549 151 535T170 489Q170 464 154 447T109 429Z"></path><path data-c="30" d="M96 585Q152 666 249 666Q297 666 345 640T423 548Q460 465 460 320Q460 165 417 83Q397 41 362 16T301 -15T250 -22Q224 -22 198 -16T137 16T82 83Q39 165 39 320Q39 494 96 585ZM321 597Q291 629 250 629Q208 629 178 597Q153 571 145 525T137 333Q137 175 145 125T181 46Q209 16 250 16Q290 16 318 46Q347 76 354 130T362 333Q362 478 354 524T321 597Z" transform="translate(500,0)"></path></g></g><rect width="1881.5" height="60" x="120" y="220"></rect></g></g></g></svg></mjx-container> …</p>
+<p>如果使用连续两个美元符号 <mjx-container class="MathJax" jax="SVG" display="true"><svg style="vertical-align: 0;" xmlns="http://www.w3.org/2000/svg" width="2.652ex" height="0.271ex" role="img" focusable="false" viewBox="0 -120 1172 120"><g stroke="currentColor" fill="currentColor" stroke-width="0" transform="scale(1,-1)"><g data-mml-node="math"><g data-mml-node="mo"><path data-c="2026" d="M78 60Q78 84 95 102T138 120Q162 120 180 104T199 61Q199 36 182 18T139 0T96 17T78 60ZM525 60Q525 84 542 102T585 120Q609 120 627 104T646 61Q646 36 629 18T586 0T543 17T525 60ZM972 60Q972 84 989 102T1032 120Q1056 120 1074 104T1093 61Q1093 36 1076 18T1033 0T990 17T972 60Z"></path></g></g></g></svg></mjx-container>，这样的数学公式就是独立占一整行的，比如<br>
+<mjx-container class="MathJax" jax="SVG" display="true"><svg style="vertical-align: -1.738ex;" xmlns="http://www.w3.org/2000/svg" width="7.381ex" height="4.774ex" role="img" focusable="false" viewBox="0 -1342 3262.4 2110"><g stroke="currentColor" fill="currentColor" stroke-width="0" transform="scale(1,-1)"><g data-mml-node="math"><g data-mml-node="mfrac"><g data-mml-node="mn" transform="translate(1381.2,676)"><path data-c="31" d="M213 578L200 573Q186 568 160 563T102 556H83V602H102Q149 604 189 617T245 641T273 663Q275 666 285 666Q294 666 302 660V361L303 61Q310 54 315 52T339 48T401 46H427V0H416Q395 3 257 3Q121 3 100 0H88V46H114Q136 46 152 46T177 47T193 50T201 52T207 57T213 61V578Z"></path></g><g data-mml-node="mrow" transform="translate(220,-686)"><g data-mml-node="mi"><path data-c="1D45B" d="M21 287Q22 293 24 303T36 341T56 388T89 425T135 442Q171 442 195 424T225 390T231 369Q231 367 232 367L243 378Q304 442 382 442Q436 442 469 415T503 336T465 179T427 52Q427 26 444 26Q450 26 453 27Q482 32 505 65T540 145Q542 153 560 153Q580 153 580 145Q580 144 576 130Q568 101 554 73T508 17T439 -10Q392 -10 371 17T350 73Q350 92 386 193T423 345Q423 404 379 404H374Q288 404 229 303L222 291L189 157Q156 26 151 16Q138 -11 108 -11Q95 -11 87 -5T76 7T74 17Q74 30 112 180T152 343Q153 348 153 366Q153 405 129 405Q91 405 66 305Q60 285 60 284Q58 278 41 278H27Q21 284 21 287Z"></path></g><g data-mml-node="mo" transform="translate(822.2,0)"><path data-c="2B" d="M56 237T56 250T70 270H369V420L370 570Q380 583 389 583Q402 583 409 568V270H707Q722 262 722 250T707 230H409V-68Q401 -82 391 -82H389H387Q375 -82 369 -68V230H70Q56 237 56 250Z"></path></g><g data-mml-node="mn" transform="translate(1822.4,0)"><path data-c="32" d="M109 429Q82 429 66 447T50 491Q50 562 103 614T235 666Q326 666 387 610T449 465Q449 422 429 383T381 315T301 241Q265 210 201 149L142 93L218 92Q375 92 385 97Q392 99 409 186V189H449V186Q448 183 436 95T421 3V0H50V19V31Q50 38 56 46T86 81Q115 113 136 137Q145 147 170 174T204 211T233 244T261 278T284 308T305 340T320 369T333 401T340 431T343 464Q343 527 309 573T212 619Q179 619 154 602T119 569T109 550Q109 549 114 549Q132 549 151 535T170 489Q170 464 154 447T109 429Z"></path><path data-c="30" d="M96 585Q152 666 249 666Q297 666 345 640T423 548Q460 465 460 320Q460 165 417 83Q397 41 362 16T301 -15T250 -22Q224 -22 198 -16T137 16T82 83Q39 165 39 320Q39 494 96 585ZM321 597Q291 629 250 629Q208 629 178 597Q153 571 145 525T137 333Q137 175 145 125T181 46Q209 16 250 16Q290 16 318 46Q347 76 354 130T362 333Q362 478 354 524T321 597Z" transform="translate(500,0)"></path></g></g><rect width="3022.4" height="60" x="120" y="220"></rect></g></g></g></svg></mjx-container><br>
+<mjx-container class="MathJax" jax="SVG" display="true"><svg style="vertical-align: -2.819ex;" xmlns="http://www.w3.org/2000/svg" width="20.455ex" height="6.354ex" role="img" focusable="false" viewBox="0 -1562.5 9041 2808.5"><g stroke="currentColor" fill="currentColor" stroke-width="0" transform="scale(1,-1)"><g data-mml-node="math"><g data-mml-node="munderover"><g data-mml-node="mo"><path data-c="2211" d="M60 948Q63 950 665 950H1267L1325 815Q1384 677 1388 669H1348L1341 683Q1320 724 1285 761Q1235 809 1174 838T1033 881T882 898T699 902H574H543H251L259 891Q722 258 724 252Q725 250 724 246Q721 243 460 -56L196 -356Q196 -357 407 -357Q459 -357 548 -357T676 -358Q812 -358 896 -353T1063 -332T1204 -283T1307 -196Q1328 -170 1348 -124H1388Q1388 -125 1381 -145T1356 -210T1325 -294L1267 -449L666 -450Q64 -450 61 -448Q55 -446 55 -439Q55 -437 57 -433L590 177Q590 178 557 222T452 366T322 544L56 909L55 924Q55 945 60 948Z"></path></g><g data-mml-node="TeXAtom" transform="translate(148.2,-1087.9) scale(0.707)" data-mjx-texclass="ORD"><g data-mml-node="mi"><path data-c="1D456" d="M184 600Q184 624 203 642T247 661Q265 661 277 649T290 619Q290 596 270 577T226 557Q211 557 198 567T184 600ZM21 287Q21 295 30 318T54 369T98 420T158 442Q197 442 223 419T250 357Q250 340 236 301T196 196T154 83Q149 61 149 51Q149 26 166 26Q175 26 185 29T208 43T235 78T260 137Q263 149 265 151T282 153Q302 153 302 143Q302 135 293 112T268 61T223 11T161 -11Q129 -11 102 10T74 74Q74 91 79 106T122 220Q160 321 166 341T173 380Q173 404 156 404H154Q124 404 99 371T61 287Q60 286 59 284T58 281T56 279T53 278T49 278T41 278H27Q21 284 21 287Z"></path></g><g data-mml-node="mo" transform="translate(345,0)"><path data-c="3D" d="M56 347Q56 360 70 367H707Q722 359 722 347Q722 336 708 328L390 327H72Q56 332 56 347ZM56 153Q56 168 72 173H708Q722 163 722 153Q722 140 707 133H70Q56 140 56 153Z"></path></g><g data-mml-node="mn" transform="translate(1123,0)"><path data-c="31" d="M213 578L200 573Q186 568 160 563T102 556H83V602H102Q149 604 189 617T245 641T273 663Q275 666 285 666Q294 666 302 660V361L303 61Q310 54 315 52T339 48T401 46H427V0H416Q395 3 257 3Q121 3 100 0H88V46H114Q136 46 152 46T177 47T193 50T201 52T207 57T213 61V578Z"></path></g></g><g data-mml-node="TeXAtom" transform="translate(509.9,1150) scale(0.707)" data-mjx-texclass="ORD"><g data-mml-node="mi"><path data-c="1D45B" d="M21 287Q22 293 24 303T36 341T56 388T89 425T135 442Q171 442 195 424T225 390T231 369Q231 367 232 367L243 378Q304 442 382 442Q436 442 469 415T503 336T465 179T427 52Q427 26 444 26Q450 26 453 27Q482 32 505 65T540 145Q542 153 560 153Q580 153 580 145Q580 144 576 130Q568 101 554 73T508 17T439 -10Q392 -10 371 17T350 73Q350 92 386 193T423 345Q423 404 379 404H374Q288 404 229 303L222 291L189 157Q156 26 151 16Q138 -11 108 -11Q95 -11 87 -5T76 7T74 17Q74 30 112 180T152 343Q153 348 153 366Q153 405 129 405Q91 405 66 305Q60 285 60 284Q58 278 41 278H27Q21 284 21 287Z"></path></g></g></g><g data-mml-node="msub" transform="translate(1610.7,0)"><g data-mml-node="mi"><path data-c="1D44E" d="M33 157Q33 258 109 349T280 441Q331 441 370 392Q386 422 416 422Q429 422 439 414T449 394Q449 381 412 234T374 68Q374 43 381 35T402 26Q411 27 422 35Q443 55 463 131Q469 151 473 152Q475 153 483 153H487Q506 153 506 144Q506 138 501 117T481 63T449 13Q436 0 417 -8Q409 -10 393 -10Q359 -10 336 5T306 36L300 51Q299 52 296 50Q294 48 292 46Q233 -10 172 -10Q117 -10 75 30T33 157ZM351 328Q351 334 346 350T323 385T277 405Q242 405 210 374T160 293Q131 214 119 129Q119 126 119 118T118 106Q118 61 136 44T179 26Q217 26 254 59T298 110Q300 114 325 217T351 328Z"></path></g><g data-mml-node="mi" transform="translate(562,-150) scale(0.707)"><path data-c="1D456" d="M184 600Q184 624 203 642T247 661Q265 661 277 649T290 619Q290 596 270 577T226 557Q211 557 198 567T184 600ZM21 287Q21 295 30 318T54 369T98 420T158 442Q197 442 223 419T250 357Q250 340 236 301T196 196T154 83Q149 61 149 51Q149 26 166 26Q175 26 185 29T208 43T235 78T260 137Q263 149 265 151T282 153Q302 153 302 143Q302 135 293 112T268 61T223 11T161 -11Q129 -11 102 10T74 74Q74 91 79 106T122 220Q160 321 166 341T173 380Q173 404 156 404H154Q124 404 99 371T61 287Q60 286 59 284T58 281T56 279T53 278T49 278T41 278H27Q21 284 21 287Z"></path></g></g><g data-mml-node="mo" transform="translate(2688.8,0)"><path data-c="D7" d="M630 29Q630 9 609 9Q604 9 587 25T493 118L389 222L284 117Q178 13 175 11Q171 9 168 9Q160 9 154 15T147 29Q147 36 161 51T255 146L359 250L255 354Q174 435 161 449T147 471Q147 480 153 485T168 490Q173 490 175 489Q178 487 284 383L389 278L493 382Q570 459 587 475T609 491Q630 491 630 471Q630 464 620 453T522 355L418 250L522 145Q606 61 618 48T630 29Z"></path></g><g data-mml-node="msub" transform="translate(3689.1,0)"><g data-mml-node="mi"><path data-c="1D44F" d="M73 647Q73 657 77 670T89 683Q90 683 161 688T234 694Q246 694 246 685T212 542Q204 508 195 472T180 418L176 399Q176 396 182 402Q231 442 283 442Q345 442 383 396T422 280Q422 169 343 79T173 -11Q123 -11 82 27T40 150V159Q40 180 48 217T97 414Q147 611 147 623T109 637Q104 637 101 637H96Q86 637 83 637T76 640T73 647ZM336 325V331Q336 405 275 405Q258 405 240 397T207 376T181 352T163 330L157 322L136 236Q114 150 114 114Q114 66 138 42Q154 26 178 26Q211 26 245 58Q270 81 285 114T318 219Q336 291 336 325Z"></path></g><g data-mml-node="mi" transform="translate(462,-150) scale(0.707)"><path data-c="1D456" d="M184 600Q184 624 203 642T247 661Q265 661 277 649T290 619Q290 596 270 577T226 557Q211 557 198 567T184 600ZM21 287Q21 295 30 318T54 369T98 420T158 442Q197 442 223 419T250 357Q250 340 236 301T196 196T154 83Q149 61 149 51Q149 26 166 26Q175 26 185 29T208 43T235 78T260 137Q263 149 265 151T282 153Q302 153 302 143Q302 135 293 112T268 61T223 11T161 -11Q129 -11 102 10T74 74Q74 91 79 106T122 220Q160 321 166 341T173 380Q173 404 156 404H154Q124 404 99 371T61 287Q60 286 59 284T58 281T56 279T53 278T49 278T41 278H27Q21 284 21 287Z"></path></g></g><g data-mml-node="mo" transform="translate(4722.8,0)"><path data-c="3D" d="M56 347Q56 360 70 367H707Q722 359 722 347Q722 336 708 328L390 327H72Q56 332 56 347ZM56 153Q56 168 72 173H708Q722 163 722 153Q722 140 707 133H70Q56 140 56 153Z"></path></g><g data-mml-node="mfrac" transform="translate(5778.6,0)"><g data-mml-node="mn" transform="translate(1381.2,676)"><path data-c="31" d="M213 578L200 573Q186 568 160 563T102 556H83V602H102Q149 604 189 617T245 641T273 663Q275 666 285 666Q294 666 302 660V361L303 61Q310 54 315 52T339 48T401 46H427V0H416Q395 3 257 3Q121 3 100 0H88V46H114Q136 46 152 46T177 47T193 50T201 52T207 57T213 61V578Z"></path></g><g data-mml-node="mrow" transform="translate(220,-686)"><g data-mml-node="mi"><path data-c="1D45B" d="M21 287Q22 293 24 303T36 341T56 388T89 425T135 442Q171 442 195 424T225 390T231 369Q231 367 232 367L243 378Q304 442 382 442Q436 442 469 415T503 336T465 179T427 52Q427 26 444 26Q450 26 453 27Q482 32 505 65T540 145Q542 153 560 153Q580 153 580 145Q580 144 576 130Q568 101 554 73T508 17T439 -10Q392 -10 371 17T350 73Q350 92 386 193T423 345Q423 404 379 404H374Q288 404 229 303L222 291L189 157Q156 26 151 16Q138 -11 108 -11Q95 -11 87 -5T76 7T74 17Q74 30 112 180T152 343Q153 348 153 366Q153 405 129 405Q91 405 66 305Q60 285 60 284Q58 278 41 278H27Q21 284 21 287Z"></path></g><g data-mml-node="mo" transform="translate(822.2,0)"><path data-c="2B" d="M56 237T56 250T70 270H369V420L370 570Q380 583 389 583Q402 583 409 568V270H707Q722 262 722 250T707 230H409V-68Q401 -82 391 -82H389H387Q375 -82 369 -68V230H70Q56 237 56 250Z"></path></g><g data-mml-node="mn" transform="translate(1822.4,0)"><path data-c="32" d="M109 429Q82 429 66 447T50 491Q50 562 103 614T235 666Q326 666 387 610T449 465Q449 422 429 383T381 315T301 241Q265 210 201 149L142 93L218 92Q375 92 385 97Q392 99 409 186V189H449V186Q448 183 436 95T421 3V0H50V19V31Q50 38 56 46T86 81Q115 113 136 137Q145 147 170 174T204 211T233 244T261 278T284 308T305 340T320 369T333 401T340 431T343 464Q343 527 309 573T212 619Q179 619 154 602T119 569T109 550Q109 549 114 549Q132 549 151 535T170 489Q170 464 154 447T109 429Z"></path><path data-c="30" d="M96 585Q152 666 249 666Q297 666 345 640T423 548Q460 465 460 320Q460 165 417 83Q397 41 362 16T301 -15T250 -22Q224 -22 198 -16T137 16T82 83Q39 165 39 320Q39 494 96 585ZM321 597Q291 629 250 629Q208 629 178 597Q153 571 145 525T137 333Q137 175 145 125T181 46Q209 16 250 16Q290 16 318 46Q347 76 354 130T362 333Q362 478 354 524T321 597Z" transform="translate(500,0)"></path></g></g><rect width="3022.4" height="60" x="120" y="220"></rect></g></g></g></svg></mjx-container></p>
+<h4 id="3callout语法"><a class="markdownIt-Anchor" href="#3callout语法"></a> （3）callout语法</h4>
+<p>callout语法是Obsidian独有的语法，可以做标注使用，我个人觉得是非常美观醒目的。语法的格式如下：</p>
+<div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="code"><pre><span class="line">&gt; [!note/bug/todo...]</span><br><span class="line">&gt; ....</span><br><span class="line">&gt; ....</span><br></pre></td></tr></table></figure></div>
+<p>注意，这里的note、bug、todo都必须拼写正确，可以看下官网的介绍：<a class="link" href="https://help.obsidian.md/Editing+and+formatting/Callouts">https://help.obsidian.md/Editing+and+formatting/Callouts<i class="fa-solid fa-arrow-up-right ml-[0.2em] font-light align-text-top text-[0.7em] link-icon"></i></a></p>
+
+<div class="callout" data-callout="note">
+<div class="callout-title">
+<div class="callout-title-icon">
+<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-pencil"><path d="M17 3a2.85 2.83 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5Z"></path><path d="m15 5 4 4"></path></svg>
+</div>
+<div class="callout-title-inner">Note</div>
+</div>
+<div class="callout-content"><p>这是一个笔记</p>
+</div></div>
+<div class="callout" data-callout="bug">
+<div class="callout-title">
+<div class="callout-title-icon">
+<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-bug"><path d="m8 2 1.88 1.88"></path><path d="M14.12 3.88 16 2"></path><path d="M9 7.13v-1a3.003 3.003 0 1 1 6 0v1"></path><path d="M12 20c-3.3 0-6-2.7-6-6v-3a4 4 0 0 1 4-4h4a4 4 0 0 1 4 4v3c0 3.3-2.7 6-6 6"></path><path d="M12 20v-9"></path><path d="M6.53 9C4.6 8.8 3 7.1 3 5"></path><path d="M6 13H2"></path><path d="M3 21c0-2.1 1.7-3.9 3.8-4"></path><path d="M20.97 5c0 2.1-1.6 3.8-3.5 4"></path><path d="M22 13h-4"></path><path d="M17.2 17c2.1.1 3.8 1.9 3.8 4"></path></svg>
+</div>
+<div class="callout-title-inner">Bug</div>
+</div>
+<div class="callout-content"><p>我发现了一个bug！</p>
+</div></div>
+<div class="callout" data-callout="todo">
+<div class="callout-title">
+<div class="callout-title-icon">
+<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-check-circle-2"><circle cx="12" cy="12" r="10"></circle><path d="m9 12 2 2 4-4"></path></svg>
+</div>
+<div class="callout-title-inner">Todo</div>
+</div>
+<div class="callout-content"><p>这里好像有我要做的事情。。</p>
+</div></div><p>还可以嵌套使用</p>
+
+<div class="callout" data-callout="note">
+<div class="callout-title">
+<div class="callout-title-icon">
+<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-pencil"><path d="M17 3a2.85 2.83 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5Z"></path><path d="m15 5 4 4"></path></svg>
+</div>
+<div class="callout-title-inner">Note</div>
+</div>
+<div class="callout-content"><p>我今天做了一个笔记</p>
+
+<div class="callout" data-callout="bug">
+<div class="callout-title">
+<div class="callout-title-icon">
+<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-bug"><path d="m8 2 1.88 1.88"></path><path d="M14.12 3.88 16 2"></path><path d="M9 7.13v-1a3.003 3.003 0 1 1 6 0v1"></path><path d="M12 20c-3.3 0-6-2.7-6-6v-3a4 4 0 0 1 4-4h4a4 4 0 0 1 4 4v3c0 3.3-2.7 6-6 6"></path><path d="M12 20v-9"></path><path d="M6.53 9C4.6 8.8 3 7.1 3 5"></path><path d="M6 13H2"></path><path d="M3 21c0-2.1 1.7-3.9 3.8-4"></path><path d="M20.97 5c0 2.1-1.6 3.8-3.5 4"></path><path d="M22 13h-4"></path><path d="M17.2 17c2.1.1 3.8 1.9 3.8 4"></path></svg>
+</div>
+<div class="callout-title-inner">Bug</div>
+</div>
+<div class="callout-content"><p>突然发现了一个bug！！</p>
+
+<div class="callout" data-callout="todo">
+<div class="callout-title">
+<div class="callout-title-icon">
+<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-check-circle-2"><circle cx="12" cy="12" r="10"></circle><path d="m9 12 2 2 4-4"></path></svg>
+</div>
+<div class="callout-title-inner">Todo</div>
+</div>
+<div class="callout-content"><p>突然又发现好像有件事儿没做诶</p>
+</div></div></div></div>
+<div class="callout" data-callout="info">
+<div class="callout-title">
+<div class="callout-title-icon">
+<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-info"><circle cx="12" cy="12" r="10"></circle><path d="M12 16v-4"></path><path d="M12 8h.01"></path></svg>
+</div>
+<div class="callout-title-inner">Info</div>
+</div>
+<div class="callout-content"><p>不做了算了</p>
+</div></div></div></div>]]></content>
+      <categories>
+        <category>IDE配置</category>
+      </categories>
+      <tags>
+        <tag>Obsidian</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>Obsidian——主题配置和插件推荐（02）</title>
     <url>/snowvy/</url>
     <content><![CDATA[<p>在上一节教程中，已经介绍了 Obsidian 的基础安装操作，但是尚未介绍插件。我觉得 Obsidian 最强的地方就是它的插件市场，通过安装插件，可以大幅提升它的编辑能力和美观效果。</p>
@@ -149,205 +274,6 @@
       <tags>
         <tag>海战游戏</tag>
         <tag>策略</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>海战游戏心得</title>
-    <url>/sni30q/</url>
-    <content><![CDATA[<h2 id="攻击策略"><a class="markdownIt-Anchor" href="#攻击策略"></a> 攻击策略</h2>
-<h3 id="1简单贪心策略"><a class="markdownIt-Anchor" href="#1简单贪心策略"></a> 1.简单贪心策略</h3>
-<p>最早的这个攻击策略比较暴力，主要考虑的是如果打中了某个船艇，那么就继续攻击邻近区域，直到将这整艘船艇全部击倒为止。</p>
-<h4 id="11-策略思想"><a class="markdownIt-Anchor" href="#11-策略思想"></a> 1.1 策略思想</h4>
-<ul>
-<li>如果成功击中敌方船艇，那么击中位置的附近位置出现船艇的概率增大；</li>
-<li>如果没有成功击中敌方船艇，那么击中位置的附近位置出现船艇的概率减小；</li>
-</ul>
-<h4 id="12-策略实现"><a class="markdownIt-Anchor" href="#12-策略实现"></a> 1.2 策略实现</h4>
-<p>使用一个$10\times10$的权值数组<code>Weight[10][10]</code>，这里的权值就是击中位置出现船艇的概率。我们每次都遍历整个数组，每次都选择权值最大的位置作为击打位置。</p>
-<h5 id="初始化-weight"><a class="markdownIt-Anchor" href="#初始化-weight"></a> 初始化 Weight</h5>
-<p><code>Weight[10][10]</code>初始化如下：<br />
-<img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="https://typora-aliyun01.oss-cn-hangzhou.aliyuncs.com/img/20241104124920.png"
-                      alt="image.png" 
-                ><br />
-这样初始化的目的是，<strong>保证在打完全部的初始化位置时，至少能打中一艘长度为 5 的大船艇</strong>。</p>
-<h5 id="击中未击中"><a class="markdownIt-Anchor" href="#击中未击中"></a> 击中/未击中</h5>
-<p>如果击中，就提升击中位置附近位置的权值。<strong>由于船艇的长度最大为 5，所以就以 5 为范围由近到远递减增加权值。因为刚才的假设中是认为击中位置的附近更容易再次出现船艇，所以离击中位置越近的位置权值就越高。</strong><br />
-<img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="https://typora-aliyun01.oss-cn-hangzhou.aliyuncs.com/img/f0b03a3b950e818294565068faed42b.jpg"
-                      alt="f0b03a3b950e818294565068faed42b.jpg" width="424px" 
-                ><br />
-如果未击中，那么就相应的减去权值。<strong>这里的减权值操作比较暴力，考虑到的条件也不是很多。</strong><br />
-<img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="https://typora-aliyun01.oss-cn-hangzhou.aliyuncs.com/img/9e8d4a03532bc59a35503b6e30f8c97.jpg"
-                      alt="9e8d4a03532bc59a35503b6e30f8c97.jpg" width="388px" 
-                ><br />
-当然每次击中的位置都需要记录，这里标记的做法是直接将击中位置的权值<code>Weight[i][j]-=10000</code>，因为棋盘的大小就只有 $10\times10$，而每次我们都选择的是权值最大的位置，所以这样是可以有效标记已击中位置的。</p>
-<h4 id="13-策略结果"><a class="markdownIt-Anchor" href="#13-策略结果"></a> 1.3 策略结果</h4>
-<p>这个策略最终取得了不错的胜率，不过策略中对未击中之后的位置选取考虑的不多，我个人感觉能取得这个胜率的原因可能是大家部署的<strong>船艇之间比较接近或者船艇的上下左右几个方向刚好可以直达另一搜船</strong>。<br />
-<img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="https://typora-aliyun01.oss-cn-hangzhou.aliyuncs.com/img/20241104145908.png"
-                      alt="image.png" 
-                ></p>
-<h3 id="2贪心优化破坏中心点策略"><a class="markdownIt-Anchor" href="#2贪心优化破坏中心点策略"></a> 2.贪心优化+破坏中心点策略</h3>
-<h4 id="21-策略思想"><a class="markdownIt-Anchor" href="#21-策略思想"></a> 2.1 策略思想</h4>
-<p>上面这个策略在击中某个位置的时候，会同时改变单位长度为5的所有位置的权值。可是，如果只是想尽快击溃某一条船的全部位置，<strong>其实只需要改变单位为1的位置的权值也能做到</strong>。<br />
-<img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="https://typora-aliyun01.oss-cn-hangzhou.aliyuncs.com/img/967f4887d3a027cd81d90f623f8cb07.jpg"
-                      alt="967f4887d3a027cd81d90f623f8cb07.jpg" width="513px" 
-                ><br />
-如图所示，击中任意一个位置之后，其上下左右必然存在另一个可击中点（<strong>船艇长度最小也为2</strong>），那么当拥有两个相邻击中点之后，我们就已经可以判定出该船艇摆放的方向，之后只在这个方向的两个端点专门攻击即可。</p>
-<p>因为船艇的长度最小为2，所以相邻两个击中点的情况是一定会出现的！这么做不仅可以尽快的击溃某一艘船，同时还可以起到标记效果。<strong>由于我们在判定船艇方向之后只需要对两端点发起攻击，所以只要出现连续两次未击中的情况，就说明有一艘船艇已经被完全击溃了</strong>。</p>
-<p>但是这样又会导致另一个问题：<strong>击溃一艘船艇之后又该打哪里？</strong> 刚才的策略中虽然半径为5的权值改变策略比较暴力，但是每次至少都有一个最大权值位置可以打（虽说可能不准）；现在这种做法击溃了一艘船艇之后对这艘船艇周围的权值影响的太少了，很多位置的权值几乎都一样，到底打哪？</p>
-<p>这里我想到的策略是<strong>破坏中心点</strong>。在每行每列一定存在很多没有被击打的位置，这里简称之为 <strong>和平区域</strong>。对于每一行每一列的连续和平区，优先攻击中间位置。（类似二分法）</p>
-<h4 id="22-策略实现"><a class="markdownIt-Anchor" href="#22-策略实现"></a> 2.2 策略实现</h4>
-<h5 id="初始化"><a class="markdownIt-Anchor" href="#初始化"></a> 初始化</h5>
-<p>还是使用一个$10\times10$的矩阵<code>Weight[10][10]</code>记录权值，这里为避免混淆，增加一个<code>stepMemory[10][10]</code>记录未知状态。对于成功命中的位置，<code>stepMemory[i][j]=1</code>；对于未成功命中的位置，<code>stepMemory[i][j]=-1</code>；对于和平区域，<code>stepMemory[i][j]=0</code>。<br />
-这里如果某位置成功命中，那么只有其距离为1的上下左右四个位置的权值+5；同样的，如果没有命中，也只有其距离为1的上下左右四个位置的权值-5。我们每次依旧选择权值最大的位置。</p>
-<h5 id="船艇方向判定"><a class="markdownIt-Anchor" href="#船艇方向判定"></a> 船艇方向判定</h5>
-<p>这里在判定方向的时候增加了一个 <code>wrong_num</code>，刚才说了<strong>只要出现连续两次未击中的情况，就说明有一艘船艇已经被完全击溃了</strong>，所以当有两次连续击中的时候，就将 <code>wrong_num=2</code>。当<code>wrong_num=0</code>时，就可以破坏中心点了。</p>
-<div class="highlight-container" data-rel="Cpp"><figure class="iseeu highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 这里如果击中点的四周也有击中点，就可以知道方向了</span></span><br><span class="line">  <span class="comment">// 水平方向</span></span><br><span class="line">  <span class="keyword">if</span>((lastj&gt;<span class="number">0</span>&amp;&amp;fanz_Step_Memory[lasti][lastj<span class="number">-1</span>]==<span class="number">1</span>)||(lastj&lt;<span class="number">10</span>&amp;&amp;fanz_Step_Memory[lasti][lastj<span class="number">+1</span>]==<span class="number">1</span>))&#123;</span><br><span class="line">   wrong_num==<span class="number">2</span>;</span><br><span class="line">   <span class="type">int</span> cur=lastj;</span><br><span class="line">   <span class="keyword">while</span> (cur&gt;=<span class="number">0</span>)</span><br><span class="line">   &#123;</span><br><span class="line">    <span class="keyword">if</span>(fanz_Step_Memory[lasti][cur]==<span class="number">0</span>)<span class="keyword">break</span>;</span><br><span class="line">    cur--;</span><br><span class="line">   &#125;</span><br><span class="line">   <span class="keyword">if</span>(cur&gt;=<span class="number">0</span>) Weight[lasti][cur]+=<span class="number">10</span>;</span><br><span class="line">   cur=lastj;</span><br><span class="line">   <span class="keyword">while</span> (cur&lt;<span class="number">10</span>)</span><br><span class="line">   &#123;</span><br><span class="line">    <span class="keyword">if</span>(fanz_Step_Memory[lasti][cur]==<span class="number">0</span>) <span class="keyword">break</span>;</span><br><span class="line">    cur++;</span><br><span class="line">   &#125;</span><br><span class="line">   <span class="keyword">if</span>(cur&lt;<span class="number">10</span>) Weight[lasti][cur]+=<span class="number">10</span>;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="comment">// 竖直方向</span></span><br><span class="line">  <span class="keyword">else</span> <span class="keyword">if</span>((lasti&gt;<span class="number">0</span>&amp;&amp;fanz_Step_Memory[lasti<span class="number">-1</span>][lastj]==<span class="number">1</span>)||(lasti&lt;<span class="number">10</span>&amp;&amp;fanz_Step_Memory[lasti<span class="number">+1</span>][lastj]==<span class="number">1</span>))&#123;</span><br><span class="line">   wrong_num=<span class="number">2</span>;</span><br><span class="line">   <span class="type">int</span> cur=lasti;</span><br><span class="line">   <span class="keyword">while</span> (cur&gt;=<span class="number">0</span>)</span><br><span class="line">   &#123;</span><br><span class="line">    <span class="keyword">if</span>(fanz_Step_Memory[cur][lastj]==<span class="number">0</span>)<span class="keyword">break</span>;</span><br><span class="line">    cur--;</span><br><span class="line">   &#125;</span><br><span class="line">   <span class="keyword">if</span>(cur&gt;=<span class="number">0</span>) Weight[cur][lastj]+=<span class="number">10</span>;</span><br><span class="line">   cur=lasti;</span><br><span class="line">   <span class="keyword">while</span> (cur&lt;<span class="number">10</span>)</span><br><span class="line">   &#123;</span><br><span class="line">    <span class="keyword">if</span>(fanz_Step_Memory[cur][lastj]==<span class="number">0</span>) <span class="keyword">break</span>;</span><br><span class="line">    cur++;</span><br><span class="line">   &#125;</span><br><span class="line">   <span class="keyword">if</span>(cur&lt;<span class="number">10</span>) Weight[cur][lastj]+=<span class="number">10</span>;</span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure></div>
-<h5 id="破坏中心点实现"><a class="markdownIt-Anchor" href="#破坏中心点实现"></a> 破坏中心点实现</h5>
-<p>这里使用窗口对每一行每一列的连续和平区域的中心点进行破坏，当<code>wrong_num=0</code>时就执行这段代码。</p>
-<div class="highlight-container" data-rel="Cpp"><figure class="iseeu highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="type">void</span> <span class="title">destoryCenter</span><span class="params">()</span></span>&#123;</span><br><span class="line"> <span class="comment">// 打破每行连续安全区域的中间位置</span></span><br><span class="line"> <span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">0</span>;i&lt;<span class="number">10</span>;i++)&#123;</span><br><span class="line">  <span class="type">int</span> start=<span class="number">0</span>;</span><br><span class="line">  <span class="keyword">for</span>(;start&lt;<span class="number">10</span>;start++)&#123;</span><br><span class="line">   <span class="keyword">if</span>(fanz_Step_Memory[i][start]==<span class="number">0</span>)&#123;</span><br><span class="line">    <span class="type">int</span> cur=start;</span><br><span class="line">    <span class="keyword">while</span> (cur&lt;<span class="number">10</span>)</span><br><span class="line">    &#123;</span><br><span class="line">     <span class="keyword">if</span>(fanz_Step_Memory[i][cur]!=<span class="number">0</span>) <span class="keyword">break</span>;</span><br><span class="line">     cur++;</span><br><span class="line">    &#125;</span><br><span class="line">    Weight[i][(start+cur<span class="number">-1</span>)&gt;&gt;<span class="number">1</span>]+=<span class="number">4</span>;</span><br><span class="line">    start=cur;</span><br><span class="line">   &#125;</span><br><span class="line">  &#125;</span><br><span class="line"> &#125;</span><br><span class="line"></span><br><span class="line"> <span class="comment">// 打破每列连续安全区域的中间位置</span></span><br><span class="line"> <span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">0</span>;i&lt;<span class="number">10</span>;i++)&#123;</span><br><span class="line">  <span class="type">int</span> start=<span class="number">0</span>;</span><br><span class="line">  <span class="keyword">for</span>(;start&lt;<span class="number">10</span>;start++)&#123;</span><br><span class="line">   <span class="keyword">if</span>(fanz_Step_Memory[start][i]==<span class="number">0</span>)&#123;</span><br><span class="line">    <span class="type">int</span> cur=start;</span><br><span class="line">    <span class="keyword">while</span> (cur&lt;<span class="number">10</span>)</span><br><span class="line">    &#123;</span><br><span class="line">     <span class="keyword">if</span>(fanz_Step_Memory[cur][i]!=<span class="number">0</span>) <span class="keyword">break</span>;</span><br><span class="line">     cur++;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    Weight[(start+cur<span class="number">-1</span>)&gt;&gt;<span class="number">1</span>][i]+=<span class="number">4</span>;</span><br><span class="line">    start=cur;</span><br><span class="line">   &#125;</span><br><span class="line">  &#125;</span><br><span class="line"> &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
-<h2 id="防守策略"><a class="markdownIt-Anchor" href="#防守策略"></a> 防守策略</h2>
-<p>关于防守策略我想的不是很多，最开始我想的摆法是这样的：<br />
-<img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="https://typora-aliyun01.oss-cn-hangzhou.aliyuncs.com/img/20241104160947.png"
-                      alt="image.png" 
-                ><br />
-我最开始的想法是希望五艘船尽可能的处在不同的位置，并且距离尽可能选一些。但是每个人的攻击策略是不一样的，如果有人喜欢先攻击四个对角，那么我会很快损失4艘船。</p>
-<p>所以思来想去我也想不到太好的摆法，下图就是我的摆法：<br />
-<img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="https://typora-aliyun01.oss-cn-hangzhou.aliyuncs.com/img/20241104161204.png"
-                      alt="image.png" 
-                ></p>
-]]></content>
-      <categories>
-        <category>SeaBattle</category>
-      </categories>
-      <tags>
-        <tag>海战游戏</tag>
-        <tag>策略</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Ubuntu配置ssh</title>
-    <url>/sni2r9/</url>
-    <content><![CDATA[<p>在 Ubuntu 上配置 SSH 以便使用 Visual Studio Code (VSCode) 进行连接，可以按照以下步骤进行：</p>
-<h3 id="1-安装-openssh-服务器"><a class="markdownIt-Anchor" href="#1-安装-openssh-服务器"></a> 1. 安装 OpenSSH 服务器</h3>
-<p>首先，你需要确保你的 Ubuntu 系统上安装了 OpenSSH 服务器。打开终端，执行以下命令：</p>
-<div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">sudo</span> apt update</span><br><span class="line"><span class="built_in">sudo</span> apt install openssh-server</span><br></pre></td></tr></table></figure></div>
-<h3 id="2-启动和启用-ssh-服务"><a class="markdownIt-Anchor" href="#2-启动和启用-ssh-服务"></a> 2. 启动和启用 SSH 服务</h3>
-<p>安装完成后，启动 SSH 服务并确保它在系统启动时自动启动：</p>
-<div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">sudo</span> systemctl start ssh</span><br><span class="line"><span class="built_in">sudo</span> systemctl <span class="built_in">enable</span> ssh</span><br></pre></td></tr></table></figure></div>
-<h3 id="3-检查-ssh-服务状态"><a class="markdownIt-Anchor" href="#3-检查-ssh-服务状态"></a> 3. 检查 SSH 服务状态</h3>
-<p>你可以使用以下命令检查 SSH 服务的状态：</p>
-<div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">sudo</span> systemctl status ssh</span><br></pre></td></tr></table></figure></div>
-<p>确保服务正在运行，并且没有错误信息。</p>
-<h3 id="4-配置-ssh可选"><a class="markdownIt-Anchor" href="#4-配置-ssh可选"></a> 4. 配置 SSH（可选）</h3>
-<p>默认情况下，SSH 使用的配置文件位于 <code>/etc/ssh/sshd_config</code>。你可以根据需要修改此文件以增强安全性，例如禁用密码登录，启用密钥登录等。编辑配置文件：</p>
-<div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">sudo</span> nano /etc/ssh/sshd_config</span><br></pre></td></tr></table></figure></div>
-<p>以下是一些常见的配置选项：</p>
-<ul>
-<li>
-<p><strong>禁用密码登录</strong>（仅允许使用密钥登录）：</p>
- <div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="code"><pre><span class="line">PasswordAuthentication no</span><br></pre></td></tr></table></figure></div>
-</li>
-<li>
-<p><strong>更改默认 SSH 端口</strong>（可选）：</p>
- <div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="code"><pre><span class="line">Port 2222</span><br></pre></td></tr></table></figure></div>
-</li>
-</ul>
-<p>更改后，保存并退出编辑器。然后重新启动 SSH 服务以使更改生效：</p>
-<div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">sudo</span> systemctl restart ssh</span><br></pre></td></tr></table></figure></div>
-<h3 id="5-配置防火墙如果适用"><a class="markdownIt-Anchor" href="#5-配置防火墙如果适用"></a> 5. 配置防火墙（如果适用）</h3>
-<p>如果你的系统启用了防火墙，确保 SSH 端口（默认是 22 或你更改后的端口）是开放的。使用以下命令允许 SSH 通过 UFW（如果你使用 UFW 作为防火墙）：</p>
-<div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">sudo</span> ufw allow ssh</span><br><span class="line"><span class="comment"># 如果你更改了端口，例如使用 2222：</span></span><br><span class="line"><span class="comment"># sudo ufw allow 2222</span></span><br></pre></td></tr></table></figure></div>
-<h3 id="6-获取服务器的-ip-地址"><a class="markdownIt-Anchor" href="#6-获取服务器的-ip-地址"></a> 6. 获取服务器的 IP 地址</h3>
-<p>你可以使用以下命令获取你的服务器的 IP 地址：</p>
-<div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="code"><pre><span class="line">ip a</span><br></pre></td></tr></table></figure></div>
-<h3 id="7-在-vscode-中配置-ssh"><a class="markdownIt-Anchor" href="#7-在-vscode-中配置-ssh"></a> 7. 在 VSCode 中配置 SSH</h3>
-<ol>
-<li>
-<p><strong>安装 Remote - SSH 插件</strong>：</p>
-<ul>
-<li>打开 VSCode。</li>
-<li>转到扩展视图 (<code>Ctrl + Shift + X</code>)。</li>
-<li>搜索并安装 <strong>Remote - SSH</strong> 插件。</li>
-</ul>
-</li>
-<li>
-<p><strong>添加 SSH 主机</strong>：</p>
-<ul>
-<li>
-<p>按 <code>F1</code> 或 <code>Ctrl + Shift + P</code> 打开命令面板。</p>
-</li>
-<li>
-<p>输入并选择 <strong>Remote-SSH: Add New SSH Host</strong>。</p>
-</li>
-<li>
-<p>输入你的 SSH 连接命令，例如：</p>
-<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="code"><pre><span class="line">ssh username@server_ip</span><br></pre></td></tr></table></figure></div>
-<p>替换 <code>username</code> 和 <code>server_ip</code> 为你的实际用户名和服务器的 IP 地址。</p>
-</li>
-</ul>
-</li>
-<li>
-<p><strong>选择 SSH 配置文件</strong>：</p>
-<ul>
-<li>VSCode 会提示你选择 SSH 配置文件，通常是 <code>~/.ssh/config</code>。</li>
-</ul>
-</li>
-<li>
-<p><strong>连接到 SSH 主机</strong>：</p>
-<ul>
-<li>重新打开命令面板，输入并选择 <strong>Remote-SSH: Connect to Host</strong>，然后选择你刚刚添加的主机。</li>
-</ul>
-</li>
-<li>
-<p><strong>输入密码或密钥</strong>（如果使用密码）：</p>
-<ul>
-<li>如果 SSH 配置为密码验证，你需要输入密码。如果配置为密钥验证且密钥已设置为默认，VSCode 会自动使用密钥。</li>
-</ul>
-</li>
-</ol>
-<h3 id="8-连接后"><a class="markdownIt-Anchor" href="#8-连接后"></a> 8. 连接后</h3>
-<p>一旦连接成功，你就可以像在本地一样编辑远程服务器上的文件了。你可以打开终端，运行命令，并使用 VSCode 的所有功能。</p>
-<p>通过以上步骤，你就可以方便地在 Ubuntu 上配置 SSH，以便使用 VSCode 进行连接和远程开发。</p>
-<div class="highlight-container" data-rel="Cpp"><figure class="iseeu highlight cpp"><table><tr><td class="code"><pre><span class="line"></span><br></pre></td></tr></table></figure></div>
-<div class="highlight-container" data-rel="Cpp"><figure class="iseeu highlight cpp"><table><tr><td class="code"><pre><span class="line"></span><br></pre></td></tr></table></figure></div>]]></content>
-      <categories>
-        <category>Ubuntu</category>
-      </categories>
-      <tags>
-        <tag>Ubuntu</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>centos7 基础命令爆出255返回码</title>
-    <url>/sni2sz/</url>
-    <content><![CDATA[<p>cron 是一个用于在指定时间自动执行预定任务的守护进程，/etc/cron.hourly/ 目录中的脚本每小时会被 cron进程 自动执行一次</p>
-]]></content>
-      <categories>
-        <category>Ubuntu</category>
-      </categories>
-      <tags>
-        <tag>Ubuntu</tag>
       </tags>
   </entry>
   <entry>
@@ -646,6 +572,205 @@ BS-MEC服务器分配给MU i的计算资源定义为f B i 。然后，在BS-MEC�
       </tags>
   </entry>
   <entry>
+    <title>海战游戏心得</title>
+    <url>/sni30q/</url>
+    <content><![CDATA[<h2 id="攻击策略"><a class="markdownIt-Anchor" href="#攻击策略"></a> 攻击策略</h2>
+<h3 id="1简单贪心策略"><a class="markdownIt-Anchor" href="#1简单贪心策略"></a> 1.简单贪心策略</h3>
+<p>最早的这个攻击策略比较暴力，主要考虑的是如果打中了某个船艇，那么就继续攻击邻近区域，直到将这整艘船艇全部击倒为止。</p>
+<h4 id="11-策略思想"><a class="markdownIt-Anchor" href="#11-策略思想"></a> 1.1 策略思想</h4>
+<ul>
+<li>如果成功击中敌方船艇，那么击中位置的附近位置出现船艇的概率增大；</li>
+<li>如果没有成功击中敌方船艇，那么击中位置的附近位置出现船艇的概率减小；</li>
+</ul>
+<h4 id="12-策略实现"><a class="markdownIt-Anchor" href="#12-策略实现"></a> 1.2 策略实现</h4>
+<p>使用一个$10\times10$的权值数组<code>Weight[10][10]</code>，这里的权值就是击中位置出现船艇的概率。我们每次都遍历整个数组，每次都选择权值最大的位置作为击打位置。</p>
+<h5 id="初始化-weight"><a class="markdownIt-Anchor" href="#初始化-weight"></a> 初始化 Weight</h5>
+<p><code>Weight[10][10]</code>初始化如下：<br />
+<img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://typora-aliyun01.oss-cn-hangzhou.aliyuncs.com/img/20241104124920.png"
+                      alt="image.png" 
+                ><br />
+这样初始化的目的是，<strong>保证在打完全部的初始化位置时，至少能打中一艘长度为 5 的大船艇</strong>。</p>
+<h5 id="击中未击中"><a class="markdownIt-Anchor" href="#击中未击中"></a> 击中/未击中</h5>
+<p>如果击中，就提升击中位置附近位置的权值。<strong>由于船艇的长度最大为 5，所以就以 5 为范围由近到远递减增加权值。因为刚才的假设中是认为击中位置的附近更容易再次出现船艇，所以离击中位置越近的位置权值就越高。</strong><br />
+<img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://typora-aliyun01.oss-cn-hangzhou.aliyuncs.com/img/f0b03a3b950e818294565068faed42b.jpg"
+                      alt="f0b03a3b950e818294565068faed42b.jpg" width="424px" 
+                ><br />
+如果未击中，那么就相应的减去权值。<strong>这里的减权值操作比较暴力，考虑到的条件也不是很多。</strong><br />
+<img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://typora-aliyun01.oss-cn-hangzhou.aliyuncs.com/img/9e8d4a03532bc59a35503b6e30f8c97.jpg"
+                      alt="9e8d4a03532bc59a35503b6e30f8c97.jpg" width="388px" 
+                ><br />
+当然每次击中的位置都需要记录，这里标记的做法是直接将击中位置的权值<code>Weight[i][j]-=10000</code>，因为棋盘的大小就只有 $10\times10$，而每次我们都选择的是权值最大的位置，所以这样是可以有效标记已击中位置的。</p>
+<h4 id="13-策略结果"><a class="markdownIt-Anchor" href="#13-策略结果"></a> 1.3 策略结果</h4>
+<p>这个策略最终取得了不错的胜率，不过策略中对未击中之后的位置选取考虑的不多，我个人感觉能取得这个胜率的原因可能是大家部署的<strong>船艇之间比较接近或者船艇的上下左右几个方向刚好可以直达另一搜船</strong>。<br />
+<img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://typora-aliyun01.oss-cn-hangzhou.aliyuncs.com/img/20241104145908.png"
+                      alt="image.png" 
+                ></p>
+<h3 id="2贪心优化破坏中心点策略"><a class="markdownIt-Anchor" href="#2贪心优化破坏中心点策略"></a> 2.贪心优化+破坏中心点策略</h3>
+<h4 id="21-策略思想"><a class="markdownIt-Anchor" href="#21-策略思想"></a> 2.1 策略思想</h4>
+<p>上面这个策略在击中某个位置的时候，会同时改变单位长度为5的所有位置的权值。可是，如果只是想尽快击溃某一条船的全部位置，<strong>其实只需要改变单位为1的位置的权值也能做到</strong>。<br />
+<img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://typora-aliyun01.oss-cn-hangzhou.aliyuncs.com/img/967f4887d3a027cd81d90f623f8cb07.jpg"
+                      alt="967f4887d3a027cd81d90f623f8cb07.jpg" width="513px" 
+                ><br />
+如图所示，击中任意一个位置之后，其上下左右必然存在另一个可击中点（<strong>船艇长度最小也为2</strong>），那么当拥有两个相邻击中点之后，我们就已经可以判定出该船艇摆放的方向，之后只在这个方向的两个端点专门攻击即可。</p>
+<p>因为船艇的长度最小为2，所以相邻两个击中点的情况是一定会出现的！这么做不仅可以尽快的击溃某一艘船，同时还可以起到标记效果。<strong>由于我们在判定船艇方向之后只需要对两端点发起攻击，所以只要出现连续两次未击中的情况，就说明有一艘船艇已经被完全击溃了</strong>。</p>
+<p>但是这样又会导致另一个问题：<strong>击溃一艘船艇之后又该打哪里？</strong> 刚才的策略中虽然半径为5的权值改变策略比较暴力，但是每次至少都有一个最大权值位置可以打（虽说可能不准）；现在这种做法击溃了一艘船艇之后对这艘船艇周围的权值影响的太少了，很多位置的权值几乎都一样，到底打哪？</p>
+<p>这里我想到的策略是<strong>破坏中心点</strong>。在每行每列一定存在很多没有被击打的位置，这里简称之为 <strong>和平区域</strong>。对于每一行每一列的连续和平区，优先攻击中间位置。（类似二分法）</p>
+<h4 id="22-策略实现"><a class="markdownIt-Anchor" href="#22-策略实现"></a> 2.2 策略实现</h4>
+<h5 id="初始化"><a class="markdownIt-Anchor" href="#初始化"></a> 初始化</h5>
+<p>还是使用一个$10\times10$的矩阵<code>Weight[10][10]</code>记录权值，这里为避免混淆，增加一个<code>stepMemory[10][10]</code>记录未知状态。对于成功命中的位置，<code>stepMemory[i][j]=1</code>；对于未成功命中的位置，<code>stepMemory[i][j]=-1</code>；对于和平区域，<code>stepMemory[i][j]=0</code>。<br />
+这里如果某位置成功命中，那么只有其距离为1的上下左右四个位置的权值+5；同样的，如果没有命中，也只有其距离为1的上下左右四个位置的权值-5。我们每次依旧选择权值最大的位置。</p>
+<h5 id="船艇方向判定"><a class="markdownIt-Anchor" href="#船艇方向判定"></a> 船艇方向判定</h5>
+<p>这里在判定方向的时候增加了一个 <code>wrong_num</code>，刚才说了<strong>只要出现连续两次未击中的情况，就说明有一艘船艇已经被完全击溃了</strong>，所以当有两次连续击中的时候，就将 <code>wrong_num=2</code>。当<code>wrong_num=0</code>时，就可以破坏中心点了。</p>
+<div class="highlight-container" data-rel="Cpp"><figure class="iseeu highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 这里如果击中点的四周也有击中点，就可以知道方向了</span></span><br><span class="line">  <span class="comment">// 水平方向</span></span><br><span class="line">  <span class="keyword">if</span>((lastj&gt;<span class="number">0</span>&amp;&amp;fanz_Step_Memory[lasti][lastj<span class="number">-1</span>]==<span class="number">1</span>)||(lastj&lt;<span class="number">10</span>&amp;&amp;fanz_Step_Memory[lasti][lastj<span class="number">+1</span>]==<span class="number">1</span>))&#123;</span><br><span class="line">   wrong_num==<span class="number">2</span>;</span><br><span class="line">   <span class="type">int</span> cur=lastj;</span><br><span class="line">   <span class="keyword">while</span> (cur&gt;=<span class="number">0</span>)</span><br><span class="line">   &#123;</span><br><span class="line">    <span class="keyword">if</span>(fanz_Step_Memory[lasti][cur]==<span class="number">0</span>)<span class="keyword">break</span>;</span><br><span class="line">    cur--;</span><br><span class="line">   &#125;</span><br><span class="line">   <span class="keyword">if</span>(cur&gt;=<span class="number">0</span>) Weight[lasti][cur]+=<span class="number">10</span>;</span><br><span class="line">   cur=lastj;</span><br><span class="line">   <span class="keyword">while</span> (cur&lt;<span class="number">10</span>)</span><br><span class="line">   &#123;</span><br><span class="line">    <span class="keyword">if</span>(fanz_Step_Memory[lasti][cur]==<span class="number">0</span>) <span class="keyword">break</span>;</span><br><span class="line">    cur++;</span><br><span class="line">   &#125;</span><br><span class="line">   <span class="keyword">if</span>(cur&lt;<span class="number">10</span>) Weight[lasti][cur]+=<span class="number">10</span>;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="comment">// 竖直方向</span></span><br><span class="line">  <span class="keyword">else</span> <span class="keyword">if</span>((lasti&gt;<span class="number">0</span>&amp;&amp;fanz_Step_Memory[lasti<span class="number">-1</span>][lastj]==<span class="number">1</span>)||(lasti&lt;<span class="number">10</span>&amp;&amp;fanz_Step_Memory[lasti<span class="number">+1</span>][lastj]==<span class="number">1</span>))&#123;</span><br><span class="line">   wrong_num=<span class="number">2</span>;</span><br><span class="line">   <span class="type">int</span> cur=lasti;</span><br><span class="line">   <span class="keyword">while</span> (cur&gt;=<span class="number">0</span>)</span><br><span class="line">   &#123;</span><br><span class="line">    <span class="keyword">if</span>(fanz_Step_Memory[cur][lastj]==<span class="number">0</span>)<span class="keyword">break</span>;</span><br><span class="line">    cur--;</span><br><span class="line">   &#125;</span><br><span class="line">   <span class="keyword">if</span>(cur&gt;=<span class="number">0</span>) Weight[cur][lastj]+=<span class="number">10</span>;</span><br><span class="line">   cur=lasti;</span><br><span class="line">   <span class="keyword">while</span> (cur&lt;<span class="number">10</span>)</span><br><span class="line">   &#123;</span><br><span class="line">    <span class="keyword">if</span>(fanz_Step_Memory[cur][lastj]==<span class="number">0</span>) <span class="keyword">break</span>;</span><br><span class="line">    cur++;</span><br><span class="line">   &#125;</span><br><span class="line">   <span class="keyword">if</span>(cur&lt;<span class="number">10</span>) Weight[cur][lastj]+=<span class="number">10</span>;</span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure></div>
+<h5 id="破坏中心点实现"><a class="markdownIt-Anchor" href="#破坏中心点实现"></a> 破坏中心点实现</h5>
+<p>这里使用窗口对每一行每一列的连续和平区域的中心点进行破坏，当<code>wrong_num=0</code>时就执行这段代码。</p>
+<div class="highlight-container" data-rel="Cpp"><figure class="iseeu highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="type">void</span> <span class="title">destoryCenter</span><span class="params">()</span></span>&#123;</span><br><span class="line"> <span class="comment">// 打破每行连续安全区域的中间位置</span></span><br><span class="line"> <span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">0</span>;i&lt;<span class="number">10</span>;i++)&#123;</span><br><span class="line">  <span class="type">int</span> start=<span class="number">0</span>;</span><br><span class="line">  <span class="keyword">for</span>(;start&lt;<span class="number">10</span>;start++)&#123;</span><br><span class="line">   <span class="keyword">if</span>(fanz_Step_Memory[i][start]==<span class="number">0</span>)&#123;</span><br><span class="line">    <span class="type">int</span> cur=start;</span><br><span class="line">    <span class="keyword">while</span> (cur&lt;<span class="number">10</span>)</span><br><span class="line">    &#123;</span><br><span class="line">     <span class="keyword">if</span>(fanz_Step_Memory[i][cur]!=<span class="number">0</span>) <span class="keyword">break</span>;</span><br><span class="line">     cur++;</span><br><span class="line">    &#125;</span><br><span class="line">    Weight[i][(start+cur<span class="number">-1</span>)&gt;&gt;<span class="number">1</span>]+=<span class="number">4</span>;</span><br><span class="line">    start=cur;</span><br><span class="line">   &#125;</span><br><span class="line">  &#125;</span><br><span class="line"> &#125;</span><br><span class="line"></span><br><span class="line"> <span class="comment">// 打破每列连续安全区域的中间位置</span></span><br><span class="line"> <span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">0</span>;i&lt;<span class="number">10</span>;i++)&#123;</span><br><span class="line">  <span class="type">int</span> start=<span class="number">0</span>;</span><br><span class="line">  <span class="keyword">for</span>(;start&lt;<span class="number">10</span>;start++)&#123;</span><br><span class="line">   <span class="keyword">if</span>(fanz_Step_Memory[start][i]==<span class="number">0</span>)&#123;</span><br><span class="line">    <span class="type">int</span> cur=start;</span><br><span class="line">    <span class="keyword">while</span> (cur&lt;<span class="number">10</span>)</span><br><span class="line">    &#123;</span><br><span class="line">     <span class="keyword">if</span>(fanz_Step_Memory[cur][i]!=<span class="number">0</span>) <span class="keyword">break</span>;</span><br><span class="line">     cur++;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    Weight[(start+cur<span class="number">-1</span>)&gt;&gt;<span class="number">1</span>][i]+=<span class="number">4</span>;</span><br><span class="line">    start=cur;</span><br><span class="line">   &#125;</span><br><span class="line">  &#125;</span><br><span class="line"> &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
+<h2 id="防守策略"><a class="markdownIt-Anchor" href="#防守策略"></a> 防守策略</h2>
+<p>关于防守策略我想的不是很多，最开始我想的摆法是这样的：<br />
+<img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://typora-aliyun01.oss-cn-hangzhou.aliyuncs.com/img/20241104160947.png"
+                      alt="image.png" 
+                ><br />
+我最开始的想法是希望五艘船尽可能的处在不同的位置，并且距离尽可能选一些。但是每个人的攻击策略是不一样的，如果有人喜欢先攻击四个对角，那么我会很快损失4艘船。</p>
+<p>所以思来想去我也想不到太好的摆法，下图就是我的摆法：<br />
+<img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://typora-aliyun01.oss-cn-hangzhou.aliyuncs.com/img/20241104161204.png"
+                      alt="image.png" 
+                ></p>
+]]></content>
+      <categories>
+        <category>SeaBattle</category>
+      </categories>
+      <tags>
+        <tag>海战游戏</tag>
+        <tag>策略</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>centos7 基础命令爆出255返回码</title>
+    <url>/sni2sz/</url>
+    <content><![CDATA[<p>cron 是一个用于在指定时间自动执行预定任务的守护进程，/etc/cron.hourly/ 目录中的脚本每小时会被 cron进程 自动执行一次</p>
+]]></content>
+      <categories>
+        <category>Ubuntu</category>
+      </categories>
+      <tags>
+        <tag>Ubuntu</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Ubuntu配置ssh</title>
+    <url>/sni2r9/</url>
+    <content><![CDATA[<p>在 Ubuntu 上配置 SSH 以便使用 Visual Studio Code (VSCode) 进行连接，可以按照以下步骤进行：</p>
+<h3 id="1-安装-openssh-服务器"><a class="markdownIt-Anchor" href="#1-安装-openssh-服务器"></a> 1. 安装 OpenSSH 服务器</h3>
+<p>首先，你需要确保你的 Ubuntu 系统上安装了 OpenSSH 服务器。打开终端，执行以下命令：</p>
+<div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">sudo</span> apt update</span><br><span class="line"><span class="built_in">sudo</span> apt install openssh-server</span><br></pre></td></tr></table></figure></div>
+<h3 id="2-启动和启用-ssh-服务"><a class="markdownIt-Anchor" href="#2-启动和启用-ssh-服务"></a> 2. 启动和启用 SSH 服务</h3>
+<p>安装完成后，启动 SSH 服务并确保它在系统启动时自动启动：</p>
+<div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">sudo</span> systemctl start ssh</span><br><span class="line"><span class="built_in">sudo</span> systemctl <span class="built_in">enable</span> ssh</span><br></pre></td></tr></table></figure></div>
+<h3 id="3-检查-ssh-服务状态"><a class="markdownIt-Anchor" href="#3-检查-ssh-服务状态"></a> 3. 检查 SSH 服务状态</h3>
+<p>你可以使用以下命令检查 SSH 服务的状态：</p>
+<div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">sudo</span> systemctl status ssh</span><br></pre></td></tr></table></figure></div>
+<p>确保服务正在运行，并且没有错误信息。</p>
+<h3 id="4-配置-ssh可选"><a class="markdownIt-Anchor" href="#4-配置-ssh可选"></a> 4. 配置 SSH（可选）</h3>
+<p>默认情况下，SSH 使用的配置文件位于 <code>/etc/ssh/sshd_config</code>。你可以根据需要修改此文件以增强安全性，例如禁用密码登录，启用密钥登录等。编辑配置文件：</p>
+<div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">sudo</span> nano /etc/ssh/sshd_config</span><br></pre></td></tr></table></figure></div>
+<p>以下是一些常见的配置选项：</p>
+<ul>
+<li>
+<p><strong>禁用密码登录</strong>（仅允许使用密钥登录）：</p>
+ <div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="code"><pre><span class="line">PasswordAuthentication no</span><br></pre></td></tr></table></figure></div>
+</li>
+<li>
+<p><strong>更改默认 SSH 端口</strong>（可选）：</p>
+ <div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="code"><pre><span class="line">Port 2222</span><br></pre></td></tr></table></figure></div>
+</li>
+</ul>
+<p>更改后，保存并退出编辑器。然后重新启动 SSH 服务以使更改生效：</p>
+<div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">sudo</span> systemctl restart ssh</span><br></pre></td></tr></table></figure></div>
+<h3 id="5-配置防火墙如果适用"><a class="markdownIt-Anchor" href="#5-配置防火墙如果适用"></a> 5. 配置防火墙（如果适用）</h3>
+<p>如果你的系统启用了防火墙，确保 SSH 端口（默认是 22 或你更改后的端口）是开放的。使用以下命令允许 SSH 通过 UFW（如果你使用 UFW 作为防火墙）：</p>
+<div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">sudo</span> ufw allow ssh</span><br><span class="line"><span class="comment"># 如果你更改了端口，例如使用 2222：</span></span><br><span class="line"><span class="comment"># sudo ufw allow 2222</span></span><br></pre></td></tr></table></figure></div>
+<h3 id="6-获取服务器的-ip-地址"><a class="markdownIt-Anchor" href="#6-获取服务器的-ip-地址"></a> 6. 获取服务器的 IP 地址</h3>
+<p>你可以使用以下命令获取你的服务器的 IP 地址：</p>
+<div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="code"><pre><span class="line">ip a</span><br></pre></td></tr></table></figure></div>
+<h3 id="7-在-vscode-中配置-ssh"><a class="markdownIt-Anchor" href="#7-在-vscode-中配置-ssh"></a> 7. 在 VSCode 中配置 SSH</h3>
+<ol>
+<li>
+<p><strong>安装 Remote - SSH 插件</strong>：</p>
+<ul>
+<li>打开 VSCode。</li>
+<li>转到扩展视图 (<code>Ctrl + Shift + X</code>)。</li>
+<li>搜索并安装 <strong>Remote - SSH</strong> 插件。</li>
+</ul>
+</li>
+<li>
+<p><strong>添加 SSH 主机</strong>：</p>
+<ul>
+<li>
+<p>按 <code>F1</code> 或 <code>Ctrl + Shift + P</code> 打开命令面板。</p>
+</li>
+<li>
+<p>输入并选择 <strong>Remote-SSH: Add New SSH Host</strong>。</p>
+</li>
+<li>
+<p>输入你的 SSH 连接命令，例如：</p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="code"><pre><span class="line">ssh username@server_ip</span><br></pre></td></tr></table></figure></div>
+<p>替换 <code>username</code> 和 <code>server_ip</code> 为你的实际用户名和服务器的 IP 地址。</p>
+</li>
+</ul>
+</li>
+<li>
+<p><strong>选择 SSH 配置文件</strong>：</p>
+<ul>
+<li>VSCode 会提示你选择 SSH 配置文件，通常是 <code>~/.ssh/config</code>。</li>
+</ul>
+</li>
+<li>
+<p><strong>连接到 SSH 主机</strong>：</p>
+<ul>
+<li>重新打开命令面板，输入并选择 <strong>Remote-SSH: Connect to Host</strong>，然后选择你刚刚添加的主机。</li>
+</ul>
+</li>
+<li>
+<p><strong>输入密码或密钥</strong>（如果使用密码）：</p>
+<ul>
+<li>如果 SSH 配置为密码验证，你需要输入密码。如果配置为密钥验证且密钥已设置为默认，VSCode 会自动使用密钥。</li>
+</ul>
+</li>
+</ol>
+<h3 id="8-连接后"><a class="markdownIt-Anchor" href="#8-连接后"></a> 8. 连接后</h3>
+<p>一旦连接成功，你就可以像在本地一样编辑远程服务器上的文件了。你可以打开终端，运行命令，并使用 VSCode 的所有功能。</p>
+<p>通过以上步骤，你就可以方便地在 Ubuntu 上配置 SSH，以便使用 VSCode 进行连接和远程开发。</p>
+<div class="highlight-container" data-rel="Cpp"><figure class="iseeu highlight cpp"><table><tr><td class="code"><pre><span class="line"></span><br></pre></td></tr></table></figure></div>
+<div class="highlight-container" data-rel="Cpp"><figure class="iseeu highlight cpp"><table><tr><td class="code"><pre><span class="line"></span><br></pre></td></tr></table></figure></div>]]></content>
+      <categories>
+        <category>Ubuntu</category>
+      </categories>
+      <tags>
+        <tag>Ubuntu</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>Rich Human Feedback for Text-to-Image Generation</title>
     <url>/sni2v6/</url>
     <content><![CDATA[<h2 id="abstract"><a class="markdownIt-Anchor" href="#abstract"></a> Abstract</h2>
@@ -694,174 +819,6 @@ BS-MEC服务器分配给MU i的计算资源定义为f B i 。然后，在BS-MEC�
       </categories>
       <tags>
         <tag>大模型</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Obsidian——主题配置和插件推荐（01）</title>
-    <url>/snm6s8/</url>
-    <content><![CDATA[<p>之前三年基本都在使用 Typora 记录笔记，Typora 本身非常轻量，提供的基础功能比较齐全，而且 21 年我刚开始用的时候开始免费的（后来不知道为啥突然要收费了）。不过，用的时间久了，还是发现 Typora 本身还是有不少的局限性：</p>
-<ol>
-<li>代码块功能局限：我的笔记中往往需要创建不同语言的代码块，但是使用 typora 的默认快捷键之后每次都得手动修改语言格式。虽说这个问题我通过自己编写 ahk 脚本解决了，不过每种语言都按一种键位有点蛋疼。</li>
-<li>修改主题比较困难：Typora 是支持下载主题、更换主题的（需要翻墙），也有很多好看的皮肤。可是，我一般喜欢将某几款主题好看的地方综合起来，在 Typora 中，这就得直接修改主题的 css 代码才能做到了，一点一点的盯着改对我来说并不是很友好 😢。</li>
-<li>不具备多文件管理能力：Typora 每次只能打开一个文件，多个文件只能一个一个的打开，如果我想同时看多个文件就很麻烦；每次 Ctrl+O/Ctrl+P 找文件也实在难以接受；</li>
-<li>扩展性差：Typora 没有插件市场，每次缺一点小功能就得现找解决方法。如果说有一个笔记软件可以安装插件，我只需要通过安装插件就可以扩展多个功能就方便得多了。</li>
-</ol>
-<h2 id="为什么不使用-notion"><a class="markdownIt-Anchor" href="#为什么不使用-notion"></a> 🤔 为什么不使用 Notion</h2>
-<p>其实今年 8 月份的时候就想换笔记软件的，当时是我的好哥们儿推荐的 Notion，Notion 的共享属性非常非常强，只要你写完一篇笔记，就能自动保存到云服务器上，而且使用 notion 搭建博客也非常方便。不仅如此，notion 支持 <mark>基本的 markdown 语法</mark>，笔记中以文本块为单位，上下活动文本块非常容易；notion 还有嵌套列表、dataview（方便管理笔记）、支持插件、同时有很多非常好看的模版，笔记添加头图也很简单。</p>
-<p>我好哥们的习惯是在 Notion 上写随笔，在家还有公司都可以随时写点小笔记，这样不管在哪，只要开下浏览器就能看到；如果使用的是 Typora，那就得 <mark>写笔记 -&gt; 同步笔记到 Git -&gt; Git 拉取笔记 -&gt; 看笔记</mark>。notion 还支持在笔记中嵌入视频、图片（<mark>上传图片使用的是 notion 自己的图床，也就是说，不用你额外配置图床</mark>），网上也有很多博主出 notion 的教程。</p>
-<p><strong>不过，我最终还是放弃了 Notion。</strong></p>
-<p>原因是，notion 支持 <mark>基本的 markdown 语法</mark>，这个基本对我来说是硬伤。长久以来使用 Typora 已经让我对 markdown 的语法有了依赖性，在 markdown 语法中，仅需<strong>两个"$"符</strong>就可以编写数学公式，仅需<strong>三个 ` + 语言格式</strong> 就可以写代码块。可是在 notion 中不支持这两个功能，尤其是写代码块的时候还必须得手动选择语言格式，强迫症极重的我实在难以接受 😠。</p>
-<p>并且，在了解 Obsidian 之后，我发现其实 Notion 的很多功能在 Obsidian 也可以实现，Obsidian 的插件市场很大，而且更新还很频繁，当然，最重要的还是：<mark>Obsidian 完全支持 markdown 的语法，并且具备文件管理功能。</mark> 卧槽！这不就是我想要的效果吗？！</p>
-<h2 id="官网下载安装"><a class="markdownIt-Anchor" href="#官网下载安装"></a> 官网下载安装</h2>
-<p>Obsidian 是免费的，直接去官网下载就可以了，地址：<a class="link" href="https://obsidian.md/download">https://obsidian.md/download<i class="fa-solid fa-arrow-up-right ml-[0.2em] font-light align-text-top text-[0.7em] link-icon"></i></a> 。<mark>这里先提醒一下，使用 Obsidian 的前提是你能够翻墙！！因为其插件市场是需要翻墙才能访问的！！</mark></p>
-<p>下载好之后，直接选择合适的路径安装即可，然后直接双击运行就可以了。第一次运行应该会让你创建一个分区，这里可以新建一个分区，名字自定义，之后写笔记尽量都在一个分区里写，<mark>因为Obsidian里，每个分区的插件都是独立的，如果你突然切换分区，那么新分区里是没有旧分区里的插件的！！</mark>（<strong>当然后面的教程会说如何用插件解决</strong>）<br>
-<img lazyload="" src="/images/loading.svg" data-src="https://typora-aliyun01.oss-cn-hangzhou.aliyuncs.com/img/20241127234438.png" alt="image.png" width="525px"></p>
-<h2 id="obsidian-基础配置"><a class="markdownIt-Anchor" href="#obsidian-基础配置"></a> Obsidian 基础配置</h2>
-<h3 id="1语言设置"><a class="markdownIt-Anchor" href="#1语言设置"></a> 1.语言设置</h3>
-<p>刚安装运行 Obsidian 时，你看到的应该是纯英文的界面，文件夹啥的都是英文。这个需要在这里改成 <strong>简体中文</strong>。<br>
-<img lazyload="" src="/images/loading.svg" data-src="https://typora-aliyun01.oss-cn-hangzhou.aliyuncs.com/img/20241127233505.png" alt="image.png"></p>
-<h3 id="2字体设置"><a class="markdownIt-Anchor" href="#2字体设置"></a> 2.字体设置</h3>
-<p>看到上面那张图应该会发现，我使用的字体和默认的字体不一样，这个字体需要你额外下载安装：<a class="link" href="https://github.com/lxgw/LxgwWenKai-Screen/releases/tag/v1.501">https://github.com/lxgw/LxgwWenKai-Screen/releases/tag/v1.501<i class="fa-solid fa-arrow-up-right ml-[0.2em] font-light align-text-top text-[0.7em] link-icon"></i></a></p>
-<p>在官网下载 ttf 文件的字体，然后双击安装（<strong>最好以管理员模式安装</strong>），然后在下面的设置这里，点击管理，手动输入 <code>霞鹜文楷 GB 屏幕指纹版</code>，就可以使用这个字体了。其中，<strong>代码字体不推荐用霞鹜文楷</strong>，因为这个字体不是等宽的，一开始看的话可能会感觉代码比较挤。</p>
-<p>当然了，字体的喜好因人而异，如果你有其他喜欢的字体，直接在这里修改即可。</p>
-<p><img lazyload="" src="/images/loading.svg" data-src="https://typora-aliyun01.oss-cn-hangzhou.aliyuncs.com/img/20241127233740.png" alt="image.png"></p>
-<h3 id="3主题设置"><a class="markdownIt-Anchor" href="#3主题设置"></a> 3.主题设置</h3>
-<p>Obsidian原生的主题可能比较简陋，不过Obsidian有个主题市场，可以在市场中下载安装自己喜欢的主题，点击这个 <strong>管理</strong>，就可以进入插件市场，选择自己喜欢的主题就可以了。<br>
-<img lazyload="" src="/images/loading.svg" data-src="https://typora-aliyun01.oss-cn-hangzhou.aliyuncs.com/img/20241127234314.png" alt="image.png"></p>
-<p>主题的话多种多样，选择自己喜欢的就可以了，这里有的主题是没有夜间模式的，选择的时候请斟酌。<br>
-<img lazyload="" src="/images/loading.svg" data-src="https://typora-aliyun01.oss-cn-hangzhou.aliyuncs.com/img/20241127234846.png" alt="image.png"></p>
-<h3 id="4语法简单介绍"><a class="markdownIt-Anchor" href="#4语法简单介绍"></a> 4.语法简单介绍</h3>
-<p>如果之前使用过Typora或者其他markdown编辑工具，那么这个部分就不用看了，我目前使用的基本都是markdown语法。不过Obsidian自带的callout语法也挺好用的，作为标注更加醒目，这里依次介绍一下。</p>
-<h4 id="1基本语法"><a class="markdownIt-Anchor" href="#1基本语法"></a> （1）基本语法</h4>
-<p>加粗：<code>**文本**</code>-&gt; <strong>文本</strong><br>
-斜体：<code>*文本*</code>-&gt; <em>文本</em><br>
-行间块: `文本` -&gt; <code>文本</code></p>
-<h4 id="2代码块"><a class="markdownIt-Anchor" href="#2代码块"></a> （2）代码块</h4>
-<p>只需要输入 ```C/Cpp/Java/Python ``` 即可创建一个代码块，比如：</p>
-<div class="highlight-container" data-rel="Cpp"><figure class="iseeu highlight cpp"><table><tr><td class="code"><pre><span class="line">这是一个Cpp代码块</span><br></pre></td></tr></table></figure></div>
-<div class="highlight-container" data-rel="Java"><figure class="iseeu highlight java"><table><tr><td class="code"><pre><span class="line">这是一个Java代码块</span><br></pre></td></tr></table></figure></div>
-<p>两个美元符号<mjx-container class="MathJax" jax="SVG"><svg style="vertical-align: 0;" xmlns="http://www.w3.org/2000/svg" width="2.652ex" height="0.271ex" role="img" focusable="false" viewBox="0 -120 1172 120"><g stroke="currentColor" fill="currentColor" stroke-width="0" transform="scale(1,-1)"><g data-mml-node="math"><g data-mml-node="mo"><path data-c="2026" d="M78 60Q78 84 95 102T138 120Q162 120 180 104T199 61Q199 36 182 18T139 0T96 17T78 60ZM525 60Q525 84 542 102T585 120Q609 120 627 104T646 61Q646 36 629 18T586 0T543 17T525 60ZM972 60Q972 84 989 102T1032 120Q1056 120 1074 104T1093 61Q1093 36 1076 18T1033 0T990 17T972 60Z"></path></g></g></g></svg></mjx-container>中间写上内容就可以编辑数学公式，不过要符合Latex语法，这个需要自己查资料：<br>
-比如：<mjx-container class="MathJax" jax="SVG"><svg style="vertical-align: -0.679ex;" xmlns="http://www.w3.org/2000/svg" width="2.688ex" height="2.224ex" role="img" focusable="false" viewBox="0 -683 1188.3 983"><g stroke="currentColor" fill="currentColor" stroke-width="0" transform="scale(1,-1)"><g data-mml-node="math"><g data-mml-node="msubsup"><g data-mml-node="mi"><path data-c="1D43F" d="M228 637Q194 637 192 641Q191 643 191 649Q191 673 202 682Q204 683 217 683Q271 680 344 680Q485 680 506 683H518Q524 677 524 674T522 656Q517 641 513 637H475Q406 636 394 628Q387 624 380 600T313 336Q297 271 279 198T252 88L243 52Q243 48 252 48T311 46H328Q360 46 379 47T428 54T478 72T522 106T564 161Q580 191 594 228T611 270Q616 273 628 273H641Q647 264 647 262T627 203T583 83T557 9Q555 4 553 3T537 0T494 -1Q483 -1 418 -1T294 0H116Q32 0 32 10Q32 17 34 24Q39 43 44 45Q48 46 59 46H65Q92 46 125 49Q139 52 144 61Q147 65 216 339T285 628Q285 635 228 637Z"></path></g><g data-mml-node="mi" transform="translate(714,363) scale(0.707)"><path data-c="1D45B" d="M21 287Q22 293 24 303T36 341T56 388T89 425T135 442Q171 442 195 424T225 390T231 369Q231 367 232 367L243 378Q304 442 382 442Q436 442 469 415T503 336T465 179T427 52Q427 26 444 26Q450 26 453 27Q482 32 505 65T540 145Q542 153 560 153Q580 153 580 145Q580 144 576 130Q568 101 554 73T508 17T439 -10Q392 -10 371 17T350 73Q350 92 386 193T423 345Q423 404 379 404H374Q288 404 229 303L222 291L189 157Q156 26 151 16Q138 -11 108 -11Q95 -11 87 -5T76 7T74 17Q74 30 112 180T152 343Q153 348 153 366Q153 405 129 405Q91 405 66 305Q60 285 60 284Q58 278 41 278H27Q21 284 21 287Z"></path></g><g data-mml-node="mi" transform="translate(714,-292.2) scale(0.707)"><path data-c="1D456" d="M184 600Q184 624 203 642T247 661Q265 661 277 649T290 619Q290 596 270 577T226 557Q211 557 198 567T184 600ZM21 287Q21 295 30 318T54 369T98 420T158 442Q197 442 223 419T250 357Q250 340 236 301T196 196T154 83Q149 61 149 51Q149 26 166 26Q175 26 185 29T208 43T235 78T260 137Q263 149 265 151T282 153Q302 153 302 143Q302 135 293 112T268 61T223 11T161 -11Q129 -11 102 10T74 74Q74 91 79 106T122 220Q160 321 166 341T173 380Q173 404 156 404H154Q124 404 99 371T61 287Q60 286 59 284T58 281T56 279T53 278T49 278T41 278H27Q21 284 21 287Z"></path></g></g></g></g></svg></mjx-container>  <mjx-container class="MathJax" jax="SVG"><svg style="vertical-align: -0.912ex;" xmlns="http://www.w3.org/2000/svg" width="4.8ex" height="2.869ex" role="img" focusable="false" viewBox="0 -864.9 2121.5 1267.9"><g stroke="currentColor" fill="currentColor" stroke-width="0" transform="scale(1,-1)"><g data-mml-node="math"><g data-mml-node="mfrac"><g data-mml-node="mn" transform="translate(884,394) scale(0.707)"><path data-c="31" d="M213 578L200 573Q186 568 160 563T102 556H83V602H102Q149 604 189 617T245 641T273 663Q275 666 285 666Q294 666 302 660V361L303 61Q310 54 315 52T339 48T401 46H427V0H416Q395 3 257 3Q121 3 100 0H88V46H114Q136 46 152 46T177 47T193 50T201 52T207 57T213 61V578Z"></path></g><g data-mml-node="mrow" transform="translate(220,-345) scale(0.707)"><g data-mml-node="mi"><path data-c="1D45B" d="M21 287Q22 293 24 303T36 341T56 388T89 425T135 442Q171 442 195 424T225 390T231 369Q231 367 232 367L243 378Q304 442 382 442Q436 442 469 415T503 336T465 179T427 52Q427 26 444 26Q450 26 453 27Q482 32 505 65T540 145Q542 153 560 153Q580 153 580 145Q580 144 576 130Q568 101 554 73T508 17T439 -10Q392 -10 371 17T350 73Q350 92 386 193T423 345Q423 404 379 404H374Q288 404 229 303L222 291L189 157Q156 26 151 16Q138 -11 108 -11Q95 -11 87 -5T76 7T74 17Q74 30 112 180T152 343Q153 348 153 366Q153 405 129 405Q91 405 66 305Q60 285 60 284Q58 278 41 278H27Q21 284 21 287Z"></path></g><g data-mml-node="mo" transform="translate(600,0)"><path data-c="2B" d="M56 237T56 250T70 270H369V420L370 570Q380 583 389 583Q402 583 409 568V270H707Q722 262 722 250T707 230H409V-68Q401 -82 391 -82H389H387Q375 -82 369 -68V230H70Q56 237 56 250Z"></path></g><g data-mml-node="mn" transform="translate(1378,0)"><path data-c="32" d="M109 429Q82 429 66 447T50 491Q50 562 103 614T235 666Q326 666 387 610T449 465Q449 422 429 383T381 315T301 241Q265 210 201 149L142 93L218 92Q375 92 385 97Q392 99 409 186V189H449V186Q448 183 436 95T421 3V0H50V19V31Q50 38 56 46T86 81Q115 113 136 137Q145 147 170 174T204 211T233 244T261 278T284 308T305 340T320 369T333 401T340 431T343 464Q343 527 309 573T212 619Q179 619 154 602T119 569T109 550Q109 549 114 549Q132 549 151 535T170 489Q170 464 154 447T109 429Z"></path><path data-c="30" d="M96 585Q152 666 249 666Q297 666 345 640T423 548Q460 465 460 320Q460 165 417 83Q397 41 362 16T301 -15T250 -22Q224 -22 198 -16T137 16T82 83Q39 165 39 320Q39 494 96 585ZM321 597Q291 629 250 629Q208 629 178 597Q153 571 145 525T137 333Q137 175 145 125T181 46Q209 16 250 16Q290 16 318 46Q347 76 354 130T362 333Q362 478 354 524T321 597Z" transform="translate(500,0)"></path></g></g><rect width="1881.5" height="60" x="120" y="220"></rect></g></g></g></svg></mjx-container> …</p>
-<p>如果使用连续两个美元符号 <mjx-container class="MathJax" jax="SVG" display="true"><svg style="vertical-align: 0;" xmlns="http://www.w3.org/2000/svg" width="2.652ex" height="0.271ex" role="img" focusable="false" viewBox="0 -120 1172 120"><g stroke="currentColor" fill="currentColor" stroke-width="0" transform="scale(1,-1)"><g data-mml-node="math"><g data-mml-node="mo"><path data-c="2026" d="M78 60Q78 84 95 102T138 120Q162 120 180 104T199 61Q199 36 182 18T139 0T96 17T78 60ZM525 60Q525 84 542 102T585 120Q609 120 627 104T646 61Q646 36 629 18T586 0T543 17T525 60ZM972 60Q972 84 989 102T1032 120Q1056 120 1074 104T1093 61Q1093 36 1076 18T1033 0T990 17T972 60Z"></path></g></g></g></svg></mjx-container>，这样的数学公式就是独立占一整行的，比如<br>
-<mjx-container class="MathJax" jax="SVG" display="true"><svg style="vertical-align: -1.738ex;" xmlns="http://www.w3.org/2000/svg" width="7.381ex" height="4.774ex" role="img" focusable="false" viewBox="0 -1342 3262.4 2110"><g stroke="currentColor" fill="currentColor" stroke-width="0" transform="scale(1,-1)"><g data-mml-node="math"><g data-mml-node="mfrac"><g data-mml-node="mn" transform="translate(1381.2,676)"><path data-c="31" d="M213 578L200 573Q186 568 160 563T102 556H83V602H102Q149 604 189 617T245 641T273 663Q275 666 285 666Q294 666 302 660V361L303 61Q310 54 315 52T339 48T401 46H427V0H416Q395 3 257 3Q121 3 100 0H88V46H114Q136 46 152 46T177 47T193 50T201 52T207 57T213 61V578Z"></path></g><g data-mml-node="mrow" transform="translate(220,-686)"><g data-mml-node="mi"><path data-c="1D45B" d="M21 287Q22 293 24 303T36 341T56 388T89 425T135 442Q171 442 195 424T225 390T231 369Q231 367 232 367L243 378Q304 442 382 442Q436 442 469 415T503 336T465 179T427 52Q427 26 444 26Q450 26 453 27Q482 32 505 65T540 145Q542 153 560 153Q580 153 580 145Q580 144 576 130Q568 101 554 73T508 17T439 -10Q392 -10 371 17T350 73Q350 92 386 193T423 345Q423 404 379 404H374Q288 404 229 303L222 291L189 157Q156 26 151 16Q138 -11 108 -11Q95 -11 87 -5T76 7T74 17Q74 30 112 180T152 343Q153 348 153 366Q153 405 129 405Q91 405 66 305Q60 285 60 284Q58 278 41 278H27Q21 284 21 287Z"></path></g><g data-mml-node="mo" transform="translate(822.2,0)"><path data-c="2B" d="M56 237T56 250T70 270H369V420L370 570Q380 583 389 583Q402 583 409 568V270H707Q722 262 722 250T707 230H409V-68Q401 -82 391 -82H389H387Q375 -82 369 -68V230H70Q56 237 56 250Z"></path></g><g data-mml-node="mn" transform="translate(1822.4,0)"><path data-c="32" d="M109 429Q82 429 66 447T50 491Q50 562 103 614T235 666Q326 666 387 610T449 465Q449 422 429 383T381 315T301 241Q265 210 201 149L142 93L218 92Q375 92 385 97Q392 99 409 186V189H449V186Q448 183 436 95T421 3V0H50V19V31Q50 38 56 46T86 81Q115 113 136 137Q145 147 170 174T204 211T233 244T261 278T284 308T305 340T320 369T333 401T340 431T343 464Q343 527 309 573T212 619Q179 619 154 602T119 569T109 550Q109 549 114 549Q132 549 151 535T170 489Q170 464 154 447T109 429Z"></path><path data-c="30" d="M96 585Q152 666 249 666Q297 666 345 640T423 548Q460 465 460 320Q460 165 417 83Q397 41 362 16T301 -15T250 -22Q224 -22 198 -16T137 16T82 83Q39 165 39 320Q39 494 96 585ZM321 597Q291 629 250 629Q208 629 178 597Q153 571 145 525T137 333Q137 175 145 125T181 46Q209 16 250 16Q290 16 318 46Q347 76 354 130T362 333Q362 478 354 524T321 597Z" transform="translate(500,0)"></path></g></g><rect width="3022.4" height="60" x="120" y="220"></rect></g></g></g></svg></mjx-container><br>
-<mjx-container class="MathJax" jax="SVG" display="true"><svg style="vertical-align: -2.819ex;" xmlns="http://www.w3.org/2000/svg" width="20.455ex" height="6.354ex" role="img" focusable="false" viewBox="0 -1562.5 9041 2808.5"><g stroke="currentColor" fill="currentColor" stroke-width="0" transform="scale(1,-1)"><g data-mml-node="math"><g data-mml-node="munderover"><g data-mml-node="mo"><path data-c="2211" d="M60 948Q63 950 665 950H1267L1325 815Q1384 677 1388 669H1348L1341 683Q1320 724 1285 761Q1235 809 1174 838T1033 881T882 898T699 902H574H543H251L259 891Q722 258 724 252Q725 250 724 246Q721 243 460 -56L196 -356Q196 -357 407 -357Q459 -357 548 -357T676 -358Q812 -358 896 -353T1063 -332T1204 -283T1307 -196Q1328 -170 1348 -124H1388Q1388 -125 1381 -145T1356 -210T1325 -294L1267 -449L666 -450Q64 -450 61 -448Q55 -446 55 -439Q55 -437 57 -433L590 177Q590 178 557 222T452 366T322 544L56 909L55 924Q55 945 60 948Z"></path></g><g data-mml-node="TeXAtom" transform="translate(148.2,-1087.9) scale(0.707)" data-mjx-texclass="ORD"><g data-mml-node="mi"><path data-c="1D456" d="M184 600Q184 624 203 642T247 661Q265 661 277 649T290 619Q290 596 270 577T226 557Q211 557 198 567T184 600ZM21 287Q21 295 30 318T54 369T98 420T158 442Q197 442 223 419T250 357Q250 340 236 301T196 196T154 83Q149 61 149 51Q149 26 166 26Q175 26 185 29T208 43T235 78T260 137Q263 149 265 151T282 153Q302 153 302 143Q302 135 293 112T268 61T223 11T161 -11Q129 -11 102 10T74 74Q74 91 79 106T122 220Q160 321 166 341T173 380Q173 404 156 404H154Q124 404 99 371T61 287Q60 286 59 284T58 281T56 279T53 278T49 278T41 278H27Q21 284 21 287Z"></path></g><g data-mml-node="mo" transform="translate(345,0)"><path data-c="3D" d="M56 347Q56 360 70 367H707Q722 359 722 347Q722 336 708 328L390 327H72Q56 332 56 347ZM56 153Q56 168 72 173H708Q722 163 722 153Q722 140 707 133H70Q56 140 56 153Z"></path></g><g data-mml-node="mn" transform="translate(1123,0)"><path data-c="31" d="M213 578L200 573Q186 568 160 563T102 556H83V602H102Q149 604 189 617T245 641T273 663Q275 666 285 666Q294 666 302 660V361L303 61Q310 54 315 52T339 48T401 46H427V0H416Q395 3 257 3Q121 3 100 0H88V46H114Q136 46 152 46T177 47T193 50T201 52T207 57T213 61V578Z"></path></g></g><g data-mml-node="TeXAtom" transform="translate(509.9,1150) scale(0.707)" data-mjx-texclass="ORD"><g data-mml-node="mi"><path data-c="1D45B" d="M21 287Q22 293 24 303T36 341T56 388T89 425T135 442Q171 442 195 424T225 390T231 369Q231 367 232 367L243 378Q304 442 382 442Q436 442 469 415T503 336T465 179T427 52Q427 26 444 26Q450 26 453 27Q482 32 505 65T540 145Q542 153 560 153Q580 153 580 145Q580 144 576 130Q568 101 554 73T508 17T439 -10Q392 -10 371 17T350 73Q350 92 386 193T423 345Q423 404 379 404H374Q288 404 229 303L222 291L189 157Q156 26 151 16Q138 -11 108 -11Q95 -11 87 -5T76 7T74 17Q74 30 112 180T152 343Q153 348 153 366Q153 405 129 405Q91 405 66 305Q60 285 60 284Q58 278 41 278H27Q21 284 21 287Z"></path></g></g></g><g data-mml-node="msub" transform="translate(1610.7,0)"><g data-mml-node="mi"><path data-c="1D44E" d="M33 157Q33 258 109 349T280 441Q331 441 370 392Q386 422 416 422Q429 422 439 414T449 394Q449 381 412 234T374 68Q374 43 381 35T402 26Q411 27 422 35Q443 55 463 131Q469 151 473 152Q475 153 483 153H487Q506 153 506 144Q506 138 501 117T481 63T449 13Q436 0 417 -8Q409 -10 393 -10Q359 -10 336 5T306 36L300 51Q299 52 296 50Q294 48 292 46Q233 -10 172 -10Q117 -10 75 30T33 157ZM351 328Q351 334 346 350T323 385T277 405Q242 405 210 374T160 293Q131 214 119 129Q119 126 119 118T118 106Q118 61 136 44T179 26Q217 26 254 59T298 110Q300 114 325 217T351 328Z"></path></g><g data-mml-node="mi" transform="translate(562,-150) scale(0.707)"><path data-c="1D456" d="M184 600Q184 624 203 642T247 661Q265 661 277 649T290 619Q290 596 270 577T226 557Q211 557 198 567T184 600ZM21 287Q21 295 30 318T54 369T98 420T158 442Q197 442 223 419T250 357Q250 340 236 301T196 196T154 83Q149 61 149 51Q149 26 166 26Q175 26 185 29T208 43T235 78T260 137Q263 149 265 151T282 153Q302 153 302 143Q302 135 293 112T268 61T223 11T161 -11Q129 -11 102 10T74 74Q74 91 79 106T122 220Q160 321 166 341T173 380Q173 404 156 404H154Q124 404 99 371T61 287Q60 286 59 284T58 281T56 279T53 278T49 278T41 278H27Q21 284 21 287Z"></path></g></g><g data-mml-node="mo" transform="translate(2688.8,0)"><path data-c="D7" d="M630 29Q630 9 609 9Q604 9 587 25T493 118L389 222L284 117Q178 13 175 11Q171 9 168 9Q160 9 154 15T147 29Q147 36 161 51T255 146L359 250L255 354Q174 435 161 449T147 471Q147 480 153 485T168 490Q173 490 175 489Q178 487 284 383L389 278L493 382Q570 459 587 475T609 491Q630 491 630 471Q630 464 620 453T522 355L418 250L522 145Q606 61 618 48T630 29Z"></path></g><g data-mml-node="msub" transform="translate(3689.1,0)"><g data-mml-node="mi"><path data-c="1D44F" d="M73 647Q73 657 77 670T89 683Q90 683 161 688T234 694Q246 694 246 685T212 542Q204 508 195 472T180 418L176 399Q176 396 182 402Q231 442 283 442Q345 442 383 396T422 280Q422 169 343 79T173 -11Q123 -11 82 27T40 150V159Q40 180 48 217T97 414Q147 611 147 623T109 637Q104 637 101 637H96Q86 637 83 637T76 640T73 647ZM336 325V331Q336 405 275 405Q258 405 240 397T207 376T181 352T163 330L157 322L136 236Q114 150 114 114Q114 66 138 42Q154 26 178 26Q211 26 245 58Q270 81 285 114T318 219Q336 291 336 325Z"></path></g><g data-mml-node="mi" transform="translate(462,-150) scale(0.707)"><path data-c="1D456" d="M184 600Q184 624 203 642T247 661Q265 661 277 649T290 619Q290 596 270 577T226 557Q211 557 198 567T184 600ZM21 287Q21 295 30 318T54 369T98 420T158 442Q197 442 223 419T250 357Q250 340 236 301T196 196T154 83Q149 61 149 51Q149 26 166 26Q175 26 185 29T208 43T235 78T260 137Q263 149 265 151T282 153Q302 153 302 143Q302 135 293 112T268 61T223 11T161 -11Q129 -11 102 10T74 74Q74 91 79 106T122 220Q160 321 166 341T173 380Q173 404 156 404H154Q124 404 99 371T61 287Q60 286 59 284T58 281T56 279T53 278T49 278T41 278H27Q21 284 21 287Z"></path></g></g><g data-mml-node="mo" transform="translate(4722.8,0)"><path data-c="3D" d="M56 347Q56 360 70 367H707Q722 359 722 347Q722 336 708 328L390 327H72Q56 332 56 347ZM56 153Q56 168 72 173H708Q722 163 722 153Q722 140 707 133H70Q56 140 56 153Z"></path></g><g data-mml-node="mfrac" transform="translate(5778.6,0)"><g data-mml-node="mn" transform="translate(1381.2,676)"><path data-c="31" d="M213 578L200 573Q186 568 160 563T102 556H83V602H102Q149 604 189 617T245 641T273 663Q275 666 285 666Q294 666 302 660V361L303 61Q310 54 315 52T339 48T401 46H427V0H416Q395 3 257 3Q121 3 100 0H88V46H114Q136 46 152 46T177 47T193 50T201 52T207 57T213 61V578Z"></path></g><g data-mml-node="mrow" transform="translate(220,-686)"><g data-mml-node="mi"><path data-c="1D45B" d="M21 287Q22 293 24 303T36 341T56 388T89 425T135 442Q171 442 195 424T225 390T231 369Q231 367 232 367L243 378Q304 442 382 442Q436 442 469 415T503 336T465 179T427 52Q427 26 444 26Q450 26 453 27Q482 32 505 65T540 145Q542 153 560 153Q580 153 580 145Q580 144 576 130Q568 101 554 73T508 17T439 -10Q392 -10 371 17T350 73Q350 92 386 193T423 345Q423 404 379 404H374Q288 404 229 303L222 291L189 157Q156 26 151 16Q138 -11 108 -11Q95 -11 87 -5T76 7T74 17Q74 30 112 180T152 343Q153 348 153 366Q153 405 129 405Q91 405 66 305Q60 285 60 284Q58 278 41 278H27Q21 284 21 287Z"></path></g><g data-mml-node="mo" transform="translate(822.2,0)"><path data-c="2B" d="M56 237T56 250T70 270H369V420L370 570Q380 583 389 583Q402 583 409 568V270H707Q722 262 722 250T707 230H409V-68Q401 -82 391 -82H389H387Q375 -82 369 -68V230H70Q56 237 56 250Z"></path></g><g data-mml-node="mn" transform="translate(1822.4,0)"><path data-c="32" d="M109 429Q82 429 66 447T50 491Q50 562 103 614T235 666Q326 666 387 610T449 465Q449 422 429 383T381 315T301 241Q265 210 201 149L142 93L218 92Q375 92 385 97Q392 99 409 186V189H449V186Q448 183 436 95T421 3V0H50V19V31Q50 38 56 46T86 81Q115 113 136 137Q145 147 170 174T204 211T233 244T261 278T284 308T305 340T320 369T333 401T340 431T343 464Q343 527 309 573T212 619Q179 619 154 602T119 569T109 550Q109 549 114 549Q132 549 151 535T170 489Q170 464 154 447T109 429Z"></path><path data-c="30" d="M96 585Q152 666 249 666Q297 666 345 640T423 548Q460 465 460 320Q460 165 417 83Q397 41 362 16T301 -15T250 -22Q224 -22 198 -16T137 16T82 83Q39 165 39 320Q39 494 96 585ZM321 597Q291 629 250 629Q208 629 178 597Q153 571 145 525T137 333Q137 175 145 125T181 46Q209 16 250 16Q290 16 318 46Q347 76 354 130T362 333Q362 478 354 524T321 597Z" transform="translate(500,0)"></path></g></g><rect width="3022.4" height="60" x="120" y="220"></rect></g></g></g></svg></mjx-container></p>
-<h4 id="3callout语法"><a class="markdownIt-Anchor" href="#3callout语法"></a> （3）callout语法</h4>
-<p>callout语法是Obsidian独有的语法，可以做标注使用，我个人觉得是非常美观醒目的。语法的格式如下：</p>
-<div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="code"><pre><span class="line">&gt; [!note/bug/todo...]</span><br><span class="line">&gt; ....</span><br><span class="line">&gt; ....</span><br></pre></td></tr></table></figure></div>
-<p>注意，这里的note、bug、todo都必须拼写正确，可以看下官网的介绍：<a class="link" href="https://help.obsidian.md/Editing+and+formatting/Callouts">https://help.obsidian.md/Editing+and+formatting/Callouts<i class="fa-solid fa-arrow-up-right ml-[0.2em] font-light align-text-top text-[0.7em] link-icon"></i></a></p>
-
-<div class="callout" data-callout="note">
-<div class="callout-title">
-<div class="callout-title-icon">
-<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-pencil"><path d="M17 3a2.85 2.83 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5Z"></path><path d="m15 5 4 4"></path></svg>
-</div>
-<div class="callout-title-inner">Note</div>
-</div>
-<div class="callout-content"><p>这是一个笔记</p>
-</div></div>
-<div class="callout" data-callout="bug">
-<div class="callout-title">
-<div class="callout-title-icon">
-<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-bug"><path d="m8 2 1.88 1.88"></path><path d="M14.12 3.88 16 2"></path><path d="M9 7.13v-1a3.003 3.003 0 1 1 6 0v1"></path><path d="M12 20c-3.3 0-6-2.7-6-6v-3a4 4 0 0 1 4-4h4a4 4 0 0 1 4 4v3c0 3.3-2.7 6-6 6"></path><path d="M12 20v-9"></path><path d="M6.53 9C4.6 8.8 3 7.1 3 5"></path><path d="M6 13H2"></path><path d="M3 21c0-2.1 1.7-3.9 3.8-4"></path><path d="M20.97 5c0 2.1-1.6 3.8-3.5 4"></path><path d="M22 13h-4"></path><path d="M17.2 17c2.1.1 3.8 1.9 3.8 4"></path></svg>
-</div>
-<div class="callout-title-inner">Bug</div>
-</div>
-<div class="callout-content"><p>我发现了一个bug！</p>
-</div></div>
-<div class="callout" data-callout="todo">
-<div class="callout-title">
-<div class="callout-title-icon">
-<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-check-circle-2"><circle cx="12" cy="12" r="10"></circle><path d="m9 12 2 2 4-4"></path></svg>
-</div>
-<div class="callout-title-inner">Todo</div>
-</div>
-<div class="callout-content"><p>这里好像有我要做的事情。。</p>
-</div></div><p>还可以嵌套使用</p>
-
-<div class="callout" data-callout="note">
-<div class="callout-title">
-<div class="callout-title-icon">
-<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-pencil"><path d="M17 3a2.85 2.83 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5Z"></path><path d="m15 5 4 4"></path></svg>
-</div>
-<div class="callout-title-inner">Note</div>
-</div>
-<div class="callout-content"><p>我今天做了一个笔记</p>
-
-<div class="callout" data-callout="bug">
-<div class="callout-title">
-<div class="callout-title-icon">
-<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-bug"><path d="m8 2 1.88 1.88"></path><path d="M14.12 3.88 16 2"></path><path d="M9 7.13v-1a3.003 3.003 0 1 1 6 0v1"></path><path d="M12 20c-3.3 0-6-2.7-6-6v-3a4 4 0 0 1 4-4h4a4 4 0 0 1 4 4v3c0 3.3-2.7 6-6 6"></path><path d="M12 20v-9"></path><path d="M6.53 9C4.6 8.8 3 7.1 3 5"></path><path d="M6 13H2"></path><path d="M3 21c0-2.1 1.7-3.9 3.8-4"></path><path d="M20.97 5c0 2.1-1.6 3.8-3.5 4"></path><path d="M22 13h-4"></path><path d="M17.2 17c2.1.1 3.8 1.9 3.8 4"></path></svg>
-</div>
-<div class="callout-title-inner">Bug</div>
-</div>
-<div class="callout-content"><p>突然发现了一个bug！！</p>
-
-<div class="callout" data-callout="todo">
-<div class="callout-title">
-<div class="callout-title-icon">
-<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-check-circle-2"><circle cx="12" cy="12" r="10"></circle><path d="m9 12 2 2 4-4"></path></svg>
-</div>
-<div class="callout-title-inner">Todo</div>
-</div>
-<div class="callout-content"><p>突然又发现好像有件事儿没做诶</p>
-</div></div></div></div>
-<div class="callout" data-callout="info">
-<div class="callout-title">
-<div class="callout-title-icon">
-<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-info"><circle cx="12" cy="12" r="10"></circle><path d="M12 16v-4"></path><path d="M12 8h.01"></path></svg>
-</div>
-<div class="callout-title-inner">Info</div>
-</div>
-<div class="callout-content"><p>不做了算了</p>
-</div></div></div></div>]]></content>
-      <categories>
-        <category>IDE配置</category>
-      </categories>
-      <tags>
-        <tag>Obsidian</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>前缀和+差分</title>
-    <url>/sni2z0/</url>
-    <content><![CDATA[<p>前缀和对我来说已经不算陌生了，前缀和的方便之处在于可以 <strong>快速求解任意子数组之和</strong>。但是，前缀和在区间频繁修改时就显得较为羸弱了，因为它只适合求和，不擅长修改。</p>
-<p>那么，如果某些<strong>区间频繁修改</strong>（<strong>仅限于都增加或者都减少某个值</strong>），但是求和只有一次，这种时候首先会想到的就是<strong>线段树</strong>了，不过线段树的代码量太多，使用差分则更简单，也更快。</p>
-<h1 id="什么是差分"><a class="markdownIt-Anchor" href="#什么是差分"></a> 什么是差分？</h1>
-<p>差分的意思主要是这个 <strong>差</strong>，指的其实就是 <strong>元素差</strong>。</p>
-<p>前缀和的思想是动态规划，可以将前 n 个元素的和预先存储起来，这样计算区间和的时候就不需要再按需进行累加了。</p>
-<p>而差分的思想就是 <strong>先求出相邻元素之间的差</strong>，当需要某个区间<code>[a,b] </code>增加或者减少某个值的，只需要修改 <code>arr[a]</code> 和 <code>arr[b+1]</code>，然后重新计算一次前缀和就可以了。</p>
-<h2 id="一维数组差分"><a class="markdownIt-Anchor" href="#一维数组差分"></a> 一维数组差分</h2>
-<p>如果有一个数组 <code>[1, 2, 3, 4, 5]</code>，其差分数组为 <code>[1, 1, 1, 1, 1]</code>。如果要将区间 <code>[1, 3]</code> 中的每个元素增加 2，可以通过修改差分数组 <code>diff[1] += 2</code> 和<code>diff[4] -= 2</code>来实现，得到新的差分数组<code> [1, 3, 1, 1, -1]</code>。通过重建数组可以得到<code> [1, 4, 5, 6, 5]</code>。</p>
-<img lazyload="" src="/images/loading.svg" data-src="https://typora-aliyun01.oss-cn-hangzhou.aliyuncs.com/img/a5d44b1e910f2d6038dc34fc3a64086.jpg" alt="a5d44b1e910f2d6038dc34fc3a64086.jpg" style="zoom: 33%;">
-<h2 id="树上差分"><a class="markdownIt-Anchor" href="#树上差分"></a> 树上差分</h2>
-<p>刚才只是在一维数组上差分，实现起来还是比较简单的，如果我们是在树上进行差分呢？<br>
-树上差分刚才只是在一维数组上差分，实现起来还是比较简单的，如果我们是在树上进行差分呢？</p>
-<p>场景：现在给你一颗树，并且告诉你起始节点和结束节点，对起始节点和结束节点路径中的所有节点的值都加上value。需要注意的是，<strong>这里的树指的是一颗无向树，也就是说并不是像只能从父节点向子节点的那种遍历，只要是这个节点连接到的结点，都是可以遍历到的。</strong><br>
-<img lazyload="" src="/images/loading.svg" data-src="https://typora-aliyun01.oss-cn-hangzhou.aliyuncs.com/img/05ca61d668ebe7e80a7514d8888ee46.jpg" alt="05ca61d668ebe7e80a7514d8888ee46.jpg" style="zoom: 33%;"></p>
-<p>如果要使用树上差分，就必不可免要使用到树中节点的 <strong>最近公共祖先</strong> 求解算法。[[最近公共祖先（LCA)]] 。关于LCA的求解推荐使用倍增法，可以详细看看。<br>
-<img lazyload="" src="/images/loading.svg" data-src="https://typora-aliyun01.oss-cn-hangzhou.aliyuncs.com/img/06223d47370e6ef8ba55e63bc42ef1c.jpg" alt="06223d47370e6ef8ba55e63bc42ef1c.jpg" style="zoom:33%;"><br>
-如图所示，实现差分我们只需要修改四个点的权值，起始点和终结点就不用说了，关键是这个 <strong>LCA还有LCA的父节点</strong>。这里你可能会有如下问题：</p>
-
-<div class="callout" data-callout="note">
-<div class="callout-title">
-<div class="callout-title-icon">
-<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-pencil"><path d="M17 3a2.85 2.83 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5Z"></path><path d="m15 5 4 4"></path></svg>
-</div>
-<div class="callout-title-inner">Note</div>
-</div>
-<div class="callout-content"><p>为什么这里还要将LCA的父节点权值也下降？</p>
-<p>原因是我们<strong>从根节点1开始进行DFS</strong>，原本的前缀和在这里更像“后缀和”。<br>
-DFS的过程中，每个节点的权值更新为其所有子孙的权值总和，weight[i]=<mjx-container class="MathJax" jax="SVG"><svg style="vertical-align: -0.663ex;" xmlns="http://www.w3.org/2000/svg" width="15.341ex" height="2.45ex" role="img" focusable="false" viewBox="0 -789.6 6780.9 1082.7"><g stroke="currentColor" fill="currentColor" stroke-width="0" transform="scale(1,-1)"><g data-mml-node="math"><g data-mml-node="munderover"><g data-mml-node="mo"><path data-c="2211" d="M61 748Q64 750 489 750H913L954 640Q965 609 976 579T993 533T999 516H979L959 517Q936 579 886 621T777 682Q724 700 655 705T436 710H319Q183 710 183 709Q186 706 348 484T511 259Q517 250 513 244L490 216Q466 188 420 134T330 27L149 -187Q149 -188 362 -188Q388 -188 436 -188T506 -189Q679 -189 778 -162T936 -43Q946 -27 959 6H999L913 -249L489 -250Q65 -250 62 -248Q56 -246 56 -239Q56 -234 118 -161Q186 -81 245 -11L428 206Q428 207 242 462L57 717L56 728Q56 744 61 748Z"></path></g><g data-mml-node="mi" transform="translate(1089,477.1) scale(0.707)"><path data-c="1D45B" d="M21 287Q22 293 24 303T36 341T56 388T89 425T135 442Q171 442 195 424T225 390T231 369Q231 367 232 367L243 378Q304 442 382 442Q436 442 469 415T503 336T465 179T427 52Q427 26 444 26Q450 26 453 27Q482 32 505 65T540 145Q542 153 560 153Q580 153 580 145Q580 144 576 130Q568 101 554 73T508 17T439 -10Q392 -10 371 17T350 73Q350 92 386 193T423 345Q423 404 379 404H374Q288 404 229 303L222 291L189 157Q156 26 151 16Q138 -11 108 -11Q95 -11 87 -5T76 7T74 17Q74 30 112 180T152 343Q153 348 153 366Q153 405 129 405Q91 405 66 305Q60 285 60 284Q58 278 41 278H27Q21 284 21 287Z"></path></g><g data-mml-node="mi" transform="translate(1089,-285.4) scale(0.707)"><path data-c="1D456" d="M184 600Q184 624 203 642T247 661Q265 661 277 649T290 619Q290 596 270 577T226 557Q211 557 198 567T184 600ZM21 287Q21 295 30 318T54 369T98 420T158 442Q197 442 223 419T250 357Q250 340 236 301T196 196T154 83Q149 61 149 51Q149 26 166 26Q175 26 185 29T208 43T235 78T260 137Q263 149 265 151T282 153Q302 153 302 143Q302 135 293 112T268 61T223 11T161 -11Q129 -11 102 10T74 74Q74 91 79 106T122 220Q160 321 166 341T173 380Q173 404 156 404H154Q124 404 99 371T61 287Q60 286 59 284T58 281T56 279T53 278T49 278T41 278H27Q21 284 21 287Z"></path></g></g><g data-mml-node="TeXAtom" data-mjx-texclass="ORD" transform="translate(1729.9,0)"><g data-mml-node="mi"><path data-c="1D464" d="M580 385Q580 406 599 424T641 443Q659 443 674 425T690 368Q690 339 671 253Q656 197 644 161T609 80T554 12T482 -11Q438 -11 404 5T355 48Q354 47 352 44Q311 -11 252 -11Q226 -11 202 -5T155 14T118 53T104 116Q104 170 138 262T173 379Q173 380 173 381Q173 390 173 393T169 400T158 404H154Q131 404 112 385T82 344T65 302T57 280Q55 278 41 278H27Q21 284 21 287Q21 293 29 315T52 366T96 418T161 441Q204 441 227 416T250 358Q250 340 217 250T184 111Q184 65 205 46T258 26Q301 26 334 87L339 96V119Q339 122 339 128T340 136T341 143T342 152T345 165T348 182T354 206T362 238T373 281Q402 395 406 404Q419 431 449 431Q468 431 475 421T483 402Q483 389 454 274T422 142Q420 131 420 107V100Q420 85 423 71T442 42T487 26Q558 26 600 148Q609 171 620 213T632 273Q632 306 619 325T593 357T580 385Z"></path></g><g data-mml-node="mi" transform="translate(716,0)"><path data-c="1D452" d="M39 168Q39 225 58 272T107 350T174 402T244 433T307 442H310Q355 442 388 420T421 355Q421 265 310 237Q261 224 176 223Q139 223 138 221Q138 219 132 186T125 128Q125 81 146 54T209 26T302 45T394 111Q403 121 406 121Q410 121 419 112T429 98T420 82T390 55T344 24T281 -1T205 -11Q126 -11 83 42T39 168ZM373 353Q367 405 305 405Q272 405 244 391T199 357T170 316T154 280T149 261Q149 260 169 260Q282 260 327 284T373 353Z"></path></g><g data-mml-node="mi" transform="translate(1182,0)"><path data-c="1D456" d="M184 600Q184 624 203 642T247 661Q265 661 277 649T290 619Q290 596 270 577T226 557Q211 557 198 567T184 600ZM21 287Q21 295 30 318T54 369T98 420T158 442Q197 442 223 419T250 357Q250 340 236 301T196 196T154 83Q149 61 149 51Q149 26 166 26Q175 26 185 29T208 43T235 78T260 137Q263 149 265 151T282 153Q302 153 302 143Q302 135 293 112T268 61T223 11T161 -11Q129 -11 102 10T74 74Q74 91 79 106T122 220Q160 321 166 341T173 380Q173 404 156 404H154Q124 404 99 371T61 287Q60 286 59 284T58 281T56 279T53 278T49 278T41 278H27Q21 284 21 287Z"></path></g><g data-mml-node="mi" transform="translate(1527,0)"><path data-c="1D454" d="M311 43Q296 30 267 15T206 0Q143 0 105 45T66 160Q66 265 143 353T314 442Q361 442 401 394L404 398Q406 401 409 404T418 412T431 419T447 422Q461 422 470 413T480 394Q480 379 423 152T363 -80Q345 -134 286 -169T151 -205Q10 -205 10 -137Q10 -111 28 -91T74 -71Q89 -71 102 -80T116 -111Q116 -121 114 -130T107 -144T99 -154T92 -162L90 -164H91Q101 -167 151 -167Q189 -167 211 -155Q234 -144 254 -122T282 -75Q288 -56 298 -13Q311 35 311 43ZM384 328L380 339Q377 350 375 354T369 368T359 382T346 393T328 402T306 405Q262 405 221 352Q191 313 171 233T151 117Q151 38 213 38Q269 38 323 108L331 118L384 328Z"></path></g><g data-mml-node="mi" transform="translate(2004,0)"><path data-c="210E" d="M137 683Q138 683 209 688T282 694Q294 694 294 685Q294 674 258 534Q220 386 220 383Q220 381 227 388Q288 442 357 442Q411 442 444 415T478 336Q478 285 440 178T402 50Q403 36 407 31T422 26Q450 26 474 56T513 138Q516 149 519 151T535 153Q555 153 555 145Q555 144 551 130Q535 71 500 33Q466 -10 419 -10H414Q367 -10 346 17T325 74Q325 90 361 192T398 345Q398 404 354 404H349Q266 404 205 306L198 293L164 158Q132 28 127 16Q114 -11 83 -11Q69 -11 59 -2T48 16Q48 30 121 320L195 616Q195 629 188 632T149 637H128Q122 643 122 645T124 664Q129 683 137 683Z"></path></g><g data-mml-node="mi" transform="translate(2580,0)"><path data-c="1D461" d="M26 385Q19 392 19 395Q19 399 22 411T27 425Q29 430 36 430T87 431H140L159 511Q162 522 166 540T173 566T179 586T187 603T197 615T211 624T229 626Q247 625 254 615T261 596Q261 589 252 549T232 470L222 433Q222 431 272 431H323Q330 424 330 420Q330 398 317 385H210L174 240Q135 80 135 68Q135 26 162 26Q197 26 230 60T283 144Q285 150 288 151T303 153H307Q322 153 322 145Q322 142 319 133Q314 117 301 95T267 48T216 6T155 -11Q125 -11 98 4T59 56Q57 64 57 83V101L92 241Q127 382 128 383Q128 385 77 385H26Z"></path></g><g data-mml-node="mo" transform="translate(2941,0)"><path data-c="5B" d="M118 -250V750H255V710H158V-210H255V-250H118Z"></path></g><g data-mml-node="mi" transform="translate(3219,0)"><path data-c="1D460" d="M131 289Q131 321 147 354T203 415T300 442Q362 442 390 415T419 355Q419 323 402 308T364 292Q351 292 340 300T328 326Q328 342 337 354T354 372T367 378Q368 378 368 379Q368 382 361 388T336 399T297 405Q249 405 227 379T204 326Q204 301 223 291T278 274T330 259Q396 230 396 163Q396 135 385 107T352 51T289 7T195 -10Q118 -10 86 19T53 87Q53 126 74 143T118 160Q133 160 146 151T160 120Q160 94 142 76T111 58Q109 57 108 57T107 55Q108 52 115 47T146 34T201 27Q237 27 263 38T301 66T318 97T323 122Q323 150 302 164T254 181T195 196T148 231Q131 256 131 289Z"></path></g><g data-mml-node="mi" transform="translate(3688,0)"><path data-c="1D45C" d="M201 -11Q126 -11 80 38T34 156Q34 221 64 279T146 380Q222 441 301 441Q333 441 341 440Q354 437 367 433T402 417T438 387T464 338T476 268Q476 161 390 75T201 -11ZM121 120Q121 70 147 48T206 26Q250 26 289 58T351 142Q360 163 374 216T388 308Q388 352 370 375Q346 405 306 405Q243 405 195 347Q158 303 140 230T121 120Z"></path></g><g data-mml-node="mi" transform="translate(4173,0)"><path data-c="1D45B" d="M21 287Q22 293 24 303T36 341T56 388T89 425T135 442Q171 442 195 424T225 390T231 369Q231 367 232 367L243 378Q304 442 382 442Q436 442 469 415T503 336T465 179T427 52Q427 26 444 26Q450 26 453 27Q482 32 505 65T540 145Q542 153 560 153Q580 153 580 145Q580 144 576 130Q568 101 554 73T508 17T439 -10Q392 -10 371 17T350 73Q350 92 386 193T423 345Q423 404 379 404H374Q288 404 229 303L222 291L189 157Q156 26 151 16Q138 -11 108 -11Q95 -11 87 -5T76 7T74 17Q74 30 112 180T152 343Q153 348 153 366Q153 405 129 405Q91 405 66 305Q60 285 60 284Q58 278 41 278H27Q21 284 21 287Z"></path></g><g data-mml-node="mo" transform="translate(4773,0)"><path data-c="5D" d="M22 710V750H159V-250H22V-210H119V710H22Z"></path></g></g></g></g></svg></mjx-container></p>
-<p><strong>对于LCA本身，其本身只需要+3，不过a和b都是他的子孙，所以其本身-3</strong>。对于LCA的父节点，他的权值应该是不变的，刚才LCA减去3是因为LCA要+3，但是LCA的父节点应该是不变的，因此LCA的父节点权值也需要下降。</p>
-</div></div><div class="highlight-container" data-rel="Cpp"><figure class="iseeu highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="keyword">using</span> LL = <span class="type">long</span> <span class="type">long</span>;</span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> {</span><br><span class="line">    <span class="keyword">public</span>: <span class="function"><span class="type">int</span> <span class="title">maxRemoval</span><span class="params">(vector &lt; <span class="type">int</span> &gt; &amp; nums, vector &lt; vector &lt; <span class="type">int</span> &gt;&gt; &amp; queries)</span> </span>{</span><br><span class="line">        <span class="comment">// sort(queries.begin(), queries.end(), [](vector&lt;int&gt;&amp;a, vector&lt;int&gt;&amp;b){</span></span><br><span class="line">        <span class="comment">//     if (a[0]!=b[0])</span></span><br><span class="line">        <span class="comment">//         return a[0]&lt;b[0];</span></span><br><span class="line">        <span class="comment">//     else</span></span><br><span class="line">        <span class="comment">//         return a[1]&gt;b[1];</span></span><br><span class="line">        <span class="comment">// });</span></span><br><span class="line">        <span class="built_in">sort</span>(queries.<span class="built_in">begin</span>(), queries.<span class="built_in">end</span>());</span><br><span class="line"></span><br><span class="line">        <span class="type">int</span> n = nums.<span class="built_in">size</span>();</span><br><span class="line">        <span class="type">int</span> j = <span class="number">0</span>;</span><br><span class="line">        vector &lt; <span class="type">int</span> &gt; <span class="built_in">diff</span>(n + <span class="number">1</span>);</span><br><span class="line">        LL sum = <span class="number">0</span>;</span><br><span class="line">        <span class="type">int</span> ret = <span class="number">0</span>;</span><br><span class="line">        priority_queue &lt; <span class="type">int</span> &gt; pq;</span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">0</span>; i &lt; n; i++) {</span><br><span class="line">            <span class="keyword">while</span> (j &lt; queries.<span class="built_in">size</span>() &amp;&amp; queries[j][<span class="number">0</span>] &lt;= i) {</span><br><span class="line">                pq.<span class="built_in">push</span>(queries[j][<span class="number">1</span>]);</span><br><span class="line">                j++;</span><br><span class="line">            }</span><br><span class="line">            <span class="keyword">while</span> (sum + diff[i] &lt; nums[i]) {</span><br><span class="line">                <span class="keyword">if</span> (pq.<span class="built_in">empty</span>()) <span class="keyword">return</span> <span class="number">-1</span>;</span><br><span class="line">                <span class="keyword">if</span> (pq.<span class="built_in">top</span>() &lt; i) <span class="keyword">return</span> <span class="number">-1</span>;</span><br><span class="line">                <span class="type">int</span> t = pq.<span class="built_in">top</span>();</span><br><span class="line">                pq.<span class="built_in">pop</span>();</span><br><span class="line">                sum += <span class="number">1</span>;</span><br><span class="line">                diff[t + <span class="number">1</span>] -= <span class="number">1</span>;</span><br><span class="line">                ret++;</span><br><span class="line">            }</span><br><span class="line">            sum += diff[i];</span><br><span class="line">        }</span><br><span class="line">        <span class="keyword">return</span> queries.<span class="built_in">size</span>() - ret;</span><br><span class="line">    }</span><br><span class="line"></span><br><span class="line">};</span><br></pre></td></tr></table></figure></div>]]></content>
-      <categories>
-        <category>Leetcode</category>
-      </categories>
-      <tags>
-        <tag>Leetcode</tag>
-        <tag>动态规划</tag>
-        <tag>前缀和</tag>
-        <tag>差分</tag>
       </tags>
   </entry>
   <entry>
@@ -914,6 +871,49 @@ DFS的过程中，每个节点的权值更新为其所有子孙的权值总和�
       <tags>
         <tag>Leetcode</tag>
         <tag>树</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>前缀和+差分</title>
+    <url>/sni2z0/</url>
+    <content><![CDATA[<p>前缀和对我来说已经不算陌生了，前缀和的方便之处在于可以 <strong>快速求解任意子数组之和</strong>。但是，前缀和在区间频繁修改时就显得较为羸弱了，因为它只适合求和，不擅长修改。</p>
+<p>那么，如果某些<strong>区间频繁修改</strong>（<strong>仅限于都增加或者都减少某个值</strong>），但是求和只有一次，这种时候首先会想到的就是<strong>线段树</strong>了，不过线段树的代码量太多，使用差分则更简单，也更快。</p>
+<h1 id="什么是差分"><a class="markdownIt-Anchor" href="#什么是差分"></a> 什么是差分？</h1>
+<p>差分的意思主要是这个 <strong>差</strong>，指的其实就是 <strong>元素差</strong>。</p>
+<p>前缀和的思想是动态规划，可以将前 n 个元素的和预先存储起来，这样计算区间和的时候就不需要再按需进行累加了。</p>
+<p>而差分的思想就是 <strong>先求出相邻元素之间的差</strong>，当需要某个区间<code>[a,b] </code>增加或者减少某个值的，只需要修改 <code>arr[a]</code> 和 <code>arr[b+1]</code>，然后重新计算一次前缀和就可以了。</p>
+<h2 id="一维数组差分"><a class="markdownIt-Anchor" href="#一维数组差分"></a> 一维数组差分</h2>
+<p>如果有一个数组 <code>[1, 2, 3, 4, 5]</code>，其差分数组为 <code>[1, 1, 1, 1, 1]</code>。如果要将区间 <code>[1, 3]</code> 中的每个元素增加 2，可以通过修改差分数组 <code>diff[1] += 2</code> 和<code>diff[4] -= 2</code>来实现，得到新的差分数组<code> [1, 3, 1, 1, -1]</code>。通过重建数组可以得到<code> [1, 4, 5, 6, 5]</code>。</p>
+<img lazyload="" src="/images/loading.svg" data-src="https://typora-aliyun01.oss-cn-hangzhou.aliyuncs.com/img/a5d44b1e910f2d6038dc34fc3a64086.jpg" alt="a5d44b1e910f2d6038dc34fc3a64086.jpg" style="zoom: 33%;">
+<h2 id="树上差分"><a class="markdownIt-Anchor" href="#树上差分"></a> 树上差分</h2>
+<p>刚才只是在一维数组上差分，实现起来还是比较简单的，如果我们是在树上进行差分呢？<br>
+树上差分刚才只是在一维数组上差分，实现起来还是比较简单的，如果我们是在树上进行差分呢？</p>
+<p>场景：现在给你一颗树，并且告诉你起始节点和结束节点，对起始节点和结束节点路径中的所有节点的值都加上value。需要注意的是，<strong>这里的树指的是一颗无向树，也就是说并不是像只能从父节点向子节点的那种遍历，只要是这个节点连接到的结点，都是可以遍历到的。</strong><br>
+<img lazyload="" src="/images/loading.svg" data-src="https://typora-aliyun01.oss-cn-hangzhou.aliyuncs.com/img/05ca61d668ebe7e80a7514d8888ee46.jpg" alt="05ca61d668ebe7e80a7514d8888ee46.jpg" style="zoom: 33%;"></p>
+<p>如果要使用树上差分，就必不可免要使用到树中节点的 <strong>最近公共祖先</strong> 求解算法。[[最近公共祖先（LCA)]] 。关于LCA的求解推荐使用倍增法，可以详细看看。<br>
+<img lazyload="" src="/images/loading.svg" data-src="https://typora-aliyun01.oss-cn-hangzhou.aliyuncs.com/img/06223d47370e6ef8ba55e63bc42ef1c.jpg" alt="06223d47370e6ef8ba55e63bc42ef1c.jpg" style="zoom:33%;"><br>
+如图所示，实现差分我们只需要修改四个点的权值，起始点和终结点就不用说了，关键是这个 <strong>LCA还有LCA的父节点</strong>。这里你可能会有如下问题：</p>
+
+<div class="callout" data-callout="note">
+<div class="callout-title">
+<div class="callout-title-icon">
+<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-pencil"><path d="M17 3a2.85 2.83 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5Z"></path><path d="m15 5 4 4"></path></svg>
+</div>
+<div class="callout-title-inner">Note</div>
+</div>
+<div class="callout-content"><p>为什么这里还要将LCA的父节点权值也下降？</p>
+<p>原因是我们<strong>从根节点1开始进行DFS</strong>，原本的前缀和在这里更像“后缀和”。<br>
+DFS的过程中，每个节点的权值更新为其所有子孙的权值总和，weight[i]=<mjx-container class="MathJax" jax="SVG"><svg style="vertical-align: -0.663ex;" xmlns="http://www.w3.org/2000/svg" width="15.341ex" height="2.45ex" role="img" focusable="false" viewBox="0 -789.6 6780.9 1082.7"><g stroke="currentColor" fill="currentColor" stroke-width="0" transform="scale(1,-1)"><g data-mml-node="math"><g data-mml-node="munderover"><g data-mml-node="mo"><path data-c="2211" d="M61 748Q64 750 489 750H913L954 640Q965 609 976 579T993 533T999 516H979L959 517Q936 579 886 621T777 682Q724 700 655 705T436 710H319Q183 710 183 709Q186 706 348 484T511 259Q517 250 513 244L490 216Q466 188 420 134T330 27L149 -187Q149 -188 362 -188Q388 -188 436 -188T506 -189Q679 -189 778 -162T936 -43Q946 -27 959 6H999L913 -249L489 -250Q65 -250 62 -248Q56 -246 56 -239Q56 -234 118 -161Q186 -81 245 -11L428 206Q428 207 242 462L57 717L56 728Q56 744 61 748Z"></path></g><g data-mml-node="mi" transform="translate(1089,477.1) scale(0.707)"><path data-c="1D45B" d="M21 287Q22 293 24 303T36 341T56 388T89 425T135 442Q171 442 195 424T225 390T231 369Q231 367 232 367L243 378Q304 442 382 442Q436 442 469 415T503 336T465 179T427 52Q427 26 444 26Q450 26 453 27Q482 32 505 65T540 145Q542 153 560 153Q580 153 580 145Q580 144 576 130Q568 101 554 73T508 17T439 -10Q392 -10 371 17T350 73Q350 92 386 193T423 345Q423 404 379 404H374Q288 404 229 303L222 291L189 157Q156 26 151 16Q138 -11 108 -11Q95 -11 87 -5T76 7T74 17Q74 30 112 180T152 343Q153 348 153 366Q153 405 129 405Q91 405 66 305Q60 285 60 284Q58 278 41 278H27Q21 284 21 287Z"></path></g><g data-mml-node="mi" transform="translate(1089,-285.4) scale(0.707)"><path data-c="1D456" d="M184 600Q184 624 203 642T247 661Q265 661 277 649T290 619Q290 596 270 577T226 557Q211 557 198 567T184 600ZM21 287Q21 295 30 318T54 369T98 420T158 442Q197 442 223 419T250 357Q250 340 236 301T196 196T154 83Q149 61 149 51Q149 26 166 26Q175 26 185 29T208 43T235 78T260 137Q263 149 265 151T282 153Q302 153 302 143Q302 135 293 112T268 61T223 11T161 -11Q129 -11 102 10T74 74Q74 91 79 106T122 220Q160 321 166 341T173 380Q173 404 156 404H154Q124 404 99 371T61 287Q60 286 59 284T58 281T56 279T53 278T49 278T41 278H27Q21 284 21 287Z"></path></g></g><g data-mml-node="TeXAtom" data-mjx-texclass="ORD" transform="translate(1729.9,0)"><g data-mml-node="mi"><path data-c="1D464" d="M580 385Q580 406 599 424T641 443Q659 443 674 425T690 368Q690 339 671 253Q656 197 644 161T609 80T554 12T482 -11Q438 -11 404 5T355 48Q354 47 352 44Q311 -11 252 -11Q226 -11 202 -5T155 14T118 53T104 116Q104 170 138 262T173 379Q173 380 173 381Q173 390 173 393T169 400T158 404H154Q131 404 112 385T82 344T65 302T57 280Q55 278 41 278H27Q21 284 21 287Q21 293 29 315T52 366T96 418T161 441Q204 441 227 416T250 358Q250 340 217 250T184 111Q184 65 205 46T258 26Q301 26 334 87L339 96V119Q339 122 339 128T340 136T341 143T342 152T345 165T348 182T354 206T362 238T373 281Q402 395 406 404Q419 431 449 431Q468 431 475 421T483 402Q483 389 454 274T422 142Q420 131 420 107V100Q420 85 423 71T442 42T487 26Q558 26 600 148Q609 171 620 213T632 273Q632 306 619 325T593 357T580 385Z"></path></g><g data-mml-node="mi" transform="translate(716,0)"><path data-c="1D452" d="M39 168Q39 225 58 272T107 350T174 402T244 433T307 442H310Q355 442 388 420T421 355Q421 265 310 237Q261 224 176 223Q139 223 138 221Q138 219 132 186T125 128Q125 81 146 54T209 26T302 45T394 111Q403 121 406 121Q410 121 419 112T429 98T420 82T390 55T344 24T281 -1T205 -11Q126 -11 83 42T39 168ZM373 353Q367 405 305 405Q272 405 244 391T199 357T170 316T154 280T149 261Q149 260 169 260Q282 260 327 284T373 353Z"></path></g><g data-mml-node="mi" transform="translate(1182,0)"><path data-c="1D456" d="M184 600Q184 624 203 642T247 661Q265 661 277 649T290 619Q290 596 270 577T226 557Q211 557 198 567T184 600ZM21 287Q21 295 30 318T54 369T98 420T158 442Q197 442 223 419T250 357Q250 340 236 301T196 196T154 83Q149 61 149 51Q149 26 166 26Q175 26 185 29T208 43T235 78T260 137Q263 149 265 151T282 153Q302 153 302 143Q302 135 293 112T268 61T223 11T161 -11Q129 -11 102 10T74 74Q74 91 79 106T122 220Q160 321 166 341T173 380Q173 404 156 404H154Q124 404 99 371T61 287Q60 286 59 284T58 281T56 279T53 278T49 278T41 278H27Q21 284 21 287Z"></path></g><g data-mml-node="mi" transform="translate(1527,0)"><path data-c="1D454" d="M311 43Q296 30 267 15T206 0Q143 0 105 45T66 160Q66 265 143 353T314 442Q361 442 401 394L404 398Q406 401 409 404T418 412T431 419T447 422Q461 422 470 413T480 394Q480 379 423 152T363 -80Q345 -134 286 -169T151 -205Q10 -205 10 -137Q10 -111 28 -91T74 -71Q89 -71 102 -80T116 -111Q116 -121 114 -130T107 -144T99 -154T92 -162L90 -164H91Q101 -167 151 -167Q189 -167 211 -155Q234 -144 254 -122T282 -75Q288 -56 298 -13Q311 35 311 43ZM384 328L380 339Q377 350 375 354T369 368T359 382T346 393T328 402T306 405Q262 405 221 352Q191 313 171 233T151 117Q151 38 213 38Q269 38 323 108L331 118L384 328Z"></path></g><g data-mml-node="mi" transform="translate(2004,0)"><path data-c="210E" d="M137 683Q138 683 209 688T282 694Q294 694 294 685Q294 674 258 534Q220 386 220 383Q220 381 227 388Q288 442 357 442Q411 442 444 415T478 336Q478 285 440 178T402 50Q403 36 407 31T422 26Q450 26 474 56T513 138Q516 149 519 151T535 153Q555 153 555 145Q555 144 551 130Q535 71 500 33Q466 -10 419 -10H414Q367 -10 346 17T325 74Q325 90 361 192T398 345Q398 404 354 404H349Q266 404 205 306L198 293L164 158Q132 28 127 16Q114 -11 83 -11Q69 -11 59 -2T48 16Q48 30 121 320L195 616Q195 629 188 632T149 637H128Q122 643 122 645T124 664Q129 683 137 683Z"></path></g><g data-mml-node="mi" transform="translate(2580,0)"><path data-c="1D461" d="M26 385Q19 392 19 395Q19 399 22 411T27 425Q29 430 36 430T87 431H140L159 511Q162 522 166 540T173 566T179 586T187 603T197 615T211 624T229 626Q247 625 254 615T261 596Q261 589 252 549T232 470L222 433Q222 431 272 431H323Q330 424 330 420Q330 398 317 385H210L174 240Q135 80 135 68Q135 26 162 26Q197 26 230 60T283 144Q285 150 288 151T303 153H307Q322 153 322 145Q322 142 319 133Q314 117 301 95T267 48T216 6T155 -11Q125 -11 98 4T59 56Q57 64 57 83V101L92 241Q127 382 128 383Q128 385 77 385H26Z"></path></g><g data-mml-node="mo" transform="translate(2941,0)"><path data-c="5B" d="M118 -250V750H255V710H158V-210H255V-250H118Z"></path></g><g data-mml-node="mi" transform="translate(3219,0)"><path data-c="1D460" d="M131 289Q131 321 147 354T203 415T300 442Q362 442 390 415T419 355Q419 323 402 308T364 292Q351 292 340 300T328 326Q328 342 337 354T354 372T367 378Q368 378 368 379Q368 382 361 388T336 399T297 405Q249 405 227 379T204 326Q204 301 223 291T278 274T330 259Q396 230 396 163Q396 135 385 107T352 51T289 7T195 -10Q118 -10 86 19T53 87Q53 126 74 143T118 160Q133 160 146 151T160 120Q160 94 142 76T111 58Q109 57 108 57T107 55Q108 52 115 47T146 34T201 27Q237 27 263 38T301 66T318 97T323 122Q323 150 302 164T254 181T195 196T148 231Q131 256 131 289Z"></path></g><g data-mml-node="mi" transform="translate(3688,0)"><path data-c="1D45C" d="M201 -11Q126 -11 80 38T34 156Q34 221 64 279T146 380Q222 441 301 441Q333 441 341 440Q354 437 367 433T402 417T438 387T464 338T476 268Q476 161 390 75T201 -11ZM121 120Q121 70 147 48T206 26Q250 26 289 58T351 142Q360 163 374 216T388 308Q388 352 370 375Q346 405 306 405Q243 405 195 347Q158 303 140 230T121 120Z"></path></g><g data-mml-node="mi" transform="translate(4173,0)"><path data-c="1D45B" d="M21 287Q22 293 24 303T36 341T56 388T89 425T135 442Q171 442 195 424T225 390T231 369Q231 367 232 367L243 378Q304 442 382 442Q436 442 469 415T503 336T465 179T427 52Q427 26 444 26Q450 26 453 27Q482 32 505 65T540 145Q542 153 560 153Q580 153 580 145Q580 144 576 130Q568 101 554 73T508 17T439 -10Q392 -10 371 17T350 73Q350 92 386 193T423 345Q423 404 379 404H374Q288 404 229 303L222 291L189 157Q156 26 151 16Q138 -11 108 -11Q95 -11 87 -5T76 7T74 17Q74 30 112 180T152 343Q153 348 153 366Q153 405 129 405Q91 405 66 305Q60 285 60 284Q58 278 41 278H27Q21 284 21 287Z"></path></g><g data-mml-node="mo" transform="translate(4773,0)"><path data-c="5D" d="M22 710V750H159V-250H22V-210H119V710H22Z"></path></g></g></g></g></svg></mjx-container></p>
+<p><strong>对于LCA本身，其本身只需要+3，不过a和b都是他的子孙，所以其本身-3</strong>。对于LCA的父节点，他的权值应该是不变的，刚才LCA减去3是因为LCA要+3，但是LCA的父节点应该是不变的，因此LCA的父节点权值也需要下降。</p>
+</div></div><div class="highlight-container" data-rel="Cpp"><figure class="iseeu highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="keyword">using</span> LL = <span class="type">long</span> <span class="type">long</span>;</span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> {</span><br><span class="line">    <span class="keyword">public</span>: <span class="function"><span class="type">int</span> <span class="title">maxRemoval</span><span class="params">(vector &lt; <span class="type">int</span> &gt; &amp; nums, vector &lt; vector &lt; <span class="type">int</span> &gt;&gt; &amp; queries)</span> </span>{</span><br><span class="line">        <span class="comment">// sort(queries.begin(), queries.end(), [](vector&lt;int&gt;&amp;a, vector&lt;int&gt;&amp;b){</span></span><br><span class="line">        <span class="comment">//     if (a[0]!=b[0])</span></span><br><span class="line">        <span class="comment">//         return a[0]&lt;b[0];</span></span><br><span class="line">        <span class="comment">//     else</span></span><br><span class="line">        <span class="comment">//         return a[1]&gt;b[1];</span></span><br><span class="line">        <span class="comment">// });</span></span><br><span class="line">        <span class="built_in">sort</span>(queries.<span class="built_in">begin</span>(), queries.<span class="built_in">end</span>());</span><br><span class="line"></span><br><span class="line">        <span class="type">int</span> n = nums.<span class="built_in">size</span>();</span><br><span class="line">        <span class="type">int</span> j = <span class="number">0</span>;</span><br><span class="line">        vector &lt; <span class="type">int</span> &gt; <span class="built_in">diff</span>(n + <span class="number">1</span>);</span><br><span class="line">        LL sum = <span class="number">0</span>;</span><br><span class="line">        <span class="type">int</span> ret = <span class="number">0</span>;</span><br><span class="line">        priority_queue &lt; <span class="type">int</span> &gt; pq;</span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">0</span>; i &lt; n; i++) {</span><br><span class="line">            <span class="keyword">while</span> (j &lt; queries.<span class="built_in">size</span>() &amp;&amp; queries[j][<span class="number">0</span>] &lt;= i) {</span><br><span class="line">                pq.<span class="built_in">push</span>(queries[j][<span class="number">1</span>]);</span><br><span class="line">                j++;</span><br><span class="line">            }</span><br><span class="line">            <span class="keyword">while</span> (sum + diff[i] &lt; nums[i]) {</span><br><span class="line">                <span class="keyword">if</span> (pq.<span class="built_in">empty</span>()) <span class="keyword">return</span> <span class="number">-1</span>;</span><br><span class="line">                <span class="keyword">if</span> (pq.<span class="built_in">top</span>() &lt; i) <span class="keyword">return</span> <span class="number">-1</span>;</span><br><span class="line">                <span class="type">int</span> t = pq.<span class="built_in">top</span>();</span><br><span class="line">                pq.<span class="built_in">pop</span>();</span><br><span class="line">                sum += <span class="number">1</span>;</span><br><span class="line">                diff[t + <span class="number">1</span>] -= <span class="number">1</span>;</span><br><span class="line">                ret++;</span><br><span class="line">            }</span><br><span class="line">            sum += diff[i];</span><br><span class="line">        }</span><br><span class="line">        <span class="keyword">return</span> queries.<span class="built_in">size</span>() - ret;</span><br><span class="line">    }</span><br><span class="line"></span><br><span class="line">};</span><br></pre></td></tr></table></figure></div>]]></content>
+      <categories>
+        <category>Leetcode</category>
+      </categories>
+      <tags>
+        <tag>Leetcode</tag>
+        <tag>动态规划</tag>
+        <tag>前缀和</tag>
+        <tag>差分</tag>
       </tags>
   </entry>
 </search>
