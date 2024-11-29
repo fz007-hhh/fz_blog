@@ -723,17 +723,6 @@ BS-MEC服务器分配给MU i的计算资源定义为f B i 。然后，在BS-MEC�
       </tags>
   </entry>
   <entry>
-    <title>大模型算力是如何计算的</title>
-    <url>/sni2x9/</url>
-    <content><![CDATA[]]></content>
-      <categories>
-        <category>多模态</category>
-      </categories>
-      <tags>
-        <tag>大模型</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>Rich Human Feedback for Text-to-Image Generation</title>
     <url>/sni2v6/</url>
     <content><![CDATA[<h2 id="abstract"><a class="markdownIt-Anchor" href="#abstract"></a> Abstract</h2>
@@ -771,6 +760,17 @@ BS-MEC服务器分配给MU i的计算资源定义为f B i 。然后，在BS-MEC�
       </categories>
       <tags>
         <tag>RLHF</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>大模型算力是如何计算的</title>
+    <url>/sni2x9/</url>
+    <content><![CDATA[]]></content>
+      <categories>
+        <category>多模态</category>
+      </categories>
+      <tags>
+        <tag>大模型</tag>
       </tags>
   </entry>
   <entry>
