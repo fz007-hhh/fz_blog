@@ -196,6 +196,18 @@
       </tags>
   </entry>
   <entry>
+    <title>centos7 基础命令爆出255返回码</title>
+    <url>/sni2sz/</url>
+    <content><![CDATA[<p>cron 是一个用于在指定时间自动执行预定任务的守护进程，/etc/cron.hourly/ 目录中的脚本每小时会被 cron进程 自动执行一次</p>
+]]></content>
+      <categories>
+        <category>Ubuntu</category>
+      </categories>
+      <tags>
+        <tag>Ubuntu</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>Ubuntu配置ssh</title>
     <url>/sni2r9/</url>
     <content><![CDATA[<p>在 Ubuntu 上配置 SSH 以便使用 Visual Studio Code (VSCode) 进行连接，可以按照以下步骤进行：</p>
@@ -286,29 +298,6 @@
       </categories>
       <tags>
         <tag>Ubuntu</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>centos7 基础命令爆出255返回码</title>
-    <url>/sni2sz/</url>
-    <content><![CDATA[<p>cron 是一个用于在指定时间自动执行预定任务的守护进程，/etc/cron.hourly/ 目录中的脚本每小时会被 cron进程 自动执行一次</p>
-]]></content>
-      <categories>
-        <category>Ubuntu</category>
-      </categories>
-      <tags>
-        <tag>Ubuntu</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>大模型算力是如何计算的</title>
-    <url>/sni2x9/</url>
-    <content><![CDATA[]]></content>
-      <categories>
-        <category>多模态</category>
-      </categories>
-      <tags>
-        <tag>大模型</tag>
       </tags>
   </entry>
   <entry>
@@ -647,6 +636,96 @@ BS-MEC服务器分配给MU i的计算资源定义为f B i 。然后，在BS-MEC�
       </tags>
   </entry>
   <entry>
+    <title>大模型算力是如何计算的</title>
+    <url>/sni2x9/</url>
+    <content><![CDATA[]]></content>
+      <categories>
+        <category>多模态</category>
+      </categories>
+      <tags>
+        <tag>大模型</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Obsidian——主题配置和插件推荐（02）</title>
+    <url>/snowvy/</url>
+    <content><![CDATA[<p>在上一节教程中，已经介绍了 Obsidian 的基础安装操作，但是尚未介绍插件。我觉得 Obsidian 最强的地方就是它的插件市场，通过安装插件，可以大幅提升它的编辑能力和美观效果。</p>
+<p>不过，Obsidian 的插件市场里各类插件实在太多，很多插件效果确实是非常非常好看的。但是，安装插件首先想的应该是自己的真实需要到底是什么，否则很容易花太长时间去寻找插件，忘记了自己下载 Obsidian 的初衷——<strong>我好像是要做笔记的</strong>。</p>
+<p>还有一点就是 Obdisian 虽然自己的 UI 支持中文，但是插件的介绍和配置基本都是英文的，如果英文不好的话，很容易在配置插件这件事儿上红温（我本人就是 👿）。这里安利一下自己安装过的几款插件，如果说想要更好的效果，就需要自己再研究了。当然，B 站上其实也能搜到 Obsidian 最新出来的插件介绍视频 😄。</p>
+<p>使用插件需要先关闭 <strong>安全模式</strong>，点击浏览就可以进入插件市场，选择自己心宜的插件了。<br>
+<img lazyload="" src="/images/loading.svg" data-src="https://typora-aliyun01.oss-cn-hangzhou.aliyuncs.com/img/20241129103143.png" alt="image.png" width="525px"></p>
+<h2 id="1盘古-pangu"><a class="markdownIt-Anchor" href="#1盘古-pangu"></a> 1.盘古 PanGu</h2>
+<p>这个插件的作用是能够自动在相邻的中英文字符间添加空格，这个插件简单实用，很多时候某些专门的英文术语需要单独加粗，手动的打空格很麻烦，使用这个插件就很方便了。</p>
+<h2 id="2iconize"><a class="markdownIt-Anchor" href="#2iconize"></a> 2.Iconize</h2>
+<p>我非常喜欢的插件！！这个插件支持在笔记中插入 emoji 表情，只需要使用 <code>:关键词</code>（关键词可以任意输入，比如 smile、key、bulb 等等），就能快速打出一个 emoji 符号！💡<br>
+<img lazyload="" src="/images/loading.svg" data-src="https://typora-aliyun01.oss-cn-hangzhou.aliyuncs.com/img/emoji01.gif" alt="emoji01.gif" width="450px"><br>
+还有，它还可以给文件夹/文件打上 icon 标识，这个也是我最喜欢它的地方。很多时候看文件名都没有看 icon 醒目，而且有了 icon 真的会看着更加美观。<br>
+<img lazyload="" src="/images/loading.svg" data-src="https://typora-aliyun01.oss-cn-hangzhou.aliyuncs.com/img/20241129104647.png" alt="image.png" width="350px"></p>
+<h2 id="3code-styler"><a class="markdownIt-Anchor" href="#3code-styler"></a> 3.Code Styler</h2>
+<p>这个是优化 Obsidian 代码块的效果的，Obsidian 默认的代码块效果看起来不够醒目，代码块上没有声明语言格式，也不能折叠代码块。使用 Code Styler 插件可以 <strong>在一定程度上</strong> 提升效果。</p>
+<p>Code Styler 的配置信息实在太多，而且其实他的代码配色我个人不太喜欢，这里我只使用了他的 <strong>代码块 header 提示</strong>、<strong>折叠代码块</strong> 这两个效果。注意，<mark>Obsidian 编辑笔记时有源码模式、阅读模式、实时预览模式</mark>，折叠代码块这个效果在阅读模式看着是最舒服的。<br>
+<img lazyload="" src="/images/loading.svg" data-src="https://typora-aliyun01.oss-cn-hangzhou.aliyuncs.com/img/emoji02.gif" alt="emoji02.gif" width="500px"><br>
+打开 Obsidian 的设置界面，下载好 Code Styler 插件之后进入其配置界面，然后选择 Codeblock Styling：</p>
+<p><img lazyload="" src="/images/loading.svg" data-src="https://typora-aliyun01.oss-cn-hangzhou.aliyuncs.com/img/20241129105903.png" alt="image.png" width="425px"></p>
+<h4 id="1打开代码块的-header-提示"><a class="markdownIt-Anchor" href="#1打开代码块的-header-提示"></a> （1）打开代码块的 header 提示</h4>
+<p>刚才的页面往下滑，可以看到这个配置，选择 Codeblock Header<br>
+<img lazyload="" src="/images/loading.svg" data-src="https://typora-aliyun01.oss-cn-hangzhou.aliyuncs.com/img/20241129110041.png" alt="image.png" width="400px"><br>
+这个查看语言 header 标签的设置原本是 <strong>Never</strong>，这里设置成 <strong>Always</strong><br>
+<img lazyload="" src="/images/loading.svg" data-src="https://typora-aliyun01.oss-cn-hangzhou.aliyuncs.com/img/20241129110125.png" alt="image.png" width="400px"><br>
+其实下面的这个也可以设成 Always，作用就是在代码块的 header 前再加一个 logo，大概就是下面这个效果。这个看个人喜好吧，我个人感觉文字标签已经够醒目了。<br>
+<img lazyload="" src="/images/loading.svg" data-src="https://typora-aliyun01.oss-cn-hangzhou.aliyuncs.com/img/20241129110224.png" alt="image.png" width="400px"></p>
+<p><img lazyload="" src="/images/loading.svg" data-src="https://typora-aliyun01.oss-cn-hangzhou.aliyuncs.com/img/20241129110334.png" alt="image.png" width="400px"></p>
+<h4 id="2打开关闭代码行号"><a class="markdownIt-Anchor" href="#2打开关闭代码行号"></a> （2）打开/关闭代码行号</h4>
+<p>选择 Codeblock Gutter，修改下面的配置信息就可以了。<br>
+<img lazyload="" src="/images/loading.svg" data-src="https://typora-aliyun01.oss-cn-hangzhou.aliyuncs.com/img/20241129110900.png" alt="image.png" width="400px"></p>
+<p>Code Styler 的其他配置其实还有很多，不过我觉得最实用的就是上面这些了。它虽然也支持自定义代码块调色，但是纯自定义颜色这个难度还是太大了（我自己尝试过配几个小时，越配越难看 😥）</p>
+<h2 id="4style-settings"><a class="markdownIt-Anchor" href="#4style-settings"></a> 4.Style Settings</h2>
+<p>自定义 Obsidian 的最方便插件出现了！！上一节中提到了我们可以自由安装 Obsidian 的主题，但是如果你和我一样比较挑剔，现成的某一款主题就是偏偏有那么一丢丢不不合我心意，直接去改主题的 css 源码是比较繁琐的。但是，有了 Style Settings 插件就简单的多了。</p>
+<p>以我现在安装的 Prime 主题为例，<br>
+<img lazyload="" src="/images/loading.svg" data-src="https://typora-aliyun01.oss-cn-hangzhou.aliyuncs.com/img/20241129111801.png" alt="image.png" width="475px"><br>
+在这里可以很方便的修改 <strong>H1~H6</strong> 这几级标题的效果，很多主题喜欢 <strong>H1~H6</strong> 这几个标题都取不一样的颜色，但是我反而喜欢使用同色，看上去更加简洁清新。<br>
+<img lazyload="" src="/images/loading.svg" data-src="https://typora-aliyun01.oss-cn-hangzhou.aliyuncs.com/img/20241129112103.png" alt="image.png" width="500px"></p>
+<p>下面的这三个部分可以修改加粗、斜体、高亮字体的颜色。<br>
+<img lazyload="" src="/images/loading.svg" data-src="https://typora-aliyun01.oss-cn-hangzhou.aliyuncs.com/img/20241130155251.png" alt="image.png" width="475px"><br>
+我个人觉得最关键也最好用的地方是这里，可以设置 light 主题和 dark 主题的代码块皮肤，Prime 主题原本的代码块皮肤我不是太满意，不过在这里很轻松就能修改了 😁<br>
+<img lazyload="" src="/images/loading.svg" data-src="https://typora-aliyun01.oss-cn-hangzhou.aliyuncs.com/img/20241130155400.png" alt="image.png" width="500px"></p>
+<h2 id="5various-comments"><a class="markdownIt-Anchor" href="#5various-comments"></a> 5.Various Comments</h2>
+<p>前几个插件的作用是美化 Obsidian 的效果，而 Various Comments 这个插件则是提升笔记编辑体验的主力插件！！它的功能实际上很简单，就是自定义一些规则（key-value 格式），在 Obsidian 输入 key 时会出现代码提示，实现快速补齐。<br>
+<img lazyload="" src="/images/loading.svg" data-src="https://typora-aliyun01.oss-cn-hangzhou.aliyuncs.com/img/20241130160225.png" alt="image.png" width="450px"></p>
+<p>不过，比较重要的其实是 Custom dictionary complement 这个部分</p>
+<p><img lazyload="" src="/images/loading.svg" data-src="https://typora-aliyun01.oss-cn-hangzhou.aliyuncs.com/img/20241130161537.png" alt="image.png" width="525px"></p>
+<p><img lazyload="" src="/images/loading.svg" data-src="https://typora-aliyun01.oss-cn-hangzhou.aliyuncs.com/img/20241130160551.png" alt="image.png" width="525px"><br>
+我们来看一下这个插件默认提供的标识符（<strong>标识符你自己也可以修改，这里我就改了一部分</strong>）</p>
+<ol>
+<li><code>+=</code>：如果你在字典文件中编辑<code>abcd += cfg</code>，这样的话，当你在 Obsidian 输入<code>abcd</code>时，会自动补全<code>abcdcfg</code>；</li>
+<li><code>=&gt;</code>：如果你在字典文件中编辑<code>abcd =&gt; cfg</code>，这样的话，当你在 Obsidian 输入<code>abcd</code>时，会自动补全<code>cfg</code>；</li>
+<li><code>&lt;CARET&gt;</code>：如果你在字典文件中编辑<code>abcd =&gt; &lt;img&gt;&lt;CARET&gt;&lt;/img&gt;</code>，这样的话，当你在 Obsidian 输入<code>abcd</code>时，会自动补全<code>&lt;img&gt; &lt;/img&gt;</code>，不过你的鼠标在补全之后会自动移动在<code>&lt;CARET&gt;</code>的位置；</li>
+</ol>
+<p>这里我主要是对基本的代码块还有 Obsidian 的 callout 语法进行了封装，这里我的字典内容如下：</p>
+<div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="code"><pre><span class="line">co-py =&gt;```Python\n&lt;CARET&gt;\n```</span><br><span class="line">co-java =&gt;```java\n&lt;CARET&gt;\n```</span><br><span class="line">co-sql =&gt;```sql\n&lt;CARET&gt;\n```</span><br><span class="line">co-vue =&gt;```vue\n&lt;CARET&gt;\n```</span><br><span class="line">co-json =&gt;```json\n&lt;CARET&gt;\n```</span><br><span class="line">co-bash =&gt;```bash\n&lt;CARET&gt;\n```</span><br><span class="line">co-cpp =&gt;```cpp\n&lt;CARET&gt;\n```</span><br><span class="line">co-js =&gt;```javascript\n&lt;CARET&gt;\n```</span><br><span class="line">co-vue =&gt;```vue\n&lt;CARET&gt;\n```</span><br><span class="line">co-csharp =&gt;```csharp\n&lt;CARET&gt;\n```</span><br><span class="line"></span><br><span class="line">sp-info =&gt;&gt; [!info]\n&gt; &lt;CARET&gt;</span><br><span class="line">sp-note =&gt;&gt; [!note]\n&gt; &lt;CARET&gt;</span><br><span class="line">sp-todo =&gt;&gt; [!todo]\n&gt; &lt;CARET&gt;</span><br><span class="line">sp-tip =&gt;&gt; [!tip]\n&gt; &lt;CARET&gt;</span><br><span class="line">sp-success =&gt;&gt; [!success]\n&gt; &lt;CARET&gt;</span><br><span class="line">sp-question =&gt;&gt; [!question]\n&gt; &lt;CARET&gt;</span><br><span class="line">sp-warning =&gt;&gt; [!warning]\n&gt; &lt;CARET&gt;</span><br><span class="line">sp-failure =&gt;&gt; [!failure]\n&gt; &lt;CARET&gt;</span><br><span class="line">sp-danger =&gt;&gt; [!danger]\n&gt; &lt;CARET&gt;</span><br><span class="line">sp-bug =&gt;&gt; [!bug]\n&gt; &lt;CARET&gt;</span><br><span class="line">sp-example =&gt;&gt; [!example]\n&gt; &lt;CARET&gt;</span><br><span class="line">sp-quote =&gt;&gt; [!quote]\n&gt; &lt;CARET&gt;</span><br></pre></td></tr></table></figure></div>
+<p>把这段文件记录到一个 txt 文件中，可以命名为<code>custom-dictionary.txt</code>，然后保存到分区的文件夹中（<strong>与.obsidian 文件夹处于同一路径</strong>，然后在刚才插件的 settings 中添加这个文件的路径。</p>
+<h2 id="6mousewheel-image-zoom"><a class="markdownIt-Anchor" href="#6mousewheel-image-zoom"></a> 6.Mousewheel Image Zoom</h2>
+<p>这个插件的作用是在Obsidian中阅览图片，鼠标移动到图片上之后，按下Alt键就可以使用鼠标滚轮放大或缩小图片。Obsidian本身是不能像Typora那样缩放图片的，没有这个插件的话，如果遇到图片过大的情况，图片预览会很难受。</p>
+<h2 id="7brat"><a class="markdownIt-Anchor" href="#7brat"></a> 7.BRAT</h2>
+<p>这个插件很有意思，这个插件其实是一个“<mark>插件下载工具</mark>”。虽然Obsidian官方的插件市场已经有很多插件了，不过有些插件在Obsidian市场搜不到，但是在Github却可以搜得到。在BRAT中只要输入插件的git地址，就能安装Obsidian市场没有的插件。<br>
+<img lazyload="" src="/images/loading.svg" data-src="https://typora-aliyun01.oss-cn-hangzhou.aliyuncs.com/img/20241130170433.png" alt="image.png" width="500px"><br>
+<strong>这个插件可以解决一些特殊问题，比如我装的这个obsidian-banners插件，官网市场下载的是1.x版本，安装之后会启动异常，必须得下载2.x版本才行</strong>。</p>
+<p>在github查了一下obsidian-banner，果然有2.x版本，那么只需要在BRAT插件中输入如下信息即可下载<br>
+<img lazyload="" src="/images/loading.svg" data-src="https://typora-aliyun01.oss-cn-hangzhou.aliyuncs.com/img/20241130171017.png" alt="image.png" width="600px"><br>
+<img lazyload="" src="/images/loading.svg" data-src="https://typora-aliyun01.oss-cn-hangzhou.aliyuncs.com/img/20241130171117.png" alt="image.png" width="400px"></p>
+<h2 id="8banners"><a class="markdownIt-Anchor" href="#8banners"></a> 8.Banners</h2>
+<p>这个插件的安装过程在上面已经说了，它的作用是为笔记添加头图，就是下面这种效果：<br>
+<img lazyload="" src="/images/loading.svg" data-src="https://typora-aliyun01.oss-cn-hangzhou.aliyuncs.com/img/20241130171400.png" alt="image.png" width="550px"></p>
+<p>这个插件看个人喜好，我比较喜欢在写笔记的时候放一张头图，感觉不让头图背景有点枯燥😊</p>
+]]></content>
+      <categories>
+        <category>IDE配置</category>
+      </categories>
+      <tags>
+        <tag>Obsidian</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>Obsidian——主题配置和插件推荐（01）</title>
     <url>/snm6s8/</url>
     <content><![CDATA[<p>之前三年基本都在使用 Typora 记录笔记，Typora 本身非常轻量，提供的基础功能比较齐全，而且 21 年我刚开始用的时候开始免费的（后来不知道为啥突然要收费了）。不过，用的时间久了，还是发现 Typora 本身还是有不少的局限性：</p>
@@ -764,85 +843,6 @@ BS-MEC服务器分配给MU i的计算资源定义为f B i 。然后，在BS-MEC�
 </div>
 <div class="callout-content"><p>不做了算了</p>
 </div></div></div></div>]]></content>
-      <categories>
-        <category>IDE配置</category>
-      </categories>
-      <tags>
-        <tag>Obsidian</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Obsidian——主题配置和插件推荐（02）</title>
-    <url>/snowvy/</url>
-    <content><![CDATA[<p>在上一节教程中，已经介绍了 Obsidian 的基础安装操作，但是尚未介绍插件。我觉得 Obsidian 最强的地方就是它的插件市场，通过安装插件，可以大幅提升它的编辑能力和美观效果。</p>
-<p>不过，Obsidian 的插件市场里各类插件实在太多，很多插件效果确实是非常非常好看的。但是，安装插件首先想的应该是自己的真实需要到底是什么，否则很容易花太长时间去寻找插件，忘记了自己下载 Obsidian 的初衷——<strong>我好像是要做笔记的</strong>。</p>
-<p>还有一点就是 Obdisian 虽然自己的 UI 支持中文，但是插件的介绍和配置基本都是英文的，如果英文不好的话，很容易在配置插件这件事儿上红温（我本人就是 👿）。这里安利一下自己安装过的几款插件，如果说想要更好的效果，就需要自己再研究了。当然，B 站上其实也能搜到 Obsidian 最新出来的插件介绍视频 😄。</p>
-<p>使用插件需要先关闭 <strong>安全模式</strong>，点击浏览就可以进入插件市场，选择自己心宜的插件了。<br>
-<img lazyload="" src="/images/loading.svg" data-src="https://typora-aliyun01.oss-cn-hangzhou.aliyuncs.com/img/20241129103143.png" alt="image.png" width="525px"></p>
-<h2 id="1盘古-pangu"><a class="markdownIt-Anchor" href="#1盘古-pangu"></a> 1.盘古 PanGu</h2>
-<p>这个插件的作用是能够自动在相邻的中英文字符间添加空格，这个插件简单实用，很多时候某些专门的英文术语需要单独加粗，手动的打空格很麻烦，使用这个插件就很方便了。</p>
-<h2 id="2iconize"><a class="markdownIt-Anchor" href="#2iconize"></a> 2.Iconize</h2>
-<p>我非常喜欢的插件！！这个插件支持在笔记中插入 emoji 表情，只需要使用 <code>:关键词</code>（关键词可以任意输入，比如 smile、key、bulb 等等），就能快速打出一个 emoji 符号！💡<br>
-<img lazyload="" src="/images/loading.svg" data-src="https://typora-aliyun01.oss-cn-hangzhou.aliyuncs.com/img/emoji01.gif" alt="emoji01.gif" width="450px"><br>
-还有，它还可以给文件夹/文件打上 icon 标识，这个也是我最喜欢它的地方。很多时候看文件名都没有看 icon 醒目，而且有了 icon 真的会看着更加美观。<br>
-<img lazyload="" src="/images/loading.svg" data-src="https://typora-aliyun01.oss-cn-hangzhou.aliyuncs.com/img/20241129104647.png" alt="image.png" width="350px"></p>
-<h2 id="3code-styler"><a class="markdownIt-Anchor" href="#3code-styler"></a> 3.Code Styler</h2>
-<p>这个是优化 Obsidian 代码块的效果的，Obsidian 默认的代码块效果看起来不够醒目，代码块上没有声明语言格式，也不能折叠代码块。使用 Code Styler 插件可以 <strong>在一定程度上</strong> 提升效果。</p>
-<p>Code Styler 的配置信息实在太多，而且其实他的代码配色我个人不太喜欢，这里我只使用了他的 <strong>代码块 header 提示</strong>、<strong>折叠代码块</strong> 这两个效果。注意，<mark>Obsidian 编辑笔记时有源码模式、阅读模式、实时预览模式</mark>，折叠代码块这个效果在阅读模式看着是最舒服的。<br>
-<img lazyload="" src="/images/loading.svg" data-src="https://typora-aliyun01.oss-cn-hangzhou.aliyuncs.com/img/emoji02.gif" alt="emoji02.gif" width="500px"><br>
-打开 Obsidian 的设置界面，下载好 Code Styler 插件之后进入其配置界面，然后选择 Codeblock Styling：</p>
-<p><img lazyload="" src="/images/loading.svg" data-src="https://typora-aliyun01.oss-cn-hangzhou.aliyuncs.com/img/20241129105903.png" alt="image.png" width="425px"></p>
-<h4 id="1打开代码块的-header-提示"><a class="markdownIt-Anchor" href="#1打开代码块的-header-提示"></a> （1）打开代码块的 header 提示</h4>
-<p>刚才的页面往下滑，可以看到这个配置，选择 Codeblock Header<br>
-<img lazyload="" src="/images/loading.svg" data-src="https://typora-aliyun01.oss-cn-hangzhou.aliyuncs.com/img/20241129110041.png" alt="image.png" width="400px"><br>
-这个查看语言 header 标签的设置原本是 <strong>Never</strong>，这里设置成 <strong>Always</strong><br>
-<img lazyload="" src="/images/loading.svg" data-src="https://typora-aliyun01.oss-cn-hangzhou.aliyuncs.com/img/20241129110125.png" alt="image.png" width="400px"><br>
-其实下面的这个也可以设成 Always，作用就是在代码块的 header 前再加一个 logo，大概就是下面这个效果。这个看个人喜好吧，我个人感觉文字标签已经够醒目了。<br>
-<img lazyload="" src="/images/loading.svg" data-src="https://typora-aliyun01.oss-cn-hangzhou.aliyuncs.com/img/20241129110224.png" alt="image.png" width="400px"></p>
-<p><img lazyload="" src="/images/loading.svg" data-src="https://typora-aliyun01.oss-cn-hangzhou.aliyuncs.com/img/20241129110334.png" alt="image.png" width="400px"></p>
-<h4 id="2打开关闭代码行号"><a class="markdownIt-Anchor" href="#2打开关闭代码行号"></a> （2）打开/关闭代码行号</h4>
-<p>选择 Codeblock Gutter，修改下面的配置信息就可以了。<br>
-<img lazyload="" src="/images/loading.svg" data-src="https://typora-aliyun01.oss-cn-hangzhou.aliyuncs.com/img/20241129110900.png" alt="image.png" width="400px"></p>
-<p>Code Styler 的其他配置其实还有很多，不过我觉得最实用的就是上面这些了。它虽然也支持自定义代码块调色，但是纯自定义颜色这个难度还是太大了（我自己尝试过配几个小时，越配越难看 😥）</p>
-<h2 id="4style-settings"><a class="markdownIt-Anchor" href="#4style-settings"></a> 4.Style Settings</h2>
-<p>自定义 Obsidian 的最方便插件出现了！！上一节中提到了我们可以自由安装 Obsidian 的主题，但是如果你和我一样比较挑剔，现成的某一款主题就是偏偏有那么一丢丢不不合我心意，直接去改主题的 css 源码是比较繁琐的。但是，有了 Style Settings 插件就简单的多了。</p>
-<p>以我现在安装的 Prime 主题为例，<br>
-<img lazyload="" src="/images/loading.svg" data-src="https://typora-aliyun01.oss-cn-hangzhou.aliyuncs.com/img/20241129111801.png" alt="image.png" width="475px"><br>
-在这里可以很方便的修改 <strong>H1~H6</strong> 这几级标题的效果，很多主题喜欢 <strong>H1~H6</strong> 这几个标题都取不一样的颜色，但是我反而喜欢使用同色，看上去更加简洁清新。<br>
-<img lazyload="" src="/images/loading.svg" data-src="https://typora-aliyun01.oss-cn-hangzhou.aliyuncs.com/img/20241129112103.png" alt="image.png" width="500px"></p>
-<p>下面的这三个部分可以修改加粗、斜体、高亮字体的颜色。<br>
-<img lazyload="" src="/images/loading.svg" data-src="https://typora-aliyun01.oss-cn-hangzhou.aliyuncs.com/img/20241130155251.png" alt="image.png" width="475px"><br>
-我个人觉得最关键也最好用的地方是这里，可以设置 light 主题和 dark 主题的代码块皮肤，Prime 主题原本的代码块皮肤我不是太满意，不过在这里很轻松就能修改了 😁<br>
-<img lazyload="" src="/images/loading.svg" data-src="https://typora-aliyun01.oss-cn-hangzhou.aliyuncs.com/img/20241130155400.png" alt="image.png" width="500px"></p>
-<h2 id="5various-comments"><a class="markdownIt-Anchor" href="#5various-comments"></a> 5.Various Comments</h2>
-<p>前几个插件的作用是美化 Obsidian 的效果，而 Various Comments 这个插件则是提升笔记编辑体验的主力插件！！它的功能实际上很简单，就是自定义一些规则（key-value 格式），在 Obsidian 输入 key 时会出现代码提示，实现快速补齐。<br>
-<img lazyload="" src="/images/loading.svg" data-src="https://typora-aliyun01.oss-cn-hangzhou.aliyuncs.com/img/20241130160225.png" alt="image.png" width="450px"></p>
-<p>不过，比较重要的其实是 Custom dictionary complement 这个部分</p>
-<p><img lazyload="" src="/images/loading.svg" data-src="https://typora-aliyun01.oss-cn-hangzhou.aliyuncs.com/img/20241130161537.png" alt="image.png" width="525px"></p>
-<p><img lazyload="" src="/images/loading.svg" data-src="https://typora-aliyun01.oss-cn-hangzhou.aliyuncs.com/img/20241130160551.png" alt="image.png" width="525px"><br>
-我们来看一下这个插件默认提供的标识符（<strong>标识符你自己也可以修改，这里我就改了一部分</strong>）</p>
-<ol>
-<li><code>+=</code>：如果你在字典文件中编辑<code>abcd += cfg</code>，这样的话，当你在 Obsidian 输入<code>abcd</code>时，会自动补全<code>abcdcfg</code>；</li>
-<li><code>=&gt;</code>：如果你在字典文件中编辑<code>abcd =&gt; cfg</code>，这样的话，当你在 Obsidian 输入<code>abcd</code>时，会自动补全<code>cfg</code>；</li>
-<li><code>&lt;CARET&gt;</code>：如果你在字典文件中编辑<code>abcd =&gt; &lt;img&gt;&lt;CARET&gt;&lt;/img&gt;</code>，这样的话，当你在 Obsidian 输入<code>abcd</code>时，会自动补全<code>&lt;img&gt; &lt;/img&gt;</code>，不过你的鼠标在补全之后会自动移动在<code>&lt;CARET&gt;</code>的位置；</li>
-</ol>
-<p>这里我主要是对基本的代码块还有 Obsidian 的 callout 语法进行了封装，这里我的字典内容如下：</p>
-<div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="code"><pre><span class="line">co-py =&gt;```Python\n&lt;CARET&gt;\n```</span><br><span class="line">co-java =&gt;```java\n&lt;CARET&gt;\n```</span><br><span class="line">co-sql =&gt;```sql\n&lt;CARET&gt;\n```</span><br><span class="line">co-vue =&gt;```vue\n&lt;CARET&gt;\n```</span><br><span class="line">co-json =&gt;```json\n&lt;CARET&gt;\n```</span><br><span class="line">co-bash =&gt;```bash\n&lt;CARET&gt;\n```</span><br><span class="line">co-cpp =&gt;```cpp\n&lt;CARET&gt;\n```</span><br><span class="line">co-js =&gt;```javascript\n&lt;CARET&gt;\n```</span><br><span class="line">co-vue =&gt;```vue\n&lt;CARET&gt;\n```</span><br><span class="line">co-csharp =&gt;```csharp\n&lt;CARET&gt;\n```</span><br><span class="line"></span><br><span class="line">sp-info =&gt;&gt; [!info]\n&gt; &lt;CARET&gt;</span><br><span class="line">sp-note =&gt;&gt; [!note]\n&gt; &lt;CARET&gt;</span><br><span class="line">sp-todo =&gt;&gt; [!todo]\n&gt; &lt;CARET&gt;</span><br><span class="line">sp-tip =&gt;&gt; [!tip]\n&gt; &lt;CARET&gt;</span><br><span class="line">sp-success =&gt;&gt; [!success]\n&gt; &lt;CARET&gt;</span><br><span class="line">sp-question =&gt;&gt; [!question]\n&gt; &lt;CARET&gt;</span><br><span class="line">sp-warning =&gt;&gt; [!warning]\n&gt; &lt;CARET&gt;</span><br><span class="line">sp-failure =&gt;&gt; [!failure]\n&gt; &lt;CARET&gt;</span><br><span class="line">sp-danger =&gt;&gt; [!danger]\n&gt; &lt;CARET&gt;</span><br><span class="line">sp-bug =&gt;&gt; [!bug]\n&gt; &lt;CARET&gt;</span><br><span class="line">sp-example =&gt;&gt; [!example]\n&gt; &lt;CARET&gt;</span><br><span class="line">sp-quote =&gt;&gt; [!quote]\n&gt; &lt;CARET&gt;</span><br></pre></td></tr></table></figure></div>
-<p>把这段文件记录到一个 txt 文件中，可以命名为<code>custom-dictionary.txt</code>，然后保存到分区的文件夹中（<strong>与.obsidian 文件夹处于同一路径</strong>，然后在刚才插件的 settings 中添加这个文件的路径。</p>
-<h2 id="6mousewheel-image-zoom"><a class="markdownIt-Anchor" href="#6mousewheel-image-zoom"></a> 6.Mousewheel Image Zoom</h2>
-<p>这个插件的作用是在Obsidian中阅览图片，鼠标移动到图片上之后，按下Alt键就可以使用鼠标滚轮放大或缩小图片。Obsidian本身是不能像Typora那样缩放图片的，没有这个插件的话，如果遇到图片过大的情况，图片预览会很难受。</p>
-<h2 id="7brat"><a class="markdownIt-Anchor" href="#7brat"></a> 7.BRAT</h2>
-<p>这个插件很有意思，这个插件其实是一个“<mark>插件下载工具</mark>”。虽然Obsidian官方的插件市场已经有很多插件了，不过有些插件在Obsidian市场搜不到，但是在Github却可以搜得到。在BRAT中只要输入插件的git地址，就能安装Obsidian市场没有的插件。<br>
-<img lazyload="" src="/images/loading.svg" data-src="https://typora-aliyun01.oss-cn-hangzhou.aliyuncs.com/img/20241130170433.png" alt="image.png" width="500px"><br>
-<strong>这个插件可以解决一些特殊问题，比如我装的这个obsidian-banners插件，官网市场下载的是1.x版本，安装之后会启动异常，必须得下载2.x版本才行</strong>。</p>
-<p>在github查了一下obsidian-banner，果然有2.x版本，那么只需要在BRAT插件中输入如下信息即可下载<br>
-<img lazyload="" src="/images/loading.svg" data-src="https://typora-aliyun01.oss-cn-hangzhou.aliyuncs.com/img/20241130171017.png" alt="image.png" width="600px"><br>
-<img lazyload="" src="/images/loading.svg" data-src="https://typora-aliyun01.oss-cn-hangzhou.aliyuncs.com/img/20241130171117.png" alt="image.png" width="400px"></p>
-<h2 id="8banners"><a class="markdownIt-Anchor" href="#8banners"></a> 8.Banners</h2>
-<p>这个插件的安装过程在上面已经说了，它的作用是为笔记添加头图，就是下面这种效果：<br>
-<img lazyload="" src="/images/loading.svg" data-src="https://typora-aliyun01.oss-cn-hangzhou.aliyuncs.com/img/20241130171400.png" alt="image.png" width="550px"></p>
-<p>这个插件看个人喜好，我比较喜欢在写笔记的时候放一张头图，感觉不让头图背景有点枯燥😊</p>
-]]></content>
       <categories>
         <category>IDE配置</category>
       </categories>
