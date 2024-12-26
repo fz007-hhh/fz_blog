@@ -129,18 +129,6 @@
       </tags>
   </entry>
   <entry>
-    <title>centos7 基础命令爆出255返回码</title>
-    <url>/sni2sz/</url>
-    <content><![CDATA[<p>cron 是一个用于在指定时间自动执行预定任务的守护进程，/etc/cron.hourly/ 目录中的脚本每小时会被 cron进程 自动执行一次</p>
-]]></content>
-      <categories>
-        <category>Ubuntu</category>
-      </categories>
-      <tags>
-        <tag>Ubuntu</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>海战游戏心得</title>
     <url>/sni30q/</url>
     <content><![CDATA[<h2 id="攻击策略"><a class="markdownIt-Anchor" href="#攻击策略"></a> 攻击策略</h2>
@@ -232,6 +220,111 @@
       <tags>
         <tag>海战游戏</tag>
         <tag>策略</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Ubuntu配置ssh</title>
+    <url>/sni2r9/</url>
+    <content><![CDATA[<p>在 Ubuntu 上配置 SSH 以便使用 Visual Studio Code (VSCode) 进行连接，可以按照以下步骤进行：</p>
+<h3 id="1-安装-openssh-服务器"><a class="markdownIt-Anchor" href="#1-安装-openssh-服务器"></a> 1. 安装 OpenSSH 服务器</h3>
+<p>首先，你需要确保你的 Ubuntu 系统上安装了 OpenSSH 服务器。打开终端，执行以下命令：</p>
+<div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">sudo</span> apt update</span><br><span class="line"><span class="built_in">sudo</span> apt install openssh-server</span><br></pre></td></tr></table></figure></div>
+<h3 id="2-启动和启用-ssh-服务"><a class="markdownIt-Anchor" href="#2-启动和启用-ssh-服务"></a> 2. 启动和启用 SSH 服务</h3>
+<p>安装完成后，启动 SSH 服务并确保它在系统启动时自动启动：</p>
+<div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">sudo</span> systemctl start ssh</span><br><span class="line"><span class="built_in">sudo</span> systemctl <span class="built_in">enable</span> ssh</span><br></pre></td></tr></table></figure></div>
+<h3 id="3-检查-ssh-服务状态"><a class="markdownIt-Anchor" href="#3-检查-ssh-服务状态"></a> 3. 检查 SSH 服务状态</h3>
+<p>你可以使用以下命令检查 SSH 服务的状态：</p>
+<div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">sudo</span> systemctl status ssh</span><br></pre></td></tr></table></figure></div>
+<p>确保服务正在运行，并且没有错误信息。</p>
+<h3 id="4-配置-ssh可选"><a class="markdownIt-Anchor" href="#4-配置-ssh可选"></a> 4. 配置 SSH（可选）</h3>
+<p>默认情况下，SSH 使用的配置文件位于 <code>/etc/ssh/sshd_config</code>。你可以根据需要修改此文件以增强安全性，例如禁用密码登录，启用密钥登录等。编辑配置文件：</p>
+<div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">sudo</span> nano /etc/ssh/sshd_config</span><br></pre></td></tr></table></figure></div>
+<p>以下是一些常见的配置选项：</p>
+<ul>
+<li>
+<p><strong>禁用密码登录</strong>（仅允许使用密钥登录）：</p>
+ <div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="code"><pre><span class="line">PasswordAuthentication no</span><br></pre></td></tr></table></figure></div>
+</li>
+<li>
+<p><strong>更改默认 SSH 端口</strong>（可选）：</p>
+ <div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="code"><pre><span class="line">Port 2222</span><br></pre></td></tr></table></figure></div>
+</li>
+</ul>
+<p>更改后，保存并退出编辑器。然后重新启动 SSH 服务以使更改生效：</p>
+<div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">sudo</span> systemctl restart ssh</span><br></pre></td></tr></table></figure></div>
+<h3 id="5-配置防火墙如果适用"><a class="markdownIt-Anchor" href="#5-配置防火墙如果适用"></a> 5. 配置防火墙（如果适用）</h3>
+<p>如果你的系统启用了防火墙，确保 SSH 端口（默认是 22 或你更改后的端口）是开放的。使用以下命令允许 SSH 通过 UFW（如果你使用 UFW 作为防火墙）：</p>
+<div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">sudo</span> ufw allow ssh</span><br><span class="line"><span class="comment"># 如果你更改了端口，例如使用 2222：</span></span><br><span class="line"><span class="comment"># sudo ufw allow 2222</span></span><br></pre></td></tr></table></figure></div>
+<h3 id="6-获取服务器的-ip-地址"><a class="markdownIt-Anchor" href="#6-获取服务器的-ip-地址"></a> 6. 获取服务器的 IP 地址</h3>
+<p>你可以使用以下命令获取你的服务器的 IP 地址：</p>
+<div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="code"><pre><span class="line">ip a</span><br></pre></td></tr></table></figure></div>
+<h3 id="7-在-vscode-中配置-ssh"><a class="markdownIt-Anchor" href="#7-在-vscode-中配置-ssh"></a> 7. 在 VSCode 中配置 SSH</h3>
+<ol>
+<li>
+<p><strong>安装 Remote - SSH 插件</strong>：</p>
+<ul>
+<li>打开 VSCode。</li>
+<li>转到扩展视图 (<code>Ctrl + Shift + X</code>)。</li>
+<li>搜索并安装 <strong>Remote - SSH</strong> 插件。</li>
+</ul>
+</li>
+<li>
+<p><strong>添加 SSH 主机</strong>：</p>
+<ul>
+<li>
+<p>按 <code>F1</code> 或 <code>Ctrl + Shift + P</code> 打开命令面板。</p>
+</li>
+<li>
+<p>输入并选择 <strong>Remote-SSH: Add New SSH Host</strong>。</p>
+</li>
+<li>
+<p>输入你的 SSH 连接命令，例如：</p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="code"><pre><span class="line">ssh username@server_ip</span><br></pre></td></tr></table></figure></div>
+<p>替换 <code>username</code> 和 <code>server_ip</code> 为你的实际用户名和服务器的 IP 地址。</p>
+</li>
+</ul>
+</li>
+<li>
+<p><strong>选择 SSH 配置文件</strong>：</p>
+<ul>
+<li>VSCode 会提示你选择 SSH 配置文件，通常是 <code>~/.ssh/config</code>。</li>
+</ul>
+</li>
+<li>
+<p><strong>连接到 SSH 主机</strong>：</p>
+<ul>
+<li>重新打开命令面板，输入并选择 <strong>Remote-SSH: Connect to Host</strong>，然后选择你刚刚添加的主机。</li>
+</ul>
+</li>
+<li>
+<p><strong>输入密码或密钥</strong>（如果使用密码）：</p>
+<ul>
+<li>如果 SSH 配置为密码验证，你需要输入密码。如果配置为密钥验证且密钥已设置为默认，VSCode 会自动使用密钥。</li>
+</ul>
+</li>
+</ol>
+<h3 id="8-连接后"><a class="markdownIt-Anchor" href="#8-连接后"></a> 8. 连接后</h3>
+<p>一旦连接成功，你就可以像在本地一样编辑远程服务器上的文件了。你可以打开终端，运行命令，并使用 VSCode 的所有功能。</p>
+<p>通过以上步骤，你就可以方便地在 Ubuntu 上配置 SSH，以便使用 VSCode 进行连接和远程开发。</p>
+<div class="highlight-container" data-rel="Cpp"><figure class="iseeu highlight cpp"><table><tr><td class="code"><pre><span class="line"></span><br></pre></td></tr></table></figure></div>
+<div class="highlight-container" data-rel="Cpp"><figure class="iseeu highlight cpp"><table><tr><td class="code"><pre><span class="line"></span><br></pre></td></tr></table></figure></div>]]></content>
+      <categories>
+        <category>Ubuntu</category>
+      </categories>
+      <tags>
+        <tag>Ubuntu</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>centos7 基础命令爆出255返回码</title>
+    <url>/sni2sz/</url>
+    <content><![CDATA[<p>cron 是一个用于在指定时间自动执行预定任务的守护进程，/etc/cron.hourly/ 目录中的脚本每小时会被 cron进程 自动执行一次</p>
+]]></content>
+      <categories>
+        <category>Ubuntu</category>
+      </categories>
+      <tags>
+        <tag>Ubuntu</tag>
       </tags>
   </entry>
   <entry>
@@ -530,99 +623,6 @@ BS-MEC服务器分配给MU i的计算资源定义为f B i 。然后，在BS-MEC�
       </tags>
   </entry>
   <entry>
-    <title>Ubuntu配置ssh</title>
-    <url>/sni2r9/</url>
-    <content><![CDATA[<p>在 Ubuntu 上配置 SSH 以便使用 Visual Studio Code (VSCode) 进行连接，可以按照以下步骤进行：</p>
-<h3 id="1-安装-openssh-服务器"><a class="markdownIt-Anchor" href="#1-安装-openssh-服务器"></a> 1. 安装 OpenSSH 服务器</h3>
-<p>首先，你需要确保你的 Ubuntu 系统上安装了 OpenSSH 服务器。打开终端，执行以下命令：</p>
-<div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">sudo</span> apt update</span><br><span class="line"><span class="built_in">sudo</span> apt install openssh-server</span><br></pre></td></tr></table></figure></div>
-<h3 id="2-启动和启用-ssh-服务"><a class="markdownIt-Anchor" href="#2-启动和启用-ssh-服务"></a> 2. 启动和启用 SSH 服务</h3>
-<p>安装完成后，启动 SSH 服务并确保它在系统启动时自动启动：</p>
-<div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">sudo</span> systemctl start ssh</span><br><span class="line"><span class="built_in">sudo</span> systemctl <span class="built_in">enable</span> ssh</span><br></pre></td></tr></table></figure></div>
-<h3 id="3-检查-ssh-服务状态"><a class="markdownIt-Anchor" href="#3-检查-ssh-服务状态"></a> 3. 检查 SSH 服务状态</h3>
-<p>你可以使用以下命令检查 SSH 服务的状态：</p>
-<div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">sudo</span> systemctl status ssh</span><br></pre></td></tr></table></figure></div>
-<p>确保服务正在运行，并且没有错误信息。</p>
-<h3 id="4-配置-ssh可选"><a class="markdownIt-Anchor" href="#4-配置-ssh可选"></a> 4. 配置 SSH（可选）</h3>
-<p>默认情况下，SSH 使用的配置文件位于 <code>/etc/ssh/sshd_config</code>。你可以根据需要修改此文件以增强安全性，例如禁用密码登录，启用密钥登录等。编辑配置文件：</p>
-<div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">sudo</span> nano /etc/ssh/sshd_config</span><br></pre></td></tr></table></figure></div>
-<p>以下是一些常见的配置选项：</p>
-<ul>
-<li>
-<p><strong>禁用密码登录</strong>（仅允许使用密钥登录）：</p>
- <div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="code"><pre><span class="line">PasswordAuthentication no</span><br></pre></td></tr></table></figure></div>
-</li>
-<li>
-<p><strong>更改默认 SSH 端口</strong>（可选）：</p>
- <div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="code"><pre><span class="line">Port 2222</span><br></pre></td></tr></table></figure></div>
-</li>
-</ul>
-<p>更改后，保存并退出编辑器。然后重新启动 SSH 服务以使更改生效：</p>
-<div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">sudo</span> systemctl restart ssh</span><br></pre></td></tr></table></figure></div>
-<h3 id="5-配置防火墙如果适用"><a class="markdownIt-Anchor" href="#5-配置防火墙如果适用"></a> 5. 配置防火墙（如果适用）</h3>
-<p>如果你的系统启用了防火墙，确保 SSH 端口（默认是 22 或你更改后的端口）是开放的。使用以下命令允许 SSH 通过 UFW（如果你使用 UFW 作为防火墙）：</p>
-<div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">sudo</span> ufw allow ssh</span><br><span class="line"><span class="comment"># 如果你更改了端口，例如使用 2222：</span></span><br><span class="line"><span class="comment"># sudo ufw allow 2222</span></span><br></pre></td></tr></table></figure></div>
-<h3 id="6-获取服务器的-ip-地址"><a class="markdownIt-Anchor" href="#6-获取服务器的-ip-地址"></a> 6. 获取服务器的 IP 地址</h3>
-<p>你可以使用以下命令获取你的服务器的 IP 地址：</p>
-<div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="code"><pre><span class="line">ip a</span><br></pre></td></tr></table></figure></div>
-<h3 id="7-在-vscode-中配置-ssh"><a class="markdownIt-Anchor" href="#7-在-vscode-中配置-ssh"></a> 7. 在 VSCode 中配置 SSH</h3>
-<ol>
-<li>
-<p><strong>安装 Remote - SSH 插件</strong>：</p>
-<ul>
-<li>打开 VSCode。</li>
-<li>转到扩展视图 (<code>Ctrl + Shift + X</code>)。</li>
-<li>搜索并安装 <strong>Remote - SSH</strong> 插件。</li>
-</ul>
-</li>
-<li>
-<p><strong>添加 SSH 主机</strong>：</p>
-<ul>
-<li>
-<p>按 <code>F1</code> 或 <code>Ctrl + Shift + P</code> 打开命令面板。</p>
-</li>
-<li>
-<p>输入并选择 <strong>Remote-SSH: Add New SSH Host</strong>。</p>
-</li>
-<li>
-<p>输入你的 SSH 连接命令，例如：</p>
-<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="code"><pre><span class="line">ssh username@server_ip</span><br></pre></td></tr></table></figure></div>
-<p>替换 <code>username</code> 和 <code>server_ip</code> 为你的实际用户名和服务器的 IP 地址。</p>
-</li>
-</ul>
-</li>
-<li>
-<p><strong>选择 SSH 配置文件</strong>：</p>
-<ul>
-<li>VSCode 会提示你选择 SSH 配置文件，通常是 <code>~/.ssh/config</code>。</li>
-</ul>
-</li>
-<li>
-<p><strong>连接到 SSH 主机</strong>：</p>
-<ul>
-<li>重新打开命令面板，输入并选择 <strong>Remote-SSH: Connect to Host</strong>，然后选择你刚刚添加的主机。</li>
-</ul>
-</li>
-<li>
-<p><strong>输入密码或密钥</strong>（如果使用密码）：</p>
-<ul>
-<li>如果 SSH 配置为密码验证，你需要输入密码。如果配置为密钥验证且密钥已设置为默认，VSCode 会自动使用密钥。</li>
-</ul>
-</li>
-</ol>
-<h3 id="8-连接后"><a class="markdownIt-Anchor" href="#8-连接后"></a> 8. 连接后</h3>
-<p>一旦连接成功，你就可以像在本地一样编辑远程服务器上的文件了。你可以打开终端，运行命令，并使用 VSCode 的所有功能。</p>
-<p>通过以上步骤，你就可以方便地在 Ubuntu 上配置 SSH，以便使用 VSCode 进行连接和远程开发。</p>
-<div class="highlight-container" data-rel="Cpp"><figure class="iseeu highlight cpp"><table><tr><td class="code"><pre><span class="line"></span><br></pre></td></tr></table></figure></div>
-<div class="highlight-container" data-rel="Cpp"><figure class="iseeu highlight cpp"><table><tr><td class="code"><pre><span class="line"></span><br></pre></td></tr></table></figure></div>]]></content>
-      <categories>
-        <category>Ubuntu</category>
-      </categories>
-      <tags>
-        <tag>Ubuntu</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>大模型算力是如何计算的</title>
     <url>/sni2x9/</url>
     <content><![CDATA[]]></content>
@@ -671,6 +671,109 @@ BS-MEC服务器分配给MU i的计算资源定义为f B i 。然后，在BS-MEC�
       </categories>
       <tags>
         <tag>RLHF</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>VSCode_bug记录-成功解决项目根目录的bug</title>
+    <url>/sp14hs/</url>
+    <content><![CDATA[<p>之前开发Python项目基本用的都是PyCharm，虽说PyCharm功能齐全，插件也很丰富，但是感觉太过笨重了，内存占用多，启动也慢，所以我渐渐地从PyCharm转向了VSCode。改成VSCode之后真的便捷了不少，用SSH连接服务器也非常方便。</p>
+<p>不过上周遇到一个奇怪的问题，就是我本地正在使用VSCode运行一个带有前后端的python项目，<strong>当我在调试某个接口的时候我发现居然不会在接口代码位置中断</strong>！而且<strong>甚至我把这个接口的代码完全注释掉也可以正常运行</strong>？！</p>
+<p>一开始我以为是前端使用了mock数据，可是想想也不对啊，就算是使用了mock数据，他也调用了接口，我后台代码注释掉之后应该是直接没有这个接口了才对，应该调用失败啊？😕</p>
+<p>前前后后de了两天的bug，最后发现前端和后端的代码都没问题，真正的问题时在VSCode上🙂。。。（因为我换成PyCharm重新调试了一遍代码就好了）其实根本原因在于，Pycharm有 <strong>将当前目录标记为源码根</strong> 目录的功能，可是VSCode没有，然后调试python项目源码的时候发生了错误。</p>
+<h2 id="错误原因"><a class="markdownIt-Anchor" href="#错误原因"></a> 错误原因</h2>
+<p><img lazyload="" src="/images/loading.svg" data-src="https://typora-aliyun01.oss-cn-hangzhou.aliyuncs.com/img/20241225103317.png" alt="image.png" width="292px"></p>
+<p>原因就是我在调试<code>dbgpt</code>文件夹内的源码时，当前conda环境默认已经装了一个同名为<code>dbgpt</code>的包，当我调试的时候，conda环境中的python没有进入当前目录的这个<code>dbgpt</code>，而是去调用了<code>Lib/site-packages</code>中的<code>dbgpt</code>包，这就导致我怎么修改当前文件夹的代码都是无效的，它调用的始终都是自己的package。</p>
+<h2 id="解决方案"><a class="markdownIt-Anchor" href="#解决方案"></a> 解决方案</h2>
+
+<div class="callout" data-callout="note">
+<div class="callout-title">
+<div class="callout-title-icon">
+<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-pencil"><path d="M17 3a2.85 2.83 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5Z"></path><path d="m15 5 4 4"></path></svg>
+</div>
+<div class="callout-title-inner">Note</div>
+</div>
+<div class="callout-content"><p><mark>这个源码根目录的选取是非常重要的！！千万不要选错了！！</mark></p>
+<p>比如我当前使用的工程路径是<code>D:/VSCode/VSCode_Work/xxx/MyTest</code>，且工程目录结构是这样的：</p>
+<p><img lazyload="" src="/images/loading.svg" data-src="https://typora-aliyun01.oss-cn-hangzhou.aliyuncs.com/img/20241226153929.png" alt="image.png" width="325px"></p>
+<p>那么现在我肯定是想把base和ultra都标记为根目录的，但是注意，其实这里应该使用的是<code>D:/VSCode/VSCode_Work/xxx/MyTest</code>，因为<mark>如果直接标记的时base或者ultra，那么就找不到base和ultra本身</mark>了，那么直接<code>from base import Base</code>就会爆出<code>no module named base</code>的错误！！</p>
+</div></div><p>在网上看了很多博客，有说改<code>launch.json</code>的，有说改<code>setting.json</code>的，目前我测试可用的解决方法有两种：</p>
+<h3 id="1在运行的python文件首部添加代码"><a class="markdownIt-Anchor" href="#1在运行的python文件首部添加代码"></a> （1）在运行的python文件首部添加代码</h3>
+<div class="highlight-container" data-rel="Python"><figure class="iseeu highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> sys</span><br><span class="line">sys.path.insert(<span class="number">0</span>,<span class="string">'源码根目录'</span>)</span><br></pre></td></tr></table></figure></div>
+<p>这种方式是有效的，但是太繁琐了，这样对于每个运行的py代码都需要添加这段代码</p>
+<h3 id="2修改settingsjson和env"><a class="markdownIt-Anchor" href="#2修改settingsjson和env"></a> （2）修改settings.json和.env</h3>
+<p>在项目根目录下创建一个.env文件，在这个.env文件中写入这一行：</p>
+<div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 设置根目录</span></span><br><span class="line">PYTHONPATH= 源码根目录1;源码根目录2;源码根目录3;</span><br></pre></td></tr></table></figure></div>
+<p><mark>这里请注意，如果使用的是windows系统，文件路径的斜杠默认是右斜杠’'，请修改为左斜杠’/'。</mark></p>
+<p>之后可以在<code>Preference</code>中搜索<code>python.envFile</code>，如果已经显示定义好了env文件的路径，那么直接就可以运行了。<br>
+<img lazyload="" src="/images/loading.svg" data-src="https://typora-aliyun01.oss-cn-hangzhou.aliyuncs.com/img/20241226154531.png" alt="image.png" width="475px"></p>
+<p>如果说这里没有设置，可以直接在设置中修改，也可以在.vscode中添加settings.json文件，在settings.json文件中写入如下信息：</p>
+<div class="highlight-container" data-rel="Json"><figure class="iseeu highlight json"><table><tr><td class="code"><pre><span class="line"><span class="punctuation">{</span></span><br><span class="line">  <span class="attr">"python.envFile"</span><span class="punctuation">:</span> <span class="string">"${workspaceFolder}/.env"</span><span class="punctuation">,</span></span><br><span class="line"><span class="punctuation">}</span></span><br></pre></td></tr></table></figure></div>
+<p>这样的话，无论是直接运行还是调试模式，都可以正常运行项目了😁。</p>
+]]></content>
+      <categories>
+        <category>IDE配置</category>
+      </categories>
+      <tags>
+        <tag>VSCode</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>VSCode SSH设置免密登录</title>
+    <url>/sokh61/</url>
+    <content><![CDATA[<p>平时一直都是使用 VSCode 连服务器的，不过每次连接服务器、打开新的文件夹甚至刷新的时候都需要重新输入一遍密码，如果是同时连接多个不同的服务器，这体验可真是有够差劲的了。在网上查了资料发现，VSCode 是支持通过 RSA（勾起了当年上网安课的回忆 😂）秘钥登录的，这里做下记录。</p>
+<h2 id="1生成密钥对前提是已安装好-git"><a class="markdownIt-Anchor" href="#1生成密钥对前提是已安装好-git"></a> 1.生成密钥对（前提是已安装好 Git）</h2>
+<p>首先请确认电脑上已经成功安装好了 Git，首先检查一下<code>C:\Users\用户名\.ssh</code>文件夹，查看一下文件夹下是否包含 <code>id_rsa</code> 和 <code>id_rsa.pub</code><br>
+<img lazyload="" src="/images/loading.svg" data-src="https://typora-aliyun01.oss-cn-hangzhou.aliyuncs.com/img/20241216181007.png" alt="image.png" width="450px"></p>
+<p>如果没有，那么打开<code>git bash</code>，输入如下命令生成 RSA 公钥和密钥（请使用自己 Github 账号绑定的邮箱）：</p>
+<div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="code"><pre><span class="line">ssh-keygen -t rsa -C “xxx@qq.com”</span><br></pre></td></tr></table></figure></div>
+<p>执行这个命令时，可能会让你填一些信息，其实不用填，直接 Enter 即可。命令执行结束之后，你就能在<code>C:\Users\用户名\.ssh</code>文件夹下看到公钥和私钥了。</p>
+<h2 id="2上传公钥到服务器上"><a class="markdownIt-Anchor" href="#2上传公钥到服务器上"></a> 2.上传公钥到服务器上</h2>
+<p>我们第一步得到的<code>id_rsa.pub</code>实际上就是公钥，而<code>id_rsa</code>是私钥。如何理解公钥和私钥的用法呢？简单来说，现在我有一幅画，然后我把这幅画直接放在银行大厅里，所有人都可以看见这幅画，但是大家都不知道这幅画表达的是什么意思，只有拿着解密卡（私钥）的我才能看懂这是什么意思。</p>
+<p>上传公钥这里需要注意，你需要将<code>id_rsa.pub</code>的内容复制到<code>~/.ssh/authorized_keys</code>文件中。</p>
+
+<div class="callout" data-callout="note">
+<div class="callout-title">
+<div class="callout-title-icon">
+<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-pencil"><path d="M17 3a2.85 2.83 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5Z"></path><path d="m15 5 4 4"></path></svg>
+</div>
+<div class="callout-title-inner">Note</div>
+</div>
+<div class="callout-content"><p>路径开头的这个<code>~</code>是什么意思？</p>
+<p>这个符号其实和你使用的用户名有关。比如你使用的用户名是xiaoming，那么<code>~</code>代表的可能就是<code>/home/xiaoming/</code>；如果你当前使用的用户名是xiaoli123，那么<code>~</code>代表的可能就是<code>/home/xiaoli123</code>；如果你是用的是root用户，那么<code>~</code>代表的就是<code>/root/</code></p>
+</div></div><p>当然一台服务器很可能是有很多人一起使用的，如果说每个人都需要上传一份自己的密钥，应该怎么办呢？这个问题不大，所有人都把自己的公钥都放在这个<code>authorized_keys</code>文件中，只需要换行隔开就可以了。</p>
+<div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="code"><pre><span class="line">id_rsa.pub01.....</span><br><span class="line">id_rsa.pub02.....</span><br><span class="line">id_rsa.pub03.....</span><br></pre></td></tr></table></figure></div>
+<p>这里需要注意，<mark>如果你只将公钥放在了用户A的authorized_keys文件里，那么有且仅有用户A是可以免密登录的，使用其他用户名还是不能免密登录</mark>。</p>
+<p>所以，<strong>一定一定一定要注意用户名！！！</strong>。我看过的一些教程中默认配置的是root用户，公钥存放的路径也直接就在<code>/root/</code>文件夹下，结果配完了我发现只有root用户可以免密登录，还找不到错误原因👿</p>
+<h2 id="3在vscode远程ssh连接"><a class="markdownIt-Anchor" href="#3在vscode远程ssh连接"></a> 3.在VSCode远程ssh连接</h2>
+<p>如果上面的步骤都配置成功了，那么配置文件其实只写正常的几项配置就已经可以免密登录了：</p>
+<div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="code"><pre><span class="line">Host xx</span><br><span class="line">HostName 10.21.xx.xxx</span><br><span class="line">User 你的用户名</span><br><span class="line">Port 22</span><br></pre></td></tr></table></figure></div>
+<p>这个部分有的教程里会填写其他配置信息，比如：</p>
+<div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="code"><pre><span class="line">Host dev</span><br><span class="line">HostName xx.cmtspace.cn</span><br><span class="line">User root</span><br><span class="line">Port 22</span><br><span class="line">PreferredAuthentications publickey</span><br><span class="line">IdentityFile <span class="string">"C:\Users\Administrator\.ssh\id_rsa"</span></span><br></pre></td></tr></table></figure></div>
+<p>但是经过我测试发现，不需要<code>IdentityFile</code>也是可以免密登录的，而且那个<code>PreferredAuthentications</code>加了之后反而连接时会不断报错</p>
+<h2 id="4报错处理"><a class="markdownIt-Anchor" href="#4报错处理"></a> 4.报错处理</h2>
+<h3 id="1服务器上没有~sshauthorized_keys文件夹"><a class="markdownIt-Anchor" href="#1服务器上没有~sshauthorized_keys文件夹"></a> （1）服务器上没有<code>~/.ssh/authorized_keys</code>文件夹</h3>
+<p>这个问题好解决，直接创建一个<code>.ssh</code>文件夹和<code>authorized_keys</code>文件即可。</p>
+<h3 id="2文件权限问题"><a class="markdownIt-Anchor" href="#2文件权限问题"></a> （2）文件权限问题</h3>
+<p>这个问题一般是在服务器上发生的，比如当你想修改<code>authorized_keys</code>时日志报错说你没有足够的权限，或者访问<code>.ssh</code>文件夹的时候就已经爆出权限错误了，只需要修改一下权限即可：</p>
+<div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">chmod</span> 700 ~</span><br><span class="line"><span class="built_in">chmod</span> 700 ~/.ssh </span><br><span class="line"><span class="built_in">chmod</span> 644 ~/.ssh/authorized_keys</span><br></pre></td></tr></table></figure></div>
+<p><strong>注意</strong>：如果使用的是root用户，请将<code>~</code>改成<code>/root</code></p>
+<h3 id="3sshd配置问题"><a class="markdownIt-Anchor" href="#3sshd配置问题"></a> （3）sshd配置问题</h3>
+<p>有时候权限没有问题但还是连不上，这时可能是服务器的ssh配置中存在问题，这时候需要修改<code>/etc/ssh/sshd_config</code>文件，取消注释某些项：</p>
+<div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment">#将这一行取消注释</span></span><br><span class="line">AuthorizedKeysFile  .ssh/authorized_keys .ssh/authorized_keys2</span><br><span class="line"><span class="comment"># 将RSAAuthentication注释</span></span><br><span class="line"><span class="comment"># RSAAuthentication no</span></span><br></pre></td></tr></table></figure></div>
+<p>修改好之后，还需要重启sshd：</p>
+<div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="code"><pre><span class="line">service sshd restart</span><br></pre></td></tr></table></figure></div>
+<h3 id="4-permissions-for-xxid_rsa-are-too-openit-is-required-that-your-private-key-files-are-not-accessible-by-others"><a class="markdownIt-Anchor" href="#4-permissions-for-xxid_rsa-are-too-openit-is-required-that-your-private-key-files-are-not-accessible-by-others"></a> (4) Permissions for ‘xx/id_rsa’ are too <a class="link" href="http://open.It">open.It<i class="fa-solid fa-arrow-up-right ml-[0.2em] font-light align-text-top text-[0.7em] link-icon"></i></a> is required that your private key files are NOT accessible by others.</h3>
+<p>使用VSCode SSH 连接服务器时，很可能会在连接过程中报这个错误。这个错误的意思其实是 <strong>有多个用户可权限访问你的私钥文件，所以你的私钥文件访问权限不安全</strong>。</p>
+<p>首先找到私钥文件，右键进入 安全-&gt; 高级：</p>
+<p><img lazyload="" src="/images/loading.svg" data-src="https://typora-aliyun01.oss-cn-hangzhou.aliyuncs.com/img/20241217200436.png" alt="image.png" width="600px"></p>
+<p>在这里 <strong>禁用继承</strong>，删除其他用户，只保留当前用户和SYSTEM即可：<br>
+<img lazyload="" src="/images/loading.svg" data-src="https://typora-aliyun01.oss-cn-hangzhou.aliyuncs.com/img/20241217200640.png" alt="image.png" width="600px"></p>
+]]></content>
+      <categories>
+        <category>IDE配置</category>
+      </categories>
+      <tags>
+        <tag>VSCode</tag>
       </tags>
   </entry>
   <entry>
@@ -875,93 +978,6 @@ BS-MEC服务器分配给MU i的计算资源定义为f B i 。然后，在BS-MEC�
       </categories>
       <tags>
         <tag>Obsidian</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>VSCode SSH设置免密登录</title>
-    <url>/sokh61/</url>
-    <content><![CDATA[<p>平时一直都是使用 VSCode 连服务器的，不过每次连接服务器、打开新的文件夹甚至刷新的时候都需要重新输入一遍密码，如果是同时连接多个不同的服务器，这体验可真是有够差劲的了。在网上查了资料发现，VSCode 是支持通过 RSA（勾起了当年上网安课的回忆 😂）秘钥登录的，这里做下记录。</p>
-<h2 id="1生成密钥对前提是已安装好-git"><a class="markdownIt-Anchor" href="#1生成密钥对前提是已安装好-git"></a> 1.生成密钥对（前提是已安装好 Git）</h2>
-<p>首先请确认电脑上已经成功安装好了 Git，首先检查一下<code>C:\Users\用户名\.ssh</code>文件夹，查看一下文件夹下是否包含 <code>id_rsa</code> 和 <code>id_rsa.pub</code><br>
-<img lazyload="" src="/images/loading.svg" data-src="https://typora-aliyun01.oss-cn-hangzhou.aliyuncs.com/img/20241216181007.png" alt="image.png" width="450px"></p>
-<p>如果没有，那么打开<code>git bash</code>，输入如下命令生成 RSA 公钥和密钥（请使用自己 Github 账号绑定的邮箱）：</p>
-<div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="code"><pre><span class="line">ssh-keygen -t rsa -C “xxx@qq.com”</span><br></pre></td></tr></table></figure></div>
-<p>执行这个命令时，可能会让你填一些信息，其实不用填，直接 Enter 即可。命令执行结束之后，你就能在<code>C:\Users\用户名\.ssh</code>文件夹下看到公钥和私钥了。</p>
-<h2 id="2上传公钥到服务器上"><a class="markdownIt-Anchor" href="#2上传公钥到服务器上"></a> 2.上传公钥到服务器上</h2>
-<p>我们第一步得到的<code>id_rsa.pub</code>实际上就是公钥，而<code>id_rsa</code>是私钥。如何理解公钥和私钥的用法呢？简单来说，现在我有一幅画，然后我把这幅画直接放在银行大厅里，所有人都可以看见这幅画，但是大家都不知道这幅画表达的是什么意思，只有拿着解密卡（私钥）的我才能看懂这是什么意思。</p>
-<p>上传公钥这里需要注意，你需要将<code>id_rsa.pub</code>的内容复制到<code>~/.ssh/authorized_keys</code>文件中。</p>
-
-<div class="callout" data-callout="note">
-<div class="callout-title">
-<div class="callout-title-icon">
-<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-pencil"><path d="M17 3a2.85 2.83 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5Z"></path><path d="m15 5 4 4"></path></svg>
-</div>
-<div class="callout-title-inner">Note</div>
-</div>
-<div class="callout-content"><p>路径开头的这个<code>~</code>是什么意思？</p>
-<p>这个符号其实和你使用的用户名有关。比如你使用的用户名是xiaoming，那么<code>~</code>代表的可能就是<code>/home/xiaoming/</code>；如果你当前使用的用户名是xiaoli123，那么<code>~</code>代表的可能就是<code>/home/xiaoli123</code>；如果你是用的是root用户，那么<code>~</code>代表的就是<code>/root/</code></p>
-</div></div><p>当然一台服务器很可能是有很多人一起使用的，如果说每个人都需要上传一份自己的密钥，应该怎么办呢？这个问题不大，所有人都把自己的公钥都放在这个<code>authorized_keys</code>文件中，只需要换行隔开就可以了。</p>
-<div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="code"><pre><span class="line">id_rsa.pub01.....</span><br><span class="line">id_rsa.pub02.....</span><br><span class="line">id_rsa.pub03.....</span><br></pre></td></tr></table></figure></div>
-<p>这里需要注意，<mark>如果你只将公钥放在了用户A的authorized_keys文件里，那么有且仅有用户A是可以免密登录的，使用其他用户名还是不能免密登录</mark>。</p>
-<p>所以，<strong>一定一定一定要注意用户名！！！</strong>。我看过的一些教程中默认配置的是root用户，公钥存放的路径也直接就在<code>/root/</code>文件夹下，结果配完了我发现只有root用户可以免密登录，还找不到错误原因👿</p>
-<h2 id="3在vscode远程ssh连接"><a class="markdownIt-Anchor" href="#3在vscode远程ssh连接"></a> 3.在VSCode远程ssh连接</h2>
-<p>如果上面的步骤都配置成功了，那么配置文件其实只写正常的几项配置就已经可以免密登录了：</p>
-<div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="code"><pre><span class="line">Host xx</span><br><span class="line">HostName 10.21.xx.xxx</span><br><span class="line">User 你的用户名</span><br><span class="line">Port 22</span><br></pre></td></tr></table></figure></div>
-<p>这个部分有的教程里会填写其他配置信息，比如：</p>
-<div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="code"><pre><span class="line">Host dev</span><br><span class="line">HostName xx.cmtspace.cn</span><br><span class="line">User root</span><br><span class="line">Port 22</span><br><span class="line">PreferredAuthentications publickey</span><br><span class="line">IdentityFile <span class="string">"C:\Users\Administrator\.ssh\id_rsa"</span></span><br></pre></td></tr></table></figure></div>
-<p>但是经过我测试发现，不需要<code>IdentityFile</code>也是可以免密登录的，而且那个<code>PreferredAuthentications</code>加了之后反而连接时会不断报错</p>
-<h2 id="4报错处理"><a class="markdownIt-Anchor" href="#4报错处理"></a> 4.报错处理</h2>
-<h3 id="1服务器上没有~sshauthorized_keys文件夹"><a class="markdownIt-Anchor" href="#1服务器上没有~sshauthorized_keys文件夹"></a> （1）服务器上没有<code>~/.ssh/authorized_keys</code>文件夹</h3>
-<p>这个问题好解决，直接创建一个<code>.ssh</code>文件夹和<code>authorized_keys</code>文件即可。</p>
-<h3 id="2文件权限问题"><a class="markdownIt-Anchor" href="#2文件权限问题"></a> （2）文件权限问题</h3>
-<p>这个问题一般是在服务器上发生的，比如当你想修改<code>authorized_keys</code>时日志报错说你没有足够的权限，或者访问<code>.ssh</code>文件夹的时候就已经爆出权限错误了，只需要修改一下权限即可：</p>
-<div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">chmod</span> 700 ~</span><br><span class="line"><span class="built_in">chmod</span> 700 ~/.ssh </span><br><span class="line"><span class="built_in">chmod</span> 644 ~/.ssh/authorized_keys</span><br></pre></td></tr></table></figure></div>
-<p><strong>注意</strong>：如果使用的是root用户，请将<code>~</code>改成<code>/root</code></p>
-<h3 id="3sshd配置问题"><a class="markdownIt-Anchor" href="#3sshd配置问题"></a> （3）sshd配置问题</h3>
-<p>有时候权限没有问题但还是连不上，这时可能是服务器的ssh配置中存在问题，这时候需要修改<code>/etc/ssh/sshd_config</code>文件，取消注释某些项：</p>
-<div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment">#将这一行取消注释</span></span><br><span class="line">AuthorizedKeysFile  .ssh/authorized_keys .ssh/authorized_keys2</span><br><span class="line"><span class="comment"># 将RSAAuthentication注释</span></span><br><span class="line"><span class="comment"># RSAAuthentication no</span></span><br></pre></td></tr></table></figure></div>
-<p>修改好之后，还需要重启sshd：</p>
-<div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="code"><pre><span class="line">service sshd restart</span><br></pre></td></tr></table></figure></div>
-<h3 id="4-permissions-for-xxid_rsa-are-too-openit-is-required-that-your-private-key-files-are-not-accessible-by-others"><a class="markdownIt-Anchor" href="#4-permissions-for-xxid_rsa-are-too-openit-is-required-that-your-private-key-files-are-not-accessible-by-others"></a> (4) Permissions for ‘xx/id_rsa’ are too <a class="link" href="http://open.It">open.It<i class="fa-solid fa-arrow-up-right ml-[0.2em] font-light align-text-top text-[0.7em] link-icon"></i></a> is required that your private key files are NOT accessible by others.</h3>
-<p>使用VSCode SSH 连接服务器时，很可能会在连接过程中报这个错误。这个错误的意思其实是 <strong>有多个用户可权限访问你的私钥文件，所以你的私钥文件访问权限不安全</strong>。</p>
-<p>首先找到私钥文件，右键进入 安全-&gt; 高级：</p>
-<p><img lazyload="" src="/images/loading.svg" data-src="https://typora-aliyun01.oss-cn-hangzhou.aliyuncs.com/img/20241217200436.png" alt="image.png" width="600px"></p>
-<p>在这里 <strong>禁用继承</strong>，删除其他用户，只保留当前用户和SYSTEM即可：<br>
-<img lazyload="" src="/images/loading.svg" data-src="https://typora-aliyun01.oss-cn-hangzhou.aliyuncs.com/img/20241217200640.png" alt="image.png" width="600px"></p>
-]]></content>
-      <categories>
-        <category>IDE配置</category>
-      </categories>
-      <tags>
-        <tag>VSCode</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>VSCode_bug记录-成功解决项目根目录的bug</title>
-    <url>/sp14hs/</url>
-    <content><![CDATA[<p>之前开发Python项目基本用的都是PyCharm，虽说PyCharm功能齐全，插件也很丰富，但是感觉太过笨重了，内存占用多，启动也慢，所以我渐渐地从PyCharm转向了VSCode。改成VSCode之后真的便捷了不少，用SSH连接服务器也非常方便。</p>
-<p>不过上周遇到一个奇怪的问题，就是我本地正在使用VSCode运行一个带有前后端的python项目，<strong>当我在调试某个接口的时候我发现居然不会在接口代码位置中断</strong>！而且<strong>甚至我把这个接口的代码完全注释掉也可以正常运行</strong>？！</p>
-<p>一开始我以为是前端使用了mock数据，可是想想也不对啊，就算是使用了mock数据，他也调用了接口，我后台代码注释掉之后应该是直接没有这个接口了才对，应该调用失败啊？😕</p>
-<p>前前后后de了两天的bug，最后发现前端和后端的代码都没问题，真正的问题时在VSCode上🙂。。。（因为我换成PyCharm重新调试了一遍代码就好了）其实根本原因在于，Pycharm有 <strong>将当前目录标记为源码根</strong> 目录的功能，可是VSCode没有，然后调试python项目源码的时候发生了错误。</p>
-<h2 id="错误原因"><a class="markdownIt-Anchor" href="#错误原因"></a> 错误原因</h2>
-<p><img lazyload="" src="/images/loading.svg" data-src="https://typora-aliyun01.oss-cn-hangzhou.aliyuncs.com/img/20241225103317.png" alt="image.png" width="292px"></p>
-<p>原因就是我在调试<code>dbgpt</code>文件夹内的源码时，当前conda环境默认已经装了一个同名为<code>dbgpt</code>的包，当我调试的时候，conda环境中的python没有进入当前目录的这个<code>dbgpt</code>，而是去调用了<code>Lib/site-packages</code>中的<code>dbgpt</code>包，这就导致我怎么修改当前文件夹的代码都是无效的，它调用的始终都是自己的package。</p>
-<h2 id="解决方案"><a class="markdownIt-Anchor" href="#解决方案"></a> 解决方案</h2>
-<p>在网上看了很多博客，有说改<code>launch.json</code>的，有说改<code>setting.json</code>的，目前我测试可用的解决方法有两种：</p>
-<h3 id="1在运行的python文件首部添加代码"><a class="markdownIt-Anchor" href="#1在运行的python文件首部添加代码"></a> （1）在运行的python文件首部添加代码</h3>
-<div class="highlight-container" data-rel="Python"><figure class="iseeu highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> sys</span><br><span class="line">sys.path.insert(<span class="number">0</span>,<span class="string">'D:/VSCode/VSCode_Work/VSCode_Python/Python_Git/db-gpt/'</span>)</span><br></pre></td></tr></table></figure></div>
-<p>这种方式是有效的，但是太繁琐了，这样对于每个运行的py代码都需要添加这段代码</p>
-<h3 id="2修改settingsjson和env"><a class="markdownIt-Anchor" href="#2修改settingsjson和env"></a> （2）修改settings.json和.env</h3>
-<p>在项目根目录下创建一个.env文件，在这个.env文件中写入这一行：</p>
-<div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 设置根目录</span></span><br><span class="line">PYTHONPATH= 源码根目录1;源码根目录2;源码根目录3;</span><br></pre></td></tr></table></figure></div>
-<p>然后在.vscode中添加settings.json文件，在文件中写入如下信息：</p>
-<div class="highlight-container" data-rel="Json"><figure class="iseeu highlight json"><table><tr><td class="code"><pre><span class="line"><span class="punctuation">{</span></span><br><span class="line">  <span class="attr">"python.envFile"</span><span class="punctuation">:</span> <span class="string">"${workspaceFolder}/.env"</span><span class="punctuation">,</span></span><br><span class="line"><span class="punctuation">}</span></span><br></pre></td></tr></table></figure></div>
-]]></content>
-      <categories>
-        <category>IDE配置</category>
-      </categories>
-      <tags>
-        <tag>VSCode</tag>
       </tags>
   </entry>
   <entry>
