@@ -1,111 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
-    <title>Ubuntu配置ssh</title>
-    <url>/sni2r9/</url>
-    <content><![CDATA[<p>在 Ubuntu 上配置 SSH 以便使用 Visual Studio Code (VSCode) 进行连接，可以按照以下步骤进行：</p>
-<h3 id="1-安装-openssh-服务器"><a class="markdownIt-Anchor" href="#1-安装-openssh-服务器"></a> 1. 安装 OpenSSH 服务器</h3>
-<p>首先，你需要确保你的 Ubuntu 系统上安装了 OpenSSH 服务器。打开终端，执行以下命令：</p>
-<div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">sudo</span> apt update</span><br><span class="line"><span class="built_in">sudo</span> apt install openssh-server</span><br></pre></td></tr></table></figure></div>
-<h3 id="2-启动和启用-ssh-服务"><a class="markdownIt-Anchor" href="#2-启动和启用-ssh-服务"></a> 2. 启动和启用 SSH 服务</h3>
-<p>安装完成后，启动 SSH 服务并确保它在系统启动时自动启动：</p>
-<div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">sudo</span> systemctl start ssh</span><br><span class="line"><span class="built_in">sudo</span> systemctl <span class="built_in">enable</span> ssh</span><br></pre></td></tr></table></figure></div>
-<h3 id="3-检查-ssh-服务状态"><a class="markdownIt-Anchor" href="#3-检查-ssh-服务状态"></a> 3. 检查 SSH 服务状态</h3>
-<p>你可以使用以下命令检查 SSH 服务的状态：</p>
-<div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">sudo</span> systemctl status ssh</span><br></pre></td></tr></table></figure></div>
-<p>确保服务正在运行，并且没有错误信息。</p>
-<h3 id="4-配置-ssh可选"><a class="markdownIt-Anchor" href="#4-配置-ssh可选"></a> 4. 配置 SSH（可选）</h3>
-<p>默认情况下，SSH 使用的配置文件位于 <code>/etc/ssh/sshd_config</code>。你可以根据需要修改此文件以增强安全性，例如禁用密码登录，启用密钥登录等。编辑配置文件：</p>
-<div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">sudo</span> nano /etc/ssh/sshd_config</span><br></pre></td></tr></table></figure></div>
-<p>以下是一些常见的配置选项：</p>
-<ul>
-<li>
-<p><strong>禁用密码登录</strong>（仅允许使用密钥登录）：</p>
- <div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="code"><pre><span class="line">PasswordAuthentication no</span><br></pre></td></tr></table></figure></div>
-</li>
-<li>
-<p><strong>更改默认 SSH 端口</strong>（可选）：</p>
- <div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="code"><pre><span class="line">Port 2222</span><br></pre></td></tr></table></figure></div>
-</li>
-</ul>
-<p>更改后，保存并退出编辑器。然后重新启动 SSH 服务以使更改生效：</p>
-<div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">sudo</span> systemctl restart ssh</span><br></pre></td></tr></table></figure></div>
-<h3 id="5-配置防火墙如果适用"><a class="markdownIt-Anchor" href="#5-配置防火墙如果适用"></a> 5. 配置防火墙（如果适用）</h3>
-<p>如果你的系统启用了防火墙，确保 SSH 端口（默认是 22 或你更改后的端口）是开放的。使用以下命令允许 SSH 通过 UFW（如果你使用 UFW 作为防火墙）：</p>
-<div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">sudo</span> ufw allow ssh</span><br><span class="line"><span class="comment"># 如果你更改了端口，例如使用 2222：</span></span><br><span class="line"><span class="comment"># sudo ufw allow 2222</span></span><br></pre></td></tr></table></figure></div>
-<h3 id="6-获取服务器的-ip-地址"><a class="markdownIt-Anchor" href="#6-获取服务器的-ip-地址"></a> 6. 获取服务器的 IP 地址</h3>
-<p>你可以使用以下命令获取你的服务器的 IP 地址：</p>
-<div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="code"><pre><span class="line">ip a</span><br></pre></td></tr></table></figure></div>
-<h3 id="7-在-vscode-中配置-ssh"><a class="markdownIt-Anchor" href="#7-在-vscode-中配置-ssh"></a> 7. 在 VSCode 中配置 SSH</h3>
-<ol>
-<li>
-<p><strong>安装 Remote - SSH 插件</strong>：</p>
-<ul>
-<li>打开 VSCode。</li>
-<li>转到扩展视图 (<code>Ctrl + Shift + X</code>)。</li>
-<li>搜索并安装 <strong>Remote - SSH</strong> 插件。</li>
-</ul>
-</li>
-<li>
-<p><strong>添加 SSH 主机</strong>：</p>
-<ul>
-<li>
-<p>按 <code>F1</code> 或 <code>Ctrl + Shift + P</code> 打开命令面板。</p>
-</li>
-<li>
-<p>输入并选择 <strong>Remote-SSH: Add New SSH Host</strong>。</p>
-</li>
-<li>
-<p>输入你的 SSH 连接命令，例如：</p>
-<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="code"><pre><span class="line">ssh username@server_ip</span><br></pre></td></tr></table></figure></div>
-<p>替换 <code>username</code> 和 <code>server_ip</code> 为你的实际用户名和服务器的 IP 地址。</p>
-</li>
-</ul>
-</li>
-<li>
-<p><strong>选择 SSH 配置文件</strong>：</p>
-<ul>
-<li>VSCode 会提示你选择 SSH 配置文件，通常是 <code>~/.ssh/config</code>。</li>
-</ul>
-</li>
-<li>
-<p><strong>连接到 SSH 主机</strong>：</p>
-<ul>
-<li>重新打开命令面板，输入并选择 <strong>Remote-SSH: Connect to Host</strong>，然后选择你刚刚添加的主机。</li>
-</ul>
-</li>
-<li>
-<p><strong>输入密码或密钥</strong>（如果使用密码）：</p>
-<ul>
-<li>如果 SSH 配置为密码验证，你需要输入密码。如果配置为密钥验证且密钥已设置为默认，VSCode 会自动使用密钥。</li>
-</ul>
-</li>
-</ol>
-<h3 id="8-连接后"><a class="markdownIt-Anchor" href="#8-连接后"></a> 8. 连接后</h3>
-<p>一旦连接成功，你就可以像在本地一样编辑远程服务器上的文件了。你可以打开终端，运行命令，并使用 VSCode 的所有功能。</p>
-<p>通过以上步骤，你就可以方便地在 Ubuntu 上配置 SSH，以便使用 VSCode 进行连接和远程开发。</p>
-<div class="highlight-container" data-rel="Cpp"><figure class="iseeu highlight cpp"><table><tr><td class="code"><pre><span class="line"></span><br></pre></td></tr></table></figure></div>
-<div class="highlight-container" data-rel="Cpp"><figure class="iseeu highlight cpp"><table><tr><td class="code"><pre><span class="line"></span><br></pre></td></tr></table></figure></div>]]></content>
-      <categories>
-        <category>Ubuntu</category>
-      </categories>
-      <tags>
-        <tag>Ubuntu</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>centos7 基础命令爆出255返回码</title>
-    <url>/sni2sz/</url>
-    <content><![CDATA[<p>cron 是一个用于在指定时间自动执行预定任务的守护进程，/etc/cron.hourly/ 目录中的脚本每小时会被 cron进程 自动执行一次</p>
-]]></content>
-      <categories>
-        <category>Ubuntu</category>
-      </categories>
-      <tags>
-        <tag>Ubuntu</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>SeaBattle海战游戏</title>
     <url>/sni31d/</url>
     <content><![CDATA[<h2 id="规则"><a class="markdownIt-Anchor" href="#规则"></a> 规则</h2>
@@ -287,40 +182,6 @@
       <tags>
         <tag>海战游戏</tag>
         <tag>策略</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Git常用指令</title>
-    <url>/ss6dlu/</url>
-    <content><![CDATA[<h3 id="1-git-init-在本地工程目录下生成git-文件夹"><a class="markdownIt-Anchor" href="#1-git-init-在本地工程目录下生成git-文件夹"></a> 1、Git init （在本地工程目录下），生成.git 文件夹</h3>
-<div class="highlight-container" data-rel="Swift"><figure class="iseeu highlight swift"><table><tr><td class="code"><pre><span class="line"><span class="type">Git</span> <span class="keyword">init</span></span><br></pre></td></tr></table></figure></div>
-<h3 id="2-上传修改的文件"><a class="markdownIt-Anchor" href="#2-上传修改的文件"></a> 2、上传修改的文件</h3>
-<div class="highlight-container" data-rel="Sql"><figure class="iseeu highlight sql"><table><tr><td class="code"><pre><span class="line">git <span class="keyword">add</span> <span class="operator">*</span></span><br></pre></td></tr></table></figure></div>
-<p>(*可替换成具体要上传的文件名，*表示提交所有有变化的文件)</p>
-<h3 id="3-添加上传文件的描述"><a class="markdownIt-Anchor" href="#3-添加上传文件的描述"></a> 3、添加上传文件的描述</h3>
-<div class="highlight-container" data-rel="Sql"><figure class="iseeu highlight sql"><table><tr><td class="code"><pre><span class="line">git <span class="keyword">commit</span> <span class="operator">-</span>m "test" </span><br></pre></td></tr></table></figure></div>
-<p>（”test“为分支名）</p>
-<h3 id="4-创建分支"><a class="markdownIt-Anchor" href="#4-创建分支"></a> 4、（创建分支）</h3>
-<div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="code"><pre><span class="line">git branch <span class="built_in">test</span></span><br></pre></td></tr></table></figure></div>
-<h3 id="5-切换分支"><a class="markdownIt-Anchor" href="#5-切换分支"></a> 5、（切换分支）</h3>
-<div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="code"><pre><span class="line">git checkout <span class="built_in">test</span></span><br></pre></td></tr></table></figure></div>
-<h3 id="6-与远程分支相关联"><a class="markdownIt-Anchor" href="#6-与远程分支相关联"></a> 6、与远程分支相关联</h3>
-<div class="highlight-container" data-rel="Csharp"><figure class="iseeu highlight csharp"><table><tr><td class="code"><pre><span class="line">git remote <span class="keyword">add</span> origin https:<span class="comment">//github.com/yangxiaoyan20/BowlingScore.git</span></span><br></pre></td></tr></table></figure></div>
-<p>（”BowlingScore“ 为工程名）</p>
-<p>单独下载某一个分支的代码</p>
-<div class="highlight-container" data-rel="Java"><figure class="iseeu highlight java"><table><tr><td class="code"><pre><span class="line">git clone -b   分支名   项目地址</span><br><span class="line"><span class="comment">//git clone -b   wang   https://e.coding.net/latitude/ideo/ideo.git</span></span><br></pre></td></tr></table></figure></div>
-<h3 id="7-将分支上传"><a class="markdownIt-Anchor" href="#7-将分支上传"></a> 7、（将分支上传）</h3>
-<div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="code"><pre><span class="line">git push origin <span class="built_in">test</span></span><br></pre></td></tr></table></figure></div>
-<div class="highlight-container" data-rel="Swift"><figure class="iseeu highlight swift"><table><tr><td class="code"><pre><span class="line">#上传者姓名（设置一次即可）</span><br><span class="line">git config <span class="operator">--</span>global user.name <span class="string">"xl"</span>  </span><br><span class="line">#上传者邮箱   （设置一次即可）</span><br><span class="line">git config <span class="operator">--</span>global user.email <span class="string">"1126626497@qq.com"</span>   </span><br><span class="line"></span><br><span class="line">#添加远程仓库地址(就是服务器地址) <span class="operator">--</span>第一次时使用</span><br><span class="line">git remote add origin https:<span class="comment">//gitcode.net/xiaolong1126626497/bmp_code.git</span></span><br><span class="line">git remote add 地址变量名 url</span><br><span class="line"></span><br><span class="line">#修改远程仓库地址(就是服务器地址)，如果之前已经设置过其他地址，就使用修改命令</span><br><span class="line">git remote <span class="keyword">set</span><span class="operator">-</span>url origin https:<span class="comment">//gitcode.net/xiaolong1126626497/bmp_code.git  </span></span><br><span class="line">git remote <span class="keyword">set</span><span class="operator">-</span>url 地址变量名 新url</span><br><span class="line"></span><br><span class="line">#添加所有文件</span><br><span class="line">git add .</span><br><span class="line">#写上修改说明</span><br><span class="line">git commit <span class="operator">-</span>m <span class="string">"添加test.c"</span> </span><br><span class="line">#上传至仓库 </span><br><span class="line">git push <span class="operator">-</span>u origin master   </span><br><span class="line">git push <span class="operator">-</span>u origin 分支名</span><br></pre></td></tr></table></figure></div>
-<h2 id="8-完整命令流程"><a class="markdownIt-Anchor" href="#8-完整命令流程"></a> 8、完整命令流程</h2>
-<div class="highlight-container" data-rel="Swift"><figure class="iseeu highlight swift"><table><tr><td class="code"><pre><span class="line">#删除原来的git文件夹</span><br><span class="line">rm <span class="operator">-</span>rf .git<span class="operator">/</span></span><br><span class="line">#新建git文件夹，初始化</span><br><span class="line">git <span class="keyword">init</span></span><br><span class="line">#添加远程仓库地址和地址变量origin，将url赋值给origin  <span class="operator">--</span>第一次使用</span><br><span class="line">git remote add origin https:<span class="comment">//e.coding.net/latitude/ideo/ideo.git</span></span><br><span class="line"><span class="comment">//#修改地址变量名的url信息	--第二次使用</span></span><br><span class="line"><span class="comment">//git remote set-url origin https://e.coding.net/latitude/ideo/ideo.git</span></span><br><span class="line">#添加本地所有的文件</span><br><span class="line">git add .</span><br><span class="line">#提交所有文件，赋上提交的信息</span><br><span class="line">git commit <span class="operator">-</span>m “<span class="type">Commit</span> message”</span><br><span class="line"></span><br><span class="line"><span class="comment">//#创建新的test分支</span></span><br><span class="line"><span class="comment">//git branch test</span></span><br><span class="line"><span class="comment">//git branch 分支名</span></span><br><span class="line"><span class="comment">//#选择刚才创建的test分支</span></span><br><span class="line"><span class="comment">//git checkout test</span></span><br><span class="line"><span class="comment">//git checkout 分支名</span></span><br><span class="line"></span><br><span class="line">#提交到origin的master分支</span><br><span class="line">git push <span class="operator">-</span>f origin master</span><br><span class="line">#提交到origin的test分支</span><br><span class="line">git push <span class="operator">-</span>f origin test</span><br></pre></td></tr></table></figure></div>
-<h2 id="9-git-clone-使用-b-指定分支"><a class="markdownIt-Anchor" href="#9-git-clone-使用-b-指定分支"></a> 9、Git clone （使用 -b 指定分支）</h2>
-<div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="code"><pre><span class="line">git <span class="built_in">clone</span> -b dev_jk http://10.1.1.11/service/tmall-service.git</span><br></pre></td></tr></table></figure></div>]]></content>
-      <categories>
-        <category>IDE配置</category>
-      </categories>
-      <tags>
-        <tag>Git</tag>
       </tags>
   </entry>
   <entry>
@@ -620,6 +481,111 @@ $$ tB<em>i \leq t</em>{\text{max}}^i （BS-MEC 耗时必须少于上限）<mjx-c
       </tags>
   </entry>
   <entry>
+    <title>Ubuntu配置ssh</title>
+    <url>/sni2r9/</url>
+    <content><![CDATA[<p>在 Ubuntu 上配置 SSH 以便使用 Visual Studio Code (VSCode) 进行连接，可以按照以下步骤进行：</p>
+<h3 id="1-安装-openssh-服务器"><a class="markdownIt-Anchor" href="#1-安装-openssh-服务器"></a> 1. 安装 OpenSSH 服务器</h3>
+<p>首先，你需要确保你的 Ubuntu 系统上安装了 OpenSSH 服务器。打开终端，执行以下命令：</p>
+<div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">sudo</span> apt update</span><br><span class="line"><span class="built_in">sudo</span> apt install openssh-server</span><br></pre></td></tr></table></figure></div>
+<h3 id="2-启动和启用-ssh-服务"><a class="markdownIt-Anchor" href="#2-启动和启用-ssh-服务"></a> 2. 启动和启用 SSH 服务</h3>
+<p>安装完成后，启动 SSH 服务并确保它在系统启动时自动启动：</p>
+<div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">sudo</span> systemctl start ssh</span><br><span class="line"><span class="built_in">sudo</span> systemctl <span class="built_in">enable</span> ssh</span><br></pre></td></tr></table></figure></div>
+<h3 id="3-检查-ssh-服务状态"><a class="markdownIt-Anchor" href="#3-检查-ssh-服务状态"></a> 3. 检查 SSH 服务状态</h3>
+<p>你可以使用以下命令检查 SSH 服务的状态：</p>
+<div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">sudo</span> systemctl status ssh</span><br></pre></td></tr></table></figure></div>
+<p>确保服务正在运行，并且没有错误信息。</p>
+<h3 id="4-配置-ssh可选"><a class="markdownIt-Anchor" href="#4-配置-ssh可选"></a> 4. 配置 SSH（可选）</h3>
+<p>默认情况下，SSH 使用的配置文件位于 <code>/etc/ssh/sshd_config</code>。你可以根据需要修改此文件以增强安全性，例如禁用密码登录，启用密钥登录等。编辑配置文件：</p>
+<div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">sudo</span> nano /etc/ssh/sshd_config</span><br></pre></td></tr></table></figure></div>
+<p>以下是一些常见的配置选项：</p>
+<ul>
+<li>
+<p><strong>禁用密码登录</strong>（仅允许使用密钥登录）：</p>
+ <div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="code"><pre><span class="line">PasswordAuthentication no</span><br></pre></td></tr></table></figure></div>
+</li>
+<li>
+<p><strong>更改默认 SSH 端口</strong>（可选）：</p>
+ <div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="code"><pre><span class="line">Port 2222</span><br></pre></td></tr></table></figure></div>
+</li>
+</ul>
+<p>更改后，保存并退出编辑器。然后重新启动 SSH 服务以使更改生效：</p>
+<div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">sudo</span> systemctl restart ssh</span><br></pre></td></tr></table></figure></div>
+<h3 id="5-配置防火墙如果适用"><a class="markdownIt-Anchor" href="#5-配置防火墙如果适用"></a> 5. 配置防火墙（如果适用）</h3>
+<p>如果你的系统启用了防火墙，确保 SSH 端口（默认是 22 或你更改后的端口）是开放的。使用以下命令允许 SSH 通过 UFW（如果你使用 UFW 作为防火墙）：</p>
+<div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">sudo</span> ufw allow ssh</span><br><span class="line"><span class="comment"># 如果你更改了端口，例如使用 2222：</span></span><br><span class="line"><span class="comment"># sudo ufw allow 2222</span></span><br></pre></td></tr></table></figure></div>
+<h3 id="6-获取服务器的-ip-地址"><a class="markdownIt-Anchor" href="#6-获取服务器的-ip-地址"></a> 6. 获取服务器的 IP 地址</h3>
+<p>你可以使用以下命令获取你的服务器的 IP 地址：</p>
+<div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="code"><pre><span class="line">ip a</span><br></pre></td></tr></table></figure></div>
+<h3 id="7-在-vscode-中配置-ssh"><a class="markdownIt-Anchor" href="#7-在-vscode-中配置-ssh"></a> 7. 在 VSCode 中配置 SSH</h3>
+<ol>
+<li>
+<p><strong>安装 Remote - SSH 插件</strong>：</p>
+<ul>
+<li>打开 VSCode。</li>
+<li>转到扩展视图 (<code>Ctrl + Shift + X</code>)。</li>
+<li>搜索并安装 <strong>Remote - SSH</strong> 插件。</li>
+</ul>
+</li>
+<li>
+<p><strong>添加 SSH 主机</strong>：</p>
+<ul>
+<li>
+<p>按 <code>F1</code> 或 <code>Ctrl + Shift + P</code> 打开命令面板。</p>
+</li>
+<li>
+<p>输入并选择 <strong>Remote-SSH: Add New SSH Host</strong>。</p>
+</li>
+<li>
+<p>输入你的 SSH 连接命令，例如：</p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="code"><pre><span class="line">ssh username@server_ip</span><br></pre></td></tr></table></figure></div>
+<p>替换 <code>username</code> 和 <code>server_ip</code> 为你的实际用户名和服务器的 IP 地址。</p>
+</li>
+</ul>
+</li>
+<li>
+<p><strong>选择 SSH 配置文件</strong>：</p>
+<ul>
+<li>VSCode 会提示你选择 SSH 配置文件，通常是 <code>~/.ssh/config</code>。</li>
+</ul>
+</li>
+<li>
+<p><strong>连接到 SSH 主机</strong>：</p>
+<ul>
+<li>重新打开命令面板，输入并选择 <strong>Remote-SSH: Connect to Host</strong>，然后选择你刚刚添加的主机。</li>
+</ul>
+</li>
+<li>
+<p><strong>输入密码或密钥</strong>（如果使用密码）：</p>
+<ul>
+<li>如果 SSH 配置为密码验证，你需要输入密码。如果配置为密钥验证且密钥已设置为默认，VSCode 会自动使用密钥。</li>
+</ul>
+</li>
+</ol>
+<h3 id="8-连接后"><a class="markdownIt-Anchor" href="#8-连接后"></a> 8. 连接后</h3>
+<p>一旦连接成功，你就可以像在本地一样编辑远程服务器上的文件了。你可以打开终端，运行命令，并使用 VSCode 的所有功能。</p>
+<p>通过以上步骤，你就可以方便地在 Ubuntu 上配置 SSH，以便使用 VSCode 进行连接和远程开发。</p>
+<div class="highlight-container" data-rel="Cpp"><figure class="iseeu highlight cpp"><table><tr><td class="code"><pre><span class="line"></span><br></pre></td></tr></table></figure></div>
+<div class="highlight-container" data-rel="Cpp"><figure class="iseeu highlight cpp"><table><tr><td class="code"><pre><span class="line"></span><br></pre></td></tr></table></figure></div>]]></content>
+      <categories>
+        <category>Ubuntu</category>
+      </categories>
+      <tags>
+        <tag>Ubuntu</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>centos7 基础命令爆出255返回码</title>
+    <url>/sni2sz/</url>
+    <content><![CDATA[<p>cron 是一个用于在指定时间自动执行预定任务的守护进程，/etc/cron.hourly/ 目录中的脚本每小时会被 cron进程 自动执行一次</p>
+]]></content>
+      <categories>
+        <category>Ubuntu</category>
+      </categories>
+      <tags>
+        <tag>Ubuntu</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>Obsidian——主题配置和插件推荐（01）</title>
     <url>/snm6s8/</url>
     <content><![CDATA[<p>之前三年基本都在使用 Typora 记录笔记，Typora 本身非常轻量，提供的基础功能比较齐全，而且 21 年我刚开始用的时候开始免费的（后来不知道为啥突然要收费了）。不过，用的时间久了，还是发现 Typora 本身还是有不少的局限性：</p>
@@ -745,41 +711,37 @@ $$ tB<em>i \leq t</em>{\text{max}}^i （BS-MEC 耗时必须少于上限）<mjx-c
       </tags>
   </entry>
   <entry>
-    <title>使用Hexo搭建支持Obsidian语法的个人博客（01）</title>
-    <url>/snuxg7/</url>
-    <content><![CDATA[<p>之前的教程介绍了如何配置 Obsidian，并且推荐了 Obsidian 中的几款插件，希望可以帮到有需要的朋友。</p>
-<p>不过用了一段时间的 Obsidian 之后，我开始想搭建一个个人博客，之前很长一段时间都用的是 CSDN，但是感觉现在 CSDN 的 AI 账号实在太多了，就光是我发布帖子的一分钟，能有七八个账号给我的帖子点赞点关注。时间长了，看着关注列表里的广告还有 AI 账号，真的是心里乱糟糟的 😩。想来想去，不如自己搭建个博客网站得了。</p>
-<h2 id="1-安装-hexo"><a class="markdownIt-Anchor" href="#1-安装-hexo"></a> 1. 安装 Hexo</h2>
-
-<div class="callout" data-callout="tip">
-<div class="callout-title">
-<div class="callout-title-icon">
-<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-flame"><path d="M8.5 14.5A2.5 2.5 0 0 0 11 12c0-1.38-.5-2-1-3-1.072-2.143-.224-4.054 2-6 .5 2.5 2 4.9 4 6.5 2 1.6 3 3.5 3 5.5a7 7 0 1 1-14 0c0-1.153.433-2.294 1-3a2.5 2.5 0 0 0 2.5 2.5z"></path></svg>
-</div>
-<div class="callout-title-inner">Tip</div>
-</div>
-<div class="callout-content"><p></p>
-<h4 id="前提条件"><a class="markdownIt-Anchor" href="#前提条件"></a> 前提条件</h4>
-<ol>
-<li>安装 Node.js。请注意 Node.js 的版本，我使用的 Node 版本是 23.3.0</li>
-<li>安装 Git，后面需要将本地的代码 push 到 Github 上</li>
-</ol>
-</div></div><h3 id="安装-hexo-cli"><a class="markdownIt-Anchor" href="#安装-hexo-cli"></a> 安装 Hexo-cli</h3>
-<p>Hexo-cli 使用 yarn 和 npm 工具都可以下载，不过我在使用 yarn 工具下载的时候报错了，可能是没配好镜像源？然后使用 npm 一次就安装成功了，所以这里介绍使用 npm 的下载方式：</p>
-<div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="code"><pre><span class="line">npm install -g hexo-cli</span><br></pre></td></tr></table></figure></div>
-<h3 id="将-hexo-添加到环境变量中"><a class="markdownIt-Anchor" href="#将-hexo-添加到环境变量中"></a> 将 Hexo 添加到环境变量中</h3>
-<p>上面安装之后可以使用<code>npm hexo &lt;command&gt;</code>调用 hexo 工具，但是不是很方便，我们可以把 hexo 的相关目录添加到环境变量中：</p>
-<div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 查看hexo的安装目录</span></span><br><span class="line">npm root -g</span><br></pre></td></tr></table></figure></div>
-<p>我们将目录下的<code>node_modules\hexo-cli\bin</code>添加到环境变量中，添加成功后，使用如下命令检查是否安装成功：</p>
-<div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="code"><pre><span class="line">hexo version</span><br></pre></td></tr></table></figure></div>
-<p><strong>如果没有正常启动，不用担心，尝试重启一次即可，可能是电脑重启时才会重新加载环境变量。如果重启后无效，请检查一下 ‘xx\node_modules\hexo-cli\bin’ 目录是否配置正确</strong>。</p>
-<h2 id="2开始搭建博客"><a class="markdownIt-Anchor" href="#2开始搭建博客"></a> 2.开始搭建博客！</h2>
-]]></content>
+    <title>Git常用指令</title>
+    <url>/ss6dlu/</url>
+    <content><![CDATA[<h3 id="1-git-init-在本地工程目录下生成git-文件夹"><a class="markdownIt-Anchor" href="#1-git-init-在本地工程目录下生成git-文件夹"></a> 1、Git init （在本地工程目录下），生成.git 文件夹</h3>
+<div class="highlight-container" data-rel="Swift"><figure class="iseeu highlight swift"><table><tr><td class="code"><pre><span class="line"><span class="type">Git</span> <span class="keyword">init</span></span><br></pre></td></tr></table></figure></div>
+<h3 id="2-上传修改的文件"><a class="markdownIt-Anchor" href="#2-上传修改的文件"></a> 2、上传修改的文件</h3>
+<div class="highlight-container" data-rel="Sql"><figure class="iseeu highlight sql"><table><tr><td class="code"><pre><span class="line">git <span class="keyword">add</span> <span class="operator">*</span></span><br></pre></td></tr></table></figure></div>
+<p>(*可替换成具体要上传的文件名，*表示提交所有有变化的文件)</p>
+<h3 id="3-添加上传文件的描述"><a class="markdownIt-Anchor" href="#3-添加上传文件的描述"></a> 3、添加上传文件的描述</h3>
+<div class="highlight-container" data-rel="Sql"><figure class="iseeu highlight sql"><table><tr><td class="code"><pre><span class="line">git <span class="keyword">commit</span> <span class="operator">-</span>m "test" </span><br></pre></td></tr></table></figure></div>
+<p>（”test“为分支名）</p>
+<h3 id="4-创建分支"><a class="markdownIt-Anchor" href="#4-创建分支"></a> 4、（创建分支）</h3>
+<div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="code"><pre><span class="line">git branch <span class="built_in">test</span></span><br></pre></td></tr></table></figure></div>
+<h3 id="5-切换分支"><a class="markdownIt-Anchor" href="#5-切换分支"></a> 5、（切换分支）</h3>
+<div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="code"><pre><span class="line">git checkout <span class="built_in">test</span></span><br></pre></td></tr></table></figure></div>
+<h3 id="6-与远程分支相关联"><a class="markdownIt-Anchor" href="#6-与远程分支相关联"></a> 6、与远程分支相关联</h3>
+<div class="highlight-container" data-rel="Csharp"><figure class="iseeu highlight csharp"><table><tr><td class="code"><pre><span class="line">git remote <span class="keyword">add</span> origin https:<span class="comment">//github.com/yangxiaoyan20/BowlingScore.git</span></span><br></pre></td></tr></table></figure></div>
+<p>（”BowlingScore“ 为工程名）</p>
+<p>单独下载某一个分支的代码</p>
+<div class="highlight-container" data-rel="Java"><figure class="iseeu highlight java"><table><tr><td class="code"><pre><span class="line">git clone -b   分支名   项目地址</span><br><span class="line"><span class="comment">//git clone -b   wang   https://e.coding.net/latitude/ideo/ideo.git</span></span><br></pre></td></tr></table></figure></div>
+<h3 id="7-将分支上传"><a class="markdownIt-Anchor" href="#7-将分支上传"></a> 7、（将分支上传）</h3>
+<div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="code"><pre><span class="line">git push origin <span class="built_in">test</span></span><br></pre></td></tr></table></figure></div>
+<div class="highlight-container" data-rel="Swift"><figure class="iseeu highlight swift"><table><tr><td class="code"><pre><span class="line">#上传者姓名（设置一次即可）</span><br><span class="line">git config <span class="operator">--</span>global user.name <span class="string">"xl"</span>  </span><br><span class="line">#上传者邮箱   （设置一次即可）</span><br><span class="line">git config <span class="operator">--</span>global user.email <span class="string">"1126626497@qq.com"</span>   </span><br><span class="line"></span><br><span class="line">#添加远程仓库地址(就是服务器地址) <span class="operator">--</span>第一次时使用</span><br><span class="line">git remote add origin https:<span class="comment">//gitcode.net/xiaolong1126626497/bmp_code.git</span></span><br><span class="line">git remote add 地址变量名 url</span><br><span class="line"></span><br><span class="line">#修改远程仓库地址(就是服务器地址)，如果之前已经设置过其他地址，就使用修改命令</span><br><span class="line">git remote <span class="keyword">set</span><span class="operator">-</span>url origin https:<span class="comment">//gitcode.net/xiaolong1126626497/bmp_code.git  </span></span><br><span class="line">git remote <span class="keyword">set</span><span class="operator">-</span>url 地址变量名 新url</span><br><span class="line"></span><br><span class="line">#添加所有文件</span><br><span class="line">git add .</span><br><span class="line">#写上修改说明</span><br><span class="line">git commit <span class="operator">-</span>m <span class="string">"添加test.c"</span> </span><br><span class="line">#上传至仓库 </span><br><span class="line">git push <span class="operator">-</span>u origin master   </span><br><span class="line">git push <span class="operator">-</span>u origin 分支名</span><br></pre></td></tr></table></figure></div>
+<h2 id="8-完整命令流程"><a class="markdownIt-Anchor" href="#8-完整命令流程"></a> 8、完整命令流程</h2>
+<div class="highlight-container" data-rel="Swift"><figure class="iseeu highlight swift"><table><tr><td class="code"><pre><span class="line">#删除原来的git文件夹</span><br><span class="line">rm <span class="operator">-</span>rf .git<span class="operator">/</span></span><br><span class="line">#新建git文件夹，初始化</span><br><span class="line">git <span class="keyword">init</span></span><br><span class="line">#添加远程仓库地址和地址变量origin，将url赋值给origin  <span class="operator">--</span>第一次使用</span><br><span class="line">git remote add origin https:<span class="comment">//e.coding.net/latitude/ideo/ideo.git</span></span><br><span class="line"><span class="comment">//#修改地址变量名的url信息	--第二次使用</span></span><br><span class="line"><span class="comment">//git remote set-url origin https://e.coding.net/latitude/ideo/ideo.git</span></span><br><span class="line">#添加本地所有的文件</span><br><span class="line">git add .</span><br><span class="line">#提交所有文件，赋上提交的信息</span><br><span class="line">git commit <span class="operator">-</span>m “<span class="type">Commit</span> message”</span><br><span class="line"></span><br><span class="line"><span class="comment">//#创建新的test分支</span></span><br><span class="line"><span class="comment">//git branch test</span></span><br><span class="line"><span class="comment">//git branch 分支名</span></span><br><span class="line"><span class="comment">//#选择刚才创建的test分支</span></span><br><span class="line"><span class="comment">//git checkout test</span></span><br><span class="line"><span class="comment">//git checkout 分支名</span></span><br><span class="line"></span><br><span class="line">#提交到origin的master分支</span><br><span class="line">git push <span class="operator">-</span>f origin master</span><br><span class="line">#提交到origin的test分支</span><br><span class="line">git push <span class="operator">-</span>f origin test</span><br></pre></td></tr></table></figure></div>
+<h2 id="9-git-clone-使用-b-指定分支"><a class="markdownIt-Anchor" href="#9-git-clone-使用-b-指定分支"></a> 9、Git clone （使用 -b 指定分支）</h2>
+<div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="code"><pre><span class="line">git <span class="built_in">clone</span> -b dev_jk http://10.1.1.11/service/tmall-service.git</span><br></pre></td></tr></table></figure></div>]]></content>
       <categories>
         <category>IDE配置</category>
       </categories>
       <tags>
-        <tag>Obsidian</tag>
+        <tag>Git</tag>
       </tags>
   </entry>
   <entry>
@@ -853,6 +815,44 @@ $$ tB<em>i \leq t</em>{\text{max}}^i （BS-MEC 耗时必须少于上限）<mjx-c
 <p>这个插件的安装过程在上面已经说了，它的作用是为笔记添加头图，就是下面这种效果：<br>
 <img lazyload="" src="/images/loading.svg" data-src="https://typora-aliyun01.oss-cn-hangzhou.aliyuncs.com/img/20241130171400.png" alt="image.png" width="550px"></p>
 <p>这个插件看个人喜好，我比较喜欢在写笔记的时候放一张头图，感觉不让头图背景有点枯燥😊</p>
+]]></content>
+      <categories>
+        <category>IDE配置</category>
+      </categories>
+      <tags>
+        <tag>Obsidian</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>使用Hexo搭建支持Obsidian语法的个人博客（01）</title>
+    <url>/snuxg7/</url>
+    <content><![CDATA[<p>之前的教程介绍了如何配置 Obsidian，并且推荐了 Obsidian 中的几款插件，希望可以帮到有需要的朋友。</p>
+<p>不过用了一段时间的 Obsidian 之后，我开始想搭建一个个人博客，之前很长一段时间都用的是 CSDN，但是感觉现在 CSDN 的 AI 账号实在太多了，就光是我发布帖子的一分钟，能有七八个账号给我的帖子点赞点关注。时间长了，看着关注列表里的广告还有 AI 账号，真的是心里乱糟糟的 😩。想来想去，不如自己搭建个博客网站得了。</p>
+<h2 id="1-安装-hexo"><a class="markdownIt-Anchor" href="#1-安装-hexo"></a> 1. 安装 Hexo</h2>
+
+<div class="callout" data-callout="tip">
+<div class="callout-title">
+<div class="callout-title-icon">
+<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-flame"><path d="M8.5 14.5A2.5 2.5 0 0 0 11 12c0-1.38-.5-2-1-3-1.072-2.143-.224-4.054 2-6 .5 2.5 2 4.9 4 6.5 2 1.6 3 3.5 3 5.5a7 7 0 1 1-14 0c0-1.153.433-2.294 1-3a2.5 2.5 0 0 0 2.5 2.5z"></path></svg>
+</div>
+<div class="callout-title-inner">Tip</div>
+</div>
+<div class="callout-content"><p></p>
+<h4 id="前提条件"><a class="markdownIt-Anchor" href="#前提条件"></a> 前提条件</h4>
+<ol>
+<li>安装 Node.js。请注意 Node.js 的版本，我使用的 Node 版本是 23.3.0</li>
+<li>安装 Git，后面需要将本地的代码 push 到 Github 上</li>
+</ol>
+</div></div><h3 id="安装-hexo-cli"><a class="markdownIt-Anchor" href="#安装-hexo-cli"></a> 安装 Hexo-cli</h3>
+<p>Hexo-cli 使用 yarn 和 npm 工具都可以下载，不过我在使用 yarn 工具下载的时候报错了，可能是没配好镜像源？然后使用 npm 一次就安装成功了，所以这里介绍使用 npm 的下载方式：</p>
+<div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="code"><pre><span class="line">npm install -g hexo-cli</span><br></pre></td></tr></table></figure></div>
+<h3 id="将-hexo-添加到环境变量中"><a class="markdownIt-Anchor" href="#将-hexo-添加到环境变量中"></a> 将 Hexo 添加到环境变量中</h3>
+<p>上面安装之后可以使用<code>npm hexo &lt;command&gt;</code>调用 hexo 工具，但是不是很方便，我们可以把 hexo 的相关目录添加到环境变量中：</p>
+<div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 查看hexo的安装目录</span></span><br><span class="line">npm root -g</span><br></pre></td></tr></table></figure></div>
+<p>我们将目录下的<code>node_modules\hexo-cli\bin</code>添加到环境变量中，添加成功后，使用如下命令检查是否安装成功：</p>
+<div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="code"><pre><span class="line">hexo version</span><br></pre></td></tr></table></figure></div>
+<p><strong>如果没有正常启动，不用担心，尝试重启一次即可，可能是电脑重启时才会重新加载环境变量。如果重启后无效，请检查一下 ‘xx\node_modules\hexo-cli\bin’ 目录是否配置正确</strong>。</p>
+<h2 id="2开始搭建博客"><a class="markdownIt-Anchor" href="#2开始搭建博客"></a> 2.开始搭建博客！</h2>
 ]]></content>
       <categories>
         <category>IDE配置</category>
@@ -1079,6 +1079,10 @@ $$ tB<em>i \leq t</em>{\text{max}}^i （BS-MEC 耗时必须少于上限）<mjx-c
 <p>如果说这里没有设置，可以直接在设置中修改，也可以在.vscode中添加settings.json文件，在settings.json文件中写入如下信息：</p>
 <div class="highlight-container" data-rel="Json"><figure class="iseeu highlight json"><table><tr><td class="code"><pre><span class="line"><span class="punctuation">{</span></span><br><span class="line">  <span class="attr">"python.envFile"</span><span class="punctuation">:</span> <span class="string">"${workspaceFolder}/.env"</span><span class="punctuation">,</span></span><br><span class="line"><span class="punctuation">}</span></span><br></pre></td></tr></table></figure></div>
 <p>这样的话，无论是直接运行还是调试模式，都可以正常运行项目了😁。</p>
+<h3 id="3最佳方案仅修改settingsjson"><a class="markdownIt-Anchor" href="#3最佳方案仅修改settingsjson"></a> （3）最佳方案（仅修改settings.json）</h3>
+<p>add at 2025/06/13： 最近在网上搜到了这个方案，不用每次修改.env了！</p>
+<div class="highlight-container" data-rel="Json"><figure class="iseeu highlight json"><table><tr><td class="code"><pre><span class="line"><span class="punctuation">{</span></span><br><span class="line">  <span class="comment">// 解决Python导入自定义模块运行程序时无法找到模块，由于运行程序时未将项目路径添加值PYTHONPATH</span></span><br><span class="line">  <span class="comment">// macOS</span></span><br><span class="line">  <span class="attr">"terminal.integrated.env.osx"</span><span class="punctuation">:</span> <span class="punctuation">{</span></span><br><span class="line">    <span class="attr">"PYTHONPATH"</span><span class="punctuation">:</span> <span class="string">"${workspaceFolder}/"</span><span class="punctuation">,</span></span><br><span class="line">  <span class="punctuation">}</span><span class="punctuation">,</span></span><br><span class="line">  <span class="comment">// Linux</span></span><br><span class="line">  <span class="attr">"terminal.integrated.env.linux"</span><span class="punctuation">:</span> <span class="punctuation">{</span></span><br><span class="line">    <span class="attr">"PYTHONPATH"</span><span class="punctuation">:</span> <span class="string">"${workspaceFolder}/"</span><span class="punctuation">,</span></span><br><span class="line">  <span class="punctuation">}</span><span class="punctuation">,</span></span><br><span class="line">  <span class="comment">// Windows</span></span><br><span class="line">  <span class="attr">"terminal.integrated.env.windows"</span><span class="punctuation">:</span> <span class="punctuation">{</span></span><br><span class="line">    <span class="attr">"PYTHONPATH"</span><span class="punctuation">:</span> <span class="string">"${workspaceFolder}/"</span><span class="punctuation">,</span></span><br><span class="line">  <span class="punctuation">}</span></span><br><span class="line"><span class="punctuation">}</span></span><br></pre></td></tr></table></figure></div>
+<p>直接粘贴这段代码到settings.json即可，<mark>修改之后记得重启VSCode！！</mark></p>
 <h2 id="tips如果直接在终端执行呢"><a class="markdownIt-Anchor" href="#tips如果直接在终端执行呢"></a> Tips：如果直接在终端执行呢？</h2>
 <p>其实从上面的解决方案可以看出来，出错误的根本原因其实就是 <mark>PYTHONPATH</mark> 这个环境变量，刚才我们配置.env 文件还有 settings.json 文件确实是能解决在VSCode中启动项目的问题，不过如果想直接使用命令行在终端启动这个项目，上述的操作就又会不起作用了。</p>
 <p>所以，如果能够在终端设置好这个PYTHONPATH之后在启动项目就行了，命令行如下：</p>
@@ -1280,47 +1284,6 @@ DFS的过程中，每个节点的权值更新为其所有子孙的权值总和�
       </tags>
   </entry>
   <entry>
-    <title>线段树</title>
-    <url>/suheuj/</url>
-    <content><![CDATA[]]></content>
-      <categories>
-        <category>算法/树</category>
-      </categories>
-      <tags>
-        <tag>树</tag>
-        <tag>线段树</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>洛谷_使用StreamTokenizer优化输入（java）</title>
-    <url>/ss3777/</url>
-    <content><![CDATA[<p>之前刷了很长时间的 lc，在 lc 平台比较好的一点是只需要编写方法的片段，不需要编写整段代码。只是长时间刷 lc 有点枯燥，lc 的标签感觉分类不是特别准，还有长时间不写输入输出我都已经快忘记基础代码怎么写了 😂。所以今年开始我改在洛谷刷题了，也算换换口味嘛。</p>
-<p>只是在提交了几题之后发现有点不对劲，有的题目我编写的算法时间复杂度和空间复杂度理应都是没有问题的，但是一提交就会内存超限？！！前前后后检查好多遍发现居然是输入类 Scanner 的问题，我想起大二刚开始学 java 语法的时候好像就只使用 Scanner 进行过输入，BufferReader 都是读文件的时候才用到。不过在洛谷提交发现，Scanner 的性能确实是很慢，数据量越多就越慢，一些简单的题目运行时间也会达到几百 ms 以上。</p>
-<p>在这篇博客看了下原因：<a class="link" href="https://blog.csdn.net/linxdcn/article/details/72886231">https://blog.csdn.net/linxdcn/article/details/72886231<i class="fa-solid fa-arrow-up-right ml-[0.2em] font-light align-text-top text-[0.7em] link-icon"></i></a></p>
-<p>Scanner 类性能差的原因主要还是它依赖正则表达式进行匹配，想象一下每次输入一个字符 Scanner 就需要匹配一次正则表达式，而 BufferReader 就是直接的读取字符到缓冲区，缓冲区填满了就再填充。</p>
-<div class="highlight-container" data-rel="Java"><figure class="iseeu highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">BufferedReader</span> <span class="keyword">extends</span> <span class="title class_">Reader</span> {</span><br><span class="line"></span><br><span class="line">  <span class="comment">// 内部保存的Reader变量</span></span><br><span class="line">  <span class="keyword">private</span> Reader in;</span><br><span class="line"></span><br><span class="line">  <span class="comment">// 缓冲区</span></span><br><span class="line">  <span class="keyword">private</span> <span class="type">char</span> cb[];</span><br><span class="line"></span><br><span class="line">  <span class="comment">// 默认缓冲区大小</span></span><br><span class="line">  <span class="keyword">private</span> <span class="keyword">static</span> <span class="type">int</span> <span class="variable">defaultCharBufferSize</span> <span class="operator">=</span> <span class="number">8192</span>;</span><br><span class="line"></span><br><span class="line">  <span class="comment">// 填充缓冲区的函数</span></span><br><span class="line">  <span class="keyword">private</span> <span class="keyword">void</span> <span class="title function_">fill</span><span class="params">()</span> <span class="keyword">throws</span> IOException {</span><br><span class="line">    <span class="type">int</span> dst;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 省略了部分定位的代码</span></span><br><span class="line"></span><br><span class="line">    <span class="type">int</span> n;</span><br><span class="line">    <span class="keyword">do</span> {</span><br><span class="line">      <span class="comment">// 一次性读满缓冲区</span></span><br><span class="line">      n = in.read(cb, dst, cb.length - dst);</span><br><span class="line">    } <span class="keyword">while</span> (n == <span class="number">0</span>);</span><br><span class="line">    <span class="keyword">if</span> (n &gt; <span class="number">0</span>) {</span><br><span class="line">      nChars = dst + n;</span><br><span class="line">      nextChar = dst;</span><br><span class="line">    }</span><br><span class="line">  }</span><br><span class="line"></span><br><span class="line">  <span class="comment">// 读取一个字符</span></span><br><span class="line">  <span class="keyword">public</span> <span class="type">int</span> <span class="title function_">read</span><span class="params">()</span> <span class="keyword">throws</span> IOException {</span><br><span class="line">    <span class="keyword">synchronized</span> (lock) {</span><br><span class="line">      ensureOpen();</span><br><span class="line">      <span class="keyword">for</span> (;;) {</span><br><span class="line">        <span class="keyword">if</span> (nextChar &gt;= nChars) {</span><br><span class="line">          <span class="comment">// 如果缓冲区读完了，填充</span></span><br><span class="line">          fill();</span><br><span class="line">          <span class="keyword">if</span> (nextChar &gt;= nChars) <span class="keyword">return</span> -<span class="number">1</span>;</span><br><span class="line">        }</span><br><span class="line">        <span class="keyword">if</span> (skipLF) {</span><br><span class="line">          skipLF = <span class="literal">false</span>;</span><br><span class="line">          <span class="comment">// 跳过换行符</span></span><br><span class="line">          <span class="keyword">if</span> (cb[nextChar] == <span class="string">'\n'</span>) {</span><br><span class="line">            nextChar++;</span><br><span class="line">            <span class="keyword">continue</span>;</span><br><span class="line">          }</span><br><span class="line">        }</span><br><span class="line">        <span class="keyword">return</span> cb[nextChar++];</span><br><span class="line">      }</span><br><span class="line">    }</span><br><span class="line">  }</span><br><span class="line">}</span><br></pre></td></tr></table></figure></div>
-<div class="highlight-container" data-rel="Java"><figure class="iseeu highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">final</span> <span class="keyword">class</span> <span class="title class_">Scanner</span> <span class="keyword">implements</span> <span class="title class_">Iterator</span>&lt;String&gt;, Closeable {</span><br><span class="line"></span><br><span class="line">  <span class="comment">// 缓冲区</span></span><br><span class="line">  <span class="keyword">private</span> CharBuffer buf;</span><br><span class="line"></span><br><span class="line">  <span class="comment">// 缓冲区大小1KB</span></span><br><span class="line">  <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="type">int</span> <span class="variable">BUFFER_SIZE</span> <span class="operator">=</span> <span class="number">1024</span>;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">public</span> String <span class="title function_">nextLine</span><span class="params">()</span> {</span><br><span class="line">    <span class="comment">// 如果缓冲中的下一次匹配是行匹配，则直接返回</span></span><br><span class="line">    <span class="keyword">if</span> (hasNextPattern == linePattern()) <span class="keyword">return</span> getCachedResult();</span><br><span class="line">    clearCaches();</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 否则通过正则表达式匹配返回一行字符串</span></span><br><span class="line">    <span class="type">String</span> <span class="variable">result</span> <span class="operator">=</span> findWithinHorizon(linePattern, <span class="number">0</span>);</span><br><span class="line">    <span class="keyword">if</span> (result == <span class="literal">null</span>) <span class="keyword">throw</span> <span class="keyword">new</span> <span class="title class_">NoSuchElementException</span>(<span class="string">"No line found"</span>);</span><br><span class="line">    <span class="type">MatchResult</span> <span class="variable">mr</span> <span class="operator">=</span> <span class="built_in">this</span>.match();</span><br><span class="line">    <span class="type">String</span> <span class="variable">lineSep</span> <span class="operator">=</span> mr.group(<span class="number">1</span>);</span><br><span class="line">    <span class="keyword">if</span> (lineSep != <span class="literal">null</span>) result = result.substring(</span><br><span class="line">      <span class="number">0</span>,</span><br><span class="line">      result.length() - lineSep.length()</span><br><span class="line">    );</span><br><span class="line">    <span class="keyword">if</span> (result == <span class="literal">null</span>) <span class="keyword">throw</span> <span class="keyword">new</span> <span class="title class_">NoSuchElementException</span>();</span><br><span class="line">    <span class="keyword">else</span> <span class="keyword">return</span> result;</span><br><span class="line">  }</span><br><span class="line">}</span><br><span class="line"></span><br></pre></td></tr></table></figure></div>
-<h2 id="1使用-streamtokenizer-快速输入数字和字母"><a class="markdownIt-Anchor" href="#1使用-streamtokenizer-快速输入数字和字母"></a> （1）使用 StreamTokenizer 快速输入数字和字母</h2>
-<p>StreamTokenizer 也是输入类，不过它在输入数字和字母的处理上比 BufferReader 还要更快。不过它也只能接收数字或字母，如果输入除空格和回车以外的字符（如：<code>!@#$%^&amp;*()[]{}</code>)无法识别，会显示 null。</p>
-<p>StreamTokenizer 可以获取输入流并根据空格和回车分割成 Token（标记），用 nextToken 方法读取下一个标记。<strong>如果标记是字符串，用 st.sval 获取标记，如果是数字用 st.nval 获取标记，st.navl 默认是 double 类型，读取整数的时候需要显式转型。</strong></p>
-<div class="highlight-container" data-rel="Java"><figure class="iseeu highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 使用优化Java输入方式</span></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Input</span> {</span><br><span class="line"></span><br><span class="line">  <span class="type">StreamTokenizer</span> <span class="variable">streamTokenizer</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">StreamTokenizer</span>(</span><br><span class="line">    <span class="keyword">new</span> <span class="title class_">BufferedReader</span>(<span class="keyword">new</span> <span class="title class_">InputStreamReader</span>(System.in))</span><br><span class="line">  );</span><br><span class="line"></span><br><span class="line">  <span class="keyword">public</span> <span class="type">int</span> <span class="title function_">nextInt</span><span class="params">()</span> <span class="keyword">throws</span> IOException {</span><br><span class="line">    streamTokenizer.nextToken();</span><br><span class="line">    <span class="keyword">return</span> (<span class="type">int</span>) streamTokenizer.nval;</span><br><span class="line">  }</span><br><span class="line"></span><br><span class="line">  <span class="keyword">public</span> String <span class="title function_">nextString</span><span class="params">()</span> <span class="keyword">throws</span> IOException {</span><br><span class="line">    streamTokenizer.nextToken();</span><br><span class="line">    <span class="keyword">return</span> streamTokenizer.sval;</span><br><span class="line">  }</span><br><span class="line">}</span><br><span class="line"></span><br></pre></td></tr></table></figure></div>
-<p>在洛谷实际测试中也发现，这种方式对性能的提升不是一点点，而是非常显著。比如下面这题，使用 Scanner 直接内存超限提交失败，仅仅换成 StreamTokenizer 之后内存马上变成之前的 <mjx-container class="MathJax" jax="SVG"><svg style="vertical-align: -0.816ex;" xmlns="http://www.w3.org/2000/svg" width="1.795ex" height="2.773ex" role="img" focusable="false" viewBox="0 -864.9 793.6 1225.5"><g stroke="currentColor" fill="currentColor" stroke-width="0" transform="scale(1,-1)"><g data-mml-node="math"><g data-mml-node="mfrac"><g data-mml-node="mn" transform="translate(220,394) scale(0.707)"><path data-c="31" d="M213 578L200 573Q186 568 160 563T102 556H83V602H102Q149 604 189 617T245 641T273 663Q275 666 285 666Q294 666 302 660V361L303 61Q310 54 315 52T339 48T401 46H427V0H416Q395 3 257 3Q121 3 100 0H88V46H114Q136 46 152 46T177 47T193 50T201 52T207 57T213 61V578Z"></path></g><g data-mml-node="mn" transform="translate(220,-345) scale(0.707)"><path data-c="33" d="M127 463Q100 463 85 480T69 524Q69 579 117 622T233 665Q268 665 277 664Q351 652 390 611T430 522Q430 470 396 421T302 350L299 348Q299 347 308 345T337 336T375 315Q457 262 457 175Q457 96 395 37T238 -22Q158 -22 100 21T42 130Q42 158 60 175T105 193Q133 193 151 175T169 130Q169 119 166 110T159 94T148 82T136 74T126 70T118 67L114 66Q165 21 238 21Q293 21 321 74Q338 107 338 175V195Q338 290 274 322Q259 328 213 329L171 330L168 332Q166 335 166 348Q166 366 174 366Q202 366 232 371Q266 376 294 413T322 525V533Q322 590 287 612Q265 626 240 626Q208 626 181 615T143 592T132 580H135Q138 579 143 578T153 573T165 566T175 555T183 540T186 520Q186 498 172 481T127 463Z"></path></g><rect width="553.6" height="60" x="120" y="220"></rect></g></g></g></svg></mjx-container>。<br>
-<img lazyload="" src="/images/loading.svg" data-src="https://typora-aliyun01.oss-cn-hangzhou.aliyuncs.com/img/20250222230425619.png" alt="image.png"></p>
-<h2 id="2使用-bufferreader-读取整行"><a class="markdownIt-Anchor" href="#2使用-bufferreader-读取整行"></a> （2）使用 BufferReader 读取整行</h2>
-<p>刚才说到，StreamTokenizer 的硬伤就是不能识别特殊字符，这在处理字符串的时候就不灵活了，此时使用 BufferReader 是更佳选择。虽然说 Scanner 也是有 NextLine 方法，但是它还是会使用正则表达式匹配，性能还是差了一点。</p>
-<div class="highlight-container" data-rel="Java"><figure class="iseeu highlight java"><table><tr><td class="code"><pre><span class="line">BufferedReader inBuff=<span class="keyword">new</span> <span class="title class_">BufferedReader</span>(<span class="keyword">new</span> <span class="title class_">InputStreamReader</span>(System.in));</span><br><span class="line">String s=inBuff.readLine()</span><br></pre></td></tr></table></figure></div>
-<h2 id="3printwriter-快速输出"><a class="markdownIt-Anchor" href="#3printwriter-快速输出"></a> （3）PrintWriter 快速输出</h2>
-<p>其实我主要还是使用<code>System.out.println()</code>输出的，不过在博客 <a class="link" href="https://www.cnblogs.com/wei-jing/p/10756609.html">https://www.cnblogs.com/wei-jing/p/10756609.html<i class="fa-solid fa-arrow-up-right ml-[0.2em] font-light align-text-top text-[0.7em] link-icon"></i></a> 看到有PrintWriter的介绍，目前使用 <code>sout</code> 尚未遇到超时的情况，这里简单做下记录，以后遇到再更新：</p>
-<div class="highlight-container" data-rel="Java"><figure class="iseeu highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> java.io.OutputStreamWriter;</span><br><span class="line"><span class="keyword">import</span> java.io.PrintWriter;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Test</span> {</span><br><span class="line"></span><br><span class="line">  <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> {</span><br><span class="line">    <span class="type">PrintWriter</span> <span class="variable">out</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">PrintWriter</span>(<span class="keyword">new</span> <span class="title class_">OutputStreamWriter</span>(System.out));</span><br><span class="line">    <span class="type">String</span> <span class="variable">s</span> <span class="operator">=</span> <span class="string">"hollow world"</span>;</span><br><span class="line">    <span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">12344</span>;</span><br><span class="line">    out.print(s + <span class="string">" "</span> + i);</span><br><span class="line">    out.flush();</span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 输出内容</span></span><br><span class="line"><span class="comment">     * hollow world 12344</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">  }</span><br><span class="line">}</span><br><span class="line"></span><br></pre></td></tr></table></figure></div>
-]]></content>
-      <categories>
-        <category>算法</category>
-      </categories>
-      <tags>
-        <tag>洛谷</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>最近公共祖先（LCA)</title>
     <url>/sni2zo/</url>
     <content><![CDATA[<h1 id="问题场景"><a class="markdownIt-Anchor" href="#问题场景"></a> 问题场景</h1>
@@ -1372,6 +1335,18 @@ DFS的过程中，每个节点的权值更新为其所有子孙的权值总和�
       </tags>
   </entry>
   <entry>
+    <title>线段树</title>
+    <url>/suheuj/</url>
+    <content><![CDATA[]]></content>
+      <categories>
+        <category>算法/树</category>
+      </categories>
+      <tags>
+        <tag>树</tag>
+        <tag>线段树</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>大模型算力是如何计算的</title>
     <url>/sni2x9/</url>
     <content><![CDATA[]]></content>
@@ -1380,6 +1355,49 @@ DFS的过程中，每个节点的权值更新为其所有子孙的权值总和�
       </categories>
       <tags>
         <tag>大模型</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>洛谷_使用StreamTokenizer优化输入（java）</title>
+    <url>/ss3777/</url>
+    <content><![CDATA[<p>之前刷了很长时间的 lc，在 lc 平台比较好的一点是只需要编写方法的片段，不需要编写整段代码。只是长时间刷 lc 有点枯燥，lc 的标签感觉分类不是特别准，还有长时间不写输入输出我都已经快忘记基础代码怎么写了 😂。所以今年开始我改在洛谷刷题了，也算换换口味嘛。</p>
+<p>只是在提交了几题之后发现有点不对劲，有的题目我编写的算法时间复杂度和空间复杂度理应都是没有问题的，但是一提交就会内存超限？！！前前后后检查好多遍发现居然是输入类 Scanner 的问题，我想起大二刚开始学 java 语法的时候好像就只使用 Scanner 进行过输入，BufferReader 都是读文件的时候才用到。不过在洛谷提交发现，Scanner 的性能确实是很慢，数据量越多就越慢，一些简单的题目运行时间也会达到几百 ms 以上。</p>
+<p>在这篇博客看了下原因：<a class="link" href="https://blog.csdn.net/linxdcn/article/details/72886231">https://blog.csdn.net/linxdcn/article/details/72886231<i class="fa-solid fa-arrow-up-right ml-[0.2em] font-light align-text-top text-[0.7em] link-icon"></i></a></p>
+<p>Scanner 类性能差的原因主要还是它依赖正则表达式进行匹配，想象一下每次输入一个字符 Scanner 就需要匹配一次正则表达式，而 BufferReader 就是直接的读取字符到缓冲区，缓冲区填满了就再填充。</p>
+<div class="highlight-container" data-rel="Java"><figure class="iseeu highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">BufferedReader</span> <span class="keyword">extends</span> <span class="title class_">Reader</span> {</span><br><span class="line"></span><br><span class="line">  <span class="comment">// 内部保存的Reader变量</span></span><br><span class="line">  <span class="keyword">private</span> Reader in;</span><br><span class="line"></span><br><span class="line">  <span class="comment">// 缓冲区</span></span><br><span class="line">  <span class="keyword">private</span> <span class="type">char</span> cb[];</span><br><span class="line"></span><br><span class="line">  <span class="comment">// 默认缓冲区大小</span></span><br><span class="line">  <span class="keyword">private</span> <span class="keyword">static</span> <span class="type">int</span> <span class="variable">defaultCharBufferSize</span> <span class="operator">=</span> <span class="number">8192</span>;</span><br><span class="line"></span><br><span class="line">  <span class="comment">// 填充缓冲区的函数</span></span><br><span class="line">  <span class="keyword">private</span> <span class="keyword">void</span> <span class="title function_">fill</span><span class="params">()</span> <span class="keyword">throws</span> IOException {</span><br><span class="line">    <span class="type">int</span> dst;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 省略了部分定位的代码</span></span><br><span class="line"></span><br><span class="line">    <span class="type">int</span> n;</span><br><span class="line">    <span class="keyword">do</span> {</span><br><span class="line">      <span class="comment">// 一次性读满缓冲区</span></span><br><span class="line">      n = in.read(cb, dst, cb.length - dst);</span><br><span class="line">    } <span class="keyword">while</span> (n == <span class="number">0</span>);</span><br><span class="line">    <span class="keyword">if</span> (n &gt; <span class="number">0</span>) {</span><br><span class="line">      nChars = dst + n;</span><br><span class="line">      nextChar = dst;</span><br><span class="line">    }</span><br><span class="line">  }</span><br><span class="line"></span><br><span class="line">  <span class="comment">// 读取一个字符</span></span><br><span class="line">  <span class="keyword">public</span> <span class="type">int</span> <span class="title function_">read</span><span class="params">()</span> <span class="keyword">throws</span> IOException {</span><br><span class="line">    <span class="keyword">synchronized</span> (lock) {</span><br><span class="line">      ensureOpen();</span><br><span class="line">      <span class="keyword">for</span> (;;) {</span><br><span class="line">        <span class="keyword">if</span> (nextChar &gt;= nChars) {</span><br><span class="line">          <span class="comment">// 如果缓冲区读完了，填充</span></span><br><span class="line">          fill();</span><br><span class="line">          <span class="keyword">if</span> (nextChar &gt;= nChars) <span class="keyword">return</span> -<span class="number">1</span>;</span><br><span class="line">        }</span><br><span class="line">        <span class="keyword">if</span> (skipLF) {</span><br><span class="line">          skipLF = <span class="literal">false</span>;</span><br><span class="line">          <span class="comment">// 跳过换行符</span></span><br><span class="line">          <span class="keyword">if</span> (cb[nextChar] == <span class="string">'\n'</span>) {</span><br><span class="line">            nextChar++;</span><br><span class="line">            <span class="keyword">continue</span>;</span><br><span class="line">          }</span><br><span class="line">        }</span><br><span class="line">        <span class="keyword">return</span> cb[nextChar++];</span><br><span class="line">      }</span><br><span class="line">    }</span><br><span class="line">  }</span><br><span class="line">}</span><br></pre></td></tr></table></figure></div>
+<div class="highlight-container" data-rel="Java"><figure class="iseeu highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">final</span> <span class="keyword">class</span> <span class="title class_">Scanner</span> <span class="keyword">implements</span> <span class="title class_">Iterator</span>&lt;String&gt;, Closeable {</span><br><span class="line"></span><br><span class="line">  <span class="comment">// 缓冲区</span></span><br><span class="line">  <span class="keyword">private</span> CharBuffer buf;</span><br><span class="line"></span><br><span class="line">  <span class="comment">// 缓冲区大小1KB</span></span><br><span class="line">  <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="type">int</span> <span class="variable">BUFFER_SIZE</span> <span class="operator">=</span> <span class="number">1024</span>;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">public</span> String <span class="title function_">nextLine</span><span class="params">()</span> {</span><br><span class="line">    <span class="comment">// 如果缓冲中的下一次匹配是行匹配，则直接返回</span></span><br><span class="line">    <span class="keyword">if</span> (hasNextPattern == linePattern()) <span class="keyword">return</span> getCachedResult();</span><br><span class="line">    clearCaches();</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 否则通过正则表达式匹配返回一行字符串</span></span><br><span class="line">    <span class="type">String</span> <span class="variable">result</span> <span class="operator">=</span> findWithinHorizon(linePattern, <span class="number">0</span>);</span><br><span class="line">    <span class="keyword">if</span> (result == <span class="literal">null</span>) <span class="keyword">throw</span> <span class="keyword">new</span> <span class="title class_">NoSuchElementException</span>(<span class="string">"No line found"</span>);</span><br><span class="line">    <span class="type">MatchResult</span> <span class="variable">mr</span> <span class="operator">=</span> <span class="built_in">this</span>.match();</span><br><span class="line">    <span class="type">String</span> <span class="variable">lineSep</span> <span class="operator">=</span> mr.group(<span class="number">1</span>);</span><br><span class="line">    <span class="keyword">if</span> (lineSep != <span class="literal">null</span>) result = result.substring(</span><br><span class="line">      <span class="number">0</span>,</span><br><span class="line">      result.length() - lineSep.length()</span><br><span class="line">    );</span><br><span class="line">    <span class="keyword">if</span> (result == <span class="literal">null</span>) <span class="keyword">throw</span> <span class="keyword">new</span> <span class="title class_">NoSuchElementException</span>();</span><br><span class="line">    <span class="keyword">else</span> <span class="keyword">return</span> result;</span><br><span class="line">  }</span><br><span class="line">}</span><br><span class="line"></span><br></pre></td></tr></table></figure></div>
+<h2 id="1使用-streamtokenizer-快速输入数字和字母"><a class="markdownIt-Anchor" href="#1使用-streamtokenizer-快速输入数字和字母"></a> （1）使用 StreamTokenizer 快速输入数字和字母</h2>
+<p>StreamTokenizer 也是输入类，不过它在输入数字和字母的处理上比 BufferReader 还要更快。不过它也只能接收数字或字母，如果输入除空格和回车以外的字符（如：<code>!@#$%^&amp;*()[]{}</code>)无法识别，会显示 null。</p>
+<p>StreamTokenizer 可以获取输入流并根据空格和回车分割成 Token（标记），用 nextToken 方法读取下一个标记。<strong>如果标记是字符串，用 st.sval 获取标记，如果是数字用 st.nval 获取标记，st.navl 默认是 double 类型，读取整数的时候需要显式转型。</strong></p>
+<div class="highlight-container" data-rel="Java"><figure class="iseeu highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 使用优化Java输入方式</span></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Input</span> {</span><br><span class="line"></span><br><span class="line">  <span class="type">StreamTokenizer</span> <span class="variable">streamTokenizer</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">StreamTokenizer</span>(</span><br><span class="line">    <span class="keyword">new</span> <span class="title class_">BufferedReader</span>(<span class="keyword">new</span> <span class="title class_">InputStreamReader</span>(System.in))</span><br><span class="line">  );</span><br><span class="line"></span><br><span class="line">  <span class="keyword">public</span> <span class="type">int</span> <span class="title function_">nextInt</span><span class="params">()</span> <span class="keyword">throws</span> IOException {</span><br><span class="line">    streamTokenizer.nextToken();</span><br><span class="line">    <span class="keyword">return</span> (<span class="type">int</span>) streamTokenizer.nval;</span><br><span class="line">  }</span><br><span class="line"></span><br><span class="line">  <span class="keyword">public</span> String <span class="title function_">nextString</span><span class="params">()</span> <span class="keyword">throws</span> IOException {</span><br><span class="line">    streamTokenizer.nextToken();</span><br><span class="line">    <span class="keyword">return</span> streamTokenizer.sval;</span><br><span class="line">  }</span><br><span class="line">}</span><br><span class="line"></span><br></pre></td></tr></table></figure></div>
+<p>在洛谷实际测试中也发现，这种方式对性能的提升不是一点点，而是非常显著。比如下面这题，使用 Scanner 直接内存超限提交失败，仅仅换成 StreamTokenizer 之后内存马上变成之前的 <mjx-container class="MathJax" jax="SVG"><svg style="vertical-align: -0.816ex;" xmlns="http://www.w3.org/2000/svg" width="1.795ex" height="2.773ex" role="img" focusable="false" viewBox="0 -864.9 793.6 1225.5"><g stroke="currentColor" fill="currentColor" stroke-width="0" transform="scale(1,-1)"><g data-mml-node="math"><g data-mml-node="mfrac"><g data-mml-node="mn" transform="translate(220,394) scale(0.707)"><path data-c="31" d="M213 578L200 573Q186 568 160 563T102 556H83V602H102Q149 604 189 617T245 641T273 663Q275 666 285 666Q294 666 302 660V361L303 61Q310 54 315 52T339 48T401 46H427V0H416Q395 3 257 3Q121 3 100 0H88V46H114Q136 46 152 46T177 47T193 50T201 52T207 57T213 61V578Z"></path></g><g data-mml-node="mn" transform="translate(220,-345) scale(0.707)"><path data-c="33" d="M127 463Q100 463 85 480T69 524Q69 579 117 622T233 665Q268 665 277 664Q351 652 390 611T430 522Q430 470 396 421T302 350L299 348Q299 347 308 345T337 336T375 315Q457 262 457 175Q457 96 395 37T238 -22Q158 -22 100 21T42 130Q42 158 60 175T105 193Q133 193 151 175T169 130Q169 119 166 110T159 94T148 82T136 74T126 70T118 67L114 66Q165 21 238 21Q293 21 321 74Q338 107 338 175V195Q338 290 274 322Q259 328 213 329L171 330L168 332Q166 335 166 348Q166 366 174 366Q202 366 232 371Q266 376 294 413T322 525V533Q322 590 287 612Q265 626 240 626Q208 626 181 615T143 592T132 580H135Q138 579 143 578T153 573T165 566T175 555T183 540T186 520Q186 498 172 481T127 463Z"></path></g><rect width="553.6" height="60" x="120" y="220"></rect></g></g></g></svg></mjx-container>。<br>
+<img lazyload="" src="/images/loading.svg" data-src="https://typora-aliyun01.oss-cn-hangzhou.aliyuncs.com/img/20250222230425619.png" alt="image.png"></p>
+<h2 id="2使用-bufferreader-读取整行"><a class="markdownIt-Anchor" href="#2使用-bufferreader-读取整行"></a> （2）使用 BufferReader 读取整行</h2>
+<p>刚才说到，StreamTokenizer 的硬伤就是不能识别特殊字符，这在处理字符串的时候就不灵活了，此时使用 BufferReader 是更佳选择。虽然说 Scanner 也是有 NextLine 方法，但是它还是会使用正则表达式匹配，性能还是差了一点。</p>
+<div class="highlight-container" data-rel="Java"><figure class="iseeu highlight java"><table><tr><td class="code"><pre><span class="line">BufferedReader inBuff=<span class="keyword">new</span> <span class="title class_">BufferedReader</span>(<span class="keyword">new</span> <span class="title class_">InputStreamReader</span>(System.in));</span><br><span class="line">String s=inBuff.readLine()</span><br></pre></td></tr></table></figure></div>
+<h2 id="3printwriter-快速输出"><a class="markdownIt-Anchor" href="#3printwriter-快速输出"></a> （3）PrintWriter 快速输出</h2>
+<p>其实我主要还是使用<code>System.out.println()</code>输出的，不过在博客 <a class="link" href="https://www.cnblogs.com/wei-jing/p/10756609.html">https://www.cnblogs.com/wei-jing/p/10756609.html<i class="fa-solid fa-arrow-up-right ml-[0.2em] font-light align-text-top text-[0.7em] link-icon"></i></a> 看到有PrintWriter的介绍，目前使用 <code>sout</code> 尚未遇到超时的情况，这里简单做下记录，以后遇到再更新：</p>
+<div class="highlight-container" data-rel="Java"><figure class="iseeu highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> java.io.OutputStreamWriter;</span><br><span class="line"><span class="keyword">import</span> java.io.PrintWriter;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Test</span> {</span><br><span class="line"></span><br><span class="line">  <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> {</span><br><span class="line">    <span class="type">PrintWriter</span> <span class="variable">out</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">PrintWriter</span>(<span class="keyword">new</span> <span class="title class_">OutputStreamWriter</span>(System.out));</span><br><span class="line">    <span class="type">String</span> <span class="variable">s</span> <span class="operator">=</span> <span class="string">"hollow world"</span>;</span><br><span class="line">    <span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">12344</span>;</span><br><span class="line">    out.print(s + <span class="string">" "</span> + i);</span><br><span class="line">    out.flush();</span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 输出内容</span></span><br><span class="line"><span class="comment">     * hollow world 12344</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">  }</span><br><span class="line">}</span><br><span class="line"></span><br></pre></td></tr></table></figure></div>
+]]></content>
+      <categories>
+        <category>算法</category>
+      </categories>
+      <tags>
+        <tag>洛谷</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>论文笔记——Multimodal Counterfactual Learning Network for Multimedia-based Recommendation</title>
+    <url>/sprwom/</url>
+    <content><![CDATA[<p>基于多媒体的推荐（MMRec）利用多模态内容（图像、文字描述等）作为历史交互的辅助信息来确定用户偏好。 大多数 MMRec 方法通过利用大量用户互动项目的多模态内容来预测用户兴趣，而忽略了用户未互动项目的多模态内容的潜在影响。现有的 MMRec 方案虽然可以捕捉到多模态内容中尽可能多的特征，但是<strong>往往忽略了这些特征中与用户偏好无关的部分</strong>。这些无关特征的混入不仅对预测用户偏好没有实际作用，反而还可能会干扰其他有用特征的作用。</p>
+<p>比如下图中的这个例子中，有两件样式相近的连衣裙，且用户购买了上面这件颜色为淡蓝色的棉质裙子（<strong>不过原因可能是仅仅因为这是一件棉质裙子</strong>）。如果通过神经网络对多模态信息进行处理，可以捕捉到颜色、款式、材质等特征。然而，如果直接使用传统的 MMRec 方案的话，很可能会直接因为下面这件裙子与上面这件裙子的颜色和款式非常相似，认为当前用户也喜欢下面这件裙子，忽略了本例中 <strong>颜色和款式可能是无关特征</strong> 的情况。因此，本文提出了一个名为 <strong>“多模态反事实学习网络”</strong>（Mul-timodal Counterfactual Learning Network，MCLN）的新型 MMRec 模型，可以帮助剔除与用户偏好无关的特征，提升推荐系统的准确度。</p>
+<p><img lazyload="" src="/images/loading.svg" data-src="https://typora-aliyun01.oss-cn-hangzhou.aliyuncs.com/img/20250108221843.png" alt="image.png" width="475px"></p>
+]]></content>
+      <categories>
+        <category>论文笔记</category>
+      </categories>
+      <tags>
+        <tag>多模态</tag>
       </tags>
   </entry>
   <entry>
@@ -1420,20 +1438,6 @@ DFS的过程中，每个节点的权值更新为其所有子孙的权值总和�
       </categories>
       <tags>
         <tag>RLHF</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>论文笔记——Multimodal Counterfactual Learning Network for Multimedia-based Recommendation</title>
-    <url>/sprwom/</url>
-    <content><![CDATA[<p>基于多媒体的推荐（MMRec）利用多模态内容（图像、文字描述等）作为历史交互的辅助信息来确定用户偏好。 大多数 MMRec 方法通过利用大量用户互动项目的多模态内容来预测用户兴趣，而忽略了用户未互动项目的多模态内容的潜在影响。现有的 MMRec 方案虽然可以捕捉到多模态内容中尽可能多的特征，但是<strong>往往忽略了这些特征中与用户偏好无关的部分</strong>。这些无关特征的混入不仅对预测用户偏好没有实际作用，反而还可能会干扰其他有用特征的作用。</p>
-<p>比如下图中的这个例子中，有两件样式相近的连衣裙，且用户购买了上面这件颜色为淡蓝色的棉质裙子（<strong>不过原因可能是仅仅因为这是一件棉质裙子</strong>）。如果通过神经网络对多模态信息进行处理，可以捕捉到颜色、款式、材质等特征。然而，如果直接使用传统的 MMRec 方案的话，很可能会直接因为下面这件裙子与上面这件裙子的颜色和款式非常相似，认为当前用户也喜欢下面这件裙子，忽略了本例中 <strong>颜色和款式可能是无关特征</strong> 的情况。因此，本文提出了一个名为 <strong>“多模态反事实学习网络”</strong>（Mul-timodal Counterfactual Learning Network，MCLN）的新型 MMRec 模型，可以帮助剔除与用户偏好无关的特征，提升推荐系统的准确度。</p>
-<p><img lazyload="" src="/images/loading.svg" data-src="https://typora-aliyun01.oss-cn-hangzhou.aliyuncs.com/img/20250108221843.png" alt="image.png" width="475px"></p>
-]]></content>
-      <categories>
-        <category>论文笔记</category>
-      </categories>
-      <tags>
-        <tag>多模态</tag>
       </tags>
   </entry>
 </search>
