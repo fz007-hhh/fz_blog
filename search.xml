@@ -185,6 +185,111 @@
       </tags>
   </entry>
   <entry>
+    <title>Ubuntu配置ssh</title>
+    <url>/sni2r9/</url>
+    <content><![CDATA[<p>在 Ubuntu 上配置 SSH 以便使用 Visual Studio Code (VSCode) 进行连接，可以按照以下步骤进行：</p>
+<h3 id="1-安装-openssh-服务器"><a class="markdownIt-Anchor" href="#1-安装-openssh-服务器"></a> 1. 安装 OpenSSH 服务器</h3>
+<p>首先，你需要确保你的 Ubuntu 系统上安装了 OpenSSH 服务器。打开终端，执行以下命令：</p>
+<div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">sudo</span> apt update</span><br><span class="line"><span class="built_in">sudo</span> apt install openssh-server</span><br></pre></td></tr></table></figure></div>
+<h3 id="2-启动和启用-ssh-服务"><a class="markdownIt-Anchor" href="#2-启动和启用-ssh-服务"></a> 2. 启动和启用 SSH 服务</h3>
+<p>安装完成后，启动 SSH 服务并确保它在系统启动时自动启动：</p>
+<div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">sudo</span> systemctl start ssh</span><br><span class="line"><span class="built_in">sudo</span> systemctl <span class="built_in">enable</span> ssh</span><br></pre></td></tr></table></figure></div>
+<h3 id="3-检查-ssh-服务状态"><a class="markdownIt-Anchor" href="#3-检查-ssh-服务状态"></a> 3. 检查 SSH 服务状态</h3>
+<p>你可以使用以下命令检查 SSH 服务的状态：</p>
+<div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">sudo</span> systemctl status ssh</span><br></pre></td></tr></table></figure></div>
+<p>确保服务正在运行，并且没有错误信息。</p>
+<h3 id="4-配置-ssh可选"><a class="markdownIt-Anchor" href="#4-配置-ssh可选"></a> 4. 配置 SSH（可选）</h3>
+<p>默认情况下，SSH 使用的配置文件位于 <code>/etc/ssh/sshd_config</code>。你可以根据需要修改此文件以增强安全性，例如禁用密码登录，启用密钥登录等。编辑配置文件：</p>
+<div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">sudo</span> nano /etc/ssh/sshd_config</span><br></pre></td></tr></table></figure></div>
+<p>以下是一些常见的配置选项：</p>
+<ul>
+<li>
+<p><strong>禁用密码登录</strong>（仅允许使用密钥登录）：</p>
+ <div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="code"><pre><span class="line">PasswordAuthentication no</span><br></pre></td></tr></table></figure></div>
+</li>
+<li>
+<p><strong>更改默认 SSH 端口</strong>（可选）：</p>
+ <div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="code"><pre><span class="line">Port 2222</span><br></pre></td></tr></table></figure></div>
+</li>
+</ul>
+<p>更改后，保存并退出编辑器。然后重新启动 SSH 服务以使更改生效：</p>
+<div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">sudo</span> systemctl restart ssh</span><br></pre></td></tr></table></figure></div>
+<h3 id="5-配置防火墙如果适用"><a class="markdownIt-Anchor" href="#5-配置防火墙如果适用"></a> 5. 配置防火墙（如果适用）</h3>
+<p>如果你的系统启用了防火墙，确保 SSH 端口（默认是 22 或你更改后的端口）是开放的。使用以下命令允许 SSH 通过 UFW（如果你使用 UFW 作为防火墙）：</p>
+<div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">sudo</span> ufw allow ssh</span><br><span class="line"><span class="comment"># 如果你更改了端口，例如使用 2222：</span></span><br><span class="line"><span class="comment"># sudo ufw allow 2222</span></span><br></pre></td></tr></table></figure></div>
+<h3 id="6-获取服务器的-ip-地址"><a class="markdownIt-Anchor" href="#6-获取服务器的-ip-地址"></a> 6. 获取服务器的 IP 地址</h3>
+<p>你可以使用以下命令获取你的服务器的 IP 地址：</p>
+<div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="code"><pre><span class="line">ip a</span><br></pre></td></tr></table></figure></div>
+<h3 id="7-在-vscode-中配置-ssh"><a class="markdownIt-Anchor" href="#7-在-vscode-中配置-ssh"></a> 7. 在 VSCode 中配置 SSH</h3>
+<ol>
+<li>
+<p><strong>安装 Remote - SSH 插件</strong>：</p>
+<ul>
+<li>打开 VSCode。</li>
+<li>转到扩展视图 (<code>Ctrl + Shift + X</code>)。</li>
+<li>搜索并安装 <strong>Remote - SSH</strong> 插件。</li>
+</ul>
+</li>
+<li>
+<p><strong>添加 SSH 主机</strong>：</p>
+<ul>
+<li>
+<p>按 <code>F1</code> 或 <code>Ctrl + Shift + P</code> 打开命令面板。</p>
+</li>
+<li>
+<p>输入并选择 <strong>Remote-SSH: Add New SSH Host</strong>。</p>
+</li>
+<li>
+<p>输入你的 SSH 连接命令，例如：</p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="code"><pre><span class="line">ssh username@server_ip</span><br></pre></td></tr></table></figure></div>
+<p>替换 <code>username</code> 和 <code>server_ip</code> 为你的实际用户名和服务器的 IP 地址。</p>
+</li>
+</ul>
+</li>
+<li>
+<p><strong>选择 SSH 配置文件</strong>：</p>
+<ul>
+<li>VSCode 会提示你选择 SSH 配置文件，通常是 <code>~/.ssh/config</code>。</li>
+</ul>
+</li>
+<li>
+<p><strong>连接到 SSH 主机</strong>：</p>
+<ul>
+<li>重新打开命令面板，输入并选择 <strong>Remote-SSH: Connect to Host</strong>，然后选择你刚刚添加的主机。</li>
+</ul>
+</li>
+<li>
+<p><strong>输入密码或密钥</strong>（如果使用密码）：</p>
+<ul>
+<li>如果 SSH 配置为密码验证，你需要输入密码。如果配置为密钥验证且密钥已设置为默认，VSCode 会自动使用密钥。</li>
+</ul>
+</li>
+</ol>
+<h3 id="8-连接后"><a class="markdownIt-Anchor" href="#8-连接后"></a> 8. 连接后</h3>
+<p>一旦连接成功，你就可以像在本地一样编辑远程服务器上的文件了。你可以打开终端，运行命令，并使用 VSCode 的所有功能。</p>
+<p>通过以上步骤，你就可以方便地在 Ubuntu 上配置 SSH，以便使用 VSCode 进行连接和远程开发。</p>
+<div class="highlight-container" data-rel="Cpp"><figure class="iseeu highlight cpp"><table><tr><td class="code"><pre><span class="line"></span><br></pre></td></tr></table></figure></div>
+<div class="highlight-container" data-rel="Cpp"><figure class="iseeu highlight cpp"><table><tr><td class="code"><pre><span class="line"></span><br></pre></td></tr></table></figure></div>]]></content>
+      <categories>
+        <category>Ubuntu</category>
+      </categories>
+      <tags>
+        <tag>Ubuntu</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>centos7 基础命令爆出255返回码</title>
+    <url>/sni2sz/</url>
+    <content><![CDATA[<p>cron 是一个用于在指定时间自动执行预定任务的守护进程，/etc/cron.hourly/ 目录中的脚本每小时会被 cron进程 自动执行一次</p>
+]]></content>
+      <categories>
+        <category>Ubuntu</category>
+      </categories>
+      <tags>
+        <tag>Ubuntu</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>UAV-Aided Computation Offloading in Mobile-Edge Computing Networks_ A Stackelberg Game Approach</title>
     <url>/sni2ya/</url>
     <content><![CDATA[
@@ -481,108 +586,37 @@ $$ tB<em>i \leq t</em>{\text{max}}^i （BS-MEC 耗时必须少于上限）<mjx-c
       </tags>
   </entry>
   <entry>
-    <title>Ubuntu配置ssh</title>
-    <url>/sni2r9/</url>
-    <content><![CDATA[<p>在 Ubuntu 上配置 SSH 以便使用 Visual Studio Code (VSCode) 进行连接，可以按照以下步骤进行：</p>
-<h3 id="1-安装-openssh-服务器"><a class="markdownIt-Anchor" href="#1-安装-openssh-服务器"></a> 1. 安装 OpenSSH 服务器</h3>
-<p>首先，你需要确保你的 Ubuntu 系统上安装了 OpenSSH 服务器。打开终端，执行以下命令：</p>
-<div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">sudo</span> apt update</span><br><span class="line"><span class="built_in">sudo</span> apt install openssh-server</span><br></pre></td></tr></table></figure></div>
-<h3 id="2-启动和启用-ssh-服务"><a class="markdownIt-Anchor" href="#2-启动和启用-ssh-服务"></a> 2. 启动和启用 SSH 服务</h3>
-<p>安装完成后，启动 SSH 服务并确保它在系统启动时自动启动：</p>
-<div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">sudo</span> systemctl start ssh</span><br><span class="line"><span class="built_in">sudo</span> systemctl <span class="built_in">enable</span> ssh</span><br></pre></td></tr></table></figure></div>
-<h3 id="3-检查-ssh-服务状态"><a class="markdownIt-Anchor" href="#3-检查-ssh-服务状态"></a> 3. 检查 SSH 服务状态</h3>
-<p>你可以使用以下命令检查 SSH 服务的状态：</p>
-<div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">sudo</span> systemctl status ssh</span><br></pre></td></tr></table></figure></div>
-<p>确保服务正在运行，并且没有错误信息。</p>
-<h3 id="4-配置-ssh可选"><a class="markdownIt-Anchor" href="#4-配置-ssh可选"></a> 4. 配置 SSH（可选）</h3>
-<p>默认情况下，SSH 使用的配置文件位于 <code>/etc/ssh/sshd_config</code>。你可以根据需要修改此文件以增强安全性，例如禁用密码登录，启用密钥登录等。编辑配置文件：</p>
-<div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">sudo</span> nano /etc/ssh/sshd_config</span><br></pre></td></tr></table></figure></div>
-<p>以下是一些常见的配置选项：</p>
-<ul>
-<li>
-<p><strong>禁用密码登录</strong>（仅允许使用密钥登录）：</p>
- <div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="code"><pre><span class="line">PasswordAuthentication no</span><br></pre></td></tr></table></figure></div>
-</li>
-<li>
-<p><strong>更改默认 SSH 端口</strong>（可选）：</p>
- <div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="code"><pre><span class="line">Port 2222</span><br></pre></td></tr></table></figure></div>
-</li>
-</ul>
-<p>更改后，保存并退出编辑器。然后重新启动 SSH 服务以使更改生效：</p>
-<div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">sudo</span> systemctl restart ssh</span><br></pre></td></tr></table></figure></div>
-<h3 id="5-配置防火墙如果适用"><a class="markdownIt-Anchor" href="#5-配置防火墙如果适用"></a> 5. 配置防火墙（如果适用）</h3>
-<p>如果你的系统启用了防火墙，确保 SSH 端口（默认是 22 或你更改后的端口）是开放的。使用以下命令允许 SSH 通过 UFW（如果你使用 UFW 作为防火墙）：</p>
-<div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">sudo</span> ufw allow ssh</span><br><span class="line"><span class="comment"># 如果你更改了端口，例如使用 2222：</span></span><br><span class="line"><span class="comment"># sudo ufw allow 2222</span></span><br></pre></td></tr></table></figure></div>
-<h3 id="6-获取服务器的-ip-地址"><a class="markdownIt-Anchor" href="#6-获取服务器的-ip-地址"></a> 6. 获取服务器的 IP 地址</h3>
-<p>你可以使用以下命令获取你的服务器的 IP 地址：</p>
-<div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="code"><pre><span class="line">ip a</span><br></pre></td></tr></table></figure></div>
-<h3 id="7-在-vscode-中配置-ssh"><a class="markdownIt-Anchor" href="#7-在-vscode-中配置-ssh"></a> 7. 在 VSCode 中配置 SSH</h3>
-<ol>
-<li>
-<p><strong>安装 Remote - SSH 插件</strong>：</p>
-<ul>
-<li>打开 VSCode。</li>
-<li>转到扩展视图 (<code>Ctrl + Shift + X</code>)。</li>
-<li>搜索并安装 <strong>Remote - SSH</strong> 插件。</li>
-</ul>
-</li>
-<li>
-<p><strong>添加 SSH 主机</strong>：</p>
-<ul>
-<li>
-<p>按 <code>F1</code> 或 <code>Ctrl + Shift + P</code> 打开命令面板。</p>
-</li>
-<li>
-<p>输入并选择 <strong>Remote-SSH: Add New SSH Host</strong>。</p>
-</li>
-<li>
-<p>输入你的 SSH 连接命令，例如：</p>
-<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="code"><pre><span class="line">ssh username@server_ip</span><br></pre></td></tr></table></figure></div>
-<p>替换 <code>username</code> 和 <code>server_ip</code> 为你的实际用户名和服务器的 IP 地址。</p>
-</li>
-</ul>
-</li>
-<li>
-<p><strong>选择 SSH 配置文件</strong>：</p>
-<ul>
-<li>VSCode 会提示你选择 SSH 配置文件，通常是 <code>~/.ssh/config</code>。</li>
-</ul>
-</li>
-<li>
-<p><strong>连接到 SSH 主机</strong>：</p>
-<ul>
-<li>重新打开命令面板，输入并选择 <strong>Remote-SSH: Connect to Host</strong>，然后选择你刚刚添加的主机。</li>
-</ul>
-</li>
-<li>
-<p><strong>输入密码或密钥</strong>（如果使用密码）：</p>
-<ul>
-<li>如果 SSH 配置为密码验证，你需要输入密码。如果配置为密钥验证且密钥已设置为默认，VSCode 会自动使用密钥。</li>
-</ul>
-</li>
-</ol>
-<h3 id="8-连接后"><a class="markdownIt-Anchor" href="#8-连接后"></a> 8. 连接后</h3>
-<p>一旦连接成功，你就可以像在本地一样编辑远程服务器上的文件了。你可以打开终端，运行命令，并使用 VSCode 的所有功能。</p>
-<p>通过以上步骤，你就可以方便地在 Ubuntu 上配置 SSH，以便使用 VSCode 进行连接和远程开发。</p>
-<div class="highlight-container" data-rel="Cpp"><figure class="iseeu highlight cpp"><table><tr><td class="code"><pre><span class="line"></span><br></pre></td></tr></table></figure></div>
-<div class="highlight-container" data-rel="Cpp"><figure class="iseeu highlight cpp"><table><tr><td class="code"><pre><span class="line"></span><br></pre></td></tr></table></figure></div>]]></content>
+    <title>Git常用指令</title>
+    <url>/ss6dlu/</url>
+    <content><![CDATA[<h3 id="1-git-init-在本地工程目录下生成git-文件夹"><a class="markdownIt-Anchor" href="#1-git-init-在本地工程目录下生成git-文件夹"></a> 1、Git init （在本地工程目录下），生成.git 文件夹</h3>
+<div class="highlight-container" data-rel="Swift"><figure class="iseeu highlight swift"><table><tr><td class="code"><pre><span class="line"><span class="type">Git</span> <span class="keyword">init</span></span><br></pre></td></tr></table></figure></div>
+<h3 id="2-上传修改的文件"><a class="markdownIt-Anchor" href="#2-上传修改的文件"></a> 2、上传修改的文件</h3>
+<div class="highlight-container" data-rel="Sql"><figure class="iseeu highlight sql"><table><tr><td class="code"><pre><span class="line">git <span class="keyword">add</span> <span class="operator">*</span></span><br></pre></td></tr></table></figure></div>
+<p>(*可替换成具体要上传的文件名，*表示提交所有有变化的文件)</p>
+<h3 id="3-添加上传文件的描述"><a class="markdownIt-Anchor" href="#3-添加上传文件的描述"></a> 3、添加上传文件的描述</h3>
+<div class="highlight-container" data-rel="Sql"><figure class="iseeu highlight sql"><table><tr><td class="code"><pre><span class="line">git <span class="keyword">commit</span> <span class="operator">-</span>m "test" </span><br></pre></td></tr></table></figure></div>
+<p>（”test“为分支名）</p>
+<h3 id="4-创建分支"><a class="markdownIt-Anchor" href="#4-创建分支"></a> 4、（创建分支）</h3>
+<div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="code"><pre><span class="line">git branch <span class="built_in">test</span></span><br></pre></td></tr></table></figure></div>
+<h3 id="5-切换分支"><a class="markdownIt-Anchor" href="#5-切换分支"></a> 5、（切换分支）</h3>
+<div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="code"><pre><span class="line">git checkout <span class="built_in">test</span></span><br></pre></td></tr></table></figure></div>
+<h3 id="6-与远程分支相关联"><a class="markdownIt-Anchor" href="#6-与远程分支相关联"></a> 6、与远程分支相关联</h3>
+<div class="highlight-container" data-rel="Csharp"><figure class="iseeu highlight csharp"><table><tr><td class="code"><pre><span class="line">git remote <span class="keyword">add</span> origin https:<span class="comment">//github.com/yangxiaoyan20/BowlingScore.git</span></span><br></pre></td></tr></table></figure></div>
+<p>（”BowlingScore“ 为工程名）</p>
+<p>单独下载某一个分支的代码</p>
+<div class="highlight-container" data-rel="Java"><figure class="iseeu highlight java"><table><tr><td class="code"><pre><span class="line">git clone -b   分支名   项目地址</span><br><span class="line"><span class="comment">//git clone -b   wang   https://e.coding.net/latitude/ideo/ideo.git</span></span><br></pre></td></tr></table></figure></div>
+<h3 id="7-将分支上传"><a class="markdownIt-Anchor" href="#7-将分支上传"></a> 7、（将分支上传）</h3>
+<div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="code"><pre><span class="line">git push origin <span class="built_in">test</span></span><br></pre></td></tr></table></figure></div>
+<div class="highlight-container" data-rel="Swift"><figure class="iseeu highlight swift"><table><tr><td class="code"><pre><span class="line">#上传者姓名（设置一次即可）</span><br><span class="line">git config <span class="operator">--</span>global user.name <span class="string">"xl"</span>  </span><br><span class="line">#上传者邮箱   （设置一次即可）</span><br><span class="line">git config <span class="operator">--</span>global user.email <span class="string">"1126626497@qq.com"</span>   </span><br><span class="line"></span><br><span class="line">#添加远程仓库地址(就是服务器地址) <span class="operator">--</span>第一次时使用</span><br><span class="line">git remote add origin https:<span class="comment">//gitcode.net/xiaolong1126626497/bmp_code.git</span></span><br><span class="line">git remote add 地址变量名 url</span><br><span class="line"></span><br><span class="line">#修改远程仓库地址(就是服务器地址)，如果之前已经设置过其他地址，就使用修改命令</span><br><span class="line">git remote <span class="keyword">set</span><span class="operator">-</span>url origin https:<span class="comment">//gitcode.net/xiaolong1126626497/bmp_code.git  </span></span><br><span class="line">git remote <span class="keyword">set</span><span class="operator">-</span>url 地址变量名 新url</span><br><span class="line"></span><br><span class="line">#添加所有文件</span><br><span class="line">git add .</span><br><span class="line">#写上修改说明</span><br><span class="line">git commit <span class="operator">-</span>m <span class="string">"添加test.c"</span> </span><br><span class="line">#上传至仓库 </span><br><span class="line">git push <span class="operator">-</span>u origin master   </span><br><span class="line">git push <span class="operator">-</span>u origin 分支名</span><br></pre></td></tr></table></figure></div>
+<h2 id="8-完整命令流程"><a class="markdownIt-Anchor" href="#8-完整命令流程"></a> 8、完整命令流程</h2>
+<div class="highlight-container" data-rel="Swift"><figure class="iseeu highlight swift"><table><tr><td class="code"><pre><span class="line">#删除原来的git文件夹</span><br><span class="line">rm <span class="operator">-</span>rf .git<span class="operator">/</span></span><br><span class="line">#新建git文件夹，初始化</span><br><span class="line">git <span class="keyword">init</span></span><br><span class="line">#添加远程仓库地址和地址变量origin，将url赋值给origin  <span class="operator">--</span>第一次使用</span><br><span class="line">git remote add origin https:<span class="comment">//e.coding.net/latitude/ideo/ideo.git</span></span><br><span class="line"><span class="comment">//#修改地址变量名的url信息	--第二次使用</span></span><br><span class="line"><span class="comment">//git remote set-url origin https://e.coding.net/latitude/ideo/ideo.git</span></span><br><span class="line">#添加本地所有的文件</span><br><span class="line">git add .</span><br><span class="line">#提交所有文件，赋上提交的信息</span><br><span class="line">git commit <span class="operator">-</span>m “<span class="type">Commit</span> message”</span><br><span class="line"></span><br><span class="line"><span class="comment">//#创建新的test分支</span></span><br><span class="line"><span class="comment">//git branch test</span></span><br><span class="line"><span class="comment">//git branch 分支名</span></span><br><span class="line"><span class="comment">//#选择刚才创建的test分支</span></span><br><span class="line"><span class="comment">//git checkout test</span></span><br><span class="line"><span class="comment">//git checkout 分支名</span></span><br><span class="line"></span><br><span class="line">#提交到origin的master分支</span><br><span class="line">git push <span class="operator">-</span>f origin master</span><br><span class="line">#提交到origin的test分支</span><br><span class="line">git push <span class="operator">-</span>f origin test</span><br></pre></td></tr></table></figure></div>
+<h2 id="9-git-clone-使用-b-指定分支"><a class="markdownIt-Anchor" href="#9-git-clone-使用-b-指定分支"></a> 9、Git clone （使用 -b 指定分支）</h2>
+<div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="code"><pre><span class="line">git <span class="built_in">clone</span> -b dev_jk http://10.1.1.11/service/tmall-service.git</span><br></pre></td></tr></table></figure></div>]]></content>
       <categories>
-        <category>Ubuntu</category>
+        <category>IDE配置</category>
       </categories>
       <tags>
-        <tag>Ubuntu</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>centos7 基础命令爆出255返回码</title>
-    <url>/sni2sz/</url>
-    <content><![CDATA[<p>cron 是一个用于在指定时间自动执行预定任务的守护进程，/etc/cron.hourly/ 目录中的脚本每小时会被 cron进程 自动执行一次</p>
-]]></content>
-      <categories>
-        <category>Ubuntu</category>
-      </categories>
-      <tags>
-        <tag>Ubuntu</tag>
+        <tag>Git</tag>
       </tags>
   </entry>
   <entry>
@@ -708,40 +742,6 @@ $$ tB<em>i \leq t</em>{\text{max}}^i （BS-MEC 耗时必须少于上限）<mjx-c
       </categories>
       <tags>
         <tag>Obsidian</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Git常用指令</title>
-    <url>/ss6dlu/</url>
-    <content><![CDATA[<h3 id="1-git-init-在本地工程目录下生成git-文件夹"><a class="markdownIt-Anchor" href="#1-git-init-在本地工程目录下生成git-文件夹"></a> 1、Git init （在本地工程目录下），生成.git 文件夹</h3>
-<div class="highlight-container" data-rel="Swift"><figure class="iseeu highlight swift"><table><tr><td class="code"><pre><span class="line"><span class="type">Git</span> <span class="keyword">init</span></span><br></pre></td></tr></table></figure></div>
-<h3 id="2-上传修改的文件"><a class="markdownIt-Anchor" href="#2-上传修改的文件"></a> 2、上传修改的文件</h3>
-<div class="highlight-container" data-rel="Sql"><figure class="iseeu highlight sql"><table><tr><td class="code"><pre><span class="line">git <span class="keyword">add</span> <span class="operator">*</span></span><br></pre></td></tr></table></figure></div>
-<p>(*可替换成具体要上传的文件名，*表示提交所有有变化的文件)</p>
-<h3 id="3-添加上传文件的描述"><a class="markdownIt-Anchor" href="#3-添加上传文件的描述"></a> 3、添加上传文件的描述</h3>
-<div class="highlight-container" data-rel="Sql"><figure class="iseeu highlight sql"><table><tr><td class="code"><pre><span class="line">git <span class="keyword">commit</span> <span class="operator">-</span>m "test" </span><br></pre></td></tr></table></figure></div>
-<p>（”test“为分支名）</p>
-<h3 id="4-创建分支"><a class="markdownIt-Anchor" href="#4-创建分支"></a> 4、（创建分支）</h3>
-<div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="code"><pre><span class="line">git branch <span class="built_in">test</span></span><br></pre></td></tr></table></figure></div>
-<h3 id="5-切换分支"><a class="markdownIt-Anchor" href="#5-切换分支"></a> 5、（切换分支）</h3>
-<div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="code"><pre><span class="line">git checkout <span class="built_in">test</span></span><br></pre></td></tr></table></figure></div>
-<h3 id="6-与远程分支相关联"><a class="markdownIt-Anchor" href="#6-与远程分支相关联"></a> 6、与远程分支相关联</h3>
-<div class="highlight-container" data-rel="Csharp"><figure class="iseeu highlight csharp"><table><tr><td class="code"><pre><span class="line">git remote <span class="keyword">add</span> origin https:<span class="comment">//github.com/yangxiaoyan20/BowlingScore.git</span></span><br></pre></td></tr></table></figure></div>
-<p>（”BowlingScore“ 为工程名）</p>
-<p>单独下载某一个分支的代码</p>
-<div class="highlight-container" data-rel="Java"><figure class="iseeu highlight java"><table><tr><td class="code"><pre><span class="line">git clone -b   分支名   项目地址</span><br><span class="line"><span class="comment">//git clone -b   wang   https://e.coding.net/latitude/ideo/ideo.git</span></span><br></pre></td></tr></table></figure></div>
-<h3 id="7-将分支上传"><a class="markdownIt-Anchor" href="#7-将分支上传"></a> 7、（将分支上传）</h3>
-<div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="code"><pre><span class="line">git push origin <span class="built_in">test</span></span><br></pre></td></tr></table></figure></div>
-<div class="highlight-container" data-rel="Swift"><figure class="iseeu highlight swift"><table><tr><td class="code"><pre><span class="line">#上传者姓名（设置一次即可）</span><br><span class="line">git config <span class="operator">--</span>global user.name <span class="string">"xl"</span>  </span><br><span class="line">#上传者邮箱   （设置一次即可）</span><br><span class="line">git config <span class="operator">--</span>global user.email <span class="string">"1126626497@qq.com"</span>   </span><br><span class="line"></span><br><span class="line">#添加远程仓库地址(就是服务器地址) <span class="operator">--</span>第一次时使用</span><br><span class="line">git remote add origin https:<span class="comment">//gitcode.net/xiaolong1126626497/bmp_code.git</span></span><br><span class="line">git remote add 地址变量名 url</span><br><span class="line"></span><br><span class="line">#修改远程仓库地址(就是服务器地址)，如果之前已经设置过其他地址，就使用修改命令</span><br><span class="line">git remote <span class="keyword">set</span><span class="operator">-</span>url origin https:<span class="comment">//gitcode.net/xiaolong1126626497/bmp_code.git  </span></span><br><span class="line">git remote <span class="keyword">set</span><span class="operator">-</span>url 地址变量名 新url</span><br><span class="line"></span><br><span class="line">#添加所有文件</span><br><span class="line">git add .</span><br><span class="line">#写上修改说明</span><br><span class="line">git commit <span class="operator">-</span>m <span class="string">"添加test.c"</span> </span><br><span class="line">#上传至仓库 </span><br><span class="line">git push <span class="operator">-</span>u origin master   </span><br><span class="line">git push <span class="operator">-</span>u origin 分支名</span><br></pre></td></tr></table></figure></div>
-<h2 id="8-完整命令流程"><a class="markdownIt-Anchor" href="#8-完整命令流程"></a> 8、完整命令流程</h2>
-<div class="highlight-container" data-rel="Swift"><figure class="iseeu highlight swift"><table><tr><td class="code"><pre><span class="line">#删除原来的git文件夹</span><br><span class="line">rm <span class="operator">-</span>rf .git<span class="operator">/</span></span><br><span class="line">#新建git文件夹，初始化</span><br><span class="line">git <span class="keyword">init</span></span><br><span class="line">#添加远程仓库地址和地址变量origin，将url赋值给origin  <span class="operator">--</span>第一次使用</span><br><span class="line">git remote add origin https:<span class="comment">//e.coding.net/latitude/ideo/ideo.git</span></span><br><span class="line"><span class="comment">//#修改地址变量名的url信息	--第二次使用</span></span><br><span class="line"><span class="comment">//git remote set-url origin https://e.coding.net/latitude/ideo/ideo.git</span></span><br><span class="line">#添加本地所有的文件</span><br><span class="line">git add .</span><br><span class="line">#提交所有文件，赋上提交的信息</span><br><span class="line">git commit <span class="operator">-</span>m “<span class="type">Commit</span> message”</span><br><span class="line"></span><br><span class="line"><span class="comment">//#创建新的test分支</span></span><br><span class="line"><span class="comment">//git branch test</span></span><br><span class="line"><span class="comment">//git branch 分支名</span></span><br><span class="line"><span class="comment">//#选择刚才创建的test分支</span></span><br><span class="line"><span class="comment">//git checkout test</span></span><br><span class="line"><span class="comment">//git checkout 分支名</span></span><br><span class="line"></span><br><span class="line">#提交到origin的master分支</span><br><span class="line">git push <span class="operator">-</span>f origin master</span><br><span class="line">#提交到origin的test分支</span><br><span class="line">git push <span class="operator">-</span>f origin test</span><br></pre></td></tr></table></figure></div>
-<h2 id="9-git-clone-使用-b-指定分支"><a class="markdownIt-Anchor" href="#9-git-clone-使用-b-指定分支"></a> 9、Git clone （使用 -b 指定分支）</h2>
-<div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="code"><pre><span class="line">git <span class="built_in">clone</span> -b dev_jk http://10.1.1.11/service/tmall-service.git</span><br></pre></td></tr></table></figure></div>]]></content>
-      <categories>
-        <category>IDE配置</category>
-      </categories>
-      <tags>
-        <tag>Git</tag>
       </tags>
   </entry>
   <entry>
@@ -921,113 +921,73 @@ $$ tB<em>i \leq t</em>{\text{max}}^i （BS-MEC 耗时必须少于上限）<mjx-c
       </tags>
   </entry>
   <entry>
-    <title>VSCode SSH设置免密登录</title>
-    <url>/sokh61/</url>
-    <content><![CDATA[<p>平时一直都是使用 VSCode 连服务器的，不过每次连接服务器、打开新的文件夹甚至刷新的时候都需要重新输入一遍密码，如果是同时连接多个不同的服务器，这体验可真是有够差劲的了。在网上查了资料发现，VSCode 是支持通过 RSA（勾起了当年上网安课的回忆 😂）秘钥登录的，这里做下记录。</p>
-<h2 id="1生成密钥对前提是已安装好-git"><a class="markdownIt-Anchor" href="#1生成密钥对前提是已安装好-git"></a> 1.生成密钥对（前提是已安装好 Git）</h2>
-<p>首先请确认电脑上已经成功安装好了 Git，首先检查一下<code>C:\Users\用户名\.ssh</code>文件夹，查看一下文件夹下是否包含 <code>id_rsa</code> 和 <code>id_rsa.pub</code><br>
-<img lazyload="" src="/images/loading.svg" data-src="https://typora-aliyun01.oss-cn-hangzhou.aliyuncs.com/img/20241216181007.png" alt="image.png" width="450px"></p>
-<p>如果没有，那么打开<code>git bash</code>，输入如下命令生成 RSA 公钥和密钥（请使用自己 Github 账号绑定的邮箱）：</p>
-<div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="code"><pre><span class="line">ssh-keygen -t rsa -C “xxx@qq.com”</span><br></pre></td></tr></table></figure></div>
-<p>执行这个命令时，可能会让你填一些信息，其实不用填，直接 Enter 即可。命令执行结束之后，你就能在<code>C:\Users\用户名\.ssh</code>文件夹下看到公钥和私钥了。</p>
-<h2 id="2上传公钥到服务器上"><a class="markdownIt-Anchor" href="#2上传公钥到服务器上"></a> 2.上传公钥到服务器上</h2>
-<p>我们第一步得到的<code>id_rsa.pub</code>实际上就是公钥，而<code>id_rsa</code>是私钥。如何理解公钥和私钥的用法呢？简单来说，现在我有一幅画，然后我把这幅画直接放在银行大厅里，所有人都可以看见这幅画，但是大家都不知道这幅画表达的是什么意思，只有拿着解密卡（私钥）的我才能看懂这是什么意思。</p>
-<p>上传公钥这里需要注意，你需要将<code>id_rsa.pub</code>的内容复制到<code>~/.ssh/authorized_keys</code>文件中。</p>
+    <title>Gemini-cli 本地安装及体验</title>
+    <url>/syr1mo/</url>
+    <content><![CDATA[<p>今年 Google 在大模型上的进展着实很令人惊叹，去年诸神大战的时候 Gemini 一直不温不火的，但是自从 gemini2.5 以来发生了很大改变，我自己用了一个多月的 gemini-2.5，个人体验觉得非常不错（尤其是 gemini-2.5-flash，个人感觉是真快啊！），在编写代码方面个人感觉略强于 grok3，显著强于 qwen3。</p>
+<h1 id="简单介绍"><a class="markdownIt-Anchor" href="#简单介绍"></a> 简单介绍</h1>
+<p>Gemini-cli 是 Google 在上周发布的，支持通过 node.js 安装，直接在本地终端就能呼出大模型，官网地址在 <a class="link" href="https://github.com/google-gemini/gemini-cli?tab=readme-ov-file">Gemini-Cli Github<i class="fa-solid fa-arrow-up-right ml-[0.2em] font-light align-text-top text-[0.7em] link-icon"></i></a>。不过最大的亮点还不是这个，而是：</p>
+<ol>
+<li>默认使用 gemini-2.5-pro（上下文1百万token），<strong>每天最高访问 1000 次，每分钟最多并发 60 次</strong>！</li>
+<li>不用申请 API-KEY，<strong>只需要 Google 账户认证就能用</strong>！<br>
+<img lazyload="" src="/images/loading.svg" data-src="https://typora-aliyun02.oss-cn-hangzhou.aliyuncs.com/img/20250702101416.png" alt="image.png"></li>
+</ol>
+<p>不过这玩意儿好不好用还得试试才知道，我尝试安装了一下发现还真没有官网说的这么简单 😂，下面会详细介绍一下安装时的注意事项。</p>
+<h1 id="安装-gemini-cli"><a class="markdownIt-Anchor" href="#安装-gemini-cli"></a> 安装 Gemini-Cli</h1>
+<h2 id="1必需工具"><a class="markdownIt-Anchor" href="#1必需工具"></a> 1.必需工具</h2>
+<ul>
+<li>Windows Powershell</li>
+<li>Node.js （版本高于 18.0）</li>
+<li>科学上网（梯子，开全局和规则均可，我使用的是 clash）</li>
+<li>Google 账号</li>
+</ul>
+<h2 id="2环境变量设置"><a class="markdownIt-Anchor" href="#2环境变量设置"></a> 2.环境变量设置</h2>
+<p>首先需要设置一下 powershell 的代理服务，这个是因为虽然你开了梯子，但是 powershell 的网络在未经设置之前默认是不走代理的，等到 Google 验证的时候会失败，爆出 <code>Failed to access ...</code>的错误</p>
+<h3 id="21-设置用户级代理"><a class="markdownIt-Anchor" href="#21-设置用户级代理"></a> 2.1 设置用户级代理</h3>
+<p>这里使用用户级代理（<strong>User</strong>），仅修改当前用户使用的环境变量即可。网上有教程使用的是下面的临时代理，很坑，仅在当前开启的终端有效，新开一个又得重新验证了。</p>
+<p>这里大家<mark>注意一下自己的代理端口号</mark>，我的默认是 7890，如果你的代理端口号不是这个，请自行修改。</p>
+<div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 用户级代理，持续生效</span></span><br><span class="line">[Environment]::SetEnvironmentVariable(<span class="string">"HTTP_PROXY"</span>, <span class="string">"http://127.0.0.1:7890"</span>, <span class="string">"User"</span>)</span><br><span class="line">[Environment]::SetEnvironmentVariable(<span class="string">"HTTPS_PROXY"</span>, <span class="string">"http://127.0.0.1:7890"</span>, <span class="string">"User"</span>)</span><br><span class="line">[Environment]::SetEnvironmentVariable(<span class="string">"ALL_PROXY"</span>, <span class="string">"socks5://127.0.0.1:7890"</span>, <span class="string">"User"</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 仅在当前终端有效，新开终端会失效</span></span><br><span class="line"><span class="variable">$env</span>:https_proxy=<span class="string">"http://127.0.0.1:7890"</span></span><br><span class="line"><span class="variable">$env</span>:http_proxy=<span class="string">"http://127.0.0.1:7890"</span></span><br><span class="line"><span class="variable">$env</span>:all_proxy=<span class="string">"socks5://127.0.0.1:7890"</span></span><br></pre></td></tr></table></figure></div>
+<h3 id="22-设置环境变量-google_cloud_project"><a class="markdownIt-Anchor" href="#22-设置环境变量-google_cloud_project"></a> 2.2 设置环境变量 GOOGLE_CLOUD_PROJECT</h3>
+<p>这里还需要设置一下 <code>GOOGLE_CLOUD_PROJECT</code> 这个环境变量，其实就是 Google 的云服务，这个比较好解决，在<a class="link" href="https://console.cloud.google.com/welcome?inv=1&amp;invt=Ab1S-A&amp;project=fast-gecko-411205">Google 云服务官网<i class="fa-solid fa-arrow-up-right ml-[0.2em] font-light align-text-top text-[0.7em] link-icon"></i></a>随便创建一个项目，然后复制一下项目 ID（Project ID）就可以了。</p>
+<p><img lazyload="" src="/images/loading.svg" data-src="https://typora-aliyun02.oss-cn-hangzhou.aliyuncs.com/img/20250702103533.png" alt="image.png" width="625px"></p>
+<p><img lazyload="" src="/images/loading.svg" data-src="https://typora-aliyun02.oss-cn-hangzhou.aliyuncs.com/img/20250702103646.png" alt="image.png" width="625px"></p>
+<p><img lazyload="" src="/images/loading.svg" data-src="https://typora-aliyun02.oss-cn-hangzhou.aliyuncs.com/img/20250702103757.png" alt="image.png" width="475px"></p>
+<p>打开 高级系统设置 -&gt; 环境变量设置，在 <strong>系统变量</strong> 里添加环境变量 <code>GOOGLE_CLOUD_PROJECT</code>即可，它的值就是刚才你复制的那个项目 ID。<br>
+<img lazyload="" src="/images/loading.svg" data-src="https://typora-aliyun02.oss-cn-hangzhou.aliyuncs.com/img/20250702104117.png" alt="image.png" width="450px"><br>
+完成这两步重启一下电脑，让电脑刷新一下系统变量配置。重启完成之后在 powershell 中检测一下环境变量是否加载成功了（梯子全程开启）：</p>
+<div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="code"><pre><span class="line">netsh winhttp show proxy</span><br></pre></td></tr></table></figure></div>
+<p><img lazyload="" src="/images/loading.svg" data-src="https://typora-aliyun02.oss-cn-hangzhou.aliyuncs.com/img/20250702104354.png" alt="image.png" width="500px"></p>
+<p>如果可以看到上面这个效果就是环境变量加载成功了。</p>
 
-<div class="callout" data-callout="note">
+<div class="callout" data-callout="tip">
 <div class="callout-title">
 <div class="callout-title-icon">
-<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-pencil"><path d="M17 3a2.85 2.83 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5Z"></path><path d="m15 5 4 4"></path></svg>
+<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-flame"><path d="M8.5 14.5A2.5 2.5 0 0 0 11 12c0-1.38-.5-2-1-3-1.072-2.143-.224-4.054 2-6 .5 2.5 2 4.9 4 6.5 2 1.6 3 3.5 3 5.5a7 7 0 1 1-14 0c0-1.153.433-2.294 1-3a2.5 2.5 0 0 0 2.5 2.5z"></path></svg>
 </div>
-<div class="callout-title-inner">Note</div>
+<div class="callout-title-inner">Tip</div>
 </div>
-<div class="callout-content"><p>路径开头的这个<code>~</code>是什么意思？</p>
-<p>这个符号其实和你使用的用户名有关。比如你使用的用户名是xiaoming，那么<code>~</code>代表的可能就是<code>/home/xiaoming/</code>；如果你当前使用的用户名是xiaoli123，那么<code>~</code>代表的可能就是<code>/home/xiaoli123</code>；如果你是用的是root用户，那么<code>~</code>代表的就是<code>/root/</code></p>
-</div></div><p>当然一台服务器很可能是有很多人一起使用的，如果说每个人都需要上传一份自己的密钥，应该怎么办呢？这个问题不大，所有人都把自己的公钥都放在这个<code>authorized_keys</code>文件中，只需要换行隔开就可以了。</p>
-<div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="code"><pre><span class="line">id_rsa.pub01.....</span><br><span class="line">id_rsa.pub02.....</span><br><span class="line">id_rsa.pub03.....</span><br></pre></td></tr></table></figure></div>
-<p>这里需要注意，<mark>如果你只将公钥放在了用户A的authorized_keys文件里，那么有且仅有用户A是可以免密登录的，使用其他用户名还是不能免密登录</mark>。</p>
-<p>所以，<strong>一定一定一定要注意用户名！！！</strong>。我看过的一些教程中默认配置的是root用户，公钥存放的路径也直接就在<code>/root/</code>文件夹下，结果配完了我发现只有root用户可以免密登录，还找不到错误原因👿</p>
-<h2 id="3在vscode远程ssh连接"><a class="markdownIt-Anchor" href="#3在vscode远程ssh连接"></a> 3.在VSCode远程ssh连接</h2>
-<p>如果上面的步骤都配置成功了，那么配置文件其实只写正常的几项配置就已经可以免密登录了：</p>
-<div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="code"><pre><span class="line">Host xx</span><br><span class="line">HostName 10.21.xx.xxx</span><br><span class="line">User 你的用户名</span><br><span class="line">Port 22</span><br></pre></td></tr></table></figure></div>
-<p>这个部分有的教程里会填写其他配置信息，比如：</p>
-<div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="code"><pre><span class="line">Host dev</span><br><span class="line">HostName xx.cmtspace.cn</span><br><span class="line">User root</span><br><span class="line">Port 22</span><br><span class="line">PreferredAuthentications publickey</span><br><span class="line">IdentityFile <span class="string">"C:\Users\Administrator\.ssh\id_rsa"</span></span><br></pre></td></tr></table></figure></div>
-<p>但是经过我测试发现，不需要<code>IdentityFile</code>也是可以免密登录的，而且那个<code>PreferredAuthentications</code>加了之后反而连接时会不断报错</p>
-<h2 id="4报错处理"><a class="markdownIt-Anchor" href="#4报错处理"></a> 4.报错处理</h2>
-<h3 id="1服务器上没有~sshauthorized_keys文件夹"><a class="markdownIt-Anchor" href="#1服务器上没有~sshauthorized_keys文件夹"></a> （1）服务器上没有<code>~/.ssh/authorized_keys</code>文件夹</h3>
-<p>这个问题好解决，直接创建一个<code>.ssh</code>文件夹和<code>authorized_keys</code>文件即可。</p>
-<h3 id="2文件权限问题"><a class="markdownIt-Anchor" href="#2文件权限问题"></a> （2）文件权限问题</h3>
-<p>这个问题一般是在服务器上发生的，比如当你想修改<code>authorized_keys</code>时日志报错说你没有足够的权限，或者访问<code>.ssh</code>文件夹的时候就已经爆出权限错误了，只需要修改一下权限即可：</p>
-<div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">chmod</span> 700 ~</span><br><span class="line"><span class="built_in">chmod</span> 700 ~/.ssh </span><br><span class="line"><span class="built_in">chmod</span> 644 ~/.ssh/authorized_keys</span><br></pre></td></tr></table></figure></div>
-<p><strong>注意</strong>：如果使用的是root用户，请将<code>~</code>改成<code>/root</code></p>
-<h3 id="3sshd配置问题"><a class="markdownIt-Anchor" href="#3sshd配置问题"></a> （3）sshd配置问题</h3>
-<p>有时候权限没有问题但还是连不上，这时可能是服务器的ssh配置中存在问题，这时候需要修改<code>/etc/ssh/sshd_config</code>文件，取消注释某些项：</p>
-<div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment">#将这两行取消注释</span></span><br><span class="line">PubkeyAuthentication <span class="built_in">yes</span></span><br><span class="line">AuthorizedKeysFile  .ssh/authorized_keys .ssh/authorized_keys2</span><br><span class="line"><span class="comment"># 将RSAAuthentication注释（如果没有这一项就不用管）</span></span><br><span class="line"><span class="comment"># RSAAuthentication no</span></span><br></pre></td></tr></table></figure></div>
-<p>修改好之后，还需要重启sshd：</p>
-<div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="code"><pre><span class="line">service sshd restart</span><br></pre></td></tr></table></figure></div>
-<h3 id="4-permissions-for-xxid_rsa-are-too-openit-is-required-that-your-private-key-files-are-not-accessible-by-others"><a class="markdownIt-Anchor" href="#4-permissions-for-xxid_rsa-are-too-openit-is-required-that-your-private-key-files-are-not-accessible-by-others"></a> (4) Permissions for ‘xx/id_rsa’ are too <a class="link" href="http://open.It">open.It<i class="fa-solid fa-arrow-up-right ml-[0.2em] font-light align-text-top text-[0.7em] link-icon"></i></a> is required that your private key files are NOT accessible by others.</h3>
-<p>使用VSCode SSH 连接服务器时，很可能会在连接过程中报这个错误。这个错误的意思其实是 <strong>有多个用户可权限访问你的私钥文件，所以你的私钥文件访问权限不安全</strong>。</p>
-<p>首先找到私钥文件，右键进入 安全-&gt; 高级：</p>
-<p><img lazyload="" src="/images/loading.svg" data-src="https://typora-aliyun01.oss-cn-hangzhou.aliyuncs.com/img/20241217200436.png" alt="image.png" width="600px"></p>
-<p>在这里 <strong>禁用继承</strong>，删除其他用户，只保留当前用户和SYSTEM即可：<br>
-<img lazyload="" src="/images/loading.svg" data-src="https://typora-aliyun01.oss-cn-hangzhou.aliyuncs.com/img/20241217200640.png" alt="image.png" width="600px"></p>
+<div class="callout-content"><p>Q：为什么需要这个 Google 的云服务，搞这么麻烦？<br>
+A：其实就是把你使用 gemini-cli 产生的费用绑定到这个云服务项目里，按云服务项目的规则计费。比如一天最多 1000 次，然后你用超了，那么这个云服务项目就会显示费用。（唉，资本~）</p>
+</div></div><h2 id="3-配置-google-code-assist"><a class="markdownIt-Anchor" href="#3-配置-google-code-assist"></a> 3. 配置 Google Code Assist</h2>
+<p>刚才配置好环境变量还不够，因为未开通 gemini 接口调用权限（因为使用达到限额后是收费的，如果个人帐号绑卡了，超过后会从卡里收费，因此需要个人点击开通权限），在 <a class="link" href="https://console.cloud.google.com/marketplace/product/google/geminicloudassist.googleapis.com?q=search&amp;referrer=search&amp;inv=1&amp;invt=Ab1S8w&amp;project=poetic-park-411205">Google Code Assist<i class="fa-solid fa-arrow-up-right ml-[0.2em] font-light align-text-top text-[0.7em] link-icon"></i></a> 里点击 “Enable”，选择刚才创建的那个项目即可</p>
+<p><img lazyload="" src="/images/loading.svg" data-src="https://typora-aliyun02.oss-cn-hangzhou.aliyuncs.com/img/20250702105347.png" alt="image.png" width="500px"></p>
+<h2 id="4-开始安装"><a class="markdownIt-Anchor" href="#4-开始安装"></a> 4. 开始安装</h2>
+<p>直接使用官网的安装方式，使用 npm 安装（推荐 npm，不推荐 npx，npm 安装好可以使用 gemini 全局调用）：</p>
+<div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="code"><pre><span class="line">npm install -g @google/gemini-cli</span><br><span class="line">gemini</span><br></pre></td></tr></table></figure></div>
+<p>安装好之后它会提示你选择一款皮肤（按上下键选择），这个看个人喜好选择即可；选择好之后选择<code>Login with Google</code>，之后会自动弹出谷歌浏览器的用户登录验证页面，然后点击登录稍等片刻就可以使用了。</p>
+<p><img lazyload="" src="/images/loading.svg" data-src="https://typora-aliyun02.oss-cn-hangzhou.aliyuncs.com/img/20250702110021.png" alt="image.png" width="550px"></p>
+<h2 id="5-报错与应对"><a class="markdownIt-Anchor" href="#5-报错与应对"></a> 5. 报错与应对</h2>
+<h3 id="51-failed-to-login-message-request-to-httpsoauth2googleapiscomtoken-failed-reason-connect-timeout-xxxxxxxx"><a class="markdownIt-Anchor" href="#51-failed-to-login-message-request-to-httpsoauth2googleapiscomtoken-failed-reason-connect-timeout-xxxxxxxx"></a> 5.1 failed to login. Message: request to <a class="link" href="https://oauth2.googleapis.com/token">https://oauth2.googleapis.com/token<i class="fa-solid fa-arrow-up-right ml-[0.2em] font-light align-text-top text-[0.7em] link-icon"></i></a> failed, reason: connect timeout  xx.xx.xx.xx…</h3>
+<p>错误原因是网络问题，检测一下刚才配置的代理是否成功，如果成功则检测一下梯子的网络是否畅通。这里博客园上的教程说是必须开启全局模式，我尝试过了使用全局和规则都是可以的。</p>
+<h3 id="52-403无权限"><a class="markdownIt-Anchor" href="#52-403无权限"></a> 5.2 ”403“无权限</h3>
+<p>详情请见本文 “3. 配置 Google Code Assist”，这个错误就是没有给云服务项目配置接口权限造成的。</p>
+<h1 id="题外话"><a class="markdownIt-Anchor" href="#题外话"></a> 题外话</h1>
+<p>我刚刚安装，简单体验了几分钟，个人感觉这个免费次数还是比较香的，但是gemini-2.5-pro这个模型反应速度有点慢，基本上回答问题都得经过4s以上（也可能是本人的网络问题）。我尝试过让它编写代码，因为是在终端，编写的代码稍微长一点儿居然显示的时候会省略一部分，可能是我的终端没配置好吧……不过它本身的用途也应该是对标cursor、Claude，直接帮你修改文件或者整理文件，后面会多体验体验。</p>
 ]]></content>
       <categories>
-        <category>IDE配置</category>
+        <category>IDE配置/VSCode</category>
       </categories>
       <tags>
-        <tag>VSCode</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>VSCode vsc内部cmd命令全部失效，但cmd本身正常</title>
-    <url>/ss0ybf/</url>
-    <content><![CDATA[<p>这周假期刚过，回到工位的我一打开 VSCode，奇怪的发现 VSCode 终端多出了一行警告信息：</p>
-<blockquote>
-<p>‘chcp’ is not recognized as an internal or external command, operable program or batch file</p>
-</blockquote>
-<p>看到这个警告信息我感觉不对啊，用了近三年的 VSCode 了，终端从来没有弹出过这个警告，怎么会连<code>chcp</code>都识别不了呢？然后我又试了试 conda、java 甚至是 cmd，结果它居然什么命令都识别不了了。退出 VSCode，直接打开 cmd，又一切正常了，该有的命令一个都不少？？？</p>
-<p>初步猜测是 VSCode 的 bug？我更新到最新版（当时是 1.97.2），然后打开终端依旧错误 👿。我又怀疑是不是我修改 settings 导致的，在选择同步以前的设置时候还发现 1.97.2 版本的 VSCode 登录微软账户会异常，这下可好，不仅没有解决原来的 bug，还发现 VSCode 的新 bug😠。</p>
-<h2 id="发现问题"><a class="markdownIt-Anchor" href="#发现问题"></a> 发现问题</h2>
-<p>换成之前版本的 VSCode 并且成功同步到之前的设置之后，这个 bug 依然没有解决。我又在想，是不是安装了什么插件导致了这个错误呢？于是我在 VSCode 中选择 <strong>禁用所有已安装的扩展</strong>，然后终于终于，这个 bug 没有再出现了，那么就能确定确实是 VSCode 的插件出了问题。经过反复尝试，我发现是“<strong>Python</strong>”这个插件出的问题，只要装这个插件的最新版，命令行就会失效…</p>
-<p>可是这个插件是必备插件，我换成 2023.2 版本的"Python"虽然规避掉了这个 bug，但是也导致一些功能没法正常使用，而且我询问了其他朋友，他们的电脑上装最新版本的"Python"都是正常的，为啥我的偏偏就不行？仔细想了想，VSCode 的 cmd 终端不能执行任何命令，就说明 <strong>VSCode 的 cmd 终端遗忘了系统配置的 PATH 变量，这个 bug 很可能是 Python 插件在终端输入了未知命令导致的</strong>。</p>
-<h2 id="查看-python-插件的日志"><a class="markdownIt-Anchor" href="#查看-python-插件的日志"></a> 查看 Python 插件的日志</h2>
-<p>因此，顺着这个思路，我在使用 VSCode 启动项目的时候查看了一下 Python 插件的日志，信息如下：</p>
-<div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="code"><pre><span class="line">2025-02-20 20:51:26.159 [info] 试验“pythonTerminalEnvVarActivation”处于活动状态</span><br><span class="line">2025-02-20 20:51:26.159 [info] 试验“pythonTestAdapter”处于活动状态</span><br><span class="line">2025-02-20 20:51:26.159 [info] Native locator: Refresh started</span><br><span class="line">2025-02-20 20:51:26.159 [info] Default formatter is <span class="built_in">set</span> to ms-python.black-formatter <span class="keyword">for</span> workspace e:\AppData\大盘数据表导出</span><br><span class="line">2025-02-20 20:51:26.159 [info] Native locator: Refresh started</span><br><span class="line">2025-02-20 20:51:26.159 [info] &gt; pyenv <span class="built_in">which</span> python</span><br><span class="line">2025-02-20 20:51:26.159 [info] cwd: .</span><br><span class="line">2025-02-20 20:51:26.176 [info] &gt; conda info --json</span><br><span class="line">2025-02-20 20:51:26.179 [info] Conda environment manager found at: D:\Anaconda\Scripts\conda.exe</span><br><span class="line">2025-02-20 20:51:26.219 [info] Native locator: Refresh finished <span class="keyword">in</span> 760 ms</span><br><span class="line">2025-02-20 20:51:26.223 [info] &gt; pixi --version</span><br><span class="line">2025-02-20 20:51:26.224 [warning] could not find a pixi interpreter <span class="keyword">for</span> the interpreter at python</span><br><span class="line">2025-02-20 20:51:26.228 [warning] could not find a pixi interpreter <span class="keyword">for</span> the interpreter at python</span><br><span class="line">2025-02-20 20:51:26.228 [warning] could not find a pixi interpreter <span class="keyword">for</span> the interpreter at python</span><br><span class="line">2025-02-20 20:51:26.237 [info] &gt; python -c <span class="string">"import sys;print(sys.executable)"</span></span><br><span class="line">2025-02-20 20:51:26.328 [info] Python 解释器路径: D:\Anaconda\python.exe</span><br><span class="line">2025-02-20 20:51:26.337 [info] &gt; conda info --json</span><br><span class="line">2025-02-20 20:51:26.338 [info] shell: commandPrompt</span><br><span class="line">2025-02-20 20:51:26.349 [info] &gt; pyenv <span class="built_in">which</span> python</span><br><span class="line">2025-02-20 20:51:26.349 [info] cwd: .</span><br><span class="line">2025-02-20 20:51:26.377 [warning] could not find a pixi interpreter <span class="keyword">for</span> the interpreter at python</span><br><span class="line">2025-02-20 20:51:27.257 [info] &gt; conda run -n base --no-capture-output python ~\.vscode\extensions\ms-python.python-2024.14.1-win32-x64\python_files\get_output_via_markers.py ~/.vscode/extensions/ms-python.python-2024.14.1-win32-x64/python_files/printEnvVariables.py</span><br><span class="line">2025-02-20 20:51:27.257 [info] shell: commandPrompt</span><br><span class="line">2025-02-20 20:51:27.388 [info] 正在启动 Pylance 语言服务器。</span><br><span class="line">2025-02-20 20:51:27.390 [warning] could not find a pixi interpreter <span class="keyword">for</span> the interpreter at python</span><br><span class="line">2025-02-20 20:51:27.397 [warning] could not find a pixi interpreter <span class="keyword">for</span> the interpreter at python</span><br><span class="line">2025-02-20 20:51:27.400 [warning] could not find a pixi interpreter <span class="keyword">for</span> the interpreter at python</span><br><span class="line">2025-02-20 20:51:27.403 [warning] could not find a pixi interpreter <span class="keyword">for</span> the interpreter at python</span><br><span class="line">2025-02-20 20:51:28.707 [info] &gt; python ~/.vscode/extensions/ms-python.python-2024.14.1-win32-x64/python_files/printEnvVariables.py</span><br><span class="line">2025-02-20 20:51:28.707 [info] shell: commandPrompt</span><br><span class="line">2025-02-20 20:51:28.820 [warning] could not find a pixi interpreter <span class="keyword">for</span> the interpreter at python</span><br><span class="line">2025-02-20 20:51:28.824 [info] Setting environment variable CONDA_DEFAULT_ENV <span class="keyword">in</span> collection to base {<span class="string">"applyAtShellIntegration"</span>:<span class="literal">true</span>,<span class="string">"applyAtProcessCreation"</span>:<span class="literal">true</span>}</span><br><span class="line">2025-02-20 20:51:28.824 [info] Setting environment variable CONDA_EXE <span class="keyword">in</span> collection to D:\Anaconda\Scripts\conda.exe {<span class="string">"applyAtShellIntegration"</span>:<span class="literal">true</span>,<span class="string">"applyAtProcessCreation"</span>:<span class="literal">true</span>}</span><br><span class="line">2025-02-20 20:51:28.824 [info] Setting environment variable CONDA_PREFIX <span class="keyword">in</span> collection to D:\Anaconda {<span class="string">"applyAtShellIntegration"</span>:<span class="literal">true</span>,<span class="string">"applyAtProcessCreation"</span>:<span class="literal">true</span>}</span><br><span class="line">2025-02-20 20:51:28.824 [info] Setting environment variable CONDA_PROMPT_MODIFIER <span class="keyword">in</span> collection to (base)  {<span class="string">"applyAtShellIntegration"</span>:<span class="literal">true</span>,<span class="string">"applyAtProcessCreation"</span>:<span class="literal">true</span>}</span><br><span class="line">2025-02-20 20:51:28.824 [info] Setting environment variable CONDA_PYTHON_EXE <span class="keyword">in</span> collection to D:\Anaconda\python.exe {<span class="string">"applyAtShellIntegration"</span>:<span class="literal">true</span>,<span class="string">"applyAtProcessCreation"</span>:<span class="literal">true</span>}</span><br><span class="line">2025-02-20 20:51:28.824 [info] Setting environment variable CONDA_SHLVL <span class="keyword">in</span> collection to 1 {<span class="string">"applyAtShellIntegration"</span>:<span class="literal">true</span>,<span class="string">"applyAtProcessCreation"</span>:<span class="literal">true</span>}</span><br><span class="line">2025-02-20 20:51:28.824 [info] Prepending environment variable PATH <span class="keyword">in</span> collection to D:\Anaconda;...{剩余的Path变量}</span><br><span class="line">2024.3.1.1\bin;C:\Users\xx\.emacs.d\cask\bin;C:\Windows\System32;.; {<span class="string">"applyAtShellIntegration"</span>:<span class="literal">true</span>,<span class="string">"applyAtProcessCreation"</span>:<span class="literal">true</span>}</span><br><span class="line">2025-02-20 20:51:28.824 [info] Setting environment variable PROMPT <span class="keyword">in</span> collection to (base) $P<span class="variable">$G</span> {<span class="string">"applyAtShellIntegration"</span>:<span class="literal">true</span>,<span class="string">"applyAtProcessCreation"</span>:<span class="literal">true</span>}</span><br><span class="line">2025-02-20 20:51:28.824 [info] Setting environment variable _CONDA_OLD_CHCP <span class="keyword">in</span> collection to 65001 {<span class="string">"applyAtShellIntegration"</span>:<span class="literal">true</span>,<span class="string">"applyAtProcessCreation"</span>:<span class="literal">true</span>}</span><br><span class="line">2025-02-20 20:51:28.824 [info] Setting environment variable CONDA_ROOT <span class="keyword">in</span> collection to D:\Anaconda {<span class="string">"applyAtShellIntegration"</span>:<span class="literal">true</span>,<span class="string">"applyAtProcessCreation"</span>:<span class="literal">true</span>}</span><br><span class="line">2025-02-20 20:51:31.809 [warning] could not find a pixi interpreter <span class="keyword">for</span> the interpreter at python</span><br></pre></td></tr></table></figure></div>
-<p>为了对比分析，这里是在不会报错的另一台电脑上，Python 插件的日志：</p>
-<div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="code"><pre><span class="line">2025-02-20 21:13:55.359 [info] 试验“pythonaa”处于活动状态</span><br><span class="line">2025-02-20 21:13:55.359 [info] 试验“pythonJediLSP”处于活动状态</span><br><span class="line">2025-02-20 21:13:55.359 [info] 试验“pythonDiscoveryModuleWithoutWatcher”处于活动状态</span><br><span class="line">2025-02-20 21:13:55.359 [info] 试验“pythonTensorboardExperiment”处于活动状态</span><br><span class="line">2025-02-20 21:13:55.359 [info] 试验“pythonSurveyNotificationcf”处于活动状态</span><br><span class="line">2025-02-20 21:13:55.359 [info] 试验“PythonPyTorchProfiler”处于活动状态</span><br><span class="line">2025-02-20 21:13:55.359 [info] 试验“pythonDeprecatePythonPath”处于活动状态</span><br><span class="line">2025-02-20 21:13:55.359 [info] 试验“pythonSortEnvs”处于活动状态</span><br><span class="line">2025-02-20 21:13:55.359 [info] 试验“pythonRunFailedTestsButtonDisplayedcf”处于活动状态</span><br><span class="line">2025-02-20 21:13:55.359 [info] 试验“pythonRefreshTestsButtonDisplayed”处于活动状态</span><br><span class="line">2025-02-20 21:13:55.359 [info] 试验“pythonRememberDebugConfigcf”处于活动状态</span><br><span class="line">2025-02-20 21:13:55.359 [warning] Dir <span class="string">"d:\PyCharm_Work\Python_Basic\pythonProject\.pixi\envs"</span> is not watchable (directory does not exist)</span><br><span class="line">2025-02-20 21:13:55.359 [info] Starting Environment refresh</span><br><span class="line">2025-02-20 21:13:55.359 [info] Searching <span class="keyword">for</span> windows registry interpreters</span><br><span class="line">2025-02-20 21:13:55.360 [info] Searching windows known paths locator</span><br><span class="line">2025-02-20 21:13:55.360 [info] Searching <span class="keyword">for</span> pyenv environments</span><br><span class="line">2025-02-20 21:13:55.360 [info] Searching <span class="keyword">for</span> conda environments</span><br><span class="line">2025-02-20 21:13:55.360 [info] Searching <span class="keyword">for</span> global virtual environments</span><br><span class="line">2025-02-20 21:13:55.360 [info] Searching <span class="keyword">for</span> custom virtual environments</span><br><span class="line">2025-02-20 21:13:55.360 [info] Searching <span class="keyword">for</span> windows store envs</span><br><span class="line">2025-02-20 21:13:55.360 [info] pyenv is not installed</span><br><span class="line">2025-02-20 21:13:55.360 [info] Finished searching <span class="keyword">for</span> pyenv environments: 1293 milliseconds</span><br><span class="line">2025-02-20 21:13:55.360 [info] Finished searching <span class="keyword">for</span> custom virtual envs: 1292 milliseconds</span><br><span class="line">2025-02-20 21:13:55.360 [info] Finished searching <span class="keyword">for</span> windows store envs: 1291 milliseconds</span><br><span class="line">2025-02-20 21:13:55.360 [info] &gt; conda info --json</span><br><span class="line">2025-02-20 21:13:55.360 [info] &gt; hatch <span class="built_in">env</span> show --json</span><br><span class="line">2025-02-20 21:13:55.360 [info] cwd: .</span><br><span class="line">2025-02-20 21:13:55.360 [info] &gt; pyenv <span class="built_in">which</span> python</span><br><span class="line">2025-02-20 21:13:55.360 [info] cwd: .</span><br><span class="line">2025-02-20 21:13:55.360 [info] Finished searching <span class="keyword">for</span> global virtual envs: 1801 milliseconds</span><br><span class="line">2025-02-20 21:13:55.360 [info] &gt; pyenv <span class="built_in">which</span> python</span><br><span class="line">2025-02-20 21:13:55.360 [info] cwd: .</span><br><span class="line">2025-02-20 21:13:55.360 [info] &gt; D:\Anaconda\Anaconda_Install\python.exe -I C:\VSCode_Plugins\extensions\ms-python.python-2025.0.0-win32-x64\python_files\get_output_via_markers.py C:\VSCode_Plugins\extensions\ms-python.python-2025.0.0-win32-x64\python_files\interpreterInfo.py</span><br><span class="line">2025-02-20 21:13:55.360 [info] Finished searching windows known paths locator: 2081 milliseconds</span><br><span class="line">2025-02-20 21:13:55.438 [info] &gt; D:\Python\Python3.6.5\python.exe -I D:\VSCode\VSCode_Plugins\extensions\ms-python.python-2025.0.0-win32-x64\python_files\get_output_via_markers.py D:\VSCode\VSCode_Plugins\extensions\ms-python.python-2025.0.0-win32-x64\python_files\interpreterInfo.py</span><br><span class="line">2025-02-20 21:13:56.240 [info] Finished searching <span class="keyword">for</span> windows registry interpreters: 2976 milliseconds</span><br><span class="line">2025-02-20 21:13:58.115 [info] &gt; D:\Anaconda\Anaconda_Install\envs\TensorFlow_Study\python.exe -I D:\VSCode\VSCode_Plugins\extensions\ms-python.python-2025.0.0-win32-x64\python_files\get_output_via_markers.py D:\VSCode\VSCode_Plugins\extensions\ms-python.python-2025.0.0-win32-x64\python_files\interpreterInfo.py</span><br><span class="line">2025-02-20 21:13:58.147 [info] &gt; D:\Anaconda\Anaconda_Install\envs\tensor14\python.exe -I D:\VSCode\VSCode_Plugins\extensions\ms-python.python-2025.0.0-win32-x64\python_files\get_output_via_markers.py D:\VSCode\VSCode_Plugins\extensions\ms-python.python-2025.0.0-win32-x64\python_files\interpreterInfo.py</span><br><span class="line">2025-02-20 21:13:58.178 [info] Finished searching <span class="keyword">for</span> conda environments: 4897 milliseconds</span><br><span class="line">2025-02-20 21:13:58.209 [info] Environments refresh paths discovered (event): 4946 milliseconds</span><br><span class="line">2025-02-20 21:13:58.209 [info] Environments refresh paths discovered: 4946 milliseconds</span><br><span class="line">2025-02-20 21:13:58.474 [info] &gt; D:\Anaconda\Anaconda_Install\envs\tensorflow1.14\python.exe -I D:\VSCode\VSCode_Plugins\extensions\ms-python.python-2025.0.0-win32-x64\python_files\get_output_via_markers.py C:\VSCode_Plugins\extensions\ms-python.python-2025.0.0-win32-x64\python_files\interpreterInfo.py</span><br><span class="line">2025-02-20 21:13:58.512 [info] &gt; D:\Anaconda\Anaconda_Install\envs\tensorflow2\python.exe -I C:\VSCode_Plugins\extensions\ms-python.python-2025.0.0-win32-x64\python_files\get_output_via_markers.py C:\VSCode_Plugins\extensions\ms-python.python-2025.0.0-win32-x64\python_files\interpreterInfo.py</span><br><span class="line">2025-02-20 21:13:58.846 [info] Environments refresh finished (event): 5583 milliseconds</span><br><span class="line">2025-02-20 21:13:58.865 [info] Searching <span class="keyword">for</span> conda environments</span><br><span class="line">2025-02-20 21:13:58.866 [info] Environment refresh took 5603 milliseconds</span><br><span class="line">2025-02-20 21:13:58.878 [info] Python 解释器路径: D:\Python\Python3.6.5\python.exe</span><br><span class="line">2025-02-20 21:13:58.978 [info] Finished searching <span class="keyword">for</span> conda environments: 113 milliseconds</span><br><span class="line">2025-02-20 21:13:58.982 [info] Environments refresh finished (event): 132 milliseconds</span><br><span class="line">2025-02-20 21:13:58.982 [info] Environments refresh paths discovered: 132 milliseconds</span><br><span class="line">2025-02-20 21:14:01.098 [info] 正在启动 Pylance 语言服务器。</span><br></pre></td></tr></table></figure></div>
-<p>从这两份日志信息中可以看出，Python 插件会自动调用 conda 环境，并且加载插件中的脚本，但是我自己这部分日志出错比较迷的地方就是<code>[warning] could not find a pixi interpreter for the interpreter at python</code>，这个 <code>pixi</code> 我根本没有使用过，我甚至都不知道它是什么。</p>
-<p>简单搜索之后，了解到它是和 Anaconda 差不多的，管理 Python 环境的应用，可是这关我的 cmd 什么事？而且我压根儿就没安装过这个<code>pixi</code>啊，Python 插件为什么要调用它？？🤨</p>
-<h1 id="github-上的解决方案"><a class="markdownIt-Anchor" href="#github-上的解决方案"></a> Github 上的解决方案</h1>
-<p>在 Google 搜索了一下这个 issue，发现确实有很多人遇到这个错误：</p>
-<ul>
-<li>VSCode 官方：<a class="link" href="https://github.com/microsoft/vscode/issues/223515">https://github.com/microsoft/vscode/issues/223515<i class="fa-solid fa-arrow-up-right ml-[0.2em] font-light align-text-top text-[0.7em] link-icon"></i></a></li>
-<li>VSCode/Pylance 插件：<a class="link" href="https://github.com/microsoft/pylance-release/issues/6756">https://github.com/microsoft/pylance-release/issues/6756<i class="fa-solid fa-arrow-up-right ml-[0.2em] font-light align-text-top text-[0.7em] link-icon"></i></a></li>
-<li>VSCode/Python 插件：<a class="link" href="https://github.com/microsoft/vscode-python/issues/23901#issuecomment-2265846365">https://github.com/microsoft/vscode-python/issues/23901#issuecomment-2265846365<i class="fa-solid fa-arrow-up-right ml-[0.2em] font-light align-text-top text-[0.7em] link-icon"></i></a></li>
-</ul>
-<h3 id="方案-1"><a class="markdownIt-Anchor" href="#方案-1"></a> 方案 1</h3>
-<p>直接安装 pixi，这位用户在安装好 pixi 之后解决了问题。不过我身边不安装 pixi 也能正常使用 Python 插件的例子比比皆是，这个方案我不想采纳。</p>
-<p><img lazyload="" src="/images/loading.svg" data-src="https://typora-aliyun01.oss-cn-hangzhou.aliyuncs.com/img/20250221235521585.png" alt="image.png"></p>
-<h3 id="方案-2"><a class="markdownIt-Anchor" href="#方案-2"></a> 方案 2</h3>
-<p>在 settings.json 中增加下面的配置，有些用户使用该命令解决了问题，但我尝试了无效。而且从刚才的日志信息中也可以看出，Python 插件启动的时候就会检验 pythonTestAdapter 状态。</p>
-<p><img lazyload="" src="/images/loading.svg" data-src="https://typora-aliyun01.oss-cn-hangzhou.aliyuncs.com/img/20250222153034118.png" alt="image.png"></p>
-<h3 id="方案-3"><a class="markdownIt-Anchor" href="#方案-3"></a> 方案 3</h3>
-<p>在 settings 中增加下面的配置，禁止 Python 插件激活 VSCode 的终端，这个我尝试过了，确实是有效果。这样虽然避免了启动 VSCode 的时候终端报错，但是也会导致启动 Python 程序的时候容易出错。还有就是每次新开启一个终端，都得手动激活 conda 环境，这个实在让我无法接受，因为之前我一直是没有出现这个问题的，所以我觉得这也不是治疗根本的解决方案。</p>
-<div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="string">"python.terminal.activateEnvironment"</span>: <span class="literal">false</span></span><br></pre></td></tr></table></figure></div>
-<h2 id="我的解决方案"><a class="markdownIt-Anchor" href="#我的解决方案"></a> 我的解决方案</h2>
-<p>上面的方案都没有解决我的问题，那么最后的方案还是只有再仔细的检查一下 Python 插件的日志了。还是回到刚才的结论，主要原因还是 Python 插件在启动时导致 <strong>终端没有正常加载系统变量 Path</strong>，最后才导致 VSCode 内部的 cmd 什么命令都识别不了。我检查了一下自己的环境变量，发现里面确实有很多重复的路径以及失效路径，于是我<strong>使用大模型对其进行去重，然后删除了几个不需要的系统路径，然后重启电脑</strong>，再次启动 VSCode，这次终于正常了！！</p>
-<h4 id="猜测原因"><a class="markdownIt-Anchor" href="#猜测原因"></a> 猜测原因：</h4>
-<ol>
-<li>很可能是因为原本的 Path 中有很多重复的路径，导致 Path 的长度超长，所以 cmd 命令加载失败；</li>
-<li>还有可能是 Path 变量内部的写法不符合标准，之前我担心 Path 变量太长，使用<code>%Path01%</code>变量代替一部分路劲，在这篇博客 <a class="link" href="https://www.cnblogs.com/yunying61/articles/16810383.html">https://www.cnblogs.com/yunying61/articles/16810383.html<i class="fa-solid fa-arrow-up-right ml-[0.2em] font-light align-text-top text-[0.7em] link-icon"></i></a> 中提到了注意事项：<br>
-<img lazyload="" src="/images/loading.svg" data-src="https://typora-aliyun01.oss-cn-hangzhou.aliyuncs.com/img/20250222175000977.png" alt="image.png"></li>
-</ol>
-]]></content>
-      <categories>
-        <category>IDE配置</category>
-      </categories>
-      <tags>
-        <tag>VSCode</tag>
+        <tag>大模型</tag>
       </tags>
   </entry>
   <entry>
@@ -1088,6 +1048,116 @@ $$ tB<em>i \leq t</em>{\text{max}}^i （BS-MEC 耗时必须少于上限）<mjx-c
 <p>所以，如果能够在终端设置好这个PYTHONPATH之后在启动项目就行了，命令行如下：</p>
 <div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">export</span> PYTHONPATH=...路径</span><br><span class="line">python ./xx.py(启动文件)</span><br></pre></td></tr></table></figure></div>
 <p>注意：此方法只在当前命令窗口生效，即如果打开一个新的Terminal 窗口，就需要重新执行一下export命令。</p>
+]]></content>
+      <categories>
+        <category>IDE配置</category>
+      </categories>
+      <tags>
+        <tag>VSCode</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>VSCode vsc内部cmd命令全部失效，但cmd本身正常</title>
+    <url>/ss0ybf/</url>
+    <content><![CDATA[<p>这周假期刚过，回到工位的我一打开 VSCode，奇怪的发现 VSCode 终端多出了一行警告信息：</p>
+<blockquote>
+<p>‘chcp’ is not recognized as an internal or external command, operable program or batch file</p>
+</blockquote>
+<p>看到这个警告信息我感觉不对啊，用了近三年的 VSCode 了，终端从来没有弹出过这个警告，怎么会连<code>chcp</code>都识别不了呢？然后我又试了试 conda、java 甚至是 cmd，结果它居然什么命令都识别不了了。退出 VSCode，直接打开 cmd，又一切正常了，该有的命令一个都不少？？？</p>
+<p>初步猜测是 VSCode 的 bug？我更新到最新版（当时是 1.97.2），然后打开终端依旧错误 👿。我又怀疑是不是我修改 settings 导致的，在选择同步以前的设置时候还发现 1.97.2 版本的 VSCode 登录微软账户会异常，这下可好，不仅没有解决原来的 bug，还发现 VSCode 的新 bug😠。</p>
+<h2 id="发现问题"><a class="markdownIt-Anchor" href="#发现问题"></a> 发现问题</h2>
+<p>换成之前版本的 VSCode 并且成功同步到之前的设置之后，这个 bug 依然没有解决。我又在想，是不是安装了什么插件导致了这个错误呢？于是我在 VSCode 中选择 <strong>禁用所有已安装的扩展</strong>，然后终于终于，这个 bug 没有再出现了，那么就能确定确实是 VSCode 的插件出了问题。经过反复尝试，我发现是“<strong>Python</strong>”这个插件出的问题，只要装这个插件的最新版，命令行就会失效…</p>
+<p>可是这个插件是必备插件，我换成 2023.2 版本的"Python"虽然规避掉了这个 bug，但是也导致一些功能没法正常使用，而且我询问了其他朋友，他们的电脑上装最新版本的"Python"都是正常的，为啥我的偏偏就不行？仔细想了想，VSCode 的 cmd 终端不能执行任何命令，就说明 <strong>VSCode 的 cmd 终端遗忘了系统配置的 PATH 变量，这个 bug 很可能是 Python 插件在终端输入了未知命令导致的</strong>。</p>
+<h2 id="查看-python-插件的日志"><a class="markdownIt-Anchor" href="#查看-python-插件的日志"></a> 查看 Python 插件的日志</h2>
+<p>因此，顺着这个思路，我在使用 VSCode 启动项目的时候查看了一下 Python 插件的日志，信息如下：</p>
+<div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="code"><pre><span class="line">2025-02-20 20:51:26.159 [info] 试验“pythonTerminalEnvVarActivation”处于活动状态</span><br><span class="line">2025-02-20 20:51:26.159 [info] 试验“pythonTestAdapter”处于活动状态</span><br><span class="line">2025-02-20 20:51:26.159 [info] Native locator: Refresh started</span><br><span class="line">2025-02-20 20:51:26.159 [info] Default formatter is <span class="built_in">set</span> to ms-python.black-formatter <span class="keyword">for</span> workspace e:\AppData\大盘数据表导出</span><br><span class="line">2025-02-20 20:51:26.159 [info] Native locator: Refresh started</span><br><span class="line">2025-02-20 20:51:26.159 [info] &gt; pyenv <span class="built_in">which</span> python</span><br><span class="line">2025-02-20 20:51:26.159 [info] cwd: .</span><br><span class="line">2025-02-20 20:51:26.176 [info] &gt; conda info --json</span><br><span class="line">2025-02-20 20:51:26.179 [info] Conda environment manager found at: D:\Anaconda\Scripts\conda.exe</span><br><span class="line">2025-02-20 20:51:26.219 [info] Native locator: Refresh finished <span class="keyword">in</span> 760 ms</span><br><span class="line">2025-02-20 20:51:26.223 [info] &gt; pixi --version</span><br><span class="line">2025-02-20 20:51:26.224 [warning] could not find a pixi interpreter <span class="keyword">for</span> the interpreter at python</span><br><span class="line">2025-02-20 20:51:26.228 [warning] could not find a pixi interpreter <span class="keyword">for</span> the interpreter at python</span><br><span class="line">2025-02-20 20:51:26.228 [warning] could not find a pixi interpreter <span class="keyword">for</span> the interpreter at python</span><br><span class="line">2025-02-20 20:51:26.237 [info] &gt; python -c <span class="string">"import sys;print(sys.executable)"</span></span><br><span class="line">2025-02-20 20:51:26.328 [info] Python 解释器路径: D:\Anaconda\python.exe</span><br><span class="line">2025-02-20 20:51:26.337 [info] &gt; conda info --json</span><br><span class="line">2025-02-20 20:51:26.338 [info] shell: commandPrompt</span><br><span class="line">2025-02-20 20:51:26.349 [info] &gt; pyenv <span class="built_in">which</span> python</span><br><span class="line">2025-02-20 20:51:26.349 [info] cwd: .</span><br><span class="line">2025-02-20 20:51:26.377 [warning] could not find a pixi interpreter <span class="keyword">for</span> the interpreter at python</span><br><span class="line">2025-02-20 20:51:27.257 [info] &gt; conda run -n base --no-capture-output python ~\.vscode\extensions\ms-python.python-2024.14.1-win32-x64\python_files\get_output_via_markers.py ~/.vscode/extensions/ms-python.python-2024.14.1-win32-x64/python_files/printEnvVariables.py</span><br><span class="line">2025-02-20 20:51:27.257 [info] shell: commandPrompt</span><br><span class="line">2025-02-20 20:51:27.388 [info] 正在启动 Pylance 语言服务器。</span><br><span class="line">2025-02-20 20:51:27.390 [warning] could not find a pixi interpreter <span class="keyword">for</span> the interpreter at python</span><br><span class="line">2025-02-20 20:51:27.397 [warning] could not find a pixi interpreter <span class="keyword">for</span> the interpreter at python</span><br><span class="line">2025-02-20 20:51:27.400 [warning] could not find a pixi interpreter <span class="keyword">for</span> the interpreter at python</span><br><span class="line">2025-02-20 20:51:27.403 [warning] could not find a pixi interpreter <span class="keyword">for</span> the interpreter at python</span><br><span class="line">2025-02-20 20:51:28.707 [info] &gt; python ~/.vscode/extensions/ms-python.python-2024.14.1-win32-x64/python_files/printEnvVariables.py</span><br><span class="line">2025-02-20 20:51:28.707 [info] shell: commandPrompt</span><br><span class="line">2025-02-20 20:51:28.820 [warning] could not find a pixi interpreter <span class="keyword">for</span> the interpreter at python</span><br><span class="line">2025-02-20 20:51:28.824 [info] Setting environment variable CONDA_DEFAULT_ENV <span class="keyword">in</span> collection to base {<span class="string">"applyAtShellIntegration"</span>:<span class="literal">true</span>,<span class="string">"applyAtProcessCreation"</span>:<span class="literal">true</span>}</span><br><span class="line">2025-02-20 20:51:28.824 [info] Setting environment variable CONDA_EXE <span class="keyword">in</span> collection to D:\Anaconda\Scripts\conda.exe {<span class="string">"applyAtShellIntegration"</span>:<span class="literal">true</span>,<span class="string">"applyAtProcessCreation"</span>:<span class="literal">true</span>}</span><br><span class="line">2025-02-20 20:51:28.824 [info] Setting environment variable CONDA_PREFIX <span class="keyword">in</span> collection to D:\Anaconda {<span class="string">"applyAtShellIntegration"</span>:<span class="literal">true</span>,<span class="string">"applyAtProcessCreation"</span>:<span class="literal">true</span>}</span><br><span class="line">2025-02-20 20:51:28.824 [info] Setting environment variable CONDA_PROMPT_MODIFIER <span class="keyword">in</span> collection to (base)  {<span class="string">"applyAtShellIntegration"</span>:<span class="literal">true</span>,<span class="string">"applyAtProcessCreation"</span>:<span class="literal">true</span>}</span><br><span class="line">2025-02-20 20:51:28.824 [info] Setting environment variable CONDA_PYTHON_EXE <span class="keyword">in</span> collection to D:\Anaconda\python.exe {<span class="string">"applyAtShellIntegration"</span>:<span class="literal">true</span>,<span class="string">"applyAtProcessCreation"</span>:<span class="literal">true</span>}</span><br><span class="line">2025-02-20 20:51:28.824 [info] Setting environment variable CONDA_SHLVL <span class="keyword">in</span> collection to 1 {<span class="string">"applyAtShellIntegration"</span>:<span class="literal">true</span>,<span class="string">"applyAtProcessCreation"</span>:<span class="literal">true</span>}</span><br><span class="line">2025-02-20 20:51:28.824 [info] Prepending environment variable PATH <span class="keyword">in</span> collection to D:\Anaconda;...{剩余的Path变量}</span><br><span class="line">2024.3.1.1\bin;C:\Users\xx\.emacs.d\cask\bin;C:\Windows\System32;.; {<span class="string">"applyAtShellIntegration"</span>:<span class="literal">true</span>,<span class="string">"applyAtProcessCreation"</span>:<span class="literal">true</span>}</span><br><span class="line">2025-02-20 20:51:28.824 [info] Setting environment variable PROMPT <span class="keyword">in</span> collection to (base) $P<span class="variable">$G</span> {<span class="string">"applyAtShellIntegration"</span>:<span class="literal">true</span>,<span class="string">"applyAtProcessCreation"</span>:<span class="literal">true</span>}</span><br><span class="line">2025-02-20 20:51:28.824 [info] Setting environment variable _CONDA_OLD_CHCP <span class="keyword">in</span> collection to 65001 {<span class="string">"applyAtShellIntegration"</span>:<span class="literal">true</span>,<span class="string">"applyAtProcessCreation"</span>:<span class="literal">true</span>}</span><br><span class="line">2025-02-20 20:51:28.824 [info] Setting environment variable CONDA_ROOT <span class="keyword">in</span> collection to D:\Anaconda {<span class="string">"applyAtShellIntegration"</span>:<span class="literal">true</span>,<span class="string">"applyAtProcessCreation"</span>:<span class="literal">true</span>}</span><br><span class="line">2025-02-20 20:51:31.809 [warning] could not find a pixi interpreter <span class="keyword">for</span> the interpreter at python</span><br></pre></td></tr></table></figure></div>
+<p>为了对比分析，这里是在不会报错的另一台电脑上，Python 插件的日志：</p>
+<div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="code"><pre><span class="line">2025-02-20 21:13:55.359 [info] 试验“pythonaa”处于活动状态</span><br><span class="line">2025-02-20 21:13:55.359 [info] 试验“pythonJediLSP”处于活动状态</span><br><span class="line">2025-02-20 21:13:55.359 [info] 试验“pythonDiscoveryModuleWithoutWatcher”处于活动状态</span><br><span class="line">2025-02-20 21:13:55.359 [info] 试验“pythonTensorboardExperiment”处于活动状态</span><br><span class="line">2025-02-20 21:13:55.359 [info] 试验“pythonSurveyNotificationcf”处于活动状态</span><br><span class="line">2025-02-20 21:13:55.359 [info] 试验“PythonPyTorchProfiler”处于活动状态</span><br><span class="line">2025-02-20 21:13:55.359 [info] 试验“pythonDeprecatePythonPath”处于活动状态</span><br><span class="line">2025-02-20 21:13:55.359 [info] 试验“pythonSortEnvs”处于活动状态</span><br><span class="line">2025-02-20 21:13:55.359 [info] 试验“pythonRunFailedTestsButtonDisplayedcf”处于活动状态</span><br><span class="line">2025-02-20 21:13:55.359 [info] 试验“pythonRefreshTestsButtonDisplayed”处于活动状态</span><br><span class="line">2025-02-20 21:13:55.359 [info] 试验“pythonRememberDebugConfigcf”处于活动状态</span><br><span class="line">2025-02-20 21:13:55.359 [warning] Dir <span class="string">"d:\PyCharm_Work\Python_Basic\pythonProject\.pixi\envs"</span> is not watchable (directory does not exist)</span><br><span class="line">2025-02-20 21:13:55.359 [info] Starting Environment refresh</span><br><span class="line">2025-02-20 21:13:55.359 [info] Searching <span class="keyword">for</span> windows registry interpreters</span><br><span class="line">2025-02-20 21:13:55.360 [info] Searching windows known paths locator</span><br><span class="line">2025-02-20 21:13:55.360 [info] Searching <span class="keyword">for</span> pyenv environments</span><br><span class="line">2025-02-20 21:13:55.360 [info] Searching <span class="keyword">for</span> conda environments</span><br><span class="line">2025-02-20 21:13:55.360 [info] Searching <span class="keyword">for</span> global virtual environments</span><br><span class="line">2025-02-20 21:13:55.360 [info] Searching <span class="keyword">for</span> custom virtual environments</span><br><span class="line">2025-02-20 21:13:55.360 [info] Searching <span class="keyword">for</span> windows store envs</span><br><span class="line">2025-02-20 21:13:55.360 [info] pyenv is not installed</span><br><span class="line">2025-02-20 21:13:55.360 [info] Finished searching <span class="keyword">for</span> pyenv environments: 1293 milliseconds</span><br><span class="line">2025-02-20 21:13:55.360 [info] Finished searching <span class="keyword">for</span> custom virtual envs: 1292 milliseconds</span><br><span class="line">2025-02-20 21:13:55.360 [info] Finished searching <span class="keyword">for</span> windows store envs: 1291 milliseconds</span><br><span class="line">2025-02-20 21:13:55.360 [info] &gt; conda info --json</span><br><span class="line">2025-02-20 21:13:55.360 [info] &gt; hatch <span class="built_in">env</span> show --json</span><br><span class="line">2025-02-20 21:13:55.360 [info] cwd: .</span><br><span class="line">2025-02-20 21:13:55.360 [info] &gt; pyenv <span class="built_in">which</span> python</span><br><span class="line">2025-02-20 21:13:55.360 [info] cwd: .</span><br><span class="line">2025-02-20 21:13:55.360 [info] Finished searching <span class="keyword">for</span> global virtual envs: 1801 milliseconds</span><br><span class="line">2025-02-20 21:13:55.360 [info] &gt; pyenv <span class="built_in">which</span> python</span><br><span class="line">2025-02-20 21:13:55.360 [info] cwd: .</span><br><span class="line">2025-02-20 21:13:55.360 [info] &gt; D:\Anaconda\Anaconda_Install\python.exe -I C:\VSCode_Plugins\extensions\ms-python.python-2025.0.0-win32-x64\python_files\get_output_via_markers.py C:\VSCode_Plugins\extensions\ms-python.python-2025.0.0-win32-x64\python_files\interpreterInfo.py</span><br><span class="line">2025-02-20 21:13:55.360 [info] Finished searching windows known paths locator: 2081 milliseconds</span><br><span class="line">2025-02-20 21:13:55.438 [info] &gt; D:\Python\Python3.6.5\python.exe -I D:\VSCode\VSCode_Plugins\extensions\ms-python.python-2025.0.0-win32-x64\python_files\get_output_via_markers.py D:\VSCode\VSCode_Plugins\extensions\ms-python.python-2025.0.0-win32-x64\python_files\interpreterInfo.py</span><br><span class="line">2025-02-20 21:13:56.240 [info] Finished searching <span class="keyword">for</span> windows registry interpreters: 2976 milliseconds</span><br><span class="line">2025-02-20 21:13:58.115 [info] &gt; D:\Anaconda\Anaconda_Install\envs\TensorFlow_Study\python.exe -I D:\VSCode\VSCode_Plugins\extensions\ms-python.python-2025.0.0-win32-x64\python_files\get_output_via_markers.py D:\VSCode\VSCode_Plugins\extensions\ms-python.python-2025.0.0-win32-x64\python_files\interpreterInfo.py</span><br><span class="line">2025-02-20 21:13:58.147 [info] &gt; D:\Anaconda\Anaconda_Install\envs\tensor14\python.exe -I D:\VSCode\VSCode_Plugins\extensions\ms-python.python-2025.0.0-win32-x64\python_files\get_output_via_markers.py D:\VSCode\VSCode_Plugins\extensions\ms-python.python-2025.0.0-win32-x64\python_files\interpreterInfo.py</span><br><span class="line">2025-02-20 21:13:58.178 [info] Finished searching <span class="keyword">for</span> conda environments: 4897 milliseconds</span><br><span class="line">2025-02-20 21:13:58.209 [info] Environments refresh paths discovered (event): 4946 milliseconds</span><br><span class="line">2025-02-20 21:13:58.209 [info] Environments refresh paths discovered: 4946 milliseconds</span><br><span class="line">2025-02-20 21:13:58.474 [info] &gt; D:\Anaconda\Anaconda_Install\envs\tensorflow1.14\python.exe -I D:\VSCode\VSCode_Plugins\extensions\ms-python.python-2025.0.0-win32-x64\python_files\get_output_via_markers.py C:\VSCode_Plugins\extensions\ms-python.python-2025.0.0-win32-x64\python_files\interpreterInfo.py</span><br><span class="line">2025-02-20 21:13:58.512 [info] &gt; D:\Anaconda\Anaconda_Install\envs\tensorflow2\python.exe -I C:\VSCode_Plugins\extensions\ms-python.python-2025.0.0-win32-x64\python_files\get_output_via_markers.py C:\VSCode_Plugins\extensions\ms-python.python-2025.0.0-win32-x64\python_files\interpreterInfo.py</span><br><span class="line">2025-02-20 21:13:58.846 [info] Environments refresh finished (event): 5583 milliseconds</span><br><span class="line">2025-02-20 21:13:58.865 [info] Searching <span class="keyword">for</span> conda environments</span><br><span class="line">2025-02-20 21:13:58.866 [info] Environment refresh took 5603 milliseconds</span><br><span class="line">2025-02-20 21:13:58.878 [info] Python 解释器路径: D:\Python\Python3.6.5\python.exe</span><br><span class="line">2025-02-20 21:13:58.978 [info] Finished searching <span class="keyword">for</span> conda environments: 113 milliseconds</span><br><span class="line">2025-02-20 21:13:58.982 [info] Environments refresh finished (event): 132 milliseconds</span><br><span class="line">2025-02-20 21:13:58.982 [info] Environments refresh paths discovered: 132 milliseconds</span><br><span class="line">2025-02-20 21:14:01.098 [info] 正在启动 Pylance 语言服务器。</span><br></pre></td></tr></table></figure></div>
+<p>从这两份日志信息中可以看出，Python 插件会自动调用 conda 环境，并且加载插件中的脚本，但是我自己这部分日志出错比较迷的地方就是<code>[warning] could not find a pixi interpreter for the interpreter at python</code>，这个 <code>pixi</code> 我根本没有使用过，我甚至都不知道它是什么。</p>
+<p>简单搜索之后，了解到它是和 Anaconda 差不多的，管理 Python 环境的应用，可是这关我的 cmd 什么事？而且我压根儿就没安装过这个<code>pixi</code>啊，Python 插件为什么要调用它？？🤨</p>
+<h1 id="github-上的解决方案"><a class="markdownIt-Anchor" href="#github-上的解决方案"></a> Github 上的解决方案</h1>
+<p>在 Google 搜索了一下这个 issue，发现确实有很多人遇到这个错误：</p>
+<ul>
+<li>VSCode 官方：<a class="link" href="https://github.com/microsoft/vscode/issues/223515">https://github.com/microsoft/vscode/issues/223515<i class="fa-solid fa-arrow-up-right ml-[0.2em] font-light align-text-top text-[0.7em] link-icon"></i></a></li>
+<li>VSCode/Pylance 插件：<a class="link" href="https://github.com/microsoft/pylance-release/issues/6756">https://github.com/microsoft/pylance-release/issues/6756<i class="fa-solid fa-arrow-up-right ml-[0.2em] font-light align-text-top text-[0.7em] link-icon"></i></a></li>
+<li>VSCode/Python 插件：<a class="link" href="https://github.com/microsoft/vscode-python/issues/23901#issuecomment-2265846365">https://github.com/microsoft/vscode-python/issues/23901#issuecomment-2265846365<i class="fa-solid fa-arrow-up-right ml-[0.2em] font-light align-text-top text-[0.7em] link-icon"></i></a></li>
+</ul>
+<h3 id="方案-1"><a class="markdownIt-Anchor" href="#方案-1"></a> 方案 1</h3>
+<p>直接安装 pixi，这位用户在安装好 pixi 之后解决了问题。不过我身边不安装 pixi 也能正常使用 Python 插件的例子比比皆是，这个方案我不想采纳。</p>
+<p><img lazyload="" src="/images/loading.svg" data-src="https://typora-aliyun01.oss-cn-hangzhou.aliyuncs.com/img/20250221235521585.png" alt="image.png"></p>
+<h3 id="方案-2"><a class="markdownIt-Anchor" href="#方案-2"></a> 方案 2</h3>
+<p>在 settings.json 中增加下面的配置，有些用户使用该命令解决了问题，但我尝试了无效。而且从刚才的日志信息中也可以看出，Python 插件启动的时候就会检验 pythonTestAdapter 状态。</p>
+<p><img lazyload="" src="/images/loading.svg" data-src="https://typora-aliyun01.oss-cn-hangzhou.aliyuncs.com/img/20250222153034118.png" alt="image.png"></p>
+<h3 id="方案-3"><a class="markdownIt-Anchor" href="#方案-3"></a> 方案 3</h3>
+<p>在 settings 中增加下面的配置，禁止 Python 插件激活 VSCode 的终端，这个我尝试过了，确实是有效果。这样虽然避免了启动 VSCode 的时候终端报错，但是也会导致启动 Python 程序的时候容易出错。还有就是每次新开启一个终端，都得手动激活 conda 环境，这个实在让我无法接受，因为之前我一直是没有出现这个问题的，所以我觉得这也不是治疗根本的解决方案。</p>
+<div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="string">"python.terminal.activateEnvironment"</span>: <span class="literal">false</span></span><br></pre></td></tr></table></figure></div>
+<h2 id="我的解决方案"><a class="markdownIt-Anchor" href="#我的解决方案"></a> 我的解决方案</h2>
+<p>上面的方案都没有解决我的问题，那么最后的方案还是只有再仔细的检查一下 Python 插件的日志了。还是回到刚才的结论，主要原因还是 Python 插件在启动时导致 <strong>终端没有正常加载系统变量 Path</strong>，最后才导致 VSCode 内部的 cmd 什么命令都识别不了。我检查了一下自己的环境变量，发现里面确实有很多重复的路径以及失效路径，于是我<strong>使用大模型对其进行去重，然后删除了几个不需要的系统路径，然后重启电脑</strong>，再次启动 VSCode，这次终于正常了！！</p>
+<h4 id="猜测原因"><a class="markdownIt-Anchor" href="#猜测原因"></a> 猜测原因：</h4>
+<ol>
+<li>很可能是因为原本的 Path 中有很多重复的路径，导致 Path 的长度超长，所以 cmd 命令加载失败；</li>
+<li>还有可能是 Path 变量内部的写法不符合标准，之前我担心 Path 变量太长，使用<code>%Path01%</code>变量代替一部分路劲，在这篇博客 <a class="link" href="https://www.cnblogs.com/yunying61/articles/16810383.html">https://www.cnblogs.com/yunying61/articles/16810383.html<i class="fa-solid fa-arrow-up-right ml-[0.2em] font-light align-text-top text-[0.7em] link-icon"></i></a> 中提到了注意事项：<br>
+<img lazyload="" src="/images/loading.svg" data-src="https://typora-aliyun01.oss-cn-hangzhou.aliyuncs.com/img/20250222175000977.png" alt="image.png"></li>
+</ol>
+]]></content>
+      <categories>
+        <category>IDE配置</category>
+      </categories>
+      <tags>
+        <tag>VSCode</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>VSCode SSH设置免密登录</title>
+    <url>/sokh61/</url>
+    <content><![CDATA[<p>平时一直都是使用 VSCode 连服务器的，不过每次连接服务器、打开新的文件夹甚至刷新的时候都需要重新输入一遍密码，如果是同时连接多个不同的服务器，这体验可真是有够差劲的了。在网上查了资料发现，VSCode 是支持通过 RSA（勾起了当年上网安课的回忆 😂）秘钥登录的，这里做下记录。</p>
+<h2 id="1生成密钥对前提是已安装好-git"><a class="markdownIt-Anchor" href="#1生成密钥对前提是已安装好-git"></a> 1.生成密钥对（前提是已安装好 Git）</h2>
+<p>首先请确认电脑上已经成功安装好了 Git，首先检查一下<code>C:\Users\用户名\.ssh</code>文件夹，查看一下文件夹下是否包含 <code>id_rsa</code> 和 <code>id_rsa.pub</code><br>
+<img lazyload="" src="/images/loading.svg" data-src="https://typora-aliyun01.oss-cn-hangzhou.aliyuncs.com/img/20241216181007.png" alt="image.png" width="450px"></p>
+<p>如果没有，那么打开<code>git bash</code>，输入如下命令生成 RSA 公钥和密钥（请使用自己 Github 账号绑定的邮箱）：</p>
+<div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="code"><pre><span class="line">ssh-keygen -t rsa -C “xxx@qq.com”</span><br></pre></td></tr></table></figure></div>
+<p>执行这个命令时，可能会让你填一些信息，其实不用填，直接 Enter 即可。命令执行结束之后，你就能在<code>C:\Users\用户名\.ssh</code>文件夹下看到公钥和私钥了。</p>
+<h2 id="2上传公钥到服务器上"><a class="markdownIt-Anchor" href="#2上传公钥到服务器上"></a> 2.上传公钥到服务器上</h2>
+<p>我们第一步得到的<code>id_rsa.pub</code>实际上就是公钥，而<code>id_rsa</code>是私钥。如何理解公钥和私钥的用法呢？简单来说，现在我有一幅画，然后我把这幅画直接放在银行大厅里，所有人都可以看见这幅画，但是大家都不知道这幅画表达的是什么意思，只有拿着解密卡（私钥）的我才能看懂这是什么意思。</p>
+<p>上传公钥这里需要注意，你需要将<code>id_rsa.pub</code>的内容复制到<code>~/.ssh/authorized_keys</code>文件中。</p>
+
+<div class="callout" data-callout="note">
+<div class="callout-title">
+<div class="callout-title-icon">
+<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-pencil"><path d="M17 3a2.85 2.83 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5Z"></path><path d="m15 5 4 4"></path></svg>
+</div>
+<div class="callout-title-inner">Note</div>
+</div>
+<div class="callout-content"><p>路径开头的这个<code>~</code>是什么意思？</p>
+<p>这个符号其实和你使用的用户名有关。比如你使用的用户名是xiaoming，那么<code>~</code>代表的可能就是<code>/home/xiaoming/</code>；如果你当前使用的用户名是xiaoli123，那么<code>~</code>代表的可能就是<code>/home/xiaoli123</code>；如果你是用的是root用户，那么<code>~</code>代表的就是<code>/root/</code></p>
+</div></div><p>当然一台服务器很可能是有很多人一起使用的，如果说每个人都需要上传一份自己的密钥，应该怎么办呢？这个问题不大，所有人都把自己的公钥都放在这个<code>authorized_keys</code>文件中，只需要换行隔开就可以了。</p>
+<div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="code"><pre><span class="line">id_rsa.pub01.....</span><br><span class="line">id_rsa.pub02.....</span><br><span class="line">id_rsa.pub03.....</span><br></pre></td></tr></table></figure></div>
+<p>这里需要注意，<mark>如果你只将公钥放在了用户A的authorized_keys文件里，那么有且仅有用户A是可以免密登录的，使用其他用户名还是不能免密登录</mark>。</p>
+<p>所以，<strong>一定一定一定要注意用户名！！！</strong>。我看过的一些教程中默认配置的是root用户，公钥存放的路径也直接就在<code>/root/</code>文件夹下，结果配完了我发现只有root用户可以免密登录，还找不到错误原因👿</p>
+<h2 id="3在vscode远程ssh连接"><a class="markdownIt-Anchor" href="#3在vscode远程ssh连接"></a> 3.在VSCode远程ssh连接</h2>
+<p>如果上面的步骤都配置成功了，那么配置文件其实只写正常的几项配置就已经可以免密登录了：</p>
+<div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="code"><pre><span class="line">Host xx</span><br><span class="line">HostName 10.21.xx.xxx</span><br><span class="line">User 你的用户名</span><br><span class="line">Port 22</span><br></pre></td></tr></table></figure></div>
+<p>这个部分有的教程里会填写其他配置信息，比如：</p>
+<div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="code"><pre><span class="line">Host dev</span><br><span class="line">HostName xx.cmtspace.cn</span><br><span class="line">User root</span><br><span class="line">Port 22</span><br><span class="line">PreferredAuthentications publickey</span><br><span class="line">IdentityFile <span class="string">"C:\Users\Administrator\.ssh\id_rsa"</span></span><br></pre></td></tr></table></figure></div>
+<p>但是经过我测试发现，不需要<code>IdentityFile</code>也是可以免密登录的，而且那个<code>PreferredAuthentications</code>加了之后反而连接时会不断报错</p>
+<h2 id="4报错处理"><a class="markdownIt-Anchor" href="#4报错处理"></a> 4.报错处理</h2>
+<h3 id="1服务器上没有~sshauthorized_keys文件夹"><a class="markdownIt-Anchor" href="#1服务器上没有~sshauthorized_keys文件夹"></a> （1）服务器上没有<code>~/.ssh/authorized_keys</code>文件夹</h3>
+<p>这个问题好解决，直接创建一个<code>.ssh</code>文件夹和<code>authorized_keys</code>文件即可。</p>
+<h3 id="2文件权限问题"><a class="markdownIt-Anchor" href="#2文件权限问题"></a> （2）文件权限问题</h3>
+<p>这个问题一般是在服务器上发生的，比如当你想修改<code>authorized_keys</code>时日志报错说你没有足够的权限，或者访问<code>.ssh</code>文件夹的时候就已经爆出权限错误了，只需要修改一下权限即可：</p>
+<div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">chmod</span> 700 ~</span><br><span class="line"><span class="built_in">chmod</span> 700 ~/.ssh </span><br><span class="line"><span class="built_in">chmod</span> 644 ~/.ssh/authorized_keys</span><br></pre></td></tr></table></figure></div>
+<p><strong>注意</strong>：如果使用的是root用户，请将<code>~</code>改成<code>/root</code></p>
+<h3 id="3sshd配置问题"><a class="markdownIt-Anchor" href="#3sshd配置问题"></a> （3）sshd配置问题</h3>
+<p>有时候权限没有问题但还是连不上，这时可能是服务器的ssh配置中存在问题，这时候需要修改<code>/etc/ssh/sshd_config</code>文件，取消注释某些项：</p>
+<div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment">#将这两行取消注释</span></span><br><span class="line">PubkeyAuthentication <span class="built_in">yes</span></span><br><span class="line">AuthorizedKeysFile  .ssh/authorized_keys .ssh/authorized_keys2</span><br><span class="line"><span class="comment"># 将RSAAuthentication注释（如果没有这一项就不用管）</span></span><br><span class="line"><span class="comment"># RSAAuthentication no</span></span><br></pre></td></tr></table></figure></div>
+<p>修改好之后，还需要重启sshd：</p>
+<div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="code"><pre><span class="line">service sshd restart</span><br></pre></td></tr></table></figure></div>
+<h3 id="4-permissions-for-xxid_rsa-are-too-openit-is-required-that-your-private-key-files-are-not-accessible-by-others"><a class="markdownIt-Anchor" href="#4-permissions-for-xxid_rsa-are-too-openit-is-required-that-your-private-key-files-are-not-accessible-by-others"></a> (4) Permissions for ‘xx/id_rsa’ are too <a class="link" href="http://open.It">open.It<i class="fa-solid fa-arrow-up-right ml-[0.2em] font-light align-text-top text-[0.7em] link-icon"></i></a> is required that your private key files are NOT accessible by others.</h3>
+<p>使用VSCode SSH 连接服务器时，很可能会在连接过程中报这个错误。这个错误的意思其实是 <strong>有多个用户可权限访问你的私钥文件，所以你的私钥文件访问权限不安全</strong>。</p>
+<p>首先找到私钥文件，右键进入 安全-&gt; 高级：</p>
+<p><img lazyload="" src="/images/loading.svg" data-src="https://typora-aliyun01.oss-cn-hangzhou.aliyuncs.com/img/20241217200436.png" alt="image.png" width="600px"></p>
+<p>在这里 <strong>禁用继承</strong>，删除其他用户，只保留当前用户和SYSTEM即可：<br>
+<img lazyload="" src="/images/loading.svg" data-src="https://typora-aliyun01.oss-cn-hangzhou.aliyuncs.com/img/20241217200640.png" alt="image.png" width="600px"></p>
 ]]></content>
       <categories>
         <category>IDE配置</category>
@@ -1242,6 +1312,17 @@ workflow_entry 得到的 graph_engine.run 结果最后都会通过 handle_event 
       </tags>
   </entry>
   <entry>
+    <title>手写操作系统_01_项目介绍</title>
+    <url>/sy24vr/</url>
+    <content><![CDATA[]]></content>
+      <categories>
+        <category>操作系统/手写操作系统</category>
+      </categories>
+      <tags>
+        <tag>操作系统</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>前缀和+差分</title>
     <url>/sni2z0/</url>
     <content><![CDATA[<p>前缀和对我来说已经不算陌生了，前缀和的方便之处在于可以 <strong>快速求解任意子数组之和</strong>。但是，前缀和在区间频繁修改时就显得较为羸弱了，因为它只适合求和，不擅长修改。</p>
@@ -1335,6 +1416,17 @@ DFS的过程中，每个节点的权值更新为其所有子孙的权值总和�
       </tags>
   </entry>
   <entry>
+    <title>大模型算力是如何计算的</title>
+    <url>/sni2x9/</url>
+    <content><![CDATA[]]></content>
+      <categories>
+        <category>论文笔记</category>
+      </categories>
+      <tags>
+        <tag>大模型</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>线段树</title>
     <url>/suheuj/</url>
     <content><![CDATA[]]></content>
@@ -1344,17 +1436,6 @@ DFS的过程中，每个节点的权值更新为其所有子孙的权值总和�
       <tags>
         <tag>树</tag>
         <tag>线段树</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>大模型算力是如何计算的</title>
-    <url>/sni2x9/</url>
-    <content><![CDATA[]]></content>
-      <categories>
-        <category>论文笔记</category>
-      </categories>
-      <tags>
-        <tag>大模型</tag>
       </tags>
   </entry>
   <entry>
